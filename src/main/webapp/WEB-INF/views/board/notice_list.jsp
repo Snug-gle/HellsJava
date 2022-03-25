@@ -32,7 +32,7 @@
 						<td width="100">${notice.title}</td>				
 						<td width="150">${notice.content}</td>				
 						<td width="250">${notice.date}</td>				
-						<td width="100">${notice.hts}</td>				
+						<td width="100">${notice.hits}</td>				
 					</tr>
 				</c:forEach>
 			</c:otherwise>
