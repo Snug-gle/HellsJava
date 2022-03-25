@@ -1,5 +1,6 @@
 package itwill.helljava.dao;
 
-public interface AwardDAO {
 
+public interface AwardDAO {
+	
 }
