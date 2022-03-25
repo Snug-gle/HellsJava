@@ -6,10 +6,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Spring</title>
+<title>공지사항</title>
 </head>
 <body>
-	<h1 align="center">공지사항</h1>
+	<%-- 공지사항 작성 버튼  --%>
+	<button type="button" value="공지사항 작성" onclick="location.href='<c:url value="/notice/add"/>';"></button>
+	<%-- 공지사항 리스트 --%>
+	<h1 align="center"></h1>
 		<table align="center" border="1" cellspacing="0" cellpadding="1" width="800">
 			<tr bgcolor="yellow">
 				<th width="100">번호</th>
