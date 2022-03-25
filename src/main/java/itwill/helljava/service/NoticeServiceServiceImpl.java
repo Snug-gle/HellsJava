@@ -34,8 +34,8 @@ public class NoticeServiceServiceImpl implements NoticeServiceService {
 	}
 
 	@Override
-	public NoticeService getNoticeService(int notice_service_no, int member_no, int notice_service_sortation) {
-		return noticeServiceDAO.selectNoticeService(notice_service_no, member_no, notice_service_sortation);
+	public NoticeService getNoticeServicePersonal(int notice_service_no, int member_no, int notice_service_sortation) {
+		return noticeServiceDAO.selectNoticeServicePersonal(notice_service_no, member_no, notice_service_sortation);
 	}
 
 	@Override
