@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="itwill.helljava.mapper.AccountMapper">
+	<insert id="insertAccount">
+		<selectKey resultType="int" keyProperty="num" order="BEFORE">
+			select seq_account.nextval from dual
+		</selectKey>
+		insert into account values(#{num}, #{member_no}, #{account_bank), #{account_number}, #{account_pw})
+	</insert>
+	
+	<update id="updateAccount">
+		update account
+		<set>
+			<if test="account_bank!=null and account_bank!=''">
+				account_bank = #{account_bank)
+			</if>
+			<if test="account_number!=null and account_number!=''">
+				account_number = #{account_number)
+			</if>
+			<if test="account_pw!=null and account_pw!=''">
+				account_pw = #{account_pw)
+			</if>
+		</set>
+		where member_no = #{member_no}
+	</update>
+
+	<delete id="deleteAccount">
+		delete from account where member_no = #{member_no}
+	</delete>
+	
+	<select id="selectAccount" resultType="Account">
+		select * from account where member_no = #{member_no}
+	</select>
+	
+</mapper>
