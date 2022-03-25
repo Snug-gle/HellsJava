@@ -75,6 +75,8 @@
 	<!-- => 패키지에 작성된 클래스의 어노테이션을 Spring Container가 처리 -->
 	<!-- base-package 속성 : 패키지 경로를 속성값으로 설정 -->
 	<!-- <context:component-scan base-package="xyz.itwill.controller" /> -->
+	<context:component-scan base-package="itwill.helljava.controller"/>
+
 
 	<!-- advice : TransactionManager 관련 Spring Bean를 Advisor로 설정하기 위한 엘리먼트 -->
 	<!-- Advisor : JoinPoint가 설정된 횡단관심모듈이 등록된 Advice 클래스의 Spring Bean -->
