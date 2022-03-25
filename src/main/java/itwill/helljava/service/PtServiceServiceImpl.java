@@ -10,7 +10,7 @@ import itwill.helljava.dao.PtServiceDAO;
 import itwill.helljava.dto.PtService;
 
 @Service
-public class PtServiceServiceImpl implements PtServiceService{
+public class PtServiceServiceImpl implements PtServiceService {
 	@Autowired
 	private PtServiceDAO ptServiceDAO;
 
@@ -25,19 +25,18 @@ public class PtServiceServiceImpl implements PtServiceService{
 	}
 
 	@Override
-	public int getPtServiceCount(int pt_service_sortation) {
-		return ptServiceDAO.selectPtServiceCount(pt_service_sortation);
+	public int getPtServiceCount(int pt_service_sortation, int member_no) {
+		return ptServiceDAO.selectPtServiceCount(pt_service_sortation, member_no);
 	}
 
 	@Override
-	public PtService getPtService(int pt_service_no, int pt_service_sortation) {
-		return ptServiceDAO.selectPtService(pt_service_no, pt_service_sortation);
+	public PtService getPtService(int pt_service_no) {
+		return ptServiceDAO.selectPtService(pt_service_no);
 	}
 
 	@Override
-	public List<PtService> getPtServiceList(Map<String, Object> map, int pt_service_sortation) {
-		return ptServiceDAO.selectPtServiceList(map, pt_service_sortation);
+	public List<PtService> getPtServiceList(Map<String, Object> map, int pt_service_sortation, int member_status) {
+		return ptServiceDAO.selectPtServiceList(map, pt_service_sortation, member_status);
 	}
-	
-	
+
 }
