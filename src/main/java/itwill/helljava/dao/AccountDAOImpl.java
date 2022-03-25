@@ -1,7 +1,5 @@
 package itwill.helljava.dao;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,15 +27,8 @@ public class AccountDAOImpl implements AccountDAO {
 		return sqlSession.getMapper(AccountMapper.class).deleteAccount(member_no);
 	}
 
-
 	@Override
 	public Account selectAccount(int member_no) {
 		return sqlSession.getMapper(AccountMapper.class).selectAccount(member_no);
 	}
-
-	@Override
-	public List<Account> selectAccountList() {
-		return sqlSession.getMapper(AccountMapper.class).selectAccountList();
-	}
-
 }
