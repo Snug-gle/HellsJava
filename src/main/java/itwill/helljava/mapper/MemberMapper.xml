@@ -1,3 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="itwill.helljava.mapper."></mapper>
+<mapper namespace="itwill.helljava.mapper.MemberMapper">
+	<insert id="insertMember">
+		<selectKey resultType="int" keyProperty="num" order="BEFORE">
+			select seq_member.nextval from dual
+		</selectKey>
+		insert into member values(#{num}, #{member_id}, #{member_pw}, #{member_name}, #{member_phone}, #{member_email}, #{member_status}, #{member_cash})
+	</insert>
+	
+	<update id="updateMember">
+		update member
+		<set>
+			<if test="member_pw != null and member_pw !=''" >
+				member_pw = #{member_pw},
+			</if>
+			<if test="member_phone != null and member_phone != ''">
+				member_phone = #{member_phone},
+			</if>
+			<if test="member_email != null and member_email != ''">
+				member_email = #{member_email},
+			</if>
+			<if test="member_status != null and member_status != ''">
+				member_status = #{member_status},
+			</if>
+			<if test="member_cash != null and member_cash != ''">
+				member_cash = #{member_cash}
+			</if>
+			where member_no = #{member_no}
+		</set>
+	</update>
+	
+	<select id="selectMember">
+		select * from member where member_no = #{member_no}
+	</select>
+	
+	<select id="selectMemberList">
+		select * from member order by member_no
+	</select>
+</mapper>

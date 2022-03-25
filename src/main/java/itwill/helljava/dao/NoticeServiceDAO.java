@@ -17,7 +17,7 @@ public interface NoticeServiceDAO {
 	NoticeService selectNoticeService(int notice_service_no, int notice_service_sortation);
 
 	// 얘는 1:1 문의용
-	NoticeService selectNoticeService(int notice_service_no, int member_no, int notice_service_sortation);
+	NoticeService selectNoticeServicePersonal(int notice_service_no, int member_no, int notice_service_sortation);
 	
 	// 마찬가지로 글 구분 매개변수도 추가함
 	List<NoticeService> selectNoticeServiceList(Map<String, Object> map1, int notice_service_sortation);
