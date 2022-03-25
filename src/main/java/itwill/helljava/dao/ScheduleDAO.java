@@ -1,5 +1,12 @@
 package itwill.helljava.dao;
 
-public interface ScheduleDAO {
+import java.util.List;
 
+import itwill.helljava.dto.Schedule;
+
+public interface ScheduleDAO {
+	int insertSchedule(Schedule schedule);
+	int updateSchedule(Schedule schedule);
+	Schedule selectSchedule(int schedule_no);
+	List<Schedule> selectScheduleList();
 }
