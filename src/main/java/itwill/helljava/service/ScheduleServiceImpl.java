@@ -24,8 +24,8 @@ public class ScheduleServiceImpl implements ScheduleService{
 	}
 
 	@Override
-	public Schedule getSchedule(int schedule_no) {
-		return scheduleDAO.selectSchedule(schedule_no);
+	public Schedule getSchedule(int trainer_no) {
+		return scheduleDAO.selectSchedule(trainer_no);
 	}
 
 	@Override
