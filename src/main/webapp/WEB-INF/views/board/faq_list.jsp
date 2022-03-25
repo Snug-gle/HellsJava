@@ -229,7 +229,7 @@
 		
 		$.ajax({
 			type: "get",
-			url: "faq_view/"+num,
+			url: "faq_list/"+num,
 			dataType: "json",
 			success: function(json) {
 				$("#updateNum").val(json.num);
