@@ -5,13 +5,13 @@
 		<selectKey resultType="int" keyProperty="pt_service_no" order="BEFORE">
 			select seq_pt_service.nextval from dual
 		</selectKey>
-		insert into ptservice values(#{pt_service_no},#{member_no},#{trainer_no},#{pt_service_title}
+		insert into pt_service values(#{pt_service_no},#{member_no},#{trainer_no},#{pt_service_title}
 		,#{pt_service_content},#{pt_service_reply},#{pt_service_stars},#{pt_service_good}
 		,#{pt_service_date},#{pt_service_status},#{pt_service_sortation})
 	</insert>
 	
 	<update id="updatePtService">
-		update ptservice
+		update pt_service
 		<set>
 			<if test="pt_service_title!=null and pt_service_title!=''">
 				pt_service_title=#{pt_service_title}
@@ -34,10 +34,11 @@
 	</select>
 	
 	<select id="selectPtServiceList" resultType="PtService">
-		select pt_service_no, trainer_name,  from (select rownum rn,ps.* from
-		(select flex .* from(
-		(select member_status from pt_service ps
-		join member m on ps.member_no = m.member no) flex ) where pt_service_sortation = #{pt_service_sortation} order by pt_service_no desc) ps)
-		where rn between #{startRow} and #{endRow}
+		select * from (select rownum rn,ps.* from
+		(select * from pt_service where pt_service_sortation = #{pt_service_sortation} 
+		and (select m.member_status from member m left join pt_service ps 
+		on m.member_no = ps.member_no) = #{member_status}
+		order by pt_service_no desc) 
+		ps) where rn between #{startRow} and #{endRow}
 	</select>
 </mapper>
