@@ -8,25 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hell's Java</title>
-	<!-- Favicon -->
-    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
-    <!-- Fonts  -->
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/simple-line-icons.css">
-    <!-- CSS Animate -->
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <!-- Custom styles for this theme -->
-    <link rel="stylesheet" href="assets/css/main.css">
-    <!-- Feature detection -->
-   
-    <script src="assets/js/vendor/modernizr-2.6.2.min.js"></script>
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="assets/js/vendor/html5shiv.js"></script>
-    <script src="assets/js/vendor/respond.min.js"></script>
-    <![endif]-->
+
 </head>
 <body>
 	<div id="header">
