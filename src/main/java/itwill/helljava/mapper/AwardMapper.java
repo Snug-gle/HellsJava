@@ -14,5 +14,5 @@ public interface AwardMapper {
 
 	Award selectAward(int award_no);
 
-	List<Award> selectAwardList();
+	List<Award> selectAwardList(int trainer_no);
 }

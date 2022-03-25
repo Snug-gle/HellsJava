@@ -34,6 +34,12 @@ public class NoticeServiceDAOImpl implements NoticeServiceDAO {
 		return sqlSession.getMapper(NoticeServiceMapper.class).selectNoticeService(pt_service_no, pt_service_sortation);
 	}
 
+	@Override
+	public NoticeService selectNoticeService(int pt_service_no, int member_no, int pt_service_sortation) {
+		return sqlSession.getMapper(NoticeServiceMapper.class).selectNoticeService(pt_service_no, member_no,
+				pt_service_sortation);
+
+	}
 
 	@Override
 	public List<NoticeService> selectNoticeServiceList(Map<String, Object> map1, int pt_service_sortation) {

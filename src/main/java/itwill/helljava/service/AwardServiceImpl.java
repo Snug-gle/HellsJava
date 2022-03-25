@@ -28,13 +28,8 @@ public class AwardServiceImpl implements AwardService {
 	}
 
 	@Override
-	public Award getAward(int award_no) {
-		return awardDAO.selectAward(award_no);
-	}
-
-	@Override
-	public List<Award> getAwardList() {
-		return awardDAO.selectAwardList();
+	public List<Award> getAwardList(int trainer_no) {
+		return awardDAO.selectAwardList(trainer_no);
 	}
 
 }

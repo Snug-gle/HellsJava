@@ -25,13 +25,8 @@ public class PtPricingDAOImpl implements PtPricingDAO{
 	}
 
 	@Override
-	public PtPricing selectPtPring(int pt_pricing_no) {
-		return sqlSession.getMapper(PtPricingMapper.class).selectPtPring(pt_pricing_no);
-	}
-
-	@Override
-	public List<PtPricing> selectPtPricingList() {
-		return sqlSession.getMapper(PtPricingMapper.class).selectPtPricingList();
+	public List<PtPricing> selectPtPricingList(int trainer_no) {
+		return sqlSession.getMapper(PtPricingMapper.class).selectPtPricingList(trainer_no);
 	}
 	
 	

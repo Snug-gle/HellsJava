@@ -6,5 +6,5 @@ public interface PostingService {
 
 	void addPosting(Posting posting);
 	void modifyPosting(Posting posting);
-	Posting getPosting(int posting_no);
+	Posting getPosting(int trainer_no);
 }

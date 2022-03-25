@@ -25,11 +25,6 @@ public class TrainerDAOImpl implements TrainerDAO {
 	}
 
 	@Override
-	public int deleteTrainer(Trainer trainer) {
-		return sqlSession.getMapper(TrainerMapper.class).deleteTrainer(trainer);
-	}
-
-	@Override
 	public int selectTrainerCount() {
 		return sqlSession.getMapper(TrainerMapper.class).selectTrainerCount();
 	}

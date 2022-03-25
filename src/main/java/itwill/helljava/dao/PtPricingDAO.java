@@ -7,6 +7,5 @@ import itwill.helljava.dto.PtPricing;
 public interface PtPricingDAO {
 	int insertPtPricing(PtPricing ptPricing);
 	int updatePtPricing(PtPricing ptPricing);
-	PtPricing selectPtPring(int pt_pricing_no);
-	List<PtPricing> selectPtPricingList();
+	List<PtPricing> selectPtPricingList(int trainer_no);
 }

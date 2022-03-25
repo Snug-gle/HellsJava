@@ -14,8 +14,8 @@ public class AccountServiceImpl implements AccountSevice {
 	private AccountDAO accountDAO;
 
 	@Override
-	public void addAcount(Member member) {
-		accountDAO.insertAcount(member);
+	public void addAccount(Member member) {
+		accountDAO.insertAccount(member);
 	}
 
 	@Override
@@ -29,8 +29,8 @@ public class AccountServiceImpl implements AccountSevice {
 	}
 
 	@Override
-	public Account getMemberAccount(Member member) {
-		return accountDAO.selectAccount(member);
+	public Account getMemberAccount(int member_no) {
+		return accountDAO.selectAccount(member_no);
 	}
 
 	@Override
