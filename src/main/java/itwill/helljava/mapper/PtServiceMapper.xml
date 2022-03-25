@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="itwill.helljava.mapper.PtServiceMapper">
+	<insert id="insertPtService">
+		<selectKey resultType="int" keyProperty="pt_service_no" order="BEFORE">
+			select seq_pt_service.nextval from dual
+		</selectKey>
+		insert into ptservice values(#{pt_service_no},#{member_no},#{trainer_no},#{pt_service_title}
+		,#{pt_service_content},#{pt_service_reply},#{pt_service_stars},#{pt_service_good}
+		,#{pt_service_date},#{pt_service_status},#{pt_service_sortation})
+	</insert>
+	
+	<update id="updatePtService">
+		update ptservice
+		<set>
+			<if test="pt_service_title!=null and pt_service_title!=''">
+				pt_service_title=#{pt_service_title}
+			</if>
+			<if test="pt_service_content!=null and pt_service_content!=''">
+				pt_service_content=#{pt_service_content}
+			</if>
+			<if test="pt_service_reply!=null and pt_service_reply!=''">
+				pt_service_reply=#{pt_service_reply}
+			</if>
+			<if test="pt_service_stars!=null and pt_service_stars!=''">
+				pt_service_stars=#{pt_service_stars}
+			</if>
+		</set>
+		where pt_service_no=#{pt_service_no}
+	</update>
+	
+	<select id="selectPtService" resultType="PtService">
+		select * from ptservice where pt_service_no=#{pt_service_no}
+	</select>
+	
+	<select id="selectPtServiceList" resultType="PtService">
+		select pt_service_no, trainer_name,  from (select rownum rn,ps.* from
+		(select * from ptservice order by pt_service_no desc) ps)
+		where rn between #{startRow} and #{endRow}
+	</select>
+</mapper>

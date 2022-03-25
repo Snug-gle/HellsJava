@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="itwill.helljava.mapper.ScheduleMapper">
+	<insert id="insertSchedule">
+		<selectKey resultType="int" keyProperty="schedule_no" order="BEFORE">
+			select seq_schedule.nextval from dual
+		</selectKey>
+		insert into schedule values(#{schedule_no},#{schedule_workday},#{schedule_hours}
+			,#{schedule_dayoff},#{trainer_no})
+	</insert>
+	
+	<update id="updateSchedule">
+		update schedule set schedule_workday=#{schedule_workday},schedule_hours=#{schedule_hours}
+			,schedule_dayoff=#{schedule_dayoff} where trainer_no=#{trainer_no}
+	</update>
+	
+	<select id="selectScheduleList" resultType="Schedule">
+		select * from schedule order by schedule_workday
+	</select>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="itwill.helljava.mapper.PtPricingMapper">
+	<insert id="insertPtPricing">
+		<selectKey resultType="int" keyProperty="pt_pricing_no" order="BEFORE">
+			select seq_pt_pricing.nextval from dual
+		</selectKey>
+		insert into ptpricing values(#{pt_pricing_no}, #{trainer_no}, #{pt_pricing_round}
+			, #{pt_pricing_price}, #{pt_pricing_status})
+	</insert>
+	
+	<update id="updatePtPricing">
+		update ptpricing
+		<set>
+			<if test="pt_pricing_round!=null and pt_pricing_round!=''">
+				pt_pricing_round=#{pt_pricing_round},
+			</if>
+			<if test="pt_pricing_price!=null and pt_pricing_price!=''">
+				pt_pricing_price=#{pt_pricing_price},
+			</if>
+			<if test="pt_pricing_status!=null and pt_pricing_status!=''">
+				pt_pricing_status=#{pt_pricing_status}
+			</if>
+		</set>
+		where trainer_no=#{trainer_no}
+	</update>
+	
+	<select id="selectPtPricingList" resultType="PtPricing">
+		select * from ptpricing where trainer_no=#{trainer_no} order by pt_pricing_round
+	</select>
+</mapper>

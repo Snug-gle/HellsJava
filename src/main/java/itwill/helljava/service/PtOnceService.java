@@ -8,8 +8,6 @@ public interface PtOnceService {
 	
 	void addPtOnce(PtOnce ptOnce);
 
-	void modifyPtOnce(PtOnce ptOnce);
-
 	int getPtOnceCount(int member_no);
 
 	PtOnce getPtOnce(int pt_once_no);
