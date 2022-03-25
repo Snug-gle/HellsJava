@@ -11,7 +11,7 @@ public class PtService {
 	private int pt_service_good;
 	private String pt_service_date;
 	private int pt_service_status;
-	private int pt_service_Sortation;
+	private int pt_service_sortation;
 	
 	public PtService() {
 		// TODO Auto-generated constructor stub
@@ -97,12 +97,12 @@ public class PtService {
 		this.pt_service_status = pt_service_status;
 	}
 
-	public int getPt_service_Sortation() {
-		return pt_service_Sortation;
+	public int getPt_service_sortation() {
+		return pt_service_sortation;
 	}
 
-	public void setPt_service_Sortation(int pt_service_Sortation) {
-		this.pt_service_Sortation = pt_service_Sortation;
+	public void setPt_service_sortation(int pt_service_sortation) {
+		this.pt_service_sortation = pt_service_sortation;
 	}
 	
 }
