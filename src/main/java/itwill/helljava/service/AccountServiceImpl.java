@@ -1,7 +1,5 @@
 package itwill.helljava.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import itwill.helljava.dao.AccountDAO;
@@ -32,11 +30,5 @@ public class AccountServiceImpl implements AccountSevice {
 	public Account getMemberAccount(int member_no) {
 		return accountDAO.selectAccount(member_no);
 	}
-
-	@Override
-	public List<Account> getAccountList() {
-		return accountDAO.selectAccountList();
-	}
-
 
 }
