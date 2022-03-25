@@ -35,8 +35,8 @@ public class PtOnceDAOImpl implements PtOnceDAO{
 	}
 
 	@Override
-	public List<PtOnce> selectPtOnceList() {
-		return sqlSession.getMapper(PtOnceMapper.class).selectPtOnceList();
+	public List<PtOnce> selectPtOnceList(int member_status) {
+		return sqlSession.getMapper(PtOnceMapper.class).selectPtOnceList(member_status);
 	}
 	
 	

@@ -34,8 +34,8 @@ public class PtOnceServiceImpl implements PtOnceService {
 	}
 
 	@Override
-	public List<PtOnce> getPtOnceList() {
-		return ptOnceDAO.selectPtOnceList();
+	public List<PtOnce> getPtOnceList(int member_status) {
+		return ptOnceDAO.selectPtOnceList(member_status);
 	}
 
 	
