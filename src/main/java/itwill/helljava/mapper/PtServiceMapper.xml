@@ -29,6 +29,12 @@
 		where pt_service_no=#{pt_service_no}
 	</update>
 	
+	<select id="selectPtServiceCount" resultType="int">
+			select count(*) from notice_service where 
+			pt_service_sortation = #{pt_service_sortation} and
+			member_no = #{member_no}
+	</select>
+	
 	<select id="selectPtService" resultType="PtService">
 		select * from pt_service where pt_service_no=#{pt_service_no}
 	</select>
