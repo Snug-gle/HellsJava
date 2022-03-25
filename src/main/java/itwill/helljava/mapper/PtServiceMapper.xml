@@ -30,12 +30,14 @@
 	</update>
 	
 	<select id="selectPtService" resultType="PtService">
-		select * from ptservice where pt_service_no=#{pt_service_no}
+		select * from pt_service where pt_service_no=#{pt_service_no}
 	</select>
 	
 	<select id="selectPtServiceList" resultType="PtService">
 		select pt_service_no, trainer_name,  from (select rownum rn,ps.* from
-		(select * from ptservice order by pt_service_no desc) ps)
+		(select flex .* from(
+		(select member_status from pt_service ps
+		join member m on ps.member_no = m.member no) flex ) where pt_service_sortation = #{pt_service_sortation} order by pt_service_no desc) ps)
 		where rn between #{startRow} and #{endRow}
 	</select>
 </mapper>

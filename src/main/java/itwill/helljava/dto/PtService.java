@@ -1,6 +1,7 @@
 package itwill.helljava.dto;
 
 public class PtService {
+
 	private int pt_service_no;
 	private int member_no;
 	private int trainer_no;
@@ -12,7 +13,7 @@ public class PtService {
 	private String pt_service_date;
 	private int pt_service_status;
 	private int pt_service_sortation;
-	
+
 	public PtService() {
 		// TODO Auto-generated constructor stub
 	}
@@ -104,5 +105,5 @@ public class PtService {
 	public void setPt_service_sortation(int pt_service_sortation) {
 		this.pt_service_sortation = pt_service_sortation;
 	}
-	
+
 }
