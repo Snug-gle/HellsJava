@@ -36,8 +36,8 @@ public class PayDAOImpl implements PayDAO {
 	}
 
 	@Override
-	public List<Pay> selectPayList(Map<String, Object> map) {
-		return sqlSession.getMapper(PayMapper.class).selectPayList(map);
+	public List<Pay> selectPayList(Map<String, Object> map, int member_no) {
+		return sqlSession.getMapper(PayMapper.class).selectPayList(map, member_no);
 	}
 
 }
