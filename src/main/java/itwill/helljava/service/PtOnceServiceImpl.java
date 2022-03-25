@@ -24,8 +24,8 @@ public class PtOnceServiceImpl implements PtOnceService {
 	}
 
 	@Override
-	public int getPtOnceCount() {
-		return ptOnceDAO.selectPtOnceCount();
+	public int getPtOnceCount(int member_no) {
+		return ptOnceDAO.selectPtOnceCount(member_no);
 	}
 
 	@Override

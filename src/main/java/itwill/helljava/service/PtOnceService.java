@@ -7,7 +7,7 @@ import itwill.helljava.dto.PtOnce;
 public interface PtOnceService {
 	void addPtOnce(PtOnce ptOnce);
 	void modifyPtOnce(PtOnce ptOnce);
-	int getPtOnceCount();
+	int getPtOnceCount(int member_no);
 	PtOnce getPtOnce(int pt_once_no);
 	List<PtOnce> getPtOnceList();
 }
