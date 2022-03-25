@@ -11,14 +11,14 @@ public interface NoticeServiceService {
 
 	void modifyNoticeService(NoticeService noticeService);
 
-	int getNoticeServiceCount(int pt_service_sortation);
+	int getNoticeServiceCount(int notice_service_sortation);
 
 	// 합친 DB이기 때문에 구분하려면 혹시 몰라서 글 구분 매개변수도 추가함. (공지사항&FAQ)
-	NoticeService getNoticeService(int pt_service_no, int pt_service_sortation);
+	NoticeService getNoticeService(int notice_service_no, int notice_service_sortation);
 
 	// 얘는 1:1 문의용 
-	NoticeService getNoticeService(int pt_service_no, int member_no, int pt_service_sortation);
+	NoticeService getNoticeService(int notice_service_no, int member_no, int notice_service_sortation);
 
 	// 마찬가지로 글 구분 매개변수도 추가함
-	List<NoticeService> getNoticeServiceList(Map<String, Object> map1, int pt_service_sortation);
+	List<NoticeService> getNoticeServiceList(Map<String, Object> map1, int notice_service_sortation);
 }
