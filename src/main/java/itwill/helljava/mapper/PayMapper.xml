@@ -11,4 +11,18 @@
 	<delete id="deletePay">
 		delete from pay where member_no = #{member_no}
 	</delete>
+	
+	<select id="selectPayCount" resultType="int">
+		select count(*) from pay where member_no = #{member_no}
+	</select>
+	
+	<select id="selectPay" resultType="Pay">
+		select * from pay where pay_no = #{pay_no} 
+	</select>
+	
+	<select id="selectPayList" resultType="Pay">
+		select * from (select rownum rn,board.* from 
+		(select * from pay where member_no = #{member_no} order by pay_no desc)
+		board) where rn between #{startRow} and #{endRow}
+	</select>
 </mapper>
