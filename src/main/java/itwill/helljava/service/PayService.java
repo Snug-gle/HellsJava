@@ -16,6 +16,6 @@ public interface PayService {
 
 	Pay getPay(int pay_no);
 
-	List<Pay> getPayList(Map<String, Object> map);
+	List<Pay> getPayList(Map<String, Object> map, int member_no);
 
 }

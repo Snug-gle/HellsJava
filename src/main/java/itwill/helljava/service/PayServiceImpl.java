@@ -34,8 +34,8 @@ public class PayServiceImpl implements PayService {
 	}
 
 	@Override
-	public List<Pay> getPayList(Map<String, Object> map) {
-		return payDAO.selectPayList(map);
+	public List<Pay> getPayList(Map<String, Object> map, int member_no) {
+		return payDAO.selectPayList(map, member_no);
 	}
 
 }
