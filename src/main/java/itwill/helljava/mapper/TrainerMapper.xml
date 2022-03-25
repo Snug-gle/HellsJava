@@ -1,2 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="itwill.helljava.mapper.TrainerMapper">
+	<insert id="insertTrainer">
+		<selectKey resultType="int" keyProperty="trainer_no" order="BEFORE">
+			select seq_trainer.nextval from dual
+		</selectKey>
+		insert into trainer values(#{trainer_no},#{member_no},#{trainer_profile_img}
+			,#{trainer_address1},#{trainer_addresss2},#{trainer_zip})
+	</insert>
+	
+	<update id="updateTrainer">
+		update trainer
+		<set>
+			<if test="trainer_profile_img!=null and trainer_profile_img!=''">
+				trainer_profile_img=#{trainer_profile_img}
+			</if>
+			<if test="trainer_address1!=null and trainer_address1!=''">
+				trainer_profile_img=#{trainer_profile_img}
+			</if>
+			<if test="trainer_addresss2!=null and trainer_addresss2!=''">
+				trainer_addresss2=#{trainer_addresss2}
+			</if>
+			<if test="trainer_zip!=null and trainer_zip!=''">
+				trainer_zip=#{trainer_zip}
+			</if>
+		</set>
+	</update>
+	
+	
+</mapper>
+	private int trainer_no;
+	private int member_no;
+	private String trainer_profile_img;
+	private String trainer_address1;
+	private String trainer_addresss2;
+	private String trainer_zip;
+	
