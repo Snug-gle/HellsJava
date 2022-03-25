@@ -16,5 +16,5 @@ public interface PayDAO {
 
 	Pay selectPay(int pay_no);
 
-	List<Pay> selectPayList(Map<String, Object> map);
+	List<Pay> selectPayList(Map<String, Object> map, int member_no);
 }
