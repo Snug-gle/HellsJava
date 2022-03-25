@@ -10,5 +10,6 @@ public interface PtServiceDAO {
 	int updatePtService(PtService ptService);
 	int selectPtServiceCount(int pt_service_sortation, int member_no);
 	PtService selectPtService(int pt_service_no);
-	List<PtService> selectPtServiceList(Map<String, Object> map, int pt_service_sortation, int member_status);
+	List<PtService> selectPtServiceList(Map<String, Object> map
+			, int pt_service_sortation, int member_status);
 }

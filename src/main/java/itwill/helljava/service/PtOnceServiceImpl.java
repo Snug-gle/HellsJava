@@ -19,11 +19,6 @@ public class PtOnceServiceImpl implements PtOnceService {
 	}
 
 	@Override
-	public void modifyPtOnce(PtOnce ptOnce) {
-		ptOnceDAO.updatePtOnce(ptOnce);
-	}
-
-	@Override
 	public int getPtOnceCount(int member_no) {
 		return ptOnceDAO.selectPtOnceCount(member_no);
 	}

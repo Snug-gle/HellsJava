@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="itwill.helljava.mapper.PtOnceMapper">
+	<insert id="insertPtOnce">
+		<selectKey resultType="int" keyProperty="pt_once_no" order="BEFORE">
+			select seq_pt_once.nextval from dual
+		</selectKey>
+		insert into values(#{pt_once_no},#{pt_once_gender},#{pt_once_age},#{pt_once_purpose},#{pt_once_experience}
+			,#{pt_once_significant},#{member_no},#{trainer_no},#{pt_once_application_date},#{pt_once_status})
+	</insert>
+	
+	<select id="selectPtOnce" resultType="PtOnce">
+		select * from ptonce where pt_once_no=#{pt_once_no}
+	</select>
+	
+	<select id="selectPtOnceList" resultType="PtOnce">
+		select * from ptonce order by pt_once_no desc
+	</select>
+	
+</mapper>
