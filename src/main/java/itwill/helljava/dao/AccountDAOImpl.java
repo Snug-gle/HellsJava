@@ -15,8 +15,8 @@ public class AccountDAOImpl implements AccountDAO {
 	SqlSession sqlSession;
 
 	@Override
-	public int insertAcount(Member member) {
-		return sqlSession.getMapper(AccountMapper.class).insertAcount(member);
+	public int insertAccount(Member member) {
+		return sqlSession.getMapper(AccountMapper.class).insertAccount(member);
 	}
 
 	@Override
@@ -31,8 +31,8 @@ public class AccountDAOImpl implements AccountDAO {
 
 
 	@Override
-	public Account selectAccount(Member member) {
-		return sqlSession.getMapper(AccountMapper.class).selectAccount(member);
+	public Account selectAccount(int member_no) {
+		return sqlSession.getMapper(AccountMapper.class).selectAccount(member_no);
 	}
 
 	@Override

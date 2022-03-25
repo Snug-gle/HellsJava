@@ -34,8 +34,8 @@ public class AwardDAOImpl implements AwardDAO {
 	}
 
 	@Override
-	public List<Award> selectAwardList() {
-		return sqlSession.getMapper(AwardMapper.class).selectAwardList();
+	public List<Award> selectAwardList(int trainer_no) {
+		return sqlSession.getMapper(AwardMapper.class).selectAwardList(trainer_no);
 	}
 
 }

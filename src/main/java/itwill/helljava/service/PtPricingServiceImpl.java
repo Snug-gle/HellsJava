@@ -10,6 +10,7 @@ import itwill.helljava.dto.PtPricing;
 
 @Service
 public class PtPricingServiceImpl implements PtPricingService {
+	
 	@Autowired
 	private PtPricingDAO ptPricingDAO;
 
@@ -24,14 +25,8 @@ public class PtPricingServiceImpl implements PtPricingService {
 	}
 
 	@Override
-	public PtPricing getPtPring(int pt_pricing_no) {
-		return ptPricingDAO.selectPtPring(pt_pricing_no);
+	public List<PtPricing> getPtPricingList(int trainer_no) {
+		return ptPricingDAO.selectPtPricingList(trainer_no);
 	}
 
-	@Override
-	public List<PtPricing> getPtPricingList() {
-		return ptPricingDAO.selectPtPricingList();
-	}
-	
-	
 }

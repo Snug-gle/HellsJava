@@ -26,8 +26,8 @@ public class PayDAOImpl implements PayDAO {
 	}
 
 	@Override
-	public int selectPayCount() {
-		return sqlSession.getMapper(PayMapper.class).selectPayCount();
+	public int selectPayCount(int member_no) {
+		return sqlSession.getMapper(PayMapper.class).selectPayCount(member_no);
 	}
 
 	@Override

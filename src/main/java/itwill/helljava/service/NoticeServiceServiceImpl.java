@@ -27,15 +27,20 @@ public class NoticeServiceServiceImpl implements NoticeServiceService {
 	public void modifyNoticeService(NoticeService noticeService) {
 		noticeServiceDAO.updateNoticeService(noticeService);
 	}
+
 	@Override
 	public NoticeService getNoticeService(int pt_service_no, int pt_service_sortation) {
 		return noticeServiceDAO.selectNoticeService(pt_service_no, pt_service_sortation);
 	}
 
 	@Override
+	public NoticeService getNoticeService(int pt_service_no, int member_no, int pt_service_sortation) {
+		return noticeServiceDAO.selectNoticeService(pt_service_no, member_no, pt_service_sortation);
+	}
+
+	@Override
 	public List<NoticeService> getNoticeServiceList(Map<String, Object> map1, int pt_service_sortation) {
 		return noticeServiceDAO.selectNoticeServiceList(map1, pt_service_sortation);
 	}
-
 
 }

@@ -11,6 +11,7 @@ import itwill.helljava.mapper.ScheduleMapper;
 
 @Repository
 public class ScheduleDAOImpl implements ScheduleDAO{
+	
 	@Autowired
 	private SqlSession sqlSession;
 
@@ -25,13 +26,8 @@ public class ScheduleDAOImpl implements ScheduleDAO{
 	}
 
 	@Override
-	public Schedule selectSchedule(int trainer_no) {
-		return sqlSession.getMapper(ScheduleMapper.class).selectSchedule(trainer_no);
-	}
-
-	@Override
-	public List<Schedule> selectScheduleList() {
-		return sqlSession.getMapper(ScheduleMapper.class).selectScheduleList();
+	public List<Schedule> selectScheduleList(int trainer_no) {
+		return sqlSession.getMapper(ScheduleMapper.class).selectScheduleList(trainer_no);
 	}
 	
 	

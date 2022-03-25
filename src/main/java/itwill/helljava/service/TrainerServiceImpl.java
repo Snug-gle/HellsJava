@@ -24,11 +24,6 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public void removeTrainer(Trainer trainer) {
-		trainerDAO.deleteTrainer(trainer);
-	}
-
-	@Override
 	public int getTrainerCount() {
 		return trainerDAO.selectTrainerCount();
 	}
@@ -42,7 +37,5 @@ public class TrainerServiceImpl implements TrainerService {
 	public List<Trainer> getTrainerList() {
 		return trainerDAO.selectTrainerList();
 	}
-	
-	
-	
+
 }

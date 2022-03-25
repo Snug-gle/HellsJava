@@ -8,5 +8,5 @@ public interface PostingDAO {
 
 	int updatePosting(Posting posting);
 
-	Posting selectPosting(int posting_no);
+	Posting selectPosting(int trainer_no);
 }

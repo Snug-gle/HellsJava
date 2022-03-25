@@ -21,8 +21,8 @@ public class PostingServiceImpl implements PostingService {
 	}
 
 	@Override
-	public Posting getPosting(int posting_no) {
-		return postingDAO.selectPosting(posting_no);
+	public Posting getPosting(int trainer_no) {
+		return postingDAO.selectPosting(trainer_no);
 	}
 
 }

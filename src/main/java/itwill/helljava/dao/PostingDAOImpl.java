@@ -22,7 +22,7 @@ public class PostingDAOImpl implements PostingDAO {
 	}
 
 	@Override
-	public Posting selectPosting(int posting_no) {
-		return sqlSession.getMapper(PostingMapper.class).selectPosting(posting_no);
+	public Posting selectPosting(int trainer_no) {
+		return sqlSession.getMapper(PostingMapper.class).selectPosting(trainer_no);
 	}
 }
