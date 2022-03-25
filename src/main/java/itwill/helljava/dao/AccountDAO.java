@@ -7,14 +7,14 @@ import itwill.helljava.dto.Member;
 
 public interface AccountDAO {
 
-	void addAcount(Member member);
+	int insertAcount(Member member);
 
-	void removeAccount(int member_no);
+	int deleteAccount(int member_no);
 
-	void modifyAccount(Member member);
+	int updateAccount(Member member);
 
-	Account getMemberAccount(Member member);
+	Account selectAccount(Member member);
 
-	List<Account> getAccountList();
+	List<Account> selectAccountList();
 	
 }
