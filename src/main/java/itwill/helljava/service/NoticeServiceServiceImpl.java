@@ -19,8 +19,8 @@ public class NoticeServiceServiceImpl implements NoticeServiceService {
 	}
 
 	@Override
-	public int getNoticeServiceCount(int pt_service_sortation) {
-		return noticeServiceDAO.selectNoticeServiceCount(pt_service_sortation);
+	public int getNoticeServiceCount(int notice_service_sortation) {
+		return noticeServiceDAO.selectNoticeServiceCount(notice_service_sortation);
 	}
 
 	@Override
@@ -29,18 +29,18 @@ public class NoticeServiceServiceImpl implements NoticeServiceService {
 	}
 
 	@Override
-	public NoticeService getNoticeService(int pt_service_no, int pt_service_sortation) {
-		return noticeServiceDAO.selectNoticeService(pt_service_no, pt_service_sortation);
+	public NoticeService getNoticeService(int notice_service_no, int notice_service_sortation) {
+		return noticeServiceDAO.selectNoticeService(notice_service_no, notice_service_sortation);
 	}
 
 	@Override
-	public NoticeService getNoticeService(int pt_service_no, int member_no, int pt_service_sortation) {
-		return noticeServiceDAO.selectNoticeService(pt_service_no, member_no, pt_service_sortation);
+	public NoticeService getNoticeService(int notice_service_no, int member_no, int notice_service_sortation) {
+		return noticeServiceDAO.selectNoticeService(notice_service_no, member_no, notice_service_sortation);
 	}
 
 	@Override
-	public List<NoticeService> getNoticeServiceList(Map<String, Object> map1, int pt_service_sortation) {
-		return noticeServiceDAO.selectNoticeServiceList(map1, pt_service_sortation);
+	public List<NoticeService> getNoticeServiceList(Map<String, Object> map1, int notice_service_sortation) {
+		return noticeServiceDAO.selectNoticeServiceList(map1, notice_service_sortation);
 	}
 
 }
