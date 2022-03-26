@@ -14,14 +14,10 @@ public class TilesController {
 	public String tiles() {
 		return "main";
 	}
-	
-	@RequestMapping("/admin")
-	public String admin() {
-		return "admin";
-	}
-	
-	@RequestMapping("/admin/member")
-	public String manager() {
-		return "admin/member_manager";
-	}
+	/*
+	 * @RequestMapping("/admin") public String admin() { return "admin"; }
+	 * 
+	 * @RequestMapping("/admin/member") public String manager() { return
+	 * "admin/member_manager"; }
+	 */
 }
