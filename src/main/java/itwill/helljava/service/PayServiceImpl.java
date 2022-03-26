@@ -19,11 +19,6 @@ public class PayServiceImpl implements PayService {
 	}
 
 	@Override
-	public void modifyPay(Pay pay) {
-		payDAO.updatePay(pay);
-	}
-
-	@Override
 	public int getPayCount(int member_no) {
 		return payDAO.selectPayCount(member_no);
 	}

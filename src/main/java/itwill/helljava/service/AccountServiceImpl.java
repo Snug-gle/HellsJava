@@ -15,12 +15,7 @@ public class AccountServiceImpl implements AccountSevice {
 	public void addAccount(Member member) {
 		accountDAO.insertAccount(member);
 	}
-
-	@Override
-	public void modifyAccount(Member member) {
-		accountDAO.updateAccount(member);
-	}
-
+	
 	@Override
 	public void removeAccount(int member_no) {
 		accountDAO.deleteAccount(member_no);

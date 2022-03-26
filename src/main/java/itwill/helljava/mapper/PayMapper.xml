@@ -7,11 +7,7 @@
 		</selectKey>
 		insert into values(#{"pay_no"}, #{member_no}, #{account_bank}, #{account_number}, #{account_pw}) 
 	</insert>
-	
-	<delete id="deletePay">
-		delete from pay where member_no = #{member_no}
-	</delete>
-	
+
 	<select id="selectPayCount" resultType="int">
 		select count(*) from pay where member_no = #{member_no}
 	</select>

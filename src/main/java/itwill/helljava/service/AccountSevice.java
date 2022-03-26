@@ -9,7 +9,5 @@ public interface AccountSevice {
 
 	void removeAccount(int member_no);
 
-	void modifyAccount(Member member);
-
 	Account getMemberAccount(int member_no);
 }
