@@ -2,10 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="itwill.helljava.mapper.AccountMapper">
 	<insert id="insertAccount">
-		<selectKey resultType="int" keyProperty="num" order="BEFORE">
+		<selectKey resultType="int" keyProperty="account_no" order="BEFORE">
 			select seq_account.nextval from dual
 		</selectKey>
-		insert into account values(#{num}, #{member_no}, #{account_bank), #{account_number}, #{account_pw})
+		insert into account values(
+		#{account_no, jdbcType=INTEGER}, 
+		#{member_no, jdbcType=INTEGER}, 
+		#{account_bank, jdbcType=INTEGER), 
+		#{account_number, jdbcType=INTEGER}, 
+		#{account_pw, jdbcType=VARCHAR })
 	</insert>
 	
 	<update id="updateAccount">

@@ -2,10 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="itwill.helljava.mapper.AwardMapper">
 	<insert id="insertAward">
-		<selectKey resultType="int" keyProperty="num" order="BEFORE">
+		<selectKey resultType="int" keyProperty="award_no" order="BEFORE">
 			select seq_award.nextval from dual
 		</selectKey>
-		insert into award values(#{num}, #{trainer_no}, #{award_content}, #{award_image})
+		insert into award values(
+		#{award_no, jdbcType=INTEGER}, 
+		#{trainer_no, jdbcType=INTEGER}, 
+		#{award_content, jdbcType=VARCHAR}, 
+		#{award_image, jdbcType=VARCHAR})
 	</insert>
 	
 	<update id="updateAward">
@@ -18,18 +22,18 @@
 				award_image = {award_image}
 			</if>
 		</set>
-		where award_no = #{num}
+		where award_no = #{award_no}
 	</update>
 	
 	<delete id="deleteAward">
-		delete from award where award_no = #{num}
+		delete from award where award_no = #{award_no}
 	</delete>
 	
 	<select id="selectAward" resultType="Award">
-		select * from award where award_no = #{num}
+		select * from award where award_no = #{award_no}
 	</select>
 	
-	<select id="selectAwardList">
+	<select id="selectAwardList" resultType="Award">
 		select * from award where trainer_no = {#trainer_no} order by award_no desc 
 	</select>
 </mapper>

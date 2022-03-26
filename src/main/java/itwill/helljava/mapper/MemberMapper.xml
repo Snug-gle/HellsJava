@@ -2,10 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="itwill.helljava.mapper.MemberMapper">
 	<insert id="insertMember">
-		<selectKey resultType="int" keyProperty="num" order="BEFORE">
+		<selectKey resultType="int" keyProperty="member_no" order="BEFORE">
 			select seq_member.nextval from dual
 		</selectKey>
-		insert into member values(#{num}, #{member_id}, #{member_pw}, #{member_name}, #{member_phone}, #{member_email}, #{member_status}, #{member_cash})
+		insert into member values(
+		#{member_no},
+		#{member_id, jdbcType=VARCHAR}, 
+		#{member_pw, jdbcType=VARCHAR}, 
+		#{member_name, jdbcType=VARCHAR}, 
+		#{member_phone, jdbcType=VARCHAR}, 
+		#{member_email, jdbcType=VARCHAR}, 
+		#{member_status, jdbcType=INTEGER},
+		#{member_cash, jdbcType=INTEGER})
 	</insert>
 	
 	<update id="updateMember">
@@ -30,11 +38,11 @@
 		</set>
 	</update>
 	
-	<select id="selectMember">
+	<select id="selectMember" resultType="Member">
 		select * from member where member_no = #{member_no}
 	</select>
 	
-	<select id="selectMemberList">
+	<select id="selectMemberList" resultType="Member">
 		select * from member order by member_no
 	</select>
 </mapper>

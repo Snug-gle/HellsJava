@@ -2,12 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="itwill.helljava.mapper.NoticeServiceMapper">
 	<insert id="insertNoticeService">
-		<selectKey resultType="int" keyProperty="num" order="BEFORE">
+		<selectKey resultType="int" keyProperty="notice_service_no" order="BEFORE">
 			select notice_service_seq.nextval from dual
 		</selectKey>
-		insert into notice_service values(#{num}, #{member_no}, #{notice_service_category}, #{notice_service_title},
-		#{notice_service_content}, #{notice_service_reply}, #{notice_service_hits}, #{notice_service_date}, #{notice_service_status},
-		#{notice_service_sortation})
+		<if test=""></if>
+		insert into notice_service values(
+		#{notice_service_no, jdbcType=INTEGER},
+		#{member_no, jdbcType=INTEGER},
+		#{notice_service_category, jdbcType=INTEGER},
+		#{notice_service_title, jdbcType=VARCHAR},
+		#{notice_service_content, jdbcType=VARCHAR},
+		#{notice_service_reply, jdbcType=VARCHAR}, 
+		#{notice_service_hits, jdbcType=INTEGER}, 
+		sysdate, 
+		#{notice_service_status, jdbcType=INTEGER},
+		#{notice_service_sortation, jdbcType=INTEGER})
 	</insert>
 	
 	<update id="updateNoticeService">
@@ -43,14 +52,14 @@
 		select * from notice_service where notice_service_no = #{notice_service_no} and notice_service_sortation = #{notice_service_sortation} order by notice_service_no desc
 	</select>
 	
-	<select id="selectNoticeServicePersonal">
+	<select id="selectNoticeServicePersonal" resultType="NoticeService">
 		select * from notice_service where 
 		notice_service_no = #{notice_service_no}
 		and notice_service_sortation = #{notice_service_sortation}
 		and member_no = #{member_no} order by notice_service_no desc
 	</select>
 	
-	<select id="selectNoticeServiceList">
+	<select id="selectNoticeServiceList" resultType="NoticeService">
 		select * from (select rownum rn,board.* from 
 		(select * from notice_service where notice_service_sortation = #{notice_service_sortation} order by notice_service_no desc)
 		board) where rn between #{startRow} and #{endRow}
