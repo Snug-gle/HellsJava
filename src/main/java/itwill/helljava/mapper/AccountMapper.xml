@@ -13,22 +13,6 @@
 		#{account_pw, jdbcType=VARCHAR })
 	</insert>
 	
-	<update id="updateAccount">
-		update account
-		<set>
-			<if test="account_bank!=null and account_bank!=''">
-				account_bank = #{account_bank)
-			</if>
-			<if test="account_number!=null and account_number!=''">
-				account_number = #{account_number)
-			</if>
-			<if test="account_pw!=null and account_pw!=''">
-				account_pw = #{account_pw)
-			</if>
-		</set>
-		where member_no = #{member_no}
-	</update>
-
 	<delete id="deleteAccount">
 		delete from account where member_no = #{member_no}
 	</delete>

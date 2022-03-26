@@ -5,9 +5,18 @@
 		<selectKey resultType="int" keyProperty="pt_service_no" order="BEFORE">
 			select seq_pt_service.nextval from dual
 		</selectKey>
-		insert into pt_service values(#{pt_service_no},#{member_no},#{trainer_no},#{pt_service_title}
-		,#{pt_service_content},#{pt_service_reply},#{pt_service_stars},#{pt_service_good}
-		,#{pt_service_date},#{pt_service_status},#{pt_service_sortation})
+		insert into pt_service values(
+		#{pt_service_no},
+		#{member_no},
+		#{trainer_no},
+		#{pt_service_title, jdbcType=VARCHAR},
+		#{pt_service_content},
+		#{pt_service_reply, jdbcType=VARCHAR},
+		#{pt_service_stars, jdbcType=INTEGER},
+		#{pt_service_good, jdbcType=INTEGER},
+		sysdate,
+		#{pt_service_status},
+		#{pt_service_sortation})
 	</insert>
 	
 	<update id="updatePtService">

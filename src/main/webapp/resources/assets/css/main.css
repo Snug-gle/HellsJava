@@ -125,8 +125,8 @@ canvas {
 }
 #header {
   z-index: 200;
-  height: 60px;
-  position: absolute;
+  height: 160px;
+  /*position: absolute; 수정*/ 
   width: 100%;
   margin-right: 0;
 }

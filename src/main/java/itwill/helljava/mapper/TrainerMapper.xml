@@ -5,8 +5,13 @@
 		<selectKey resultType="int" keyProperty="trainer_no" order="BEFORE">
 			select seq_trainer.nextval from dual
 		</selectKey>
-		insert into trainer values(#{trainer_no},#{member_no},#{trainer_profile_img}
-			,#{trainer_address1},#{trainer_addresss2},#{trainer_zip})
+		insert into trainer values(
+		#{trainer_no},
+		#{member_no},
+		#{trainer_profile_img},
+		#{trainer_address1},
+		#{trainer_addresss2},
+		#{trainer_zip})
 	</insert>
 	
 	<update id="updateTrainer">
@@ -27,12 +32,18 @@
 		</set>
 	</update>
 	
+	<select id="selectTrainerCount" resultType="int">
+		select count(*) from trainer
+	</select>
+	
+	<select id="selectTrainer" resultType="Trainer">
+		select * from trainer where trainer_no=#{trainer_no}
+	</select>
+	
+	<select id="selectTrainerList" resultType="Trainer">
+		select * from trainer order by trainer_no;
+	</select>
+	
 	
 </mapper>
-	private int trainer_no;
-	private int member_no;
-	private String trainer_profile_img;
-	private String trainer_address1;
-	private String trainer_addresss2;
-	private String trainer_zip;
 	

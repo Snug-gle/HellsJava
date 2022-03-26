@@ -18,11 +18,6 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public int updateAccount(Member member) {
-		return sqlSession.getMapper(AccountMapper.class).updateAccount(member);
-	}
-
-	@Override
 	public int deleteAccount(int member_no) {
 		return sqlSession.getMapper(AccountMapper.class).deleteAccount(member_no);
 	}

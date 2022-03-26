@@ -31,6 +31,7 @@
     <script src="assets/js/vendor/html5shiv.js"></script>
     <script src="assets/js/vendor/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="<c:url value="/css/new-main.css"/>">
 </head>
 <body>
 	<div id="header">
