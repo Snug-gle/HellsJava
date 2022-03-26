@@ -43,6 +43,14 @@
 	</select>
 	
 	<select id="selectMemberList" resultType="Member">
-		select * from member order by member_no
+		select rownum rn,board.* from (select * from member 		
+		<if test="member_id != null and member_id != ''" >
+			where member_id like '%'||#{member_id}||'%' and member_status = #{member_status}
+		</if>
+		<if test="member_name != null and member_name != ''">
+			where member_name like '%'||#{member_name}||'%' and member_status = #{member_status}
+		</if>
+			where member_status like #{member_status}) order by member_no desc) 
+			board) where rn between #{startRow} and #{endRow}
 	</select>
 </mapper>

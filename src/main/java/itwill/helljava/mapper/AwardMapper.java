@@ -12,7 +12,7 @@ public interface AwardMapper {
 
 	int deleteAward(int award_no);
 
-	Award selectAward(int award_no);
+	Award selectAward(int award_no); // 상세가 없으니까 필요 없을듯
 
-	List<Award> selectAwardList(int trainer_no);
+	List<Award> selectAwardList(int trainer_no); // join 필요
 }

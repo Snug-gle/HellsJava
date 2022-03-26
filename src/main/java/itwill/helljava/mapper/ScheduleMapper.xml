@@ -14,11 +14,26 @@
 	</insert>
 	
 	<update id="updateSchedule">
-		update schedule set schedule_workday=#{schedule_workday},schedule_hours=#{schedule_hours}
-			,schedule_dayoff=#{schedule_dayoff} where trainer_no=#{trainer_no}
+		update schedule 
+		<set>
+			<if test="schedule_workday != null schedule_workday != ''">
+				schedule_workday=#{schedule_workday},	
+			</if>
+			<if test="schedule_hours != null schedule_hours != ''">
+				schedule_hours=#{schedule_hours},
+			</if>
+			<if test="schedule_dayoff != null schedule_dayoff != ''">
+				schedule_dayoff=#{schedule_dayoff} 
+			</if>
+				where trainer_no=#{trainer_no}
+		</set> 
 	</update>
 	
+	<delete id="deleteSchedule">
+		delete from schedule where schedule_no = #{schedule_no}
+	</delete>
+	
 	<select id="selectScheduleList" resultType="Schedule">
-		select * from schedule order by schedule_workday
+		select * from schedule where trainer_no=#{trainer_no} order by schedule_workday
 	</select>
 </mapper>
