@@ -8,4 +8,59 @@
 
 <div>
 	<i class="fa fa-chevron-left"></i>
+	<i class="fa fa-circle"></i>
+	<i class="fa fa-circle"></i>
+	<i class="fa fa-circle"></i>
+	<i class="fa fa-circle"></i>
+	<i class="fa fa-chevron-right"></i>
 </div>
+<div>
+	<input class="mainSearch" placeholder="트레이너명/지역/헬스장 이름">
+	<i class="fa fa-search"></i>
+</div>
+
+<div>
+	<h4>이달의 트레이너</h4>
+	<hr style="border: solid 1px black;" align="left" width="20%">
+</div>
+
+<div class="panel-body profile-wrapper">
+    <div class="profile-photo">
+        <div class="profile-pic text-center">
+            <img src="<spring:url value="/img/avatar2.png"/>" alt="" class="img-circle">
+        </div>
+    </div>
+    <div class="profile-text">
+        <div class="profile-info">
+            <h1>으어어어어어</h1>
+            <span class="text-muted">에헤헤헤헤</span>
+            <p>
+            테스트용 문구라네
+            </p>
+        </div>
+    </div>
+</div>
+
+<div>
+	<h4>많이 도움된 리뷰</h4>
+	<hr style="border: solid 1px black;" align="left" width="20%">
+</div>
+
+<div>
+	<div>
+		<label>최정인 회원님</label>
+		<p>
+		개쩔고 여튼 막 좋아요 자세도 잘잡아줘요 이쌤 최고!!!!
+		</p>
+		<label>김남영 트레이너</label>
+	</div>
+		
+	<div>
+		<i class="fa fa-heart"></i>
+		<label>566</label>
+		<i class="fa fa-star"></i>
+		<i class="fa fa-star-half-o"></i>
+		<i class="fa fa-star-o"></i>
+	</div>
+</div>
+
