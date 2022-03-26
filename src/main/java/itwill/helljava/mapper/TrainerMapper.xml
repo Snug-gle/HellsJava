@@ -5,8 +5,13 @@
 		<selectKey resultType="int" keyProperty="trainer_no" order="BEFORE">
 			select seq_trainer.nextval from dual
 		</selectKey>
-		insert into trainer values(#{trainer_no},#{member_no},#{trainer_profile_img}
-			,#{trainer_address1},#{trainer_addresss2},#{trainer_zip})
+		insert into trainer values(
+		#{trainer_no},
+		#{member_no},
+		#{trainer_profile_img},
+		#{trainer_address1},
+		#{trainer_addresss2},
+		#{trainer_zip})
 	</insert>
 	
 	<update id="updateTrainer">
