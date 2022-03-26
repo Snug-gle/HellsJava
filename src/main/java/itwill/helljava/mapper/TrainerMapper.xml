@@ -41,10 +41,4 @@
 	
 	
 </mapper>
-	private int trainer_no;
-	private int member_no;
-	private String trainer_profile_img;
-	private String trainer_address1;
-	private String trainer_addresss2;
-	private String trainer_zip;
 	
