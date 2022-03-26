@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div id="main">
-	<h1 class="title_01">오늘의 짐</h1>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<hr>
+<div class="mainBannerImage">
+	<img src="<spring:url value="/img/vac-4.jpg"/>" width="200">
 </div>
-<div id="mainTopbanner" >
-	<div id="mainLoginBtn" >
-		<button>login</button>
-	</div>
+
+<div>
+	<i class="fa fa-chevron-left"></i>
 </div>
