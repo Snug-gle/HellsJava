@@ -13,31 +13,31 @@
 		<tr height="40">
 			<th>번호</th>
 			<td>
-				<input type="hidden" name="no" value="${notice.no }">
+				<input type="hidden" name="no" value="${notice.service.no }">
 			</td>
 		</tr>
 		<tr height="40">
 			<td>제목</td>
 			<td>
-				<input type="text" name="title" value="${notice.title}">
+				<input type="text" name="title" value="${notice.service.title}">
 			</td>
 		</tr>
 		<tr height="40">
 			<td>내용</td>
 			<td width="200" align="center">
-				<input type="text" name="content" value="${notice.content}">
+				<input type="text" name="content" value="${notice.service.content}">
 			</td>
 		</tr>
 		<tr height="40">
 			<td>작성일</td>
 			<td width="200" align="center">
-				<input type="hidden" name="date" value="${notice.date}">
+				<input type="hidden" name="date" value="${notice.service.date}">
 			</td>
 		</tr>
 		<tr height="40">
 			<td>조회수</td>
 			<td width="200" align="center">
-				<input type="hidden" name="hits" value="${notice.hits}">
+				<input type="hidden" name="hits" value="${notice.service.hits}">
 			</td>
 		</tr>
 		<tr height="40">

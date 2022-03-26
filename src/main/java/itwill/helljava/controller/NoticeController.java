@@ -14,22 +14,20 @@ public class NoticeController {
 		return "board/notice_list";
 	}
 
-	@RequestMapping( value = "/write" ,method = RequestMethod.POST)
+	@RequestMapping( value = "/write" ,method = RequestMethod.GET)
 	public String write() {
 			
 		return "board/notice_write";
 	}
 
-	@RequestMapping(value =  "/modify" , method = RequestMethod.POST)
+	@RequestMapping(value =  "/modify" , method = RequestMethod.GET)
 	public String modify() {
-				
-		return "redirect:/board/notice_list";
+				                                       
+		return "board/notice_modify";
 	}
 
 
 	/*
-	 * @RequestMapping("/remove") public String remove() {
-	 * 
-	 * return "redirect:/notice/list"; }
+	 * @RequestMapping("/remove") public St                  
 	 */
 }
