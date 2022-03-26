@@ -32,4 +32,9 @@ public class AwardServiceImpl implements AwardService {
 		return awardDAO.selectAwardList(trainer_no);
 	}
 
+	@Override
+	public Award getAward(int award_no) {
+		return awardDAO.selectAward(award_no);
+	}
+
 }
