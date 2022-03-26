@@ -5,8 +5,44 @@
 		<selectKey keyProperty="posting_no" resultType="int" order="BEFORE">
 			select seq_posting.nextval from dual
 		</selectKey>
-		insert into posting values
-		<if test=""></if>
-		(#{posting_no}, #{ )
+		insert into posting values(
+		#{posting_no, jdbcType=INTEGER},
+		#{trainer_no, jdbcType=INTEGER},
+		#{posting_self_introduction, jdbcType=VARCHAR},
+		#{posting_self_introduction_img1, jdbcType=VARCHAR},
+		#{posting_self_introduction_img2, jdbcType=VARCHAR},
+		#{posting_self_introduction_img3, jdbcType=VARCHAR},
+		#{posting_self_introduction_img4, jdbcType=VARCHAR},
+		#{posting_program_introduction, jdbcType=VARCHAR}
+		)
 	</insert>
+	
+	<update id="updatePosting">
+		update posting 
+		<set>
+			<if test="posting_self_introduction != null and posting_self_introduction != ''">
+				posting_self_introduction = #{posting_self_introduction},
+			</if>
+			<if test="posting_self_introduction_img1 != null and posting_self_introduction_img1 !=''">
+				posting_self_introduction_img1 = #{posting_self_introduction_img1},
+			</if>
+			<if test="posting_self_introduction_img2 != null and posting_self_introduction_img2 != ''">
+				posting_self_introduction_img2 = #{posting_self_introduction_img2},
+			</if>
+			<if test="posting_self_introduction_img3 != null and posting_self_introduction_img3 != ''">
+				posting_self_introduction_img3 = #{posting_self_introduction_img3},
+			</if>
+			<if test="posting_self_introduction_img4 != null and posting_self_introduction_img4 != ''">
+				posting_self_introduction_img4 = #{posting_self_introduction_img4},
+			</if>
+			<if test="posting_program_introduction != null and posting_program_introduction != ''">
+				posting_program_introduction = #{posting_program_introduction}
+			</if>
+		</set>
+		where posting_no = #{posting_no}
+	</update>
+	
+	<select id="selectPosting" resultType="Posting">
+		select * from posting where posting_no = #{posting_no}
+	</select>
 </mapper>
