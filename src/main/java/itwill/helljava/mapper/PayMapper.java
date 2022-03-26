@@ -9,7 +9,7 @@ public interface PayMapper {
 
 	int insertPay(Pay pay);
 
-	int updatePay(Pay pay);
+	int deletePay(Pay pay);
 
 	// void removePay(int pay_no); // 결제 데이터를 삭제할 일은 없을듯..
 	int selectPayCount(int member_no);
