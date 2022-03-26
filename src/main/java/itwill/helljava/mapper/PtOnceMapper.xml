@@ -22,12 +22,24 @@
 		select count(*) from pt_once where member_no=#{member_no}
 	</select>
 	
+	<select id="selectPtOnceTrainerCount" resultType="int">
+		select count(*) from pt_once where trainer_no=#{trainer_no}
+	</select>
+	
 	<select id="selectPtOnce" resultType="PtOnce">
 		select * from pt_once where pt_once_no=#{pt_once_no}
 	</select>
 	
 	<select id="selectPtOnceList" resultType="PtOnce">
-		select * from pt_once order by pt_once_no desc
+		select * from (select rownum rn,board.* from 
+		(select * from pt_once where member_no = #{member_no} order by pt_once_no desc)
+		board) where rn between #{startRow} and #{endRow}
+	</select>
+
+	<select id="selectPtOnceTrainerList" resultType="PtOnce">
+		select * from (select rownum rn,board.* from 
+		(select * from pt_once where trainer_no = #{trainer_no} order by pt_once_no desc)
+		board) where rn between #{startRow} and #{endRow}
 	</select>
 	
 </mapper>

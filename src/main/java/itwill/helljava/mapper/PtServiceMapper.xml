@@ -12,7 +12,7 @@
 		#{pt_service_title, jdbcType=VARCHAR},
 		#{pt_service_content},
 		#{pt_service_reply, jdbcType=VARCHAR},
-		#{pt_service_stars, jdbcType=INTEGER},
+		#{pt_service_stars jdbcType=INTEGER},
 		#{pt_service_good, jdbcType=INTEGER},
 		sysdate,
 		#{pt_service_status},
@@ -38,10 +38,20 @@
 		where pt_service_no=#{pt_service_no}
 	</update>
 	
+	<update id="updatePtServiceGood">
+		update pt_service set pt_service_good = pt_service_good + 1 where pt_service_no = #{pt_service_no}
+	</update>
+	
 	<select id="selectPtServiceCount" resultType="int">
-			select count(*) from notice_service where 
+			select count(*) from pt_service where 
 			pt_service_sortation = #{pt_service_sortation} and
 			member_no = #{member_no}
+	</select>
+
+	<select id="selectPtServiceTrainerCount" resultType="int">
+			select count(*) from pt_service where 
+			pt_service_sortation = #{pt_service_sortation} and
+			trainer_no = #{trainer_no}
 	</select>
 	
 	<select id="selectPtService" resultType="PtService">
@@ -49,11 +59,18 @@
 	</select>
 	
 	<select id="selectPtServiceList" resultType="PtService">
-		select * from (select rownum rn,ps.* from
+		select * from 
+		(select rownum rn,ps.* from
 		(select * from pt_service where pt_service_sortation = #{pt_service_sortation} 
-		and (select m.member_status from member m left join pt_service ps 
-		on m.member_no = ps.member_no) = #{member_status}
-		order by pt_service_no desc) 
-		ps) where rn between #{startRow} and #{endRow}
+		and  member_no = #{member_no} order by pt_service_no desc) ps) 
+		where rn between #{startRow} and #{endRow}
+	</select>
+
+	<select id="selectPtServiceTrainerList" resultType="PtService">
+		select * from 
+		(select rownum rn,ps.* from
+		(select * from pt_service where pt_service_sortation = #{pt_service_sortation} 
+		and  trainer_no = #{trainer_no} order by pt_service_no desc) ps) 
+		where rn between #{startRow} and #{endRow}
 	</select>
 </mapper>
