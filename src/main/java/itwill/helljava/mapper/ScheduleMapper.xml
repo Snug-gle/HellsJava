@@ -5,8 +5,12 @@
 		<selectKey resultType="int" keyProperty="schedule_no" order="BEFORE">
 			select seq_schedule.nextval from dual
 		</selectKey>
-		insert into schedule values(#{schedule_no},#{schedule_workday},#{schedule_hours}
-			,#{schedule_dayoff},#{trainer_no})
+		insert into schedule values(
+		#{schedule_no},
+		#{schedule_workday, jdbcType=INTEGER},
+		#{schedule_hours, jdbcType=VARCHAR},
+		#{schedule_dayoff, jdbcType=VARCHAR},
+		#{trainer_no})
 	</insert>
 	
 	<update id="updateSchedule">
