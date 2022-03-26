@@ -20,8 +20,8 @@ public class PtOnceDAOImpl implements PtOnceDAO{
 	}
 
 	@Override
-	public int selectPtOnceCount(int member_no) {
-		return sqlSession.getMapper(PtOnceMapper.class).selectPtOnceCount(member_no);
+	public int selectPtOnceCount(int member_no, int member_status) {
+		return sqlSession.getMapper(PtOnceMapper.class).selectPtOnceCount(member_no, member_status);
 	}
 
 	@Override

@@ -9,8 +9,6 @@ public interface AccountDAO {
 
 	int deleteAccount(int member_no);
 
-	int updateAccount(Member member);
-
 	Account selectAccount(int member_no);
 
 }
