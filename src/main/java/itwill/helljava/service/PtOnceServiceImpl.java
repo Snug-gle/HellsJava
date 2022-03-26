@@ -1,6 +1,7 @@
 package itwill.helljava.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,20 +19,36 @@ public class PtOnceServiceImpl implements PtOnceService {
 		ptOnceDAO.insertPtOnce(ptOnce);
 	}
 
-	@Override
-	public int getPtOnceCount(int member_no, int member_status) {
-		return ptOnceDAO.selectPtOnceCount(member_no, member_status);
-	}
 
 	@Override
 	public PtOnce getPtOnce(int pt_once_no) {
 		return ptOnceDAO.selectPtOnce(pt_once_no);
 	}
 
+
 	@Override
-	public List<PtOnce> getPtOnceList(int member_status) {
-		return ptOnceDAO.selectPtOnceList(member_status);
+	public int getPtOnceCount(int member_no) {
+		return ptOnceDAO.selectPtOnceCount(member_no);
 	}
+
+
+	@Override
+	public int getPtOnceTrainerCount(int trainer_no) {
+		return ptOnceDAO.selectPtOnceTrainerCount(trainer_no);
+	}
+
+
+	@Override
+	public List<PtOnce> getPtOnceList(Map<String, Object> map, int member_no) {
+		return ptOnceDAO.selectPtOnceList(map, member_no);
+	}
+
+
+	@Override
+	public List<PtOnce> getPtOnceTrainerList(Map<String, Object> map, int trainer_no) {
+		return ptOnceDAO.selectPtOnceTrainerList(map, trainer_no);
+	}
+
 
 	
 	

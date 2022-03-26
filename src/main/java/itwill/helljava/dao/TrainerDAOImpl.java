@@ -24,20 +24,11 @@ public class TrainerDAOImpl implements TrainerDAO {
 		return sqlSession.getMapper(TrainerMapper.class).updateTrainer(trainer);
 	}
 
-	@Override
-	public int selectTrainerCount() {
-		return sqlSession.getMapper(TrainerMapper.class).selectTrainerCount();
-	}
 
 	@Override
 	public Trainer selectTrainer(int trainer_no) {
 		return sqlSession.getMapper(TrainerMapper.class).selectTrainer(trainer_no);
 	}
 
-	@Override
-	public List<Trainer> selectTrainerList() {
-		return sqlSession.getMapper(TrainerMapper.class).selectTrainerList();
-	}
-	
 	
 }

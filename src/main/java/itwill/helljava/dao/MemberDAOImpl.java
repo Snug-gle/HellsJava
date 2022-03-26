@@ -1,6 +1,7 @@
 package itwill.helljava.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,10 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public List<Member> selectMemberList() {
-		return sqlSession.getMapper(MemberMapper.class).selectMemberList();
+	public List<Member> selectMemberList(Map<String, Object> map, int member_status, String member_id,
+			String member_name) {
+		return sqlSession.getMapper(MemberMapper.class).selectMemberList(map, member_status, member_id, member_name);
 	}
 
+	
 }
