@@ -10,22 +10,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Hell's Java</title>
 <!-- Favicon -->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="<c:url value="/img/favicon.ico"/>" type="image/x-icon">
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="<c:url value="plugins/bootstrap/css/bootstrap.min.css"/>">
+    <link rel="stylesheet" href="<c:url value="/plugins/bootstrap/css/bootstrap.min.css"/>">
     <!-- Fonts  -->
-    <link rel="stylesheet" href="<c:url value="css/font-awesome.min.css"/>">
-    <link rel="stylesheet" href="css/simple-line-icons.css">
+    <link rel="stylesheet" href="<c:url value="/css/font-awesome.min.css"/>">
+    <link rel="stylesheet" href="<c:url value="/css/simple-line-icons.css"/>">
     <!-- Fonts from Font Awsome -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="<c:url value="/css/font-awesome.min.css"/>">
     <!-- Switchery -->
-    <link rel="stylesheet" href="plugins/switchery/switchery.min.css">
+    <link rel="stylesheet" href="<c:url value="/plugins/switchery/switchery.min.css"/>">
     <!-- CSS Animate -->
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="<c:url value="/css/animate.css"/>">
     <!-- Custom styles for this theme -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="<c:url value="/css/main.css"/>">
     <!-- Feature detection -->
-    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    <script src="<c:url value="/js/vendor/modernizr-2.6.2.min.js"/>"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="assets/js/vendor/html5shiv.js"></script>
