@@ -32,18 +32,9 @@
 		</set>
 	</update>
 	
-	<select id="selectTrainerCount" resultType="int">
-		select count(*) from trainer
-	</select>
-	
 	<select id="selectTrainer" resultType="Trainer">
 		select * from trainer where trainer_no=#{trainer_no}
 	</select>
-	
-	<select id="selectTrainerList" resultType="Trainer">
-		select * from trainer order by trainer_no;
-	</select>
-	
 	
 </mapper>
 	

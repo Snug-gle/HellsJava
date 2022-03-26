@@ -9,8 +9,8 @@ public interface ScheduleMapper {
 	int insertSchedule(Schedule schedule);
 
 	int updateSchedule(Schedule schedule);
-
-	Schedule selectSchedule(int trainer_no);
+	
+	int deleteSchedule(int schedule_no);
 
 	List<Schedule> selectScheduleList(int trainer_no);
 }
