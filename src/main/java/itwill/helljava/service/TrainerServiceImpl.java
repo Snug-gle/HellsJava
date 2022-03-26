@@ -24,18 +24,8 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public int getTrainerCount() {
-		return trainerDAO.selectTrainerCount();
-	}
-
-	@Override
 	public Trainer getTrainer(int trainer_no) {
 		return trainerDAO.selectTrainer(trainer_no);
-	}
-
-	@Override
-	public List<Trainer> getTrainerList() {
-		return trainerDAO.selectTrainerList();
 	}
 
 }

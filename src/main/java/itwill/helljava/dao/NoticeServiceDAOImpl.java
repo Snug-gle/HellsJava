@@ -25,25 +25,35 @@ public class NoticeServiceDAOImpl implements NoticeServiceDAO {
 	}
 
 	@Override
+	public int updateReplyNoticeService(NoticeService noticeService) {
+		return sqlSession.getMapper(NoticeServiceMapper.class).updateReplyNoticeService(noticeService);
+	}
+
+	@Override
 	public int selectNoticeServiceCount(int notice_service_sortation) {
 		return sqlSession.getMapper(NoticeServiceMapper.class).selectNoticeServiceCount(notice_service_sortation);
 	}
 
+
 	@Override
-	public NoticeService selectNoticeService(int notice_service_no, int notice_service_sortation) {
-		return sqlSession.getMapper(NoticeServiceMapper.class).selectNoticeService(notice_service_no, notice_service_sortation);
+	public int selectNoticeServicePersonalCount(int notice_service_sortation, int member_no) {
+		return sqlSession.getMapper(NoticeServiceMapper.class).selectNoticeServicePersonalCount(notice_service_sortation, member_no);
 	}
 
 	@Override
-	public NoticeService selectNoticeServicePersonal(int notice_service_no, int member_no, int notice_service_sortation) {
-		return sqlSession.getMapper(NoticeServiceMapper.class).selectNoticeServicePersonal(notice_service_no, member_no,
-				notice_service_sortation);
-
+	public NoticeService selectNoticeService(int notice_service_no) {
+		return sqlSession.getMapper(NoticeServiceMapper.class).selectNoticeService(notice_service_no);
 	}
 
 	@Override
 	public List<NoticeService> selectNoticeServiceList(Map<String, Object> map1, int notice_service_sortation) {
 		return sqlSession.getMapper(NoticeServiceMapper.class).selectNoticeServiceList(map1, notice_service_sortation);
+	}
+
+	@Override
+	public List<NoticeService> selectNoticeServicePersonalList(Map<String, Object> map1, int notice_service_sortation,
+			int member_no) {
+		return sqlSession.getMapper(NoticeServiceMapper.class).selectNoticeServicePersonalList(map1, notice_service_sortation, member_no);
 	}
 
 }

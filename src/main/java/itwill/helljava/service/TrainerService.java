@@ -10,9 +10,6 @@ public interface TrainerService {
 
 	void modifyTrainer(Trainer trainer);
 
-	int getTrainerCount();
-
 	Trainer getTrainer(int trainer_no);
 
-	List<Trainer> getTrainerList();
 }

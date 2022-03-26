@@ -1,6 +1,7 @@
 package itwill.helljava.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,7 +29,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Member> getMemberList() {
-		return memberDAO.selectMemberList();
+	public List<Member> getMemberList(Map<String, Object> map, int member_status, String member_id,
+			String member_name) {
+		return memberDAO.selectMemberList(map, member_status, member_id, member_name);
 	}
+
+	
 }

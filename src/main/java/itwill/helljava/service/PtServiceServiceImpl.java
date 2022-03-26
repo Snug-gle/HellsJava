@@ -25,8 +25,18 @@ public class PtServiceServiceImpl implements PtServiceService {
 	}
 
 	@Override
+	public void modifyPtServiceGood(int pt_service_no) {
+		ptServiceDAO.updatePtServiceGood(pt_service_no);
+	}
+
+	@Override
 	public int getPtServiceCount(int pt_service_sortation, int member_no) {
 		return ptServiceDAO.selectPtServiceCount(pt_service_sortation, member_no);
+	}
+
+	@Override
+	public int getPtServiceTrainerCount(int pt_service_sortation, int trainer_no) {
+		return ptServiceDAO.selectPtServiceTrainerCount(pt_service_sortation, trainer_no);
 	}
 
 	@Override
@@ -35,8 +45,15 @@ public class PtServiceServiceImpl implements PtServiceService {
 	}
 
 	@Override
-	public List<PtService> getPtServiceList(Map<String, Object> map, int pt_service_sortation, int member_status) {
-		return ptServiceDAO.selectPtServiceList(map, pt_service_sortation, member_status);
+	public List<PtService> getPtServiceList(Map<String, Object> map, int pt_service_sortation, int member_no) {
+		return ptServiceDAO.selectPtServiceList(map, pt_service_sortation, member_no);
 	}
+
+	@Override
+	public List<PtService> getPtServiceTrainerList(Map<String, Object> map, int pt_service_sortation, int trainer_no) {
+		return ptServiceDAO.selectPtServiceTrainerList(map, pt_service_sortation, trainer_no);
+	}
+
+	
 
 }

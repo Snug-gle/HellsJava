@@ -26,8 +26,18 @@ public class PtServiceDAOImpl implements PtServiceDAO{
 	}
 
 	@Override
+	public int updatePtServiceGood(int pt_service_no) {
+		return sqlSession.getMapper(PtServiceMapper.class).updatePtServiceGood(pt_service_no);
+	}
+
+	@Override
 	public int selectPtServiceCount(int pt_service_sortation, int member_no) {
 		return sqlSession.getMapper(PtServiceMapper.class).selectPtServiceCount(pt_service_sortation, member_no);
+	}
+
+	@Override
+	public int selectPtServiceTrainerCount(int pt_service_sortation, int trainer_no) {
+		return sqlSession.getMapper(PtServiceMapper.class).selectPtServiceTrainerCount(pt_service_sortation, trainer_no);
 	}
 
 	@Override
@@ -36,9 +46,16 @@ public class PtServiceDAOImpl implements PtServiceDAO{
 	}
 
 	@Override
-	public List<PtService> selectPtServiceList(Map<String, Object> map, int pt_service_sortation, int member_status) {
-		return sqlSession.getMapper(PtServiceMapper.class).selectPtServiceList(map, pt_service_sortation, member_status);
+	public List<PtService> selectPtServiceList(Map<String, Object> map, int pt_service_sortation, int member_no) {
+		return sqlSession.getMapper(PtServiceMapper.class).selectPtServiceList(map, pt_service_sortation, member_no);
 	}
+
+	@Override
+	public List<PtService> selectPtServiceTrainerList(Map<String, Object> map, int pt_service_sortation,
+			int trainer_no) {
+		return sqlSession.getMapper(PtServiceMapper.class).selectPtServiceTrainerList(map, pt_service_sortation, trainer_no);
+	}
+
 	
 	
 }
