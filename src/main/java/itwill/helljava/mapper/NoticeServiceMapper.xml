@@ -43,24 +43,33 @@
 			where notice_service_no = #{notice_service_no}
 	</update>
 	
+	<update id="updateReplyNoticeService"> 
+		update notice_service set notice_service_reply = #{notice_service_reply} where notice_service_no = #{notice_service_no}
+	</update>
+	
 	<select id="selectNoticeServiceCount" resultType="int">
 		select count(*) from notice_service where notice_service_sortation = #{notice_service_sortation}
 	</select>
-	
-	<select id="selectNoticeService" resultType="NoticeService">
-		select * from notice_service where notice_service_no = #{notice_service_no} and notice_service_sortation = #{notice_service_sortation} order by notice_service_no desc
+
+	<select id="selectNoticeServicePersonalCount" resultType="int">
+		select count(*) from notice_service where notice_service_sortation = #{notice_service_sortation} and member_no = #{member_no}
 	</select>
 	
-	<select id="selectNoticeServicePersonal" resultType="NoticeService">
-		select * from notice_service where 
-		notice_service_no = #{notice_service_no}
-		and notice_service_sortation = #{notice_service_sortation}
-		and member_no = #{member_no} order by notice_service_no desc
+	<select id="selectNoticeService" resultType="NoticeService">
+		select * from notice_service where notice_service_no = #{notice_service_no}
 	</select>
 	
 	<select id="selectNoticeServiceList" resultType="NoticeService">
 		select * from (select rownum rn,board.* from 
 		(select * from notice_service where notice_service_sortation = #{notice_service_sortation} order by notice_service_no desc)
+		board) where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="selectNoticeServicePersonalList" resultType="NoticeService">
+		select * from (select rownum rn,board.* from 
+		(select * from notice_service where notice_service_sortation = #{notice_service_sortation}
+		and member_no = {member_no}
+		 order by notice_service_no desc)
 		board) where rn between #{startRow} and #{endRow}
 	</select>
 </mapper>
