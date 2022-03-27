@@ -58,6 +58,9 @@ public class PtServiceServiceImpl implements PtServiceService {
 		return ptServiceDAO.selectPtServiceTrainerList(map, pt_service_sortation, trainer_no);
 	}
 
-	
+	@Override
+	public List<PtService> getReviewGoodList() {
+		return ptServiceDAO.selectReviewGoodList();
+	}
 
 }
