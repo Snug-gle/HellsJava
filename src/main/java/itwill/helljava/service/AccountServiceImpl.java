@@ -16,8 +16,8 @@ public class AccountServiceImpl implements AccountSevice {
 
 	@Override
 	@Transactional
-	public void addAccount(Member member) {
-		accountDAO.insertAccount(member);
+	public void addAccount(Account account) {
+		accountDAO.insertAccount(account);
 	}
 	
 	@Override
