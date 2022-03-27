@@ -48,7 +48,7 @@ public class NoticeController {
 	//공지사항 세부 사항 출력 요청 처리 메소드
 	@RequestMapping(value = "/view", method = RequestMethod.GET) 
 	public String view(@RequestParam int notice_service_no , Model model) {
-		model.addAttribute("notice", noticeServiceService.getNoticeService(notice_service_no, 0));
+		model.addAttribute("notice", noticeServiceService.getNoticeService(notice_service_no));
 		
 		return "redirect:/board/notice_view";
 	}
@@ -70,7 +70,7 @@ public class NoticeController {
 	//공지사항 수정 페이지 출력 요청 처리 메소드
 	@RequestMapping(value =  "/modify" , method = RequestMethod.GET)
 	public String modify(@RequestParam int notice_service_no , Model model) throws Exception {
-		model.addAttribute("notice" , noticeServiceService.getNoticeService(notice_service_no, 0));
+		model.addAttribute("notice" , noticeServiceService.getNoticeService(notice_service_no));
 		return "board/notice_modify";
 	}
 	

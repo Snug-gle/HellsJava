@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import itwill.helljava.dto.NoticeService;
+import itwill.helljava.exception.NoticeServiceNotFoundException;
 
 public interface NoticeServiceDAO {
 
