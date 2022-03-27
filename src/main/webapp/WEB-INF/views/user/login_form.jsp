@@ -4,7 +4,7 @@
 <div>
 	<div>
 		<div>
-			<h1>오늘의 짐</h1>
+			<h1 onclick="location.href='<c:url value="/"/>';">오늘의 짐</h1>
 		</div>
 		<div>
 			<div>

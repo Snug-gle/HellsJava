@@ -10,14 +10,15 @@ import itwill.helljava.dto.Member;
 
 
 @Controller
+@RequestMapping("/user")
 public class joinController {
 
-	@RequestMapping(value = "/user/join_form", method = RequestMethod.GET)
+	@RequestMapping(value = "/join_form", method = RequestMethod.GET)
 	public String join() {
 		return "user/join_form";
 	}
 	
-	@RequestMapping(value = "/user/join", method = RequestMethod.POST)
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(@ModelAttribute("mem") Member member, Model model) {
 		/*
 		 * if(member.getMember_id().equals("abc123")) {//아이디가 중복된 경우
