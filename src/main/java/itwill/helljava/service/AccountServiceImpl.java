@@ -2,6 +2,7 @@ package itwill.helljava.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import itwill.helljava.dao.AccountDAO;
 import itwill.helljava.dto.Account;
@@ -14,11 +15,13 @@ public class AccountServiceImpl implements AccountSevice {
 	private AccountDAO accountDAO;
 
 	@Override
+	@Transactional
 	public void addAccount(Member member) {
 		accountDAO.insertAccount(member);
 	}
 	
 	@Override
+	@Transactional
 	public void removeAccount(int member_no) {
 		accountDAO.deleteAccount(member_no);
 	}

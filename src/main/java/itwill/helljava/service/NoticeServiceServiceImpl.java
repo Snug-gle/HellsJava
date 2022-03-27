@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import itwill.helljava.dao.NoticeServiceDAO;
 import itwill.helljava.dto.NoticeService;
@@ -16,16 +17,19 @@ public class NoticeServiceServiceImpl implements NoticeServiceService {
 	private NoticeServiceDAO noticeServiceDAO;
 
 	@Override
+	@Transactional
 	public void addNoticeService(NoticeService noticeService) {
 		noticeServiceDAO.insertNoticeService(noticeService);
 	}
 	
 	@Override
+	@Transactional
 	public void modifyNoticeService(NoticeService noticeService) {
 		noticeServiceDAO.updateNoticeService(noticeService);
 	}
 	
 	@Override
+	@Transactional
 	public void modifyReplyNoticeService(NoticeService noticeService) {
 		noticeServiceDAO.updateReplyNoticeService(noticeService);
 	}

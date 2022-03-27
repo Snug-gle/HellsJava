@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import itwill.helljava.dao.AwardDAO;
 import itwill.helljava.dto.Award;
@@ -15,16 +16,19 @@ public class AwardServiceImpl implements AwardService {
 	private AwardDAO awardDAO;
 	
 	@Override
+	@Transactional
 	public void addAward(Award award) {
 		awardDAO.insertAward(award);
 	}
 
 	@Override
+	@Transactional
 	public void modifyAward(Award award) {
 		awardDAO.updateAward(award);
 	}
 
 	@Override
+	@Transactional
 	public void removeAward(int award_no) {
 		awardDAO.deleteAward(award_no);
 	}

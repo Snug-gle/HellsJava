@@ -2,6 +2,7 @@ package itwill.helljava.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import itwill.helljava.dao.PostingDAO;
 import itwill.helljava.dto.Posting;
@@ -13,11 +14,13 @@ public class PostingServiceImpl implements PostingService {
 	private PostingDAO postingDAO;
 
 	@Override
+	@Transactional
 	public void addPosting(Posting posting) {
 		postingDAO.insertPosting(posting);
 	}
 
 	@Override
+	@Transactional
 	public void modifyPosting(Posting posting) {
 		postingDAO.updatePosting(posting);
 	}
