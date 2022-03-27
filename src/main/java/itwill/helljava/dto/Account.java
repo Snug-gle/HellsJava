@@ -2,50 +2,54 @@ package itwill.helljava.dto;
 
 public class Account {
 
-	int account_no;
-	int member_no;
-	int account_bank;
-	int account_number;
-	String account_pw;
+	int accountNo;
+	int memberNo;
+	int accountBank;
+	int accountNumber;
+	String accountPw;
 
-	public int getAccount_no() {
-		return account_no;
+	public int getMemberNo() {
+		return memberNo;
 	}
 
-	public void setAccount_no(int account_no) {
-		this.account_no = account_no;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 
-	public int getMember_no() {
-		return member_no;
+	public int getAccountNo() {
+		return accountNo;
 	}
 
-	public void setMember_no(int member_no) {
-		this.member_no = member_no;
+	public void setAccountNo(int accountNo) {
+		this.accountNo = accountNo;
 	}
 
-	public int getAccount_bank() {
-		return account_bank;
+	public int getAccountBank() {
+		return accountBank;
 	}
 
-	public void setAccount_bank(int account_bank) {
-		this.account_bank = account_bank;
+	public void setAccountBank(int accountBank) {
+		this.accountBank = accountBank;
 	}
 
-	public int getAccount_number() {
-		return account_number;
+	public int getAccountNumber() {
+		return accountNumber;
 	}
 
-	public void setAccount_number(int account_number) {
-		this.account_number = account_number;
+	public void setAccountNumber(int accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 
-	public String getAccount_pw() {
-		return account_pw;
+	public String getAccountPw() {
+		return accountPw;
 	}
 
-	public void setAccount_pw(String account_pw) {
-		this.account_pw = account_pw;
+	public void setAccountPw(String accountPw) {
+		this.accountPw = accountPw;
+	}
+
+	public Account() {
+		// TODO Auto-generated constructor stub
 	}
 
 }

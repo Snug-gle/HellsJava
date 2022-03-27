@@ -2,77 +2,76 @@ package itwill.helljava.dto;
 
 public class Member {
 
-	int member_no;
-	String member_id;
-	String member_pw;
-	String member_name;
-	String member_phone;
-	String member_email;
-	int member_status;
-	int member_cash;
+	int memberNo;
+	String memberId;
+	String memberPw;
+	String memberName;
+	String memberPhone;
+	String memberEmail;
+	int memberStatus;
+	int memberCash;
 
-	public int getMember_no() {
-		return member_no;
+	public int getMemberNo() {
+		return memberNo;
 	}
 
-	public void setMember_no(int member_no) {
-		this.member_no = member_no;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 
-	public String getMember_id() {
-		return member_id;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
-	public String getMember_pw() {
-		return member_pw;
+	public String getMemberPw() {
+		return memberPw;
 	}
 
-	public void setMember_pw(String member_pw) {
-		this.member_pw = member_pw;
+	public void setMemberPw(String memberPw) {
+		this.memberPw = memberPw;
 	}
 
-	public String getMember_name() {
-		return member_name;
+	public String getMemberName() {
+		return memberName;
 	}
 
-	public void setMember_name(String member_name) {
-		this.member_name = member_name;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
-	public String getMember_phone() {
-		return member_phone;
+	public String getMemberPhone() {
+		return memberPhone;
 	}
 
-	public void setMember_phone(String member_phone) {
-		this.member_phone = member_phone;
+	public void setMemberPhone(String memberPhone) {
+		this.memberPhone = memberPhone;
 	}
 
-	public String getMember_email() {
-		return member_email;
+	public String getMemberEmail() {
+		return memberEmail;
 	}
 
-	public void setMember_email(String member_email) {
-		this.member_email = member_email;
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
 	}
 
-	public int getMember_status() {
-		return member_status;
+	public int getMemberStatus() {
+		return memberStatus;
 	}
 
-	public void setMember_status(int member_status) {
-		this.member_status = member_status;
+	public void setMemberStatus(int memberStatus) {
+		this.memberStatus = memberStatus;
 	}
 
-	public int getMember_cash() {
-		return member_cash;
+	public int getMemberCash() {
+		return memberCash;
 	}
 
-	public void setMember_cash(int member_cash) {
-		this.member_cash = member_cash;
+	public void setMemberCash(int memberCash) {
+		this.memberCash = memberCash;
 	}
-
 }

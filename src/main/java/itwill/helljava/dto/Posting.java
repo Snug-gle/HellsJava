@@ -2,77 +2,77 @@ package itwill.helljava.dto;
 
 public class Posting {
 
-	int posting_no;
-	int trainer_no;
-	String posting_self_introduction;
-	String posting_self_introduction_img1;
-	String posting_self_introduction_img2;
-	String posting_self_introduction_img3;
-	String posting_self_introduction_img4;
-	String posting_program_introduction;
+	int postingNo;
+	int trainerNo;
+	String postingSelfIntroduction;
+	String postingSelfIntroductionImg1;
+	String postingSelfIntroductionImg2;
+	String postingSelfIntroductionImg3;
+	String postingSelfIntroductionImg4;
+	String postingProgramIntroduction;
 
-	public int getPosting_no() {
-		return posting_no;
+	public int getPostingNo() {
+		return postingNo;
 	}
 
-	public void setPosting_no(int posting_no) {
-		this.posting_no = posting_no;
+	public void setPostingNo(int postingNo) {
+		this.postingNo = postingNo;
 	}
 
-	public int getTrainer_no() {
-		return trainer_no;
+	public int getTrainerNo() {
+		return trainerNo;
 	}
 
-	public void setTrainer_no(int trainer_no) {
-		this.trainer_no = trainer_no;
+	public void setTrainerNo(int trainerNo) {
+		this.trainerNo = trainerNo;
 	}
 
-	public String getPosting_self_introduction() {
-		return posting_self_introduction;
+	public String getPostingSelfIntroduction() {
+		return postingSelfIntroduction;
 	}
 
-	public void setPosting_self_introduction(String posting_self_introduction) {
-		this.posting_self_introduction = posting_self_introduction;
+	public void setPostingSelfIntroduction(String postingSelfIntroduction) {
+		this.postingSelfIntroduction = postingSelfIntroduction;
 	}
 
-	public String getPosting_self_introduction_img1() {
-		return posting_self_introduction_img1;
+	public String getPostingSelfIntroductionImg1() {
+		return postingSelfIntroductionImg1;
 	}
 
-	public void setPosting_self_introduction_img1(String posting_self_introduction_img1) {
-		this.posting_self_introduction_img1 = posting_self_introduction_img1;
+	public void setPostingSelfIntroductionImg1(String postingSelfIntroductionImg1) {
+		this.postingSelfIntroductionImg1 = postingSelfIntroductionImg1;
 	}
 
-	public String getPosting_self_introduction_img2() {
-		return posting_self_introduction_img2;
+	public String getPostingSelfIntroductionImg2() {
+		return postingSelfIntroductionImg2;
 	}
 
-	public void setPosting_self_introduction_img2(String posting_self_introduction_img2) {
-		this.posting_self_introduction_img2 = posting_self_introduction_img2;
+	public void setPostingSelfIntroductionImg2(String postingSelfIntroductionImg2) {
+		this.postingSelfIntroductionImg2 = postingSelfIntroductionImg2;
 	}
 
-	public String getPosting_self_introduction_img3() {
-		return posting_self_introduction_img3;
+	public String getPostingSelfIntroductionImg3() {
+		return postingSelfIntroductionImg3;
 	}
 
-	public void setPosting_self_introduction_img3(String posting_self_introduction_img3) {
-		this.posting_self_introduction_img3 = posting_self_introduction_img3;
+	public void setPostingSelfIntroductionImg3(String postingSelfIntroductionImg3) {
+		this.postingSelfIntroductionImg3 = postingSelfIntroductionImg3;
 	}
 
-	public String getPosting_self_introduction_img4() {
-		return posting_self_introduction_img4;
+	public String getPostingSelfIntroductionImg4() {
+		return postingSelfIntroductionImg4;
 	}
 
-	public void setPosting_self_introduction_img4(String posting_self_introduction_img4) {
-		this.posting_self_introduction_img4 = posting_self_introduction_img4;
+	public void setPostingSelfIntroductionImg4(String postingSelfIntroductionImg4) {
+		this.postingSelfIntroductionImg4 = postingSelfIntroductionImg4;
 	}
 
-	public String getPosting_program_introduction() {
-		return posting_program_introduction;
+	public String getPostingProgramIntroduction() {
+		return postingProgramIntroduction;
 	}
 
-	public void setPosting_program_introduction(String posting_program_introduction) {
-		this.posting_program_introduction = posting_program_introduction;
+	public void setPostingProgramIntroduction(String postingProgramIntroduction) {
+		this.postingProgramIntroduction = postingProgramIntroduction;
 	}
 
 }

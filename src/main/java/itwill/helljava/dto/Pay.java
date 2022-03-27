@@ -2,50 +2,51 @@ package itwill.helljava.dto;
 
 public class Pay {
 
-	int pay_no;
-	int member_no;
-	String pay_start;
-	int pay_price;
-	int pay_type;
+	int payNo;
+	int memberNo;
+	String payStart;
+	int payPrice;
+	int payType;
 
-	public int getPay_no() {
-		return pay_no;
+	
+	public int getPayNo() {
+		return payNo;
 	}
 
-	public void setPay_no(int pay_no) {
-		this.pay_no = pay_no;
+	public void setPayNo(int payNo) {
+		this.payNo = payNo;
 	}
 
-	public int getMember_no() {
-		return member_no;
+	public int getMemberNo() {
+		return memberNo;
 	}
 
-	public void setMember_no(int member_no) {
-		this.member_no = member_no;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 
-	public String getPay_start() {
-		return pay_start;
+	public String getPayStart() {
+		return payStart;
 	}
 
-	public void setPay_start(String pay_start) {
-		this.pay_start = pay_start;
+	public void setPayStart(String payStart) {
+		this.payStart = payStart;
 	}
 
-	public int getPay_price() {
-		return pay_price;
+	public int getPayPrice() {
+		return payPrice;
 	}
 
-	public void setPay_price(int pay_price) {
-		this.pay_price = pay_price;
+	public void setPayPrice(int payPrice) {
+		this.payPrice = payPrice;
 	}
 
-	public int getPay_type() {
-		return pay_type;
+	public int getPayType() {
+		return payType;
 	}
 
-	public void setPay_type(int pay_type) {
-		this.pay_type = pay_type;
+	public void setPayType(int payType) {
+		this.payType = payType;
 	}
 
 }
