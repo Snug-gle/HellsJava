@@ -1,7 +1,5 @@
 package itwill.helljava.service;
 
-import java.util.List;
-
 import itwill.helljava.dto.Trainer;
 
 public interface TrainerService {
