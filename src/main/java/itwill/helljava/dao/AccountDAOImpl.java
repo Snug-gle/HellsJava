@@ -15,8 +15,8 @@ public class AccountDAOImpl implements AccountDAO {
 	private SqlSession sqlSession;
 
 	@Override
-	public int insertAccount(Member member) {
-		return sqlSession.getMapper(AccountMapper.class).insertAccount(member);
+	public int insertAccount(Account account) {
+		return sqlSession.getMapper(AccountMapper.class).insertAccount(account);
 	}
 
 	@Override
