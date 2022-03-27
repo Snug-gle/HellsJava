@@ -31,6 +31,7 @@
     <script src="assets/js/vendor/respond.min.js"></script>
     <![endif]-->
     <link rel="stylesheet" href="<c:url value="/css/new-main.css"/>">
+    <script type="text/javascript" src="<c:url value="/js/jquery-3.6.0.min.js"/>"></script>
 </head>
 <body>
 

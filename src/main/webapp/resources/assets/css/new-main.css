@@ -59,3 +59,9 @@
 .panel-unit{
 	background: gainsboro;
 }
+
+.error {
+	color: red;
+	left: 10px;
+	display: none;
+}
