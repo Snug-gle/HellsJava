@@ -5,14 +5,16 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import itwill.helljava.dto.NoticeService;
 import itwill.helljava.mapper.NoticeServiceMapper;
 
+@Repository
 public class NoticeServiceDAOImpl implements NoticeServiceDAO {
 
 	@Autowired
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 
 	@Override
 	public int insertNoticeService(NoticeService noticeService) {
