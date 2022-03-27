@@ -31,15 +31,26 @@
 	</select>
 	
 	<select id="selectPtOnceList" resultType="PtOnce">
-		select * from (select rownum rn,board.* from 
-		(select * from pt_once where member_no = #{member_no} order by pt_once_no desc)
-		board) where rn between #{startRow} and #{endRow}
+		select 
+			* from 
+				(select rownum rn,ps.* from
+					(select pt_once_no, p.pt_once_application_date, m.member_name, p.pt_once_status
+					from pt_once p left join trainer t on p.trainer_no = t.trainer_no 
+									left join member m on t.member_no = m.member_no
+					where p.member_no = #{member_no} order by p.pt_once_no desc
+				) ps) 
+		where rn between #{startRow} and #{endRow}
 	</select>
 
 	<select id="selectPtOnceTrainerList" resultType="PtOnce">
-		select * from (select rownum rn,board.* from 
-		(select * from pt_once where trainer_no = #{trainer_no} order by pt_once_no desc)
-		board) where rn between #{startRow} and #{endRow}
+		select 
+			* from 
+				(select rownum rn,ps.* from
+					(select p.pt_once_no, p.pt_once_application_date, m.member_name, m.member_phone, p.pt_once_status
+					from pt_once p left join member m on p.member_no = m.member_no
+					where p.trainer_no = #{trainer_no} order by p.pt_once_no desc
+					) ps) 
+		where rn between #{startRow} and #{endRow}
 	</select>
 	
 </mapper>

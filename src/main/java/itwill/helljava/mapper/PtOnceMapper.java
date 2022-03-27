@@ -15,6 +15,7 @@ public interface PtOnceMapper {
 	// 트레이너 전용 1회 PT 신청 리스트 갯수
 	int selectPtOnceTrainerCount(int trainer_no);
 	
+	// 1회 PT 신청 상세글 
 	PtOnce selectPtOnce(int pt_once_no);
 
 	// 회원 전용 1회 PT 신청 리스트
