@@ -24,6 +24,6 @@ public class joinController {
 		 * if(member.getMember_id().equals("abc123")) {//아이디가 중복된 경우
 		 * model.addAttribute("message", "이미 사용중인 아이디입니다."); return "join_form"; }
 		 */
-		return "user/login_form";
+		return "user/login/login_form";
 	}
 }
