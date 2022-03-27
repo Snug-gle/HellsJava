@@ -9,6 +9,8 @@ public interface ScheduleService {
 	void addSchedule(Schedule schedule);
 
 	void modifySchedule(Schedule schedule);
+	
+	void removeSchedule(int schedule_no);
 
 	List<Schedule> getScheduleList(int trainer_no);
 }
