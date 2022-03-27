@@ -5,14 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%-- <link rel=stylesheet href="<c:url value="/css/user.css"/>" type="text/css"> --%>
-<script language="JavaScript">
-function noticeRemove(num) {
-	if (confirm("정말로 삭제 하시겠습니까?") ) {
-		location.href='<c:url value="/notice/remove"/>?num='+num;
-	}
-}                                                                                                              
-</script>
+
 </head>
 <body>
 <br>
@@ -45,5 +38,12 @@ function noticeRemove(num) {
 		  </tr>
 	  </table>
 
+<script language="JavaScript">
+function noticeRemove(num) {
+	if (confirm("정말로 삭제 하시겠습니까?") ) {
+		location.href='<c:url value="/notice/remove"/>?num='+num;
+	}
+}                                                                                                              
+</script>
 </body>
 </html>
