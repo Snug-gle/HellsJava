@@ -35,6 +35,7 @@
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="3"/>
 	</beans:bean>
 	
 	<!-- UrlBasedViewResolver 클래스를 Spring Bean으로 등록  -->
@@ -76,6 +77,8 @@
 	<!-- base-package 속성 : 패키지 경로를 속성값으로 설정 -->
 	<!-- <context:component-scan base-package="xyz.itwill.controller" /> -->
 	<context:component-scan base-package="itwill.helljava.controller"/>
+	<context:component-scan base-package="itwill.helljava.dao"/>
+	<context:component-scan base-package="itwill.helljava.service"/>
 
 
 	<!-- advice : TransactionManager 관련 Spring Bean를 Advisor로 설정하기 위한 엘리먼트 -->
