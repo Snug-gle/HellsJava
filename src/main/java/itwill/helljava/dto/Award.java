@@ -2,41 +2,40 @@ package itwill.helljava.dto;
 
 public class Award {
 
-	int award_no;
-	int trainer_no;
-	String award_content;
-	String award_image;
+	int awardNo;
+	int trainerNo;
+	String awardContent;
+	String awardImage;
 
-	public int getAward_no() {
-		return award_no;
+	public int getAwardNo() {
+		return awardNo;
 	}
 
-	public void setAward_no(int award_no) {
-		this.award_no = award_no;
+	public void setAwardNo(int awardNo) {
+		this.awardNo = awardNo;
 	}
 
-	public int getTrainer_no() {
-		return trainer_no;
+	public int getTrainerNo() {
+		return trainerNo;
 	}
 
-	public void setTrainer_no(int trainer_no) {
-		this.trainer_no = trainer_no;
+	public void setTrainerNo(int trainerNo) {
+		this.trainerNo = trainerNo;
 	}
 
-	public String getAward_content() {
-		return award_content;
+	public String getAwardContent() {
+		return awardContent;
 	}
 
-	public void setAward_content(String award_content) {
-		this.award_content = award_content;
+	public void setAwardContent(String awardContent) {
+		this.awardContent = awardContent;
 	}
 
-	public String getAward_image() {
-		return award_image;
+	public String getAwardImage() {
+		return awardImage;
 	}
 
-	public void setAward_image(String award_image) {
-		this.award_image = award_image;
+	public void setAwardImage(String awardImage) {
+		this.awardImage = awardImage;
 	}
-
 }
