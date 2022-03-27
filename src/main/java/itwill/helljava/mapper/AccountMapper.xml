@@ -8,7 +8,7 @@
 		insert into account values(
 		#{account_no, jdbcType=INTEGER}, 
 		#{member_no, jdbcType=INTEGER}, 
-		#{account_bank, jdbcType=INTEGER), 
+		#{account_bank, jdbcType=INTEGER}, 
 		#{account_number, jdbcType=INTEGER}, 
 		#{account_pw, jdbcType=VARCHAR })
 	</insert>
