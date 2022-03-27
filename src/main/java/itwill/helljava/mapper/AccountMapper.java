@@ -5,7 +5,7 @@ import itwill.helljava.dto.Member;
 
 public interface AccountMapper {
 
-	int insertAccount(Member member);
+	int insertAccount(Account account);
 
 	int deleteAccount(int member_no);
 

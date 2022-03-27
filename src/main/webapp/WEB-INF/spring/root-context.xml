@@ -18,7 +18,7 @@
 	url 필드값을 log4jdbc-log4j2-jdbc4 라이브러리에서 제공되는 값으로 변경하여 인젝션 처리 -->
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
-		<property name="url" value="jdbc:log4jdbc:oracle:thin:182.237.126.17:1521:xe"/>
+		<property name="url" value="jdbc:log4jdbc:oracle:thin:@182.237.126.17:1521:xe"/>
 		<property name="username" value="HellJava"/>
 		<property name="password" value="HellJava_124"/>
 	</bean>
