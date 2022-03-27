@@ -11,7 +11,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>itwill.helljava</groupId>
 	<artifactId>controller</artifactId>
-	<name>HellJava</name>
+	<name>hell-s-java</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<!-- properties : pom.xml 파일에서 자주 사용되는 값을 등록하기 위한 엘리먼트 -->
