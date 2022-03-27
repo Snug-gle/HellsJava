@@ -9,6 +9,9 @@
 			<span><a href="<c:url value="terms2"/>">개인정보보호정책&nbsp;&nbsp;</a></span>
 			<span><a href="<c:url value="notice/list"/>">공지사항&nbsp;&nbsp;</a></span>
 			<span><a href="">고객센터</a></span>
+			<span><a href="<c:url value="mypage"/>">마이페이지&nbsp;&nbsp;</a></span>
+			<span><a href="<c:url value="notice/list"/>">faq&nbsp;&nbsp;</a></span>
+			<span><a href="<c:url value="notice/list"/>">1:1문의&nbsp;&nbsp;</a></span>
 		</div>
 		<br>
 		<div>

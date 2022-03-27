@@ -33,6 +33,6 @@ public class TilesController {
 	
 	@RequestMapping("/mypage")
 	public String myPage() {
-		return "layout/mypage";
+		return "material/mypage";
 	}
 }
