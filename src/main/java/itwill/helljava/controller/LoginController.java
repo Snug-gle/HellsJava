@@ -11,11 +11,37 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import itwill.helljava.dto.Member;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/user/login")
 public class LoginController {
-	@RequestMapping(value = "/login_form", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login() {
-		return "user/login_form";
+		return "main";
+	}
+	
+	@RequestMapping(value = "/login_form", method = RequestMethod.GET)
+	public String loginForm() {
+		return "user/login/login_form";
+	}
+	
+	@RequestMapping(value = "/id_search", method = RequestMethod.GET)
+	public String idSearch() {
+		return "user/login/id_search";
+	}
+	
+	@RequestMapping(value = "/password_search", method = RequestMethod.GET)
+	public String pswdSearch() {
+		return "user/login/password_search";
+	}
+	
+	@RequestMapping(value = "/id_print", method = RequestMethod.GET)
+	public String idPrint() {
+		return "user/login/id_print";
+	}
+	
+	@RequestMapping(value = "/password_update", method = RequestMethod.POST)
+	public String pswdUpdate() {
+		return "user/login/password_update";
 	}
 	
 	/*
@@ -38,15 +64,16 @@ public class LoginController {
 	}
 	*/
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute Member member, Model model, HttpSession session) {
-		if(!member.getMember_id().equals("abc123") || !member.getMember_pw().equals("123456")) {//인증 실패
-			model.addAttribute("message", "아이디 또는 비밀번호를 확인해 주세요.");
-			return "user/login_form";
-		}
-		
-		session.setAttribute("loginId", member.getMember_id());
-		
-		return "main";
-	}
+	/*
+	 * @RequestMapping(value = "/login", method = RequestMethod.POST) public String
+	 * login(@ModelAttribute Member member, Model model, HttpSession session) {
+	 * if(!member.getMember_id().equals("abc123") ||
+	 * !member.getMember_pw().equals("123456")) {//인증 실패
+	 * model.addAttribute("message", "아이디 또는 비밀번호를 확인해 주세요."); return
+	 * "user/login_form"; }
+	 * 
+	 * session.setAttribute("loginId", member.getMember_id());
+	 * 
+	 * return "main"; }
+	 */
 }

@@ -5,11 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hell's Java</title>
+<title>Insert title here</title>
 </head>
 <body>
-
-  
+	
+	
+	
 	<div>
 		<div>
 			<div>
@@ -17,32 +18,29 @@
 			</div>
 			<div>
 				<div>
+					<form action="" method="post"></form>
 					<table>
-						<tr>
-							<td>아이디</td>
-							<td>
-								<input type="text" placeholder="아이디를 입력해주세요">
-							</td>
-						</tr>
 						<tr>
 							<td>비밀번호</td>
 							<td>
-								<input type="password" placeholder="비밀번호를 입력해주세요">
+								<input type="text" placeholder="새로 설정할 비밀번호를 입력해주세요">
 							</td>
 						</tr>
 						<tr>
-							<td><button type="submit">로그인</button></td>
-							<td><button type="button">아이디/비밀번호 찾기</button></td>
+							<td>비밀번호 확인</td>
+							<td>
+								<input type="password" placeholder="비밀번호를 다시 입력해주세요">
+							</td>
 						</tr>
 						<tr>
-							<td><button type="button" onclick="location.href='<c:url value="/user/join_form"/>';">회원가입</button></td>
+							<td><button type="submit">확인</button></td>
 						</tr>
+			
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
 	
-
 </body>
 </html>
