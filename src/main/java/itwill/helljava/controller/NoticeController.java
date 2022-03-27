@@ -23,7 +23,7 @@ import itwill.helljava.util.Pager;
 public class NoticeController {
 	
 	@Autowired 
-	NoticeServiceService noticeServiceService;
+	private NoticeServiceService noticeServiceService;
 		
 	//공지사항 리스트 출력 처리 메소드
 	@RequestMapping(value = "/list" ,method = RequestMethod.GET)
@@ -50,7 +50,7 @@ public class NoticeController {
 	public String view(@RequestParam int notice_service_no , Model model) {
 		model.addAttribute("notice", noticeServiceService.getNoticeService(notice_service_no));
 		
-		return "redirect:/board/notice_view";
+		return "redirect:/notice/view";
 	}
 	
 	//공지사항 입력 페이지 출력 요청 처리 메소드
@@ -64,7 +64,7 @@ public class NoticeController {
 	@RequestMapping( value = "/write" , method = RequestMethod.POST)
 	public String write(@ModelAttribute Model model) {
 		noticeServiceService.addNoticeService(null);
-		return "redirect:/board/notice_list";
+		return "redirect:/notice/list";
 	}
 	
 	//공지사항 수정 페이지 출력 요청 처리 메소드
@@ -78,11 +78,11 @@ public class NoticeController {
 	@RequestMapping(value =  "/modify" , method = RequestMethod.POST)
 	public String modify(@ModelAttribute NoticeService noticeService , HttpSession session) throws Exception {
 		noticeServiceService.modifyNoticeService(noticeService);
-		return "redirect:/board/notice_list";
+		return "redirect:/notice/list";
 	}
 
 	//공지사항 삭제
-	@RequestMapping( value = "/remove/{num}" , method = RequestMethod.POST)
+	@RequestMapping( value = "/remove/{num}" , method = RequestMethod.GET)
 	public String remove(@PathVariable int num, @ModelAttribute NoticeService noticeService) throws Exception{
 		noticeServiceService.modifyNoticeService(noticeService);
 		return "redirect:/notice/list";
