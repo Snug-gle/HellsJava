@@ -1,11 +1,13 @@
 package itwill.helljava.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import itwill.helljava.dao.AccountDAO;
 import itwill.helljava.dto.Account;
 import itwill.helljava.dto.Member;
 
+@Service
 public class AccountServiceImpl implements AccountSevice {
 
 	@Autowired
