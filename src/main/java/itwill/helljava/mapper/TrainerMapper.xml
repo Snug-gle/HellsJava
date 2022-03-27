@@ -7,7 +7,7 @@
 		</selectKey>
 		insert into trainer values(
 		#{trainer_no},
-		#{member_no},
+		#{member_no},v
 		#{trainer_profile_img},
 		#{trainer_address1},
 		#{trainer_addresss2},
@@ -30,10 +30,29 @@
 				trainer_zip=#{trainer_zip}
 			</if>
 		</set>
+			where trainer_no = #{trainer_no}
 	</update>
 	
 	<select id="selectTrainer" resultType="Trainer">
 		select * from trainer where trainer_no=#{trainer_no}
+	</select>
+	
+	<select id="selectTrainerList" resultType="Trainer">
+			select * from     
+			(select rownum rn,board.* from 
+			(select * from member m join trainer t 
+			            on m.member_no = t.member_no 
+		<if test="member_id != null and member_id != ''" >
+			where member_id like '%'||#{member_id}||'%' and
+			member_status = 3 order by m.member_no desc) 
+			board) 
+		</if>
+		<if test="member_name != null and member_name != ''">
+			where member_name like '%'||#{member_name}||'%'and
+			where member_status = 3 order by m.member_no desc) 
+			board) 
+		</if>
+			where rn between #{startRow} and #{endRow}
 	</select>
 	
 </mapper>

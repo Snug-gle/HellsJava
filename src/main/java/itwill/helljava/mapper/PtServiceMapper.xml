@@ -58,20 +58,34 @@
 		select * from pt_service where pt_service_no=#{pt_service_no}
 	</select>
 	
+		<!-- 내 리뷰 & 내 pt 문의 페이지 (회원입장) ptService,trainer,member Joinㅡ -->
 	<select id="selectPtServiceList" resultType="PtService">
 		select * from 
 		(select rownum rn,ps.* from
-		(select * from pt_service where pt_service_sortation = #{pt_service_sortation} 
-		and  member_no = #{member_no} order by pt_service_no desc) ps) 
+		(select *
+		from pt_service p left join trainer t on p.trainer_no = t.trainer_no 
+						left join member m on t.member_no = m.member_no
+		where p.pt_service_sortation = #{pt_service_sortation}  and p.member_no = #{member_no} order by p.pt_service_no desc
+		) ps) 
 		where rn between #{startRow} and #{endRow}
 	</select>
 
+	<!-- 포스팅 내 리뷰 리스트 & 문의 뽑기 &  (트레이너 입장) Member, ptService Join -->
 	<select id="selectPtServiceTrainerList" resultType="PtService">
 		<!-- 트레이너 이름, 회원이름, 회원연락처  -->
-		select * from  
+		select * from 
 		(select rownum rn,ps.* from
-		(select * from pt_service where pt_service_sortation = #{pt_service_sortation} 
-		and  trainer_no = #{trainer_no} order by pt_service_no desc) ps) 
+		(select *
+		from pt_service p left join member m on p.member_no = m.member_no
+		where p.pt_service_sortation = #{pt_service_sortation} and p.trainer_no = #{trainer_no} order by p.pt_service_no desc)
+		ps) 
 		where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="selectReviewGoodList" resultType="PtService">
+		select * from
+		(select rownum rn, p.* from(
+		select * from pt_service where pt_service_good is not null order by pt_service_good desc) p)
+		where rn between 1 and 3
 	</select>
 </mapper>
