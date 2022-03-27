@@ -22,13 +22,13 @@
 							<tr>
 								<td>아이디</td>
 								<td>
-									<input type="text" placeholder="아이디를 입력해주세요">
+									<input name="memberId" type="text" placeholder="아이디를 입력해주세요" >
 								</td>
 							</tr>
 							<tr>
 								<td>비밀번호</td>
 								<td>
-									<input type="password" placeholder="비밀번호를 입력해주세요">
+									<input name="memberPw" type="password" placeholder="비밀번호를 입력해주세요" >
 								</td>
 							</tr>
 							<tr>
