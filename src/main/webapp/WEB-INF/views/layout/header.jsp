@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 <div class="heard-banner">
 	<div class="main-title">
-		<p class="title_01">오늘의 짐</p>
+		<p class="title_01" onclick="location.href='<c:url value="/"/>';">오늘의 짐</p>
 	</div>
 	<div class="main-top-banner" >
 		<div class="main-top-btn login" >

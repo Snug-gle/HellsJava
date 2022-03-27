@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import itwill.helljava.dto.Member;
 
 @Controller
+@RequestMapping("/user")
 public class LoginController {
-	@RequestMapping(value = "/user/login_form", method = RequestMethod.GET)
+	@RequestMapping(value = "/login_form", method = RequestMethod.GET)
 	public String login() {
 		return "user/login_form";
 	}
