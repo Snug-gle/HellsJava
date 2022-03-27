@@ -10,7 +10,7 @@
 		#{member_no, jdbcType=INTEGER}, 
 		#{account_bank, jdbcType=INTEGER}, 
 		#{account_number, jdbcType=INTEGER}, 
-		#{account_pw, jdbcType=VARCHAR })
+		#{account_pw, jdbcType=VARCHAR})
 	</insert>
 	
 	<delete id="deleteAccount">

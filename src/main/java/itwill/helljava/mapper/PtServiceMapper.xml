@@ -67,7 +67,8 @@
 	</select>
 
 	<select id="selectPtServiceTrainerList" resultType="PtService">
-		select * from 
+		<!-- 트레이너 이름, 회원이름, 회원연락처  -->
+		select * from  
 		(select rownum rn,ps.* from
 		(select * from pt_service where pt_service_sortation = #{pt_service_sortation} 
 		and  trainer_no = #{trainer_no} order by pt_service_no desc) ps) 

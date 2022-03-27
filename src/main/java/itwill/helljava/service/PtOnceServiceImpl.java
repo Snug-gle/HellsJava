@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import itwill.helljava.dao.PtOnceDAO;
 import itwill.helljava.dto.PtOnce;
@@ -14,6 +15,7 @@ public class PtOnceServiceImpl implements PtOnceService {
 	@Autowired
 	private PtOnceDAO ptOnceDAO;
 
+	@Transactional
 	@Override
 	public void addPtOnce(PtOnce ptOnce) {
 		ptOnceDAO.insertPtOnce(ptOnce);
