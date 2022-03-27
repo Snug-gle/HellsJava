@@ -12,6 +12,36 @@
 			<span><a href="<c:url value="mypage"/>">마이페이지&nbsp;&nbsp;</a></span>
 			<span><a href="<c:url value="notice/list"/>">faq&nbsp;&nbsp;</a></span>
 			<span><a href="<c:url value="notice/list"/>">1:1문의&nbsp;&nbsp;</a></span>
+			<!-- <div class="panel-body">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">고객센터</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">고객센터</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Separated link</a></li>
+							</ul>
+						</div>
+						<div class="btn-group">
+							<button type="button" class="btn btn-info dropdown-toggle"
+								data-toggle="dropdown">
+								Action <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Separated link</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div> -->
 		</div>
 		<br>
 		<div>
@@ -45,6 +75,14 @@
 			</p>
 		</div>
 	</div>
+<!--Global JS-->
+	<script src="<c:url value="/js/vendor/jquery-1.11.1.min.js"/>"></script>
+	<script src="<c:url value="/plugins/bootstrap/js/bootstrap.min.js"/>"></script>
+  	<script src="<c:url value="/plugins/navgoco/jquery.navgoco.min.js"/>"></script>
+  	<script src="<c:url value="/plugins/switchery/switchery.min.js"/>"></script>
+  	<script src="<c:url value="/plugins/pace/pace.min.js"/>"></script>
+  	<script src="<c:url value="/plugins/fullscreen/jquery.fullscreen-min.js"/>"></script>
+  	<script src="<c:url value="/js/src/app.js"/>"></script>
 </body>
 </html>
 
