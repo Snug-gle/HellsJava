@@ -10,7 +10,7 @@
 			<button type="button" onclick="location.href='<c:url value="/user/login_form"/>';">로그인</button>
 		</div>
 		<div class="main-top-btn join" >
-			<button>회원가입</button>
+			<button type="button" onclick="location.href='<c:url value="/user/join_form"/>';">회원가입</button>
 		</div>
 	</div>
 </div>

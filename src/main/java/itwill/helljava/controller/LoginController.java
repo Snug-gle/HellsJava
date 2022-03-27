@@ -17,6 +17,11 @@ public class LoginController {
 		return "user/login_form";
 	}
 	
+	@RequestMapping(value = "/user/join_form", method = RequestMethod.GET)
+	public String join() {
+		return "user/join_form";
+	}
+	
 	/*
 	//요청 처리 메소드의 매개변수를 HttpSession 자료형으로 선언하면 Front Controller에
 	//의해 바인딩 처리된 세션을 매개변수에 전달하여 제공  
