@@ -1,54 +1,57 @@
 package itwill.helljava.dto;
 
 public class Schedule {
-	private int schedule_no;
-	private int schedule_workday;
-	private String schedule_hours;
-	private String schedule_dayoff;
-	private String trainer_no;
+	private int scheduleNo;
+	private int scheduleWorkday;
+	private String scheduleHours;
+	private String scheduleDayoff;
+	private String trainerNo;
 	
 	public Schedule() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getSchedule_no() {
-		return schedule_no;
+	public int getScheduleNo() {
+		return scheduleNo;
 	}
 
-	public void setSchedule_no(int schedule_no) {
-		this.schedule_no = schedule_no;
+	public void setScheduleNo(int scheduleNo) {
+		this.scheduleNo = scheduleNo;
 	}
 
-	public int getSchedule_workday() {
-		return schedule_workday;
+	public int getScheduleWorkday() {
+		return scheduleWorkday;
 	}
 
-	public void setSchedule_workday(int schedule_workday) {
-		this.schedule_workday = schedule_workday;
+	public void setScheduleWorkday(int scheduleWorkday) {
+		this.scheduleWorkday = scheduleWorkday;
 	}
 
-	public String getSchedule_hours() {
-		return schedule_hours;
+	public String getScheduleHours() {
+		return scheduleHours;
 	}
 
-	public void setSchedule_hours(String schedule_hours) {
-		this.schedule_hours = schedule_hours;
+	public void setScheduleHours(String scheduleHours) {
+		this.scheduleHours = scheduleHours;
 	}
 
-	public String getSchedule_dayoff() {
-		return schedule_dayoff;
+	public String getScheduleDayoff() {
+		return scheduleDayoff;
 	}
 
-	public void setSchedule_dayoff(String schedule_dayoff) {
-		this.schedule_dayoff = schedule_dayoff;
+	public void setScheduleDayoff(String scheduleDayoff) {
+		this.scheduleDayoff = scheduleDayoff;
 	}
 
-	public String getTrainer_no() {
-		return trainer_no;
+	public String getTrainerNo() {
+		return trainerNo;
 	}
 
-	public void setTrainer_no(String trainer_no) {
-		this.trainer_no = trainer_no;
+	public void setTrainerNo(String trainerNo) {
+		this.trainerNo = trainerNo;
 	}
+	
+	
+	
 	
 }
