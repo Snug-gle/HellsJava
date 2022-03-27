@@ -17,8 +17,8 @@
 		delete from account where member_no = #{member_no}
 	</delete>
 	
-	<select id="selectAccount" resultType="Account">
-		select * from account where member_no = #{member_no}
+	<select id="selectAccount"  resultType="Account">
+		select * from account where member_no = #{memberNo}
 	</select>
 	
 </mapper>
