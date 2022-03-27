@@ -1,14 +1,16 @@
 package itwill.helljava.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import itwill.helljava.dao.PostingDAO;
 import itwill.helljava.dto.Posting;
 
+@Service
 public class PostingServiceImpl implements PostingService {
 
 	@Autowired
-	PostingDAO postingDAO;
+	private PostingDAO postingDAO;
 
 	@Override
 	public void addPosting(Posting posting) {

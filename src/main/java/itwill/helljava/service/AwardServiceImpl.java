@@ -3,14 +3,16 @@ package itwill.helljava.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import itwill.helljava.dao.AwardDAO;
 import itwill.helljava.dto.Award;
 
+@Service
 public class AwardServiceImpl implements AwardService {
 
 	@Autowired
-	AwardDAO awardDAO;
+	private AwardDAO awardDAO;
 	
 	@Override
 	public void addAward(Award award) {

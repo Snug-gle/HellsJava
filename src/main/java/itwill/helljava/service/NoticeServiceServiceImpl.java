@@ -4,14 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import itwill.helljava.dao.NoticeServiceDAO;
 import itwill.helljava.dto.NoticeService;
 
+@Service
 public class NoticeServiceServiceImpl implements NoticeServiceService {
 
 	@Autowired
-	NoticeServiceDAO noticeServiceDAO;
+	private NoticeServiceDAO noticeServiceDAO;
 
 	@Override
 	public void addNoticeService(NoticeService noticeService) {

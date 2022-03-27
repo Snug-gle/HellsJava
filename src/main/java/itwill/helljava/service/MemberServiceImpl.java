@@ -4,14 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import itwill.helljava.dao.MemberDAO;
 import itwill.helljava.dto.Member;
 
+@Service
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
-	MemberDAO memberDAO;
+	private MemberDAO memberDAO;
 	
 	@Override
 	public void addMember(Member member) {

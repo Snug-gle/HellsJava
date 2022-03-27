@@ -4,14 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import itwill.helljava.dao.PayDAO;
 import itwill.helljava.dto.Pay;
 
+@Service
 public class PayServiceImpl implements PayService {
 
 	@Autowired
-	PayDAO payDAO;
+	private PayDAO payDAO;
 
 	@Override
 	public void addPay(Pay pay) {
