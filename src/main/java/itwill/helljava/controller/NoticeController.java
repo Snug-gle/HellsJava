@@ -82,7 +82,7 @@ public class NoticeController {
 	}
 
 	//공지사항 삭제
-	@RequestMapping( value = "/remove/{num}" , method = RequestMethod.GET)
+	@RequestMapping( value = "/remove/{num}" , method = RequestMethod.POST)
 	public String remove(@PathVariable int num, @ModelAttribute NoticeService noticeService) throws Exception{
 		noticeServiceService.modifyNoticeService(noticeService);
 		return "redirect:/notice/list";

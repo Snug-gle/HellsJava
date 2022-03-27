@@ -20,4 +20,19 @@ public class TilesController {
 	 * @RequestMapping("/admin/member") public String manager() { return
 	 * "admin/member_manager"; }
 	 */
+	@RequestMapping("/terms1")
+		
+	public String terms1() {
+		return "material/terms1";
+	}
+	
+	@RequestMapping("/terms2")
+	public String terms2() {
+		return "material/terms2";
+	}
+	
+	@RequestMapping("/mypage")
+	public String myPage() {
+		return "layout/mypage";
+	}
 }

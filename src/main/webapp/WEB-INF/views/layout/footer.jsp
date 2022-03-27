@@ -5,9 +5,9 @@
 
 	<div>
 		<div>
-			<span><a href="<c:url value="terms"/>">이용약관&nbsp;&nbsp;</a></span>&nbsp;
-			<span><a href="">개인정보보호정책&nbsp;&nbsp;</a></span>
-			<span><a href="">공지사항&nbsp;&nbsp;</a></span>
+			<span><a href="<c:url value="terms1"/>">이용약관&nbsp;&nbsp;</a></span>&nbsp;
+			<span><a href="<c:url value="terms2"/>">개인정보보호정책&nbsp;&nbsp;</a></span>
+			<span><a href="<c:url value="notice/list"/>">공지사항&nbsp;&nbsp;</a></span>
 			<span><a href="">고객센터</a></span>
 		</div>
 		<br>
