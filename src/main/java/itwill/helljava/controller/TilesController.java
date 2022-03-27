@@ -1,7 +1,13 @@
 package itwill.helljava.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import itwill.helljava.dto.Member;
 
 //Tiles : 템플릿 페이지를 이용한 사이트 구현 기능을 제공하는 프로그램
 //1.Tiles 관련 라이브러리를 빌드 처리 - pom.xml
@@ -10,10 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class TilesController {
-	@RequestMapping("/")
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String tiles() {
 		return "main";
 	}
+	
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public String main(@ModelAttribute Member member, HttpSession session) {
+		
+		session.setAttribute("loginMember", "김성훈");
+		return "main";
+	}
+	
 	/*
 	 * @RequestMapping("/admin") public String admin() { return "admin"; }
 	 * 
