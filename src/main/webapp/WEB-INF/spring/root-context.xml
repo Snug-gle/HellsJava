@@ -63,13 +63,13 @@
 	
 	<!-- TransactionManager 관련 클래스를 Spring Bean으로 등록 -->
 	<!-- => beanName은 반드시 [transactionManager]로 설정 -->
-	<!-- <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
-		dataSource 필드에는 DataSource 관련 Spring Bean를 인젝션 처리
+	<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+	<!-- dataSource 필드에는 DataSource 관련 Spring Bean를 인젝션 처리-->
 		<property name="dataSource" ref="dataSource"/>
-	</bean> -->
+	</bean>
 
 	<!-- annotation-driven : @Transactional 어노테이션을 사용하여 TransactionManager 관련
 	Spring Bean으로 트렌젝션 처리 기능을 제공하기 위한 엘리먼트 -->
 	<!-- => @Transactional 어노테이션이 사용된 메소드에서 예외가 발생된 경우 ROLLBACK 처리 -->
-	<!-- <tx:annotation-driven/> -->
+	<tx:annotation-driven/>
 </beans>
