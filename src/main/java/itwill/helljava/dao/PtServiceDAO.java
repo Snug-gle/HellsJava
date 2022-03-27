@@ -28,4 +28,6 @@ public interface PtServiceDAO {
 	// 트레이너 (리뷰 & pt 문의) 게시글 리스트
 	List<PtService> selectPtServiceTrainerList(Map<String, Object> map, int pt_service_sortation, int trainer_no);
 	
+	// 메인에 띄울 좋아요 순 리뷰 리스트
+	List<PtService> selectReviewGoodList();
 }

@@ -56,6 +56,10 @@ public class PtServiceDAOImpl implements PtServiceDAO{
 		return sqlSession.getMapper(PtServiceMapper.class).selectPtServiceTrainerList(map, pt_service_sortation, trainer_no);
 	}
 
+	@Override
+	public List<PtService> selectReviewGoodList() {
+		return sqlSession.getMapper(PtServiceMapper.class).selectReviewGoodList();
+	}
 	
 	
 }

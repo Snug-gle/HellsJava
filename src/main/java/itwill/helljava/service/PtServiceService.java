@@ -22,4 +22,6 @@ public interface PtServiceService {
 	List<PtService> getPtServiceList(Map<String, Object> map, int pt_service_sortation, int member_no);
 
 	List<PtService> getPtServiceTrainerList(Map<String, Object> map, int pt_service_sortation, int trainer_no);
+	
+	List<PtService> getReviewGoodList();
 }
