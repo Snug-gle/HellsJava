@@ -14,7 +14,7 @@
 		#{pt_once_significant, jdbcType=VARCHAR},
 		#{member_no},
 		#{trainer_no},
-		#{pt_once_application_date},
+		sysdate,
 		#{pt_once_status})
 	</insert>
 	

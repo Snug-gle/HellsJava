@@ -1,54 +1,55 @@
 package itwill.helljava.dto;
 
 public class PtPricing {
-	private int pt_pricing_no;
-	private int trainer_no;
-	private String pt_pricing_round;
-	private int pt_pricing_price;
-	private int pt_pricing_status;
+	private int ptPricingNo;
+	private int trainerNo;
+	private String ptPricingRound;
+	private int ptPricingPrice;
+	private int ptPricingStatus;
 	
 	public PtPricing() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getPt_pricing_no() {
-		return pt_pricing_no;
+	public int getPtPricingNo() {
+		return ptPricingNo;
 	}
 
-	public void setPt_pricing_no(int pt_pricing_no) {
-		this.pt_pricing_no = pt_pricing_no;
+	public void setPtPricingNo(int ptPricingNo) {
+		this.ptPricingNo = ptPricingNo;
 	}
 
-	public int getTrainer_no() {
-		return trainer_no;
+	public int getTrainerNo() {
+		return trainerNo;
 	}
 
-	public void setTrainer_no(int trainer_no) {
-		this.trainer_no = trainer_no;
+	public void setTrainerNo(int trainerNo) {
+		this.trainerNo = trainerNo;
 	}
 
-	public String getPt_pricing_round() {
-		return pt_pricing_round;
+	public String getPtPricingRound() {
+		return ptPricingRound;
 	}
 
-	public void setPt_pricing_round(String pt_pricing_round) {
-		this.pt_pricing_round = pt_pricing_round;
+	public void setPtPricingRound(String ptPricingRound) {
+		this.ptPricingRound = ptPricingRound;
 	}
 
-	public int getPt_pricing_price() {
-		return pt_pricing_price;
+	public int getPtPricingPrice() {
+		return ptPricingPrice;
 	}
 
-	public void setPt_pricing_price(int pt_pricing_price) {
-		this.pt_pricing_price = pt_pricing_price;
+	public void setPtPricingPrice(int ptPricingPrice) {
+		this.ptPricingPrice = ptPricingPrice;
 	}
 
-	public int getPt_pricing_status() {
-		return pt_pricing_status;
+	public int getPtPricingStatus() {
+		return ptPricingStatus;
 	}
 
-	public void setPt_pricing_status(int pt_pricing_status) {
-		this.pt_pricing_status = pt_pricing_status;
+	public void setPtPricingStatus(int ptPricingStatus) {
+		this.ptPricingStatus = ptPricingStatus;
 	}
+
 	
 }
