@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import itwill.helljava.dao.MemberDAO;
 import itwill.helljava.dto.Member;
@@ -16,11 +17,13 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO memberDAO;
 	
 	@Override
+	@Transactional
 	public void addMember(Member member) {
 		memberDAO.insertMember(member);
 	}
 
 	@Override
+	@Transactional
 	public void modifyMember(Member member) {
 		memberDAO.updateMember(member);
 	}

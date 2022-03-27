@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import itwill.helljava.dao.PayDAO;
 import itwill.helljava.dto.Pay;
@@ -16,6 +17,7 @@ public class PayServiceImpl implements PayService {
 	private PayDAO payDAO;
 
 	@Override
+	@Transactional
 	public void addPay(Pay pay) {
 		payDAO.insertPay(pay);
 	}
