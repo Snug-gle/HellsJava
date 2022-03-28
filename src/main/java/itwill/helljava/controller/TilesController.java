@@ -54,4 +54,9 @@ public class TilesController {
 	public String myPage2() {
 		return "material/mypage2";
 	}
+	
+	@RequestMapping("/member/modify")
+	public String md() {
+		return "material/member_modify";
+	}
 }
