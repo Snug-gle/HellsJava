@@ -24,8 +24,9 @@
 	<h4>이달의 트레이너</h4>
 	<hr style="border: solid 1px black;" align="left" width="20%">
 </div>
-<a href="<c:url value="/content/posting_detail"/>">
+
 	<div class="panel-list">
+		<a href="<c:url value="/content/posting_detail"/>">
 		<div class="panel-body profile-wrapper panel-unit">
 		    <div class="profile-photo">
 		        <div class="profile-pic text-center">
@@ -40,8 +41,8 @@
 		        </div>
 		    </div>
 		</div>
+		</a>
 	</div>
-</a>
 <div>
 	<h4>많이 도움된 리뷰</h4>
 	<hr style="border: solid 1px black;" align="left" width="20%">
@@ -64,4 +65,3 @@
 		</div>
 	</div>
 </div>
-<hr>

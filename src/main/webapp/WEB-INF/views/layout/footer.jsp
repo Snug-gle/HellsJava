@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+	<hr class="main-footer-line">  
 	<div>
 		<div>
 			<span><a href="<c:url value="terms1"/>">이용약관&nbsp;&nbsp;</a></span>&nbsp;
