@@ -25,6 +25,9 @@ public enum MemberEnum {
 			default:
 				return NORMAL;
 			}
-
+	}
+	
+	public int getValue() {
+		return memberGrade;
 	}
 }
