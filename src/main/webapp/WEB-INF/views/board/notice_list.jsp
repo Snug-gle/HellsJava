@@ -38,11 +38,11 @@
 							<c:otherwise>
 								<c:forEach var="notice" items="${noticeList }">
 									<tr>
-										<td width="100">${notice.service.no }</td>
-										<td width="100">${notice.service.title}</td>
-										<td width="150">${notice.service.content}</td>
-										<td width="250">${notice.service.date}</td>
-										<td width="100">${notice.service.hits}</td>
+										<td width="100">${notice.noticeServiceNo }</td>
+										<td width="100">${notice.noticeServiceTitle}</td>
+										<td width="150">${notice.noticeServiceContent}</td>
+										<td width="250">${notice.noticeServiceDate}</td>
+										<td width="100">${notice.noticeServiceHits}</td>
 									</tr>
 								</c:forEach>
 							</c:otherwise>
