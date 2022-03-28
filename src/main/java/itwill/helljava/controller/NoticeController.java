@@ -30,7 +30,7 @@ public class NoticeController {
 	@RequestMapping(value = "/list" ,method = RequestMethod.GET)
 	public String List(Model model,NoticeService noticeService , @RequestParam(defaultValue = "1") int pageNum){
 		//테이블에 저장된 모든 게시글의 갯수를 검색하여 반환받아 저장
-		int totalBoard = noticeServiceService.getNoticeServiceCount(null)
+		int totalBoard = noticeServiceService.getNoticeServiceCount();
 		int pageSize = 5; //한 페이지에 출력될 게시글의 갯수 저장
 		int blockSize = 10; //한 페이지 블럭에 출력될 페이지 번호의 갯수 저장
 		
