@@ -41,14 +41,14 @@ public class PtOnceServiceImpl implements PtOnceService {
 
 
 	@Override
-	public List<PtOnce> getPtOnceList(Map<String, Object> map, int member_no) {
-		return ptOnceDAO.selectPtOnceList(map, member_no);
+	public List<PtOnce> getPtOnceList(Map<String, Object> map) {
+		return ptOnceDAO.selectPtOnceList(map);
 	}
 
 
 	@Override
-	public List<PtOnce> getPtOnceTrainerList(Map<String, Object> map, int trainer_no) {
-		return ptOnceDAO.selectPtOnceTrainerList(map, trainer_no);
+	public List<PtOnce> getPtOnceTrainerList(Map<String, Object> map) {
+		return ptOnceDAO.selectPtOnceTrainerList(map);
 	}
 
 

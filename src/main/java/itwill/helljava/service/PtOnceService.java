@@ -15,8 +15,8 @@ public interface PtOnceService {
 	
 	PtOnce getPtOnce(int pt_once_no);
 	
-	List<PtOnce> getPtOnceList(Map<String, Object> map, int member_no);
+	List<PtOnce> getPtOnceList(Map<String, Object> map);
 	
-	List<PtOnce> getPtOnceTrainerList(Map<String, Object> map, int trainer_no);
+	List<PtOnce> getPtOnceTrainerList(Map<String, Object> map);
 
 }
