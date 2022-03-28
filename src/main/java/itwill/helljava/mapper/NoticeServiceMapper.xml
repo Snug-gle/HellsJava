@@ -112,35 +112,9 @@
 	<select id="selectNoticeServicePersonalList" resultType="NoticeService">
 		select * from (select rownum rn,board.* from 
 		(select * from notice_service n left join member m 
-			on n.member_no = m.member_no
-			<choose>
-				<when test="notice_service_status != null and notice_service_status != '' and
-							searchKeyword != null and searchKeyword != '' and
-							searchValue != null and searchValue != ''">
-					where n.notice_service_status = #{notice_service_status} and 
-					${searchKeyword} like '%'||#{searchValue}||'%' and 
-					notice_service_sortation = 2 and 
-					n.member_no = #{member_no}
-				</when>
-				<when test="notice_service_status == null and 
-							searchKeyword != null and searchKeyword != '' and
-							searchValue != null and searchValue != ''">
-					where ${searchKeyword} like '%'||#{searchValue}||'%' and 
-					notice_service_sortation = 2 and 
-					n.member_no = #{member_no}
-				</when>
-				<when test="notice_service_status != null and notice_service_status != '' and
-							searchKeyword == null and searchKeyword == null">
-					where notice_service_status = #{notice_service_status} and 
-					notice_service_sortation = 2 and 
-					n.member_no = #{member_no}		
-				</when>
-				<otherwise>
-					where notice_service_sortation = 2 and 
-					n.member_no = #{member_no}
-				</otherwise>
-			</choose>
-			order by notice_service_no desc)
-		board) where rn between #{startRow} and #{endRow}
+		on n.member_no = m.member_no 
+		where notice_service_sortation = 3 and n.member_no = #{member_no}
+		order by notice_service_no desc) board) 
+		where rn between #{startRow} and #{endRow}
 	</select>
 </mapper>
