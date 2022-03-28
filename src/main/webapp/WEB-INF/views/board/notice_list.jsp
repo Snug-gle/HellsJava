@@ -11,7 +11,7 @@
                                    
 				<%-- <c:if test="${loginUserinfo.status==9}"> --%>
 					<button type="button"
-						onclick="location.href='<c:url value="/notice/write"/>?notice.service.no=${notice.service.no }';">공지사항 작성</button>
+						onclick="location.href='<c:url value="/notice/write"/>';">공지사항 작성</button>
 				<%-- </c:if> --%>
                                 </div>
 			</div>
