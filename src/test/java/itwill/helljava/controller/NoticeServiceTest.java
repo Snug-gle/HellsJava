@@ -13,6 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import itwill.helljava.Enum.NoticeServiceSortationEnum;
+import itwill.helljava.Enum.NoticeServiceStatusEnum;
 import itwill.helljava.dto.NoticeService;
 import itwill.helljava.service.NoticeServiceService;
 
@@ -34,14 +36,16 @@ public class NoticeServiceTest {
 		map.put("endRow", 10);
 //		map.put("searchKeyword", "notice_service_title");
 //		map.put("searchValue", "문의");
-		map.put("notice_service_status", 3);
-//		map.put("notice_service_sortation", 2);
-		map.put("member_no", 21);
+		map.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
+		map.put("notice_service_sortation", NoticeServiceSortationEnum.공지사항.getValue());
+		//map.put("member_no", 21);
 		
-		List<NoticeService> list = noticeServiceService.getNoticeServicePersonalList(map);
+		List<NoticeService> list = noticeServiceService.getNoticeServiceList(map);
 		
 		for(NoticeService noticeService : list) {
 		logger.info(list.toString());
 		}
 	}
+	
+	
 }
