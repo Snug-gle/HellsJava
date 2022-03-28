@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import itwill.helljava.dto.Member;
 import itwill.helljava.dto.Trainer;
 import itwill.helljava.mapper.TrainerMapper;
 
@@ -32,7 +33,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 	}
 
 	@Override
-	public List<Trainer> selectTrainerList(Map<String, Object> map, String member_id, String member_name) {
-		return sqlSession.getMapper(TrainerMapper.class).selectTrainerList(map, member_id, member_name);
+	public List<Trainer> selectTrainerList(Map<String, Object> map) {
+		return sqlSession.getMapper(TrainerMapper.class).selectTrainerList(map);
 	}
 }

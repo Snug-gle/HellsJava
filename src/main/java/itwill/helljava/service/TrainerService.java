@@ -3,6 +3,7 @@ package itwill.helljava.service;
 import java.util.List;
 import java.util.Map;
 
+import itwill.helljava.dto.Member;
 import itwill.helljava.dto.Trainer;
 
 public interface TrainerService {
@@ -13,6 +14,6 @@ public interface TrainerService {
 
 	Trainer getTrainer(int trainer_no);
 
-	List<Trainer> selectTrainerList(Map<String, Object> map, String member_id, String member_name);
+	List<Trainer> getTrainerList(Map<String, Object> map);
 
 }

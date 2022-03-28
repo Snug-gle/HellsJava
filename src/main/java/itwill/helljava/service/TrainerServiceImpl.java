@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import itwill.helljava.dao.TrainerDAO;
+import itwill.helljava.dto.Member;
 import itwill.helljava.dto.Trainer;
 
 @Service
@@ -33,7 +34,7 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public List<Trainer> selectTrainerList(Map<String, Object> map, String member_id, String member_name) {
-		return trainerDAO.selectTrainerList(map, member_id, member_name);
+	public List<Trainer> getTrainerList(Map<String, Object> map) {
+		return trainerDAO.selectTrainerList(map);
 	}
 }

@@ -37,21 +37,22 @@
 		select * from trainer where trainer_no=#{trainer_no}
 	</select>
 	
-	<select id="selectTrainerList" resultType="Trainer">
+	<select id="selectTrainerList" parameterType="map" resultType="Trainer">
+
 			select * from     
 			(select rownum rn,board.* from 
-			(select * from member m join trainer t 
+			(select * from member m right join trainer t 
 			            on m.member_no = t.member_no 
-		<if test="member_id != null and member_id != ''" >
-			where member_id like '%'||#{member_id}||'%' and
-			member_status = 3 order by m.member_no desc) 
-			board) 
-		</if>
-		<if test="member_name != null and member_name != ''">
-			where member_name like '%'||#{member_name}||'%'and
-			where member_status = 3 order by m.member_no desc) 
-			board) 
-		</if>
+		<trim prefix="where" prefixOverrides="and">
+			<if test="member_id != null and member_id != ''" >
+				m.member_id like '%'||#{member_id}||'%'
+			</if>
+			<if test="member_name != null and member_name != ''">
+				m.member_name like '%'||#{member_name}||'%'
+			</if>
+			and m.member_status = #{member_status}
+		</trim>
+		order by m.member_no desc) board)
 			where rn between #{startRow} and #{endRow}
 	</select>
 	
