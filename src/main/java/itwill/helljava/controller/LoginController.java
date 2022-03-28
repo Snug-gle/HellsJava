@@ -11,37 +11,42 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import itwill.helljava.dto.Member;
 
 @Controller
-@RequestMapping("/user/login")
 public class LoginController {
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/login/login", method = RequestMethod.POST)
 	public String login() {
 		return "main";
 	}
 	
-	@RequestMapping(value = "/login_form", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/login/login_form", method = RequestMethod.GET)
 	public String loginForm() {
 		return "user/login/login_form";
 	}
 	
-	@RequestMapping(value = "/id_search", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/login/id_search", method = RequestMethod.GET)
 	public String idSearch() {
 		return "user/login/id_search";
 	}
 	
-	@RequestMapping(value = "/password_search", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/login/password_search", method = RequestMethod.GET)
 	public String pswdSearch() {
 		return "user/login/password_search";
 	}
 	
-	@RequestMapping(value = "/id_print", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/login/id_print", method = RequestMethod.GET)
 	public String idPrint() {
 		return "user/login/id_print";
 	}
 	
-	@RequestMapping(value = "/password_update", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/login/password_update", method = RequestMethod.POST)
 	public String pswdUpdate() {
 		return "user/login/password_update";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 	/*
