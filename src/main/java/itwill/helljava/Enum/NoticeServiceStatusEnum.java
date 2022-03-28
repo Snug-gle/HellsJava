@@ -1,7 +1,7 @@
 package itwill.helljava.Enum;
 
 public enum NoticeServiceStatusEnum {
-	삭제글(1), 일반글(2);
+	삭제글(1), 일반글(2), 문의미답변(3), 문의답변(4);
 	
 	private int noticeStatus;
 	
@@ -14,6 +14,10 @@ public enum NoticeServiceStatusEnum {
 		switch (number) {
 			case 1:
 				return 삭제글;
+			case 3:
+				return 문의미답변;
+			case 4:
+				return 문의답변;
 			default:
 				return 일반글;
 		}
