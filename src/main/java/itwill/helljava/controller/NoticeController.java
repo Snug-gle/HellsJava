@@ -25,12 +25,12 @@ public class NoticeController {
 	@Autowired 
 	private NoticeServiceService noticeServiceService;
 	
-	/*
+	
 	//공지사항 리스트 출력 처리 메소드
 	@RequestMapping(value = "/list" ,method = RequestMethod.GET)
-	public String List(Model model, @RequestParam(defaultValue = "1") int pageNum){
+	public String List(Model model,NoticeService noticeService , @RequestParam(defaultValue = "1") int pageNum){
 		//테이블에 저장된 모든 게시글의 갯수를 검색하여 반환받아 저장
-		int totalBoard = noticeServiceService.getNoticeServiceCount(0);
+		int totalBoard = noticeServiceService.getNoticeServiceCount();
 		int pageSize = 5; //한 페이지에 출력될 게시글의 갯수 저장
 		int blockSize = 10; //한 페이지 블럭에 출력될 페이지 번호의 갯수 저장
 		
@@ -45,7 +45,7 @@ public class NoticeController {
 		model.addAttribute("noticeList", noticeServiceService.getNoticeServiceList(pagerMap, 0));
 		return "board/notice_list";
 	}
-	*/
+	
 	
 	//공지사항 세부 사항 출력 요청 처리 메소드
 	@RequestMapping(value = "/view", method = RequestMethod.GET) 
