@@ -51,19 +51,25 @@
 		select count(*) from notice_service where notice_service_sortation = #{notice_service_sortation}
 	</select>
 	
-	<select id="selectNoticeOneManageCount">
+	<select id="selectNoticeOneManageCount" resultType="int">
 		select count(*) from notice_service n left join member m 
 			on n.member_no = m.member_no
-		<if test="notice_service_status != null and notice_service_status != ''">
-				<if test="notice_service_title != null and notice_service_title != ''"/>
-					where notice_service_title = #{notice_service_title} 
+			<trim prefix="where" suffix="and" prefixOverrides="and">
+				<if test="notice_service_status != '' and notice_service != null">
+					notice_service_status = #{notice_service_status} 
 				</if>
-				<if test="notice_service_name != null and notice_service" >
-				
+				<if test="notice_service_title != '' and notice_service_title != null">
+					notice service_title = #{notice_service_title} 
 				</if>
-			
-		</if>
-		where notice_service_sortation = 2
+				<if test="notice_service_content != '' and notice_service_content != null">
+					notice service_content = #{notice_service_content} 
+				</if>
+|				<if test="member_name != '' and member_name != null">
+					member_name = #{member_name}  
+				</if>
+					and notice_service_sortation = 2 
+			</trim>
+			order by notice_service_no desc
 	</select>
 
 	<select id="selectNoticeServicePersonalCount" resultType="int">
