@@ -16,9 +16,15 @@ public class DetailSearchController {
 		return "/content/search_list";
 	}
 	
+	/*
+	 * @RequestMapping(value = "/content/posting_detail", method =
+	 * RequestMethod.GET) public String postingDetail(@RequestParam(value = "code",
+	 * defaultValue="1") int code ,Model model) { model.addAttribute("testReview",
+	 * code); return "/content/posting_detail"; }
+	 */
+	
 	@RequestMapping(value = "/content/posting_detail", method = RequestMethod.GET)
-	public String postingDetail(@RequestParam(value = "code", defaultValue="1") int code ,Model model) {
-		model.addAttribute("testReview", code);
+	public String postingDetail() {
 		return "/content/posting_detail";
 	}
 	
