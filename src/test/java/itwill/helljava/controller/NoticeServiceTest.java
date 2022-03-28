@@ -28,19 +28,31 @@ public class NoticeServiceTest {
 	@Autowired
 	private NoticeServiceService noticeServiceService;
 	
+	/*
+	 * @Test public void testSearchSelectCount() { Map<String, Object> map = new
+	 * HashMap();
+	 * 
+	 * map.put("startRow", 1); map.put("endRow", 10); // map.put("searchKeyword",
+	 * "notice_service_title"); // map.put("searchValue", "문의");
+	 * map.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
+	 * map.put("notice_service_sortation",
+	 * NoticeServiceSortationEnum.공지사항.getValue()); //map.put("member_no", 21);
+	 * 
+	 * List<NoticeService> list = noticeServiceService.getNoticeServiceList(map);
+	 * 
+	 * for(NoticeService noticeService : list) { logger.info(list.toString()); } }
+	 */
+	
 	@Test
-	public void testSearchSelectCount() {
+	public void selectNoticeServicePersonalList() {
+		
 		Map<String, Object> map = new HashMap();
 		
 		map.put("startRow", 1);
 		map.put("endRow", 10);
-//		map.put("searchKeyword", "notice_service_title");
-//		map.put("searchValue", "문의");
-		map.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
-		map.put("notice_service_sortation", NoticeServiceSortationEnum.공지사항.getValue());
-		//map.put("member_no", 21);
+		map.put("member_no", 27);
 		
-		List<NoticeService> list = noticeServiceService.getNoticeServiceList(map);
+		List<NoticeService> list = noticeServiceService.getNoticeServicePersonalList(map);
 		
 		for(NoticeService noticeService : list) {
 		logger.info(list.toString());
