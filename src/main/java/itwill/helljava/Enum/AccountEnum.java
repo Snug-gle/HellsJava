@@ -28,4 +28,8 @@ public enum AccountEnum {
 				return 우리;		
 		}
 	}
+	
+	public int getValue() {
+		return bank;
+	}
 }
