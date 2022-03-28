@@ -33,7 +33,7 @@ public class LoginController {
 		return "user/login/password_search";
 	}
 	
-	@RequestMapping(value = "/user/login/id_print", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/login/id_print", method = RequestMethod.POST)
 	public String idPrint() {
 		return "user/login/id_print";
 	}

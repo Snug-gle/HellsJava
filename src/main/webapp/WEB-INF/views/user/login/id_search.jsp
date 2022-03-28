@@ -16,7 +16,7 @@
 			</div>
 			<div>
 				<div>
-					<form action="user/login/id_print" method="post">
+					<form action="<c:url value="/user/login/id_print"/>" method="post">
 						<table>
 							<tr>
 								<td>이름</td>
@@ -31,7 +31,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><button type="submit" onclick="location.href='<c:url value="/user/login/password_search"/>';">비밀번호 찾기/수정</button></td>
+								<td><button type="button" onclick="location.href='<c:url value="/user/login/password_search"/>';">비밀번호 찾기/수정</button></td>
 								<td><button type="button" onclick="location.href='<c:url value="/user/join_form"/>';">회원가입</button></td>
 							</tr>
 							<tr>
