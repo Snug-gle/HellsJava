@@ -23,10 +23,10 @@ public interface PtServiceDAO {
 	PtService selectPtService(int pt_service_no);
 
 	// 회원 (리뷰 & pt 문의) 게시글 리스트
-	List<PtService> selectPtServiceList(Map<String, Object> map, int pt_service_sortation, int member_no);
+	List<PtService> selectPtServiceList(Map<String, Object> map);
 	
 	// 트레이너 (리뷰 & pt 문의) 게시글 리스트
-	List<PtService> selectPtServiceTrainerList(Map<String, Object> map, int pt_service_sortation, int trainer_no);
+	List<PtService> selectPtServiceTrainerList(Map<String, Object> map);
 	
 	// 메인에 띄울 좋아요 순 리뷰 리스트
 	List<PtService> selectReviewGoodList();

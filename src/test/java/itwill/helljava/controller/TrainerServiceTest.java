@@ -27,20 +27,23 @@ public class TrainerServiceTest {
 	@Autowired
 	private TrainerService trainerService;
 	
+	/*
+	 * @Test public void testSelectTrainerList() {
+	 * 
+	 * Map<String, Object> map = new HashMap();
+	 * 
+	 * map.put("startRow", 1); map.put("endRow", 5); map.put("member_id",
+	 * "트레이너예정1"); map.put("member_status", 2);
+	 * 
+	 * List<Trainer> trainerList = trainerService.getTrainerList(map);
+	 * 
+	 * for(Trainer member : trainerList) { logger.info(member.toString()); } }
+	 */
+	
 	@Test
-	public void testSelectTrainerList() {
+	public void testSelectTrainer() {
+		Trainer trainer = trainerService.getTrainer(2);
 		
-		Map<String, Object> map = new HashMap();
-		
-		map.put("startRow", 1);
-		map.put("endRow", 5);
-		map.put("member_id", "트레이너예정1");
-		map.put("member_status", 2);
-		
-		List<Trainer> trainerList = trainerService.getTrainerList(map);
-		
-		for(Trainer member : trainerList) {
-			logger.info(member.toString());
-		}
+		logger.info(trainer.toString());
 	}
 }

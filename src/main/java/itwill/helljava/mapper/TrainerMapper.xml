@@ -10,7 +10,7 @@
 		#{member_no},v
 		#{trainer_profile_img},
 		#{trainer_address1},
-		#{trainer_addresss2},
+		#{trainer_addresss2},d
 		#{trainer_zip})
 	</insert>
 	
@@ -34,7 +34,9 @@
 	</update>
 	
 	<select id="selectTrainer" resultType="Trainer">
-		select * from trainer where trainer_no=#{trainer_no}
+		select * from trainer t right join member m
+			on t.member_no = m.member_no 
+		 where trainer_no= #{trainer_no}
 	</select>
 	
 	<select id="selectTrainerList" parameterType="map" resultType="Trainer">
@@ -49,9 +51,6 @@
 			</if>
 			<if test="member_name != null and member_name != ''">
 				m.member_name like '%'||#{member_name}||'%'
-			</if>
-			<if test="">
-			
 			</if>
 			and m.member_status = #{member_status}
 		</trim>

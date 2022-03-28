@@ -14,8 +14,27 @@ public class PtService {
 	private int ptServiceStatus;
 	private int ptServiceSortation;
 
+	private String memberName;
+	
 	public PtService() {
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "PtService [ptServiceNo=" + ptServiceNo + ", memberNo=" + memberNo + ", trainerNo=" + trainerNo
+				+ ", ptServiceTitle=" + ptServiceTitle + ", ptServiceContent=" + ptServiceContent + ", ptServiceReply="
+				+ ptServiceReply + ", ptServiceStars=" + ptServiceStars + ", ptServiceGood=" + ptServiceGood
+				+ ", ptServiceDate=" + ptServiceDate + ", ptServiceStatus=" + ptServiceStatus + ", ptServiceSortation="
+				+ ptServiceSortation + ", memberName=" + memberName + "]";
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
 	public int getPtServiceNo() {
@@ -105,6 +124,7 @@ public class PtService {
 	public void setPtServiceSortation(int ptServiceSortation) {
 		this.ptServiceSortation = ptServiceSortation;
 	}
+	
 	
 	
 

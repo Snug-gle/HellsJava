@@ -59,14 +59,19 @@
 	</select>
 	
 		<!-- 내 리뷰 & 내 pt 문의 페이지 (회원입장) ptService,trainer,member Joinㅡ -->
-	<select id="selectPtServiceList" resultType="PtService">
+	<select id="selectPtServiceList" parameterType="map" resultType="PtService">
 		select * from 
 		(select rownum rn,ps.* from
 		(select *
 		from pt_service p left join trainer t on p.trainer_no = t.trainer_no 
 						left join member m on t.member_no = m.member_no
-		where p.pt_service_sortation = #{pt_service_sortation}  and p.member_no = #{member_no} order by p.pt_service_no desc
-		) ps) 
+			<trim prefix="where" prefixOverrides="and">
+				<if test="pt_service_status != null and pt_service_status != ''">
+					p.pt_service_status = #{pt_service_status}
+				</if>
+				and p.pt_service_sortation = #{pt_service_sortation} and p.member_no = #{member_no} 
+			</trim>
+		order by p.pt_service_no desc) ps) 
 		where rn between #{startRow} and #{endRow}
 	</select>
 
@@ -82,6 +87,7 @@
 		where rn between #{startRow} and #{endRow}
 	</select>
 	
+	<!-- 좋아요 수! -->
 	<select id="selectReviewGoodList" resultType="PtService">
 		select * from
 		(select rownum rn, p.* from(
