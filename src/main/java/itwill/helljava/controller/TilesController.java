@@ -24,7 +24,7 @@ public class TilesController {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String main(@ModelAttribute Member member, HttpSession session) {
 		
-		session.setAttribute("loginMember", "김성훈");
+		session.setAttribute("loginMember", "관리자");
 		return "main";
 	}
 	
