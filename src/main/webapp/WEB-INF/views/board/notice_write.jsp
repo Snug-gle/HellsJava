@@ -13,17 +13,17 @@
             <h3 class="panel-title">공지사항 작성</h3>
         </div>
         <div class="panel-body">
-            <form method="post" name="noticeForm" class="form-horizontal" role="form">
+            <form action="<c:url value = "/notice/write"/>" method="post" name="noticeForm" class="form-horizontal" role="form">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">제목</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="title" value="${notice.service.title}" placeholder="제목">
+                        <input type="text" class="form-control" name="noticeServiceTitle" value="${notice.noticeServiceTitle}" placeholder="제목">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">내용</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="contentCss" name="content" value="${notice.service.content}" placeholder="내용">
+                        <textarea class="form-control" id="contentCss" name="noticeServiceContent" value="${notice.noticeServiceContent}" placeholder="내용"></textarea>
                     </div>
                 </div>
 
@@ -38,6 +38,9 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+
+</script>
     
     <!--Page Level JS-->
     <script src="<c:url value ="/plugins/bootstrap-wysihtml5/js/wysihtml5-0.3.0.js"/>"></script>

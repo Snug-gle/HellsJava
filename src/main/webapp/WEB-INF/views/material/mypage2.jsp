@@ -5,46 +5,42 @@
 <head>
 <style type="text/css">
 
-.flex-container1 {
+.flex-container {
 	justify-content: center;
 	display: flex;
-    flex-wrap: wrap;
 }
-
-.flex-container2 {
-	display: inline-flex;
-} 
-
 .flex-item {
-	width: 200px;
-	height: 200px;
-    margin: 20px;
+	width: 240px;
+    height: 220px;
+    margin: 25px;
     text-align: center;
+    line-height: 100px;
+    font-size: 25px;
+    color: black;
+    border: 2px solid black;
+    border-radius: 8px;
 }
-.color-red{
-    background-color: darksalmon;
-}
-.color-blue{
-    background-color: dodgerblue;
-}
+  
 
 </style>
 </head>
 <body>
-	<h1 style=" text-align:center; font-size: 50px;" ><strong>마이페이지</strong></h1>
+	<h1 style=" text-align:center; font-size: 40px;" ><strong>마이페이지</strong></h1>
 	<br>
 	<div class="flex-container1">
-	 	<div class="flex-container2">
-	        <div class="flex-item color-red">회원정보수정</div>
-	        <div class="flex-item color-red">내 리뷰 관리</div>
-	        <div class="flex-item color-red">1:1 문의 내역</div>
-	        <div class="flex-item color-red">계좌관리</div>
+	 	<div class="flex-container">
+	        <div class="flex-item"><a href="#" style="color: black">회원정보수정</a></div>
+	        <div class="flex-item"><a href="#" style="color: black">내 리뷰 관리</a></div>
+	        <div class="flex-item"><a href="#" style="color: black">1:1 문의 내역</a></div>
+	        <div class="flex-item"><a href="#" style="color: black">계좌관리</a></div>
 	    </div>
 	    <br>
-	    <div class="flex-container2">
-	        <div class="flex-item color-blue">1회 PT 신청 내역</div>
-	        <div class="flex-item color-blue">PT 문의 내역</div>
-	        <div class="flex-item color-blue">트레이너 신청내역</div>
+	    <div class="flex-container">
+	        <div class="flex-item"><a href="#" style="color: black">1회 PT 신청 내역</a></div>
+	        <div class="flex-item"><a href="#" style="color: black">PT 문의 내역</a></div>
+	        <div class="flex-item"><a href="#" style="color: black">트레이너 신청내역</a></div>
 	    </div>
+	    
+	    
 	</div>
 </html>

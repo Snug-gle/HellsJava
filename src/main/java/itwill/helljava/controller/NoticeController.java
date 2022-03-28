@@ -65,16 +65,17 @@ public class NoticeController {
 	}
 	
 	//공지사항 입력 페이지 출력 요청 처리 메소드
-	@RequestMapping("/write")
+	@RequestMapping(value = "/write" , method = RequestMethod.GET)
 	public String write() {
+		
 			
 		return "board/notice_write";
 	}
 	
 	//공지사항 입력 사항 저장 요청 처리 메소드
 	@RequestMapping( value = "/write" , method = RequestMethod.POST)
-	public String write(@ModelAttribute Model model) {
-		noticeServiceService.addNoticeService(null);
+	public String write(@ModelAttribute NoticeService noticeService ,Model model ) {
+		noticeServiceService.addNoticeService(noticeService);
 		return "redirect:/notice/list";
 	}
 	
@@ -108,6 +109,11 @@ public class NoticeController {
 	public String cssList() { 
 	  return "board/notice_list";
 	  }
+	
+	@RequestMapping("/write") 
+	public String cssWrite() { 
+		return "board/notice_list";
+	}
 
 	@RequestMapping("/view") 
 	public String cssView() { 
