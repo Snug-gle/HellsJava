@@ -34,16 +34,15 @@ public class PtServiceServiceTest {
 		
 		map.put("pt_service_status", 2);
 		map.put("pt_service_sortation", 0);
-		map.put("member_no", 26);
+		map.put("trainer_no", 1);
 		map.put("startRow", 1);
 		map.put("endRow", 5);
 		
-		List<PtService> list = ptServiceService.getPtServiceList(map) ;
+		List<PtService> list = ptServiceService.getPtServiceTrainerList(map) ;
 		
 		for(PtService lists : list) {
 			logger.info("lists : " +lists);
 		}
-		
-		
+
 	}
 }

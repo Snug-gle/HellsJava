@@ -11,7 +11,35 @@ public class PtOnce {
 	private int trainerNo;
 	private String ptOnceApplicationDate;
 	private int ptOnceStatus;
-	
+
+	private String memberName;
+	private String memberPhone;
+
+	@Override
+	public String toString() {
+		return "PtOnce [ptOnceNo=" + ptOnceNo + ", ptOnceGender=" + ptOnceGender + ", ptOnceAge=" + ptOnceAge
+				+ ", ptOncePurpose=" + ptOncePurpose + ", ptOnceExperience=" + ptOnceExperience + ", ptOnceSignificant="
+				+ ptOnceSignificant + ", memberNo=" + memberNo + ", trainerNo=" + trainerNo + ", ptOnceApplicationDate="
+				+ ptOnceApplicationDate + ", ptOnceStatus=" + ptOnceStatus + ", memberName=" + memberName
+				+ ", memberPhone=" + memberPhone + "]";
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public String getMemberPhone() {
+		return memberPhone;
+	}
+
+	public void setMemberPhone(String memberPhone) {
+		this.memberPhone = memberPhone;
+	}
+
 	public PtOnce() {
 		// TODO Auto-generated constructor stub
 	}
@@ -91,10 +119,9 @@ public class PtOnce {
 	public int getPtOnceStatus() {
 		return ptOnceStatus;
 	}
-	
+
 	public void setPtOnceStatus(int ptOnceStatus) {
 		this.ptOnceStatus = ptOnceStatus;
 	}
-	
-	
+
 }

@@ -1,5 +1,9 @@
 package itwill.helljava.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -48,13 +52,29 @@ public class PtOnceServiceTest {
 	*/
 	
 	
+	/*
+	 * @Test public void testGetPtOnce() { logger.info("하이"); PtOnce ptOnce =
+	 * ptOnceService.getPtOnce(10);
+	 * 
+	 * logger.info("10 번 성별 : " +ptOnce); }
+	 */
+	
 	@Test
-    public void testGetPtOnce() {
-        logger.info("하이");
-        PtOnce ptOnce = ptOnceService.getPtOnce(10);
-
-        logger.info("10 번 성별 : " +ptOnce);
-    }
+	public void testGetSelectPtOnceTrainerList() {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("startRow", 1);
+		map.put("endRow", 10);
+		//map.put("pt_service_status", 0);
+		map.put("trainer_no", 1);
+		
+		List<PtOnce> list = ptOnceService.getPtOnceTrainerList(map);
+		
+		for(PtOnce one : list) {
+			logger.info(one.toString());
+		}
+	}
 	
 	
 	

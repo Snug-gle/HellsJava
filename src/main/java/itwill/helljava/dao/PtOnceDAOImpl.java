@@ -40,14 +40,14 @@ public class PtOnceDAOImpl implements PtOnceDAO{
 
 
 	@Override
-	public List<PtOnce> selectPtOnceList(Map<String, Object> map, int member_no) {
-		return sqlSession.getMapper(PtOnceMapper.class).selectPtOnceList(map, member_no);
+	public List<PtOnce> selectPtOnceList(Map<String, Object> map) {
+		return sqlSession.getMapper(PtOnceMapper.class).selectPtOnceList(map);
 	}
 
 
 	@Override
-	public List<PtOnce> selectPtOnceTrainerList(Map<String, Object> map, int trainer_no) {
-		return sqlSession.getMapper(PtOnceMapper.class).selectPtOnceTrainerList(map, trainer_no);
+	public List<PtOnce> selectPtOnceTrainerList(Map<String, Object> map) {
+		return sqlSession.getMapper(PtOnceMapper.class).selectPtOnceTrainerList(map);
 	}
 
 	
