@@ -13,8 +13,13 @@
 
 </head>
 <body>
+	<h1>FAQ</h1>
+		<hr>
+		<div id="btnDiv">
+			<button type="button" id="writeBtn">글쓰기</button>
+		</div>
 	<%-- 게시글 목록을 출력하는 영역 --%>
-	<div id="faqBoardListDiv"></div>
+	<div id="faqListDiv"></div>
 	
 	<%-- 페이지 번호를 출력하는 영역 --%>
 	<div id="pageNumDiv"></div>
@@ -23,12 +28,21 @@
 	<div id="insertDiv">
 		<table>
 			<tr>
-				<td>작성자</td>
-				<td><input type="text" name="writer" id="insertWriter" class="insert"></td>
+				<td>제목</td>
+				<td><input type="text" name="title" id="insertTitle" class="insert"></td>
+			</tr>
+			<tr>
+				<td>카테고리</td>
+				<td><select name="category" id="insertCategory" class="insert">
+						<option value="" selected="selected"> 입금/결제</option>
+						<option value="">트레이너 관련 문의</option>
+						<option value="">기타문의</option>
+					</select>
+				<td>
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><input type="text" name="content" id="insertContent" class="insert"></td>
+				<td><textarea name="content" id="insertContent" class="insert"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -37,19 +51,27 @@
 				</td>
 			</tr>
 		</table>	
-	</div>
-	
+	</div>	
 	<%-- 변경 게시글을 입력하는 영역 --%>
 	<div id="updateDiv">
 		<input type="hidden" name="num" id="updateNum">
 		<table>
 			<tr>
-				<td>작성자</td>
-				<td><input type="text" name="writer" id="updateWriter" class="update"></td>
+				<td>제목</td>
+				<td><input type="text" name="title" id="insertWriter" class="insert"></td>
 			</tr>
 			<tr>
+				<td>카테고리</td>
+				<td><select name="category" id="updateCategory" class="update">
+						<option value="" selected="selected"> 입금/결제</option>
+						<option value="">트레이너 관련 문의</option>
+						<option value="">기타문의</option>
+					</select>
+				<td>
+				</tr>
+			<tr>
 				<td>내용</td>
-				<td><input type="text" name="content" id="updateContent" class="update"></td>
+				<td><textarea name="content" id="updateContent" class="update"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -59,6 +81,8 @@
 			</tr>
 		</table>	
 	</div>
+	
+	
 	
 	<%-- handlebars 템플릿 코드 작성 >> HTML --%>
 	<%-- => {{#each}} 표현식을 사용하여 Array 객체에 대한 반복 처리 --%>
@@ -74,6 +98,8 @@
 				<th >작성일</th>
 				<th >작성자</th>
 				<th >조회수</th>
+				<th >변경</th>
+				<th >삭제</th>
 			</tr>
 
 		{{#each .}}
@@ -85,6 +111,8 @@
 				<td align="center">{{regdate}}</td>
 				<td align="center">{{writer}}</td>
 				<td align="center">{{hits}}</td>
+				<td align="center"><button type="button" onclick="modify({{num}});">변경</button></td>
+				<td align="center"><button type="button" onclick="remove({{num}});">삭제</button></td>
 				
 				<%-- <td align="center"><button type="button" onclick="remove({{num}});">삭제</button></td> --%>
 			<tr>			
@@ -93,37 +121,38 @@
 	</script>
 	
 	<script type="text/javascript">
-	var page=1;//현재 요청 페이지 번호를 저장하기 위한 전역변수
+	var page=1;//현재 요청 페이지 번호를 저장한 전역변수
 	
 	boardDisplay(page);
 	
-	//게시글 목록을 검색하여 JSON 텍스트로 응답하는 웹프로그램을 AJAX로 요청하여 처리하는 함수
+	//게시글 목록을 검색하여 JSON 텍스트로 응답하는 웹프로그램을 AJAX로 요청
 	function boardDisplay(pageNum) {
 		page=pageNum;
 		$.ajax({
-			type: "get",
-			url: "board_list?pageNum="+pageNum,
-			dataType: "json",
+			type: "get"
+			url: "faq_list?pageNum="+pageNum,
+			dateType: "json"
 			success: function(json) {
-				if(json.restFaqList.length==0) {
-					$("#restFaqListDiv").html("검색된 게시글이 존재하지 않습니다.");
+				if(json.faqList.length==0){
+					$("#faqListDiv").html("검색된 게시글이 존재하지 않습니다.");
 					return;
 				}
 				
-				//응답된 게시글 목록을 HTML로 변환하도록 Handlebars 자바스크립트 라이브러리 이용
+				//응답된 게시글 목록을 HTML로 변환하도록 Handlesbars 자바스크립트 라이브러리 이용
 				var source=$("#template").html();//템플릿 코드를 반환받아 저장
 				//템플릿 코드를 전달받아 템플릿 객체로 생성하여 저장
 				var template=Handlebars.compile(source);
-				//템플릿 객체에 JavaScript 객체(게시글 목록)를 전달하여 HTML 태그로 변환하여 출력
-				$("#restFaqListDiv").html(template(json.restFaqListDiv));
+				//템플릿 객체에 JavaScript 객체 ( 게시글 목록)를 전달하여 HTML 태그로 변환
+				$("#faqListDiv").html(template(json.faqList));
 				
 				//페이지 번호를 출력하는 함수 호출
 				pagerDisplay(json.pager);
+				
 			},
-			error: function(xhr) {
-				alert("에러코드 = "+xhr.status);
+			error: function xhr() {
+				alert("에러코드 = "+xhr.status)
 			}
-		});		
+		});
 	}
 	
 	//페이지 번호를 출력하는 함수
@@ -154,7 +183,6 @@
 		
 		$("#pageNumDiv").html(html);
 	}
-	
 	//[글쓰기]를 클릭한 경우 호출되는 이벤트 처리 함수 등록
 	$("#writeBtn").click(function() {
 		//변경 게시글 입력 영역 초기화
@@ -165,35 +193,29 @@
 		$("#insertDiv").show();
 	});
 	
-	//[저장]를 클릭한 경우 호출되는 이벤트 처리 함수 등록
-	// => 사용자가 입력한 게시글 정보를 REST_BOARD 테이블에 저장하는 웹프로그램을 AJAX로 요청하여
-	//결과를 응답받아 처리
+	//게시글 신규 입력 내용 저장 관련 처리 함수
 	$("#insertBtn").click(function() {
-		var writer=$("#insertWriter").val();
-		var content=$("#insertContent").val();
+		var title=$("#inserTitle").val();
+		var content=$("#inserContent").val();
 		
-		if(writer=="") {
-			alert("작성자를 입력해 주세요.");
+		if(title=="") {
+			alert("제목을 입력해 주세요.")
 			return;
 		}
-		
+
 		if(content=="") {
-			alert("내용을 입력해 주세요.");
+			alert(" 내용을 입력해 주세요.")
 			return;
 		}
 		
+		//JSON 데이터를 텍스트 데이터로 변환
 		$.ajax({
 			type: "post",
-			url: "board_add",
-			//headers : 요청 자원의 헤더정보를 변경하기 위한 속성
-			// => contentType 속성으로 전달값에 대한 데이타 형식(MimeType) 변경
-			//headers: {"contentType","application/json"},
-			//contentType : 전달값에 대한 데이타 형식(MimeType) 변경
-			contentType: "application/json",
-			//JSON.stringify(Object object) : 자바스크립트 객체를 JSON 형식의 문자값으로 변환하는 메소드 
-			data: JSON.stringify({"writer":writer,"content":content}),
+			url: "faq_write",
+			contentType : "application/json",
+			data: JSON.stringify({"title":title, "category":category "content":content}),
 			dateType: "text",
-			success: function(text) {
+			success: function (text) {
 				if(text=="success") {
 					//신규 게시글 입력 영역 초기화
 					$(".insert").val("");
@@ -202,21 +224,14 @@
 					//게시글 목록을 검색하여 출력하는 함수 호출
 					boardDisplay(1);
 				}
-			}, 
+			},
 			error: function(xhr) {
 				alert("에러코드 = "+xhr.status);
 			}
 		});
 	});
 	
-	//[취소]를 클릭한 경우 호출되는 이벤트 처리 함수 등록 
-	$("#cancelInsertBtn").click(function() {
-		//신규 게시글 입력 영역 초기화
-		$(".insert").val("");
-		$("#insertDiv").hide();
-	});
-	
-	//게시글의 [변경]을 클릭한 경우 호출되는 이벤트 처리 함수
+	//게시글의 [수정]을 클릭한 경우 호출되는 이벤트 처리 함수
 	function modify(num) {
 		//alert("num = "+num);
 		
@@ -229,11 +244,11 @@
 		
 		$.ajax({
 			type: "get",
-			url: "faq_list/"+num,
+			url: "faq_view/"+num,
 			dataType: "json",
 			success: function(json) {
 				$("#updateNum").val(json.num);
-				$("#updateWriter").val(json.writer);
+				$("#updateWriter").val(json.title);
 				$("#updateContent").val(json.content);
 			}, 
 			error: function(xhr) {
@@ -242,16 +257,13 @@
 		});
 	}
 	
-	//[변경]을 클릭한 경우 호출되는 이벤트 처리 함수 등록
-	// => 사용자가 입력한 게시글 정보를 REST_BOARD 테이블에 저장된 게시글로 변경하는 웹프로그램을
-	//AJAX로 요청하여 결과를 응답받아 처리
+	//[수정]을 클릭한 경우 호출되는 이벤트 처리 함수 등록
 	$("#updateBtn").click(function() {
 		var num=$("#updateNum").val();
-		var writer=$("#updateWriter").val();
 		var content=$("#updateContent").val();
 		
-		if(writer=="") {
-			alert("작성자를 입력해 주세요.");
+		if(title=="") {
+			alert("제목을 입력해 주세요.");
 			return;
 		}
 		
@@ -260,11 +272,11 @@
 			return;
 		}
 		
-		$.ajax({
+		#.ajax({
 			type: "put",
 			url: "faq_modify",
 			contentType: "application/json",
-			data: JSON.stringify({"num":num,"writer":writer,"content":content}),
+			data: JSON.stringify({"num":num,"title":title,"content":content}),
 			dateType: "text",
 			success: function(text) {
 				if(text=="success") {
@@ -272,11 +284,11 @@
 					$("#updateDiv").hide();
 					
 					//게시글 목록을 검색하여 출력하는 함수 호출
-					boardDisplay(page);
+					boardDisplaly(page);
 				}
-			}, 
+			},
 			error: function(xhr) {
-				alert("에러코드 = "+xhr.status);
+				alert("에러코드 = "+xhr.status)
 			}
 		});
 	});
@@ -288,12 +300,13 @@
 		$("#updateDiv").hide();
 	});
 	
-	//게시글의 [삭제]을 클릭한 경우 호출되는 이벤트 처리 함수
+	//게시글 [삭제]버튼을 클릭한 경우 호출되는 이벤트 처리 하무수
+	
 	function remove(num) {
-		if(confirm("게시글을 삭제 하시겠습니까?")) {
+		if(confirm("게시글을 삭제 하시겠습니까?"")) {
 			$.ajax({
-				type: "delete",
-				url: "faq_remove/"+num,
+				type: "patch",
+				url: "remove/"+num,
 				dateType: "text",
 				success: function(text) {
 					if(text=="success") {
@@ -306,6 +319,7 @@
 			});
 		}
 	}
+	
 	</script>
 </body>
 </html>

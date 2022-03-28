@@ -45,8 +45,13 @@ public class TilesController {
 		return "material/terms2";
 	}
 	
-	@RequestMapping("/mypage")
+	@RequestMapping("/mypage1")
 	public String myPage() {
-		return "material/mypage";
+		return "material/mypage1";
+	}
+
+	@RequestMapping("/mypage2")
+	public String myPage2() {
+		return "material/mypage2";
 	}
 }
