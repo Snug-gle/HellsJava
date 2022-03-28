@@ -65,3 +65,15 @@
 	left: 10px;
 	display: none;
 }
+
+.modal-dialog{
+	padding: 30px;
+    height: -webkit-fill-available;
+    margin: auto;
+    background: white;
+    text-align: center;
+}
+
+.modal-content{
+	margin-top: 110px;
+}
