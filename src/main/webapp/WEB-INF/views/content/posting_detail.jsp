@@ -14,17 +14,23 @@
 			<div>
 				<table>
 					<tr>
-						<td>트레이너</td>
-						<td>후기</td>
+						<td><a href='<c:url value="/content/posting_detail?code=1"/>'>트레이너</a></td>
+						<td><a href='<c:url value="/content/posting_detail?code=2"/>'>후기</a></td>
 					</tr>
 					<tr>
-						<td>소개</td>
-						<td>자격사항</td>
-						<td>스케쥴</td>
-						<td>프로그램</td>
-						<td>최근후기</td>
-						<td>이용가격</td>
-						<td>위치</td>
+					<c:choose>
+						<c:when test="${testReview eq '1'}">
+							<td>소개</td>
+							<td>자격사항</td>
+							<td>스케쥴</td>
+							<td>프로그램</td>
+							<td>최근후기</td>
+							<td>이용가격</td>
+							<td>위치</td>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
 					</tr>
 				</table>
 			</div>
