@@ -48,27 +48,28 @@
 	</update>
 	
 	<select id="selectNoticeServiceCount" resultType="int">
-		select count(*) from notice_service where notice_service_sortation = #{notice_service_sortation}
-	</select>
-	
-	<select id="selectNoticeOneManageCount" resultType="int">
 		select count(*) from notice_service n left join member m 
 			on n.member_no = m.member_no
-			<trim prefix="where" suffix="and" prefixOverrides="and">
-				<if test="notice_service_status != '' and notice_service != null">
-					notice_service_status = #{notice_service_status} 
-				</if>
-				<if test="notice_service_title != '' and notice_service_title != null">
-					notice service_title = #{notice_service_title} 
-				</if>
-				<if test="notice_service_content != '' and notice_service_content != null">
-					notice service_content = #{notice_service_content} 
-				</if>
-|				<if test="member_name != '' and member_name != null">
-					member_name = #{member_name}  
-				</if>
-					and notice_service_sortation = 2 
-			</trim>
+			<choose>
+				<when test="status != null and status != '' and
+							searchKeyword != null and searchKeyword != '' and
+							searchValue != null and searchValue != ''">
+					where notice_service_status = #{status} and 
+					${searchKeyword} like '%'||#{searchValue}||'%' and notice_service_sortation = #{notice_service_sortation} 
+				</when>
+				<when test="status == null and 
+							searchKeyword != null and searchKeyword != '' and
+							searchValue != null and searchValue != ''">
+					where ${searchKeyword} like '%'||#{searchValue}||'%' and notice_service_sortation = #{notice_service_sortation}
+				</when>
+				<when test="status != null and status != '' and
+							searchKeyword == null and searchKeyword == null">
+					where notice_service_status = #{status}	and notice_service_sortation = #{notice_service_sortation}		
+				</when>
+				<otherwise>
+					where notice_service_sortation = #{notice_service_sortation} 
+				</otherwise>
+			</choose>
 			order by notice_service_no desc
 	</select>
 
@@ -82,15 +83,64 @@
 	
 	<select id="selectNoticeServiceList" resultType="NoticeService">
 		select * from (select rownum rn,board.* from 
-		(select * from notice_service where notice_service_sortation = #{notice_service_sortation} order by notice_service_no desc)
+		(select * from notice_service n left join member m 
+			on n.member_no = m.member_no
+			<choose>
+				<when test="notice_service_status != null and notice_service_status != '' and
+							searchKeyword != null and searchKeyword != '' and
+							searchValue != null and searchValue != ''">
+					where notice_service_status = #{notice_service_status} and 
+					${searchKeyword} like '%'||#{searchValue}||'%' and notice_service_sortation = #{notice_service_sortation}
+				</when>
+				<when test="notice_service_status == null and 
+							searchKeyword != null and searchKeyword != '' and
+							searchValue != null and searchValue != ''">
+					where ${searchKeyword} like '%'||#{searchValue}||'%' and notice_service_sortation = #{notice_service_sortation}
+				</when>
+				<when test="notice_service_status != null and notice_service_status != '' and
+							searchKeyword == null and searchKeyword == null">
+					where notice_service_status = #{notice_service_status}	and notice_service_sortation = #{notice_service_sortation}		
+				</when>
+				<otherwise>
+					where notice_service_sortation = #{notice_service_sortation} 
+				</otherwise>
+			</choose>
+			order by notice_service_no desc)
 		board) where rn between #{startRow} and #{endRow}
 	</select>
 	
 	<select id="selectNoticeServicePersonalList" resultType="NoticeService">
 		select * from (select rownum rn,board.* from 
-		(select * from notice_service where notice_service_sortation = #{notice_service_sortation}
-		and member_no = {member_no}
-		 order by notice_service_no desc)
+		(select * from notice_service n left join member m 
+			on n.member_no = m.member_no
+			<choose>
+				<when test="notice_service_status != null and notice_service_status != '' and
+							searchKeyword != null and searchKeyword != '' and
+							searchValue != null and searchValue != ''">
+					where notice_service_status = #{notice_service_status} and 
+					${searchKeyword} like '%'||#{searchValue}||'%' and 
+					notice_service_sortation = 2 and 
+					n.member_no = #{member_no}
+				</when>
+				<when test="notice_service_status == null and 
+							searchKeyword != null and searchKeyword != '' and
+							searchValue != null and searchValue != ''">
+					where ${searchKeyword} like '%'||#{searchValue}||'%' and 
+					notice_service_sortation = 2 and 
+					n.member_no = #{member_no}
+				</when>
+				<when test="notice_service_status != null and notice_service_status != '' and
+							searchKeyword == null and searchKeyword == null">
+					where notice_service_status = #{notice_service_status} and 
+					notice_service_sortation = 2 and 
+					n.member_no = #{member_no}		
+				</when>
+				<otherwise>
+					where notice_service_sortation = 2 and 
+					n.member_no = #{member_no}
+				</otherwise>
+			</choose>
+			order by notice_service_no desc)
 		board) where rn between #{startRow} and #{endRow}
 	</select>
 </mapper>

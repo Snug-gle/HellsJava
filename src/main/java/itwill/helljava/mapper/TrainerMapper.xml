@@ -50,11 +50,16 @@
 			<if test="member_name != null and member_name != ''">
 				m.member_name like '%'||#{member_name}||'%'
 			</if>
+			<if test="">
+			
+			</if>
 			and m.member_status = #{member_status}
 		</trim>
 		order by m.member_no desc) board)
 			where rn between #{startRow} and #{endRow}
+			
 	</select>
+	
 	
 </mapper>
 	
