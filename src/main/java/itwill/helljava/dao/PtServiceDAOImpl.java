@@ -46,14 +46,13 @@ public class PtServiceDAOImpl implements PtServiceDAO{
 	}
 
 	@Override
-	public List<PtService> selectPtServiceList(Map<String, Object> map, int pt_service_sortation, int member_no) {
-		return sqlSession.getMapper(PtServiceMapper.class).selectPtServiceList(map, pt_service_sortation, member_no);
+	public List<PtService> selectPtServiceList(Map<String, Object> map) {
+		return sqlSession.getMapper(PtServiceMapper.class).selectPtServiceList(map);
 	}
 
 	@Override
-	public List<PtService> selectPtServiceTrainerList(Map<String, Object> map, int pt_service_sortation,
-			int trainer_no) {
-		return sqlSession.getMapper(PtServiceMapper.class).selectPtServiceTrainerList(map, pt_service_sortation, trainer_no);
+	public List<PtService> selectPtServiceTrainerList(Map<String, Object> map) {
+		return sqlSession.getMapper(PtServiceMapper.class).selectPtServiceTrainerList(map);
 	}
 
 	@Override

@@ -9,4 +9,5 @@ public interface PostingMapper {
 	int updatePosting(Posting posting);
 
 	Posting selectPosting(int trainer_no);
+	
 }

@@ -49,13 +49,13 @@ public class PtServiceServiceImpl implements PtServiceService {
 	}
 
 	@Override
-	public List<PtService> getPtServiceList(Map<String, Object> map, int pt_service_sortation, int member_no) {
-		return ptServiceDAO.selectPtServiceList(map, pt_service_sortation, member_no);
+	public List<PtService> getPtServiceList(Map<String, Object> map) {
+		return ptServiceDAO.selectPtServiceList(map);
 	}
 
 	@Override
-	public List<PtService> getPtServiceTrainerList(Map<String, Object> map, int pt_service_sortation, int trainer_no) {
-		return ptServiceDAO.selectPtServiceTrainerList(map, pt_service_sortation, trainer_no);
+	public List<PtService> getPtServiceTrainerList(Map<String, Object> map) {
+		return ptServiceDAO.selectPtServiceTrainerList(map);
 	}
 
 	@Override
