@@ -1,11 +1,11 @@
 package itwill.helljava.dto;
 
 public class PtPricing {
+	
 	private int ptPricingNo;
 	private int trainerNo;
 	private String ptPricingRound;
 	private int ptPricingPrice;
-	private int ptPricingStatus;
 	
 	public PtPricing() {
 		// TODO Auto-generated constructor stub
@@ -41,14 +41,6 @@ public class PtPricing {
 
 	public void setPtPricingPrice(int ptPricingPrice) {
 		this.ptPricingPrice = ptPricingPrice;
-	}
-
-	public int getPtPricingStatus() {
-		return ptPricingStatus;
-	}
-
-	public void setPtPricingStatus(int ptPricingStatus) {
-		this.ptPricingStatus = ptPricingStatus;
 	}
 
 	
