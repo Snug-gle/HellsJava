@@ -13,5 +13,5 @@ public interface MemberDAO {
 
 	Member selectMember(int member_no);
 
-	List<Member> selectMemberList(Map<String, Object> map, int member_status, String member_id, String member_name);
+	List<Member> selectMemberList(Map<String, Object> map);
 }

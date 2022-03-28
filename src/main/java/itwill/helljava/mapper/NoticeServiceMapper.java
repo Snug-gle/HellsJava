@@ -16,6 +16,9 @@ public interface NoticeServiceMapper {
 
 	int selectNoticeServiceCount(int notice_service_sortation);
 	
+	// 관리자용 1:1 문의 게시글 카운트
+	int selectNoticeOneManageCount(Map<String, Object> map);
+	
 	// 내가 쓴 1:1문의 게시글 갯수
 	int selectNoticeServicePersonalCount(int notice_service_sortation, int member_no);
 

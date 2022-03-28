@@ -34,9 +34,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Member> getMemberList(Map<String, Object> map, int member_status, String member_id,
-			String member_name) {
-		return memberDAO.selectMemberList(map, member_status, member_id, member_name);
+	public List<Member> getMemberList(Map<String, Object> map) {
+		return memberDAO.selectMemberList(map);
 	}
 
 	

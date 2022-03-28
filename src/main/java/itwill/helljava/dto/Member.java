@@ -2,15 +2,17 @@ package itwill.helljava.dto;
 
 public class Member {
 
-	int memberNo;
-	String memberId;
-	String memberPw;
-	String memberName;
-	String memberPhone;
-	String memberEmail;
-	int memberStatus;
-	int memberCash;
+	private int memberNo;
+	private String memberId;
+	private String memberPw;
+	private String memberName;
+	private String memberPhone;
+	private String memberEmail;
+	private int memberStatus;
+	private int memberCash;
 
+	
+	
 	public int getMemberNo() {
 		return memberNo;
 	}
@@ -74,4 +76,13 @@ public class Member {
 	public void setMemberCash(int memberCash) {
 		this.memberCash = memberCash;
 	}
+
+	@Override
+	public String toString() {
+		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPw=" + memberPw + ", memberName="
+				+ memberName + ", memberPhone=" + memberPhone + ", memberEmail=" + memberEmail + ", memberStatus="
+				+ memberStatus + ", memberCash=" + memberCash + "]";
+	}
+	
+	
 }

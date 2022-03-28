@@ -50,6 +50,21 @@
 	<select id="selectNoticeServiceCount" resultType="int">
 		select count(*) from notice_service where notice_service_sortation = #{notice_service_sortation}
 	</select>
+	
+	<select id="selectNoticeOneManageCount">
+		select count(*) from notice_service n left join member m 
+			on n.member_no = m.member_no
+		<if test="notice_service_status != null and notice_service_status != ''">
+				<if test="notice_service_title != null and notice_service_title != ''"/>
+					where notice_service_title = #{notice_service_title} 
+				</if>
+				<if test="notice_service_name != null and notice_service" >
+				
+				</if>
+			
+		</if>
+		where notice_service_sortation = 2
+	</select>
 
 	<select id="selectNoticeServicePersonalCount" resultType="int">
 		select count(*) from notice_service where notice_service_sortation = #{notice_service_sortation} and member_no = #{member_no}
