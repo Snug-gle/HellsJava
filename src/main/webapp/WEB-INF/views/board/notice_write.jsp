@@ -7,13 +7,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-<div class="col-md-6">
+<div class="col-md-12">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">공지사항 작성</h3>
         </div>
         <div class="panel-body">
-            <form name="noticeForm" class="form-horizontal" role="form">
+            <form method="post" name="noticeForm" class="form-horizontal" role="form">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">제목</label>
                     <div class="col-sm-10">
