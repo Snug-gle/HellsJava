@@ -4,14 +4,22 @@ public class Trainer {
 	private int trainerNo;
 	private int memberNo;
 	private String trainerProfileImg;
-	private String trainerAddress1;
-	private String trainerAddress2;
+	private String trainerAddress;
+	private String trainerCenterName;
 	private String trainerZip;
 
 	private String memberId;
 	private String memberName;
 	private String memberPhone;
 	private String memberEmail;
+
+	public String getTrainerCenterName() {
+		return trainerCenterName;
+	}
+
+	public void setTrainerCenterName(String trainerCenterName) {
+		this.trainerCenterName = trainerCenterName;
+	}
 
 	public Trainer() {
 		// TODO Auto-generated constructor stub
@@ -73,20 +81,12 @@ public class Trainer {
 		this.trainerProfileImg = trainerProfileImg;
 	}
 
-	public String getTrainerAddress1() {
-		return trainerAddress1;
+	public String getTrainerAddress() {
+		return trainerAddress;
 	}
 
-	public void setTrainerAddress1(String trainerAddress1) {
-		this.trainerAddress1 = trainerAddress1;
-	}
-
-	public String getTrainerAddress2() {
-		return trainerAddress2;
-	}
-
-	public void setTrainerAddress2(String trainerAddresss2) {
-		this.trainerAddress2 = trainerAddresss2;
+	public void setTrainerAddress(String trainerAddress) {
+		this.trainerAddress = trainerAddress;
 	}
 
 	public String getTrainerZip() {
@@ -100,8 +100,9 @@ public class Trainer {
 	@Override
 	public String toString() {
 		return "Trainer [trainerNo=" + trainerNo + ", memberNo=" + memberNo + ", trainerProfileImg=" + trainerProfileImg
-				+ ", trainerAddress1=" + trainerAddress1 + ", trainerAddress2=" + trainerAddress2 + ", trainerZip="
-				+ trainerZip + "]";
+				+ ", trainerAddress=" + trainerAddress + ", trainerCenterName=" + trainerCenterName + ", trainerZip="
+				+ trainerZip + ", memberId=" + memberId + ", memberName=" + memberName + ", memberPhone=" + memberPhone
+				+ ", memberEmail=" + memberEmail + "]";
 	}
 
 }
