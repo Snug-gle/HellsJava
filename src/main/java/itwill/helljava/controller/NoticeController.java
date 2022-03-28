@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import itwill.helljava.Enum.NoticeServiceSortationEnum;
+import itwill.helljava.Enum.NoticeServiceStatusEnum;
 import itwill.helljava.dto.NoticeService;
 import itwill.helljava.service.NoticeServiceService;
 import itwill.helljava.util.Pager;
@@ -30,7 +32,12 @@ public class NoticeController {
 	@RequestMapping(value = "/list" ,method = RequestMethod.GET)
 	public String List(Model model,NoticeService noticeService , @RequestParam(defaultValue = "1") int pageNum){
 		//테이블에 저장된 모든 게시글의 갯수를 검색하여 반환받아 저장
-		int totalBoard = noticeServiceService.getNoticeServiceCount();
+		
+		Map<String, Object> countMap = new HashMap<String, Object>();
+		
+		countMap.put("notice_service_sortation", NoticeServiceSortationEnum.공지사항.getValue());
+		
+		int totalBoard = noticeServiceService.getNoticeServiceCount(countMap);
 		int pageSize = 5; //한 페이지에 출력될 게시글의 갯수 저장
 		int blockSize = 10; //한 페이지 블럭에 출력될 페이지 번호의 갯수 저장
 		
@@ -41,8 +48,10 @@ public class NoticeController {
 		Map<String,	Object> pagerMap = new HashMap<String, Object>();
 		pagerMap.put("starRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
+		pagerMap.put("notice_service_sortation", NoticeServiceSortationEnum.공지사항.getValue());
+		pagerMap.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
 		
-		model.addAttribute("noticeList", noticeServiceService.getNoticeServiceList(pagerMap, 0));
+		model.addAttribute("noticeList", noticeServiceService.getNoticeServiceList(pagerMap));
 		return "board/notice_list";
 	}
 	
