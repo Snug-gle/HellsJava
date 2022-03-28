@@ -14,7 +14,7 @@
 		#{noticeServiceReply, jdbcType=VARCHAR}, 
 		#{noticeServiceHits, jdbcType=INTEGER}, 
 		sysdate, 
-		1,
+		2,
 		#{noticeServiceSortation, jdbcType=INTEGER})
 	</insert>
 	
