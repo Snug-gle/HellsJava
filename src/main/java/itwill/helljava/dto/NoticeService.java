@@ -13,6 +13,16 @@ public class NoticeService {
 	int noticeServiceStatus;
 	int noticeServiceSortation;
 
+	String memberName;
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
 	public int getNoticeServiceNo() {
 		return noticeServiceNo;
 	}
@@ -91,6 +101,16 @@ public class NoticeService {
 
 	public void setNoticeServiceSortation(int noticeServiceSortation) {
 		this.noticeServiceSortation = noticeServiceSortation;
+	}
+
+	@Override
+	public String toString() {
+		return "NoticeService [noticeServiceNo=" + noticeServiceNo + ", memberNo=" + memberNo
+				+ ", noticeServiceCategory=" + noticeServiceCategory + ", noticeServiceTitle=" + noticeServiceTitle
+				+ ", noticeServiceContent=" + noticeServiceContent + ", noticeServiceReply=" + noticeServiceReply
+				+ ", noticeServiceHits=" + noticeServiceHits + ", noticeServiceDate=" + noticeServiceDate
+				+ ", noticeServiceStatus=" + noticeServiceStatus + ", noticeServiceSortation=" + noticeServiceSortation
+				+ ", memberName=" + memberName + "]";
 	}
 
 }

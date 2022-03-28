@@ -13,9 +13,8 @@ public interface NoticeServiceService {
 	
 	void modifyReplyNoticeService(NoticeService noticeService);
 
-	int getNoticeServiceCount(int notice_service_sortation);
-	
-	int getNoticeOneManageCount(Map<String, Object> map);
+	// 1:1 공지사항&FAQ 게시글 카운트 (검색 있음 제목, 내용, 이름(1:1문의 관리자) 검색)
+	int getNoticeServiceCount(Map<String, Object> map);
 	
 	int getNoticeServicePersonalCount(int notice_service_sortation, int member_no);
 
@@ -23,7 +22,7 @@ public interface NoticeServiceService {
 	NoticeService getNoticeService(int notice_service_no);
 
 	// 마찬가지로 글 구분 매개변수도 추가함
-	List<NoticeService> getNoticeServiceList(Map<String, Object> map1, int notice_service_sortation);
+	List<NoticeService> getNoticeServiceList(Map<String, Object> map);
 	
-	List<NoticeService> getNoticeServicePersonalList(Map<String, Object> map1, int notice_service_sortation, int member_no);
+	List<NoticeService> getNoticeServicePersonalList(Map<String, Object> map);
 }
