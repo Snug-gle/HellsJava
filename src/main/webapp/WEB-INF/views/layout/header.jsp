@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 <div class="heard-banner">
 	<div class="main-title">
-		<p class="title_01" onclick="location.href='<c:url value="/"/>';">오늘의 짐</p>
+		<a class="title_01" href="<c:url value="/"/>">오늘의 짐</a>
 	</div>
 	<div class="main-top-banner" >
 		<c:choose>
@@ -92,7 +93,7 @@
 		</c:choose>
 	</div>
 </div>
-
+<hr>
 <script type="text/javascript">
 
 </script>

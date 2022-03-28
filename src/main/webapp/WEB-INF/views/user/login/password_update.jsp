@@ -1,20 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	
-	
-	
+
 	<div>
 		<div>
 			<div>
-				<h1 onclick="location.href='<c:url value="/"/>';">오늘의 짐</h1>
+				<a href="<c:url value="/"/>"><h1>오늘의 짐</h1></a>
 			</div>
 			<div>
 				<div>
@@ -41,6 +32,3 @@
 			</div>
 		</div>
 	</div>
-	
-</body>
-</html>
