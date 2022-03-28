@@ -46,7 +46,7 @@ public class NoticeController {
 		
 		//Service 클래스의 메소드 호출을 위한 Map 객체 생성
 		Map<String,	Object> pagerMap = new HashMap<String, Object>();
-		pagerMap.put("starRow", pager.getStartRow());
+		pagerMap.put("startRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
 		pagerMap.put("notice_service_sortation", NoticeServiceSortationEnum.공지사항.getValue());
 		pagerMap.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());

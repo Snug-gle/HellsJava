@@ -117,7 +117,7 @@
 				<when test="notice_service_status != null and notice_service_status != '' and
 							searchKeyword != null and searchKeyword != '' and
 							searchValue != null and searchValue != ''">
-					where notice_service_status = #{notice_service_status} and 
+					where n.notice_service_status = #{notice_service_status} and 
 					${searchKeyword} like '%'||#{searchValue}||'%' and 
 					notice_service_sortation = 2 and 
 					n.member_no = #{member_no}

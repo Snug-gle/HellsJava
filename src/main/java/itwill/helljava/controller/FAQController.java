@@ -31,7 +31,7 @@ public class FAQController {
 	@ResponseBody
 	public Map<String, Object> faqList(@RequestParam(defaultValue = "1")int pageNum) {
 		//테이블에 저장된 모든 게시글의 갯수 검색하여 반환받아 저장
-		int totalBoard=noticeServiceService.getNoticeServiceCount(null)
+		int totalBoard=noticeServiceService.getNoticeServiceCount(null);
 		int pageSize=5;
 		int blockSize=5;
 		
