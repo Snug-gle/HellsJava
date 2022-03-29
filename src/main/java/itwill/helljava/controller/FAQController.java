@@ -100,10 +100,10 @@ public class FAQController {
 		return "success";
 	}
 	
-	//CSS
-	@RequestMapping("/write")
-	public String write() {
-		return "board/faq_write";
-	}
+	/*
+	 * //CSS
+	 * 
+	 * @RequestMapping("/write") public String write() { return "board/faq_write"; }
+	 */
 	
 }
