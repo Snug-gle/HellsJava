@@ -21,6 +21,6 @@ public class UserinfoController {
 		}
 		
 		
-		return "material/member_modify";
+		return "user/member_modify";
 	}
 }
