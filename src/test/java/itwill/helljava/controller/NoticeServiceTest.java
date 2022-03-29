@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import itwill.helljava.Enum.NoticeServiceCategoryEnum;
 import itwill.helljava.Enum.NoticeServiceSortationEnum;
 import itwill.helljava.Enum.NoticeServiceStatusEnum;
 import itwill.helljava.dto.NoticeService;
@@ -43,20 +44,28 @@ public class NoticeServiceTest {
 	 * for(NoticeService noticeService : list) { logger.info(list.toString()); } }
 	 */
 	
+	/*
+	 * @Test public void selectNoticeServicePersonalList() {
+	 * 
+	 * Map<String, Object> map = new HashMap();
+	 * 
+	 * map.put("startRow", 1); map.put("endRow", 10); map.put("member_no", 27);
+	 * 
+	 * List<NoticeService> list =
+	 * noticeServiceService.getNoticeServicePersonalList(map);
+	 * 
+	 * for(NoticeService noticeService : list) { logger.info(list.toString()); } }
+	 */
+	
 	@Test
-	public void selectNoticeServicePersonalList() {
+	public void testselectNoticeServiceList() {
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		Map<String, Object> map = new HashMap();
-		
-		map.put("startRow", 1);
+		map.put("searchKeyword", NoticeServiceCategoryEnum.결제관련문의.getValue());
+		map.put("searchValue", "카테고리");
+		map.put("startRow", 1); 
 		map.put("endRow", 10);
-		map.put("member_no", 27);
-		
-		List<NoticeService> list = noticeServiceService.getNoticeServicePersonalList(map);
-		
-		for(NoticeService noticeService : list) {
-		logger.info(list.toString());
-		}
+		map.put("notice_service_sortation", );
 	}
 	
 	

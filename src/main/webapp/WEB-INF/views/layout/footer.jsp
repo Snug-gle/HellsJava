@@ -10,7 +10,7 @@
 			<span><a href="<c:url value='notice/board'/>">공지사항&nbsp;&nbsp;</a></span>
 			<span><a href="">고객센터</a></span>
 			<span><a href="<c:url value="mypage"/>">마이페이지&nbsp;&nbsp;</a></span>
-			<span><a href="<c:url value="faq/list"/>">faq&nbsp;&nbsp;</a></span>
+			<span><a href="<c:url value="faq/board"/>">faq&nbsp;&nbsp;</a></span>
 			<span><a href="<c:url value="notice/list"/>">1:1문의&nbsp;&nbsp;</a></span>
 		
 		</div>

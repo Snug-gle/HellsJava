@@ -35,7 +35,7 @@
 		<table>
 			<tr>
 				<td align=center><input type="button" value="목록"
-					onClick="location.href='<c:url value="/notice/list"/>';"> <%-- <c:if test="${loginUserinfo.status==9 }"> --%>
+					onClick="location.href='<c:url value="/notice/board"/>';"> <%-- <c:if test="${loginUserinfo.status==9 }"> --%>
 					<input type="button" value="수정"
 					onClick="location.href='<c:url value="/notice/modify"/>?noticeServiceNo=${notice.noticeServiceNo }';">
 					<input type="button" value="삭제"

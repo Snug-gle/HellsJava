@@ -36,38 +36,6 @@ public class NoticeController {
 		return "board/notice_list";
 	}
 	
-	/*
-	 * //공지사항 리스트 출력 처리 메소드
-	 * 
-	 * @RequestMapping(value = "/list" ,method = RequestMethod.GET) public String
-	 * list(Model model,NoticeService noticeService , @RequestParam(defaultValue =
-	 * "1") int pageNum){ //테이블에 저장된 모든 게시글의 갯수를 검색하여 반환받아 저장
-	 * 
-	 * Map<String, Object> countMap = new HashMap<String, Object>();
-	 * 
-	 * countMap.put("notice_service_sortation",
-	 * NoticeServiceSortationEnum.공지사항.getValue());
-	 * 
-	 * int totalBoard = noticeServiceService.getNoticeServiceCount(countMap); int
-	 * pageSize = 5; //한 페이지에 출력될 게시글의 갯수 저장 int blockSize = 10; //한 페이지 블럭에 출력될 페이지
-	 * 번호의 갯수 저장
-	 * 
-	 * //페이징 처리 관련 값을 제공하는 Pager 클래스로 객체를 생성하여 저장 Pager pager = new Pager(pageNum,
-	 * totalBoard, pageSize, blockSize);
-	 * 
-	 * //Service 클래스의 메소드 호출을 위한 Map 객체 생성 Map<String, Object> pagerMap = new
-	 * HashMap<String, Object>(); pagerMap.put("startRow", pager.getStartRow());
-	 * pagerMap.put("endRow", pager.getEndRow());
-	 * pagerMap.put("notice_service_sortation",
-	 * NoticeServiceSortationEnum.공지사항.getValue());
-	 * pagerMap.put("notice_service_status",
-	 * NoticeServiceStatusEnum.일반글.getValue());
-	 * 
-	 * model.addAttribute("noticeList",
-	 * noticeServiceService.getNoticeServiceList(pagerMap)); return
-	 * "board/notice_list"; }
-	 */
-	
 	// 공지사항 리스트 출력 메서드 (Map 형태로 반환)
 	@RequestMapping(value = "/list",method = RequestMethod.GET)
 	@ResponseBody
@@ -99,38 +67,6 @@ public class NoticeController {
 		return returnMap;
 	}
 	
-	/*
-	 * //공지사항 리스트 출력 처리 메소드
-	 * 
-	 * @RequestMapping(value = "/pager" ,method = RequestMethod.GET) public String
-	 * pageMap(Model model,NoticeService noticeService , @RequestParam int pageNum){
-	 * //테이블에 저장된 모든 게시글의 갯수를 검색하여 반환받아 저장
-	 * 
-	 * Map<String, Object> countMap = new HashMap<String, Object>();
-	 * 
-	 * countMap.put("notice_service_sortation",
-	 * NoticeServiceSortationEnum.공지사항.getValue());
-	 * 
-	 * int totalBoard = noticeServiceService.getNoticeServiceCount(countMap); int
-	 * pageSize = 5; //한 페이지에 출력될 게시글의 갯수 저장 int blockSize = 10; //한 페이지 블럭에 출력될 페이지
-	 * 번호의 갯수 저장
-	 * 
-	 * //페이징 처리 관련 값을 제공하는 Pager 클래스로 객체를 생성하여 저장 Pager pager = new Pager(pageNum,
-	 * totalBoard, pageSize, blockSize);
-	 * 
-	 * //Service 클래스의 메소드 호출을 위한 Map 객체 생성 Map<String, Object> pagerMap = new
-	 * HashMap<String, Object>(); pagerMap.put("startRow", pager.getStartRow());
-	 * pagerMap.put("endRow", pager.getEndRow());
-	 * pagerMap.put("notice_service_sortation",
-	 * NoticeServiceSortationEnum.공지사항.getValue());
-	 * pagerMap.put("notice_service_status",
-	 * NoticeServiceStatusEnum.일반글.getValue());
-	 * 
-	 * model.addAttribute("pagerMap",
-	 * noticeServiceService.getNoticeServiceList(pagerMap)); return "pagerMap"; }
-	 */
-	
-	
 	//공지사항 세부 사항 출력 요청 처리 메소드
 	@RequestMapping(value = "/view/{num}", method = RequestMethod.GET) 
 	public String view(@PathVariable int num , Model model) {
@@ -142,8 +78,6 @@ public class NoticeController {
 	//공지사항 입력 페이지 출력 요청 처리 메소드
 	@RequestMapping(value = "/write" , method = RequestMethod.GET)
 	public String write() {
-		
-			
 		return "board/notice_write";
 	}
 	
