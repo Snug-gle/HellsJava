@@ -21,18 +21,12 @@ import itwill.helljava.dto.NoticeService;
 import itwill.helljava.service.NoticeServiceService;
 import itwill.helljava.util.Pager;
 
-@RestController
+@Controller
 @RequestMapping("/faq")
 public class FAQController {
 
 	@Autowired
 	private NoticeServiceService noticeServiceService;
-	
-	
-	
-	
-	
-	
 	
 	//테이블에 저장된 게시글 목록을 검색하여 JSON 형식의 텍스트로 응답하는 요청 처리 메소드
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -66,7 +60,9 @@ public class FAQController {
 		return returnMap;
 		
 	}
-	*/
+	
+	
+	
 	
 	//게시글을 전달받아 테이블에 삽입하여 저장하고 처리 결과를 일반 텍스트로 응답하는 요청 처리 메소드
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
