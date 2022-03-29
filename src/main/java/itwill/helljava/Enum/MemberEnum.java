@@ -2,7 +2,7 @@ package itwill.helljava.Enum;
 
 public enum MemberEnum {
 
-	RESIGN(0), NORMAL(1), PRE_TRAINER(2), TRAINER(3), MANAGER(9);
+	탈퇴회원(0), 일반회원(1), 트레이너예정(2), 트레이너(3), 관리자(9);
 
 	private final int memberGrade;
 
@@ -14,16 +14,16 @@ public enum MemberEnum {
 
 		switch (number) {
 			case 0:
-				return RESIGN;
+				return 탈퇴회원;
 			case 2:
-				return PRE_TRAINER;
+				return 트레이너예정;
 			case 3:
-				return TRAINER;
+				return 트레이너;
 			case 9:
-				return MANAGER;
+				return 관리자;
 	
 			default:
-				return NORMAL;
+				return 일반회원;
 			}
 	}
 	
