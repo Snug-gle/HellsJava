@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class TrainerInfoController {
 	// 로그인 화면을 요청
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = "user/trainer/trainer_request", method = RequestMethod.GET)
 	public String loginForm() {
-		return "";
+		return "user/trainer/trainer_request";
 	}
 }
