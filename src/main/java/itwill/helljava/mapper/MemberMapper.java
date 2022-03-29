@@ -13,6 +13,9 @@ public interface MemberMapper {
 
 	Member selectMember(int member_no);
 	
+	// 아이디로 회원 검색
+	Member selectIdMember(String member_id);
+	
 	// 회원 조회 (검색 기능 아이디, 이름 포함)
 	List<Member> selectMemberList(Map<String, Object> map);
 	

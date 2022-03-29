@@ -10,5 +10,6 @@ public interface MemberService {
 	void addMember(Member member);
 	void modifyMember(Member member);
 	Member getMember(int member_no);
+	Member getIdMember(String member_id);
 	List<Member> getMemberList(Map<String, Object> map);
 }

@@ -13,5 +13,7 @@ public interface MemberDAO {
 
 	Member selectMember(int member_no);
 
+	Member selectIdMember(String member_id);
+	
 	List<Member> selectMemberList(Map<String, Object> map);
 }
