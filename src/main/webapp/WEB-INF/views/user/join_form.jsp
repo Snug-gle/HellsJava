@@ -37,7 +37,11 @@
 		
 		<tr>
 			<td>이름</td>
-			<td><input type="text" name="memberName"></td>
+			<td>
+				<input type="text" id="name" name="memberName">
+				<p id="nameMsg" class="error">이름을 입력해 주세요.</p>
+			</td>
+			
 		</tr>
 			<tr>
 			<td>연락처</td>
@@ -52,11 +56,16 @@
 				</select>
 				<input id="member_phone2" name="member_phone2" size="7" maxlength="4" type="text">
 				<input id="member_phone3" name="member_phone3" size="7" maxlength="4" type="text">
+				<p id="phoneMsg" class="error">연락처를 입력해 주세요.</p>
+				<div id="phoneRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해 주세요.</div>
 			</td>
 		</tr> 
 		<tr>
 			<td>이메일</td>
-			<td><input type="text" name="memberEmail"></td>
+			<td>
+				<input type="text" id="email" name="memberEmail">
+				<p id="emailMsg" class="error">이메일 입력해 주세요.</p>
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2"><button type="submit">회원가입</button></td>
@@ -106,6 +115,41 @@
 			$("#pwMatchMsg").css("display","block");
 			submitResult=false;
 		}
+		
+		//이름 공백 검사
+		if($("#name").val()=="") {
+			$("#nameMsg").css("display","block");
+			submitResult=false;
+		}
+		
+		//연락처 공백 검사
+		var phone2Reg=/\d{3,4}/;
+		var phone3Reg=/\d{4}/;
+		if($("#member_phone2").val()=="" || $("#member_phone3").val()=="") {
+			$("#phoneMsg").css("display","block");
+			submitResult=false;
+		} else if(!phone2Reg.test($("#member_phone2").val()) || !phone3Reg.test($("#member_phone3").val())) {
+			$("#phoneRegMsg").css("display","block");
+			submitResult=false;
+		}
+		
+		if($("#member_phone2").val()=="") {
+			$("phoneMsg").css("display","block");
+			submitResult=false;
+		}
+		if($("#member_phone3").val()=="") {
+			$("#phoneMsg").css("display","block");
+			submitResult=false;
+		}
+		
+		//이메일 공백 검사
+		var emailReg=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+(\.[-a-zA-Z0-9]+)+)*$/g;
+		if($("#email").val()=="") {
+			$("#emailMsg").css("display","block");
+			submitResult=false;
+		}
+		
+		
 		
 		return submitResult;
 	});

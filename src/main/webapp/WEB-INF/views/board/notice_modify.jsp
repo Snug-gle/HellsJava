@@ -14,8 +14,9 @@
         <div class="panel-body">
             <form method="post" name="noticeForm" class="form-horizontal" role="form">
                	
-               	<input type="hidden" name="noticeServiceStatus" value="0">
-               	<input type="hidden" name="noticeServiceCategory" value="${notice.noticeServiceCategory}">
+               	<input type="hidden" name="noticeServiceSortation" value="1">
+               	<input type="hidden" name="noticeServiceSatus" value="1">
+               	<!-- <input type="hidden" name="noticeServiceCategory" value="${notice.noticeServiceCategory}"> -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label">제목</label>
                     <div class="col-sm-10">
