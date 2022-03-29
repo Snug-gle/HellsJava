@@ -28,7 +28,7 @@ public class FAQController {
 	@Autowired
 	private NoticeServiceService noticeServiceService;
 	
-	@RequestMapping("/list" )
+	@RequestMapping("/board" )
 	public String faqList() {
 		return "board/faq_list";
 	}
@@ -42,10 +42,11 @@ public class FAQController {
 		Map<String, Object> countMap = new HashMap<String, Object>();
 		
 		countMap.put("notice_service_sortation", NoticeServiceSortationEnum.FAQ.getValue());
+		countMap.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
 		
 		int totalBoard=noticeServiceService.getNoticeServiceCount(countMap);
 		int pageSize=5;
-		int blockSize=5;
+		int blockSize=10;
 		
 		//페이징 처리 관련 값을 Pager 클래스로 저장
 		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
@@ -66,22 +67,20 @@ public class FAQController {
 		
 	}
 	
-	
-	
-	
 	//게시글을 전달받아 테이블에 삽입하여 저장하고 처리 결과를 일반 텍스트로 응답하는 요청 처리 메소드
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	@ResponseBody
 	public String faqWrite(@RequestBody NoticeService noticeService) {
 		noticeService.setNoticeServiceContent(HtmlUtils.htmlEscape(noticeService.getNoticeServiceContent()));
 		noticeServiceService.addNoticeService(noticeService);
 		return "success";
-	}
+	} 
 	
 	//글번호를 전달받아 테이블에 저장된 해당 글번호의 게시글을 검색하여 JSON 형식의
 	//텍스트로 응답하는 요청 처리 메소드 - 요청 URL 주소를 이용하여 글번호 전달
-	@RequestMapping(value = "/view{num}" , method = RequestMethod.GET)
+	@RequestMapping(value = "/view/{num}" , method = RequestMethod.GET)
 	@ResponseBody
-	public NoticeService noticeService(@PathVariable int num) {
+	public NoticeService faqView(@PathVariable int num) {
 		return noticeServiceService.getNoticeService(num);
 	}
 	
@@ -93,14 +92,14 @@ public class FAQController {
 		noticeServiceService.modifyNoticeService(noticeService);
 		return "success";
 	}
-	/*
-	@RequestMapping(value = "/remove/{num)", method = RequestMethod.PATCH)
+
+	@RequestMapping(value = "/remove/{num}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String faqRemove(@PathVariable int num) {
-		;
+		
 		return "success";
 	}
-	*/
+	
 	//CSS
 	@RequestMapping("/write")
 	public String write() {
