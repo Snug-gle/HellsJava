@@ -3,12 +3,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 	<h1>회원가입</h1>
 	<hr>
-	<form id="joinForm" action="join" method="post" id="joinForm">
+	<form id="joinForm" action="<c:url value = "/user/join"/>" method="post" id="joinForm">
 	<table>
 		<tr>
 			<td>아이디</td>
 			<td>
-				<input type="text" id="member_id" name="id">
+				<input type="text" id="member_id" name="memberId">
 				<button type="button" id="idCheck" class="btnNormal">아이디 중복검사</button>
 				<div id="idMsg" class="error">아이디를 입력해 주세요.</div>
 				<div id="idRegMsg" class="error">아이디 형식에 알맞게 작성해 주세요.(영문자로 시작하는 영문자 또는 숫자 6~20자)</div>
@@ -20,7 +20,7 @@
 		<tr>
 			<td>비밀번호</td>
 			<td>
-				<input type="password" id="passwd">
+				<input type="password" id="passwd" name="memberPw">
 				<p id="passwdMsg" class="error">비밀번호를 입력해 주세요.</p>
 				<p id="passwdMsg2" class="error">비밀번호는 8 ~ 16자 영문, 숫자 조합으로 입력해주세요</p>
 			</td>
@@ -37,7 +37,7 @@
 		
 		<tr>
 			<td>이름</td>
-			<td><input type="text" name="name"></td>
+			<td><input type="text" name="memberName"></td>
 		</tr>
 			<tr>
 			<td>연락처</td>
@@ -56,7 +56,7 @@
 		</tr> 
 		<tr>
 			<td>이메일</td>
-			<td><input type="text" name="id"></td>
+			<td><input type="text" name="memberEmail"></td>
 		</tr>
 		<tr>
 			<td colspan="2"><button type="submit">회원가입</button></td>
