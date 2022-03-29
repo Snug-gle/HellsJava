@@ -136,4 +136,21 @@
 	margin: 20px;
 }
 
+.trainer-my-container {
+	justify-content: center;
+	display: flex;
+}
+
+.trainer-my-item {
+	width: 240px;
+    height: 220px;
+    margin: 25px;
+    text-align: center;
+    line-height: 100px;
+    font-size: 25px;
+    color: black;
+    border: 2px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+}
 
