@@ -2,8 +2,13 @@ package itwill.helljava.controller;
 
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import itwill.helljava.dto.Member;
 
 
 
@@ -47,8 +52,6 @@ public class TilesController {
 		return "material/mypage2";
 	}
 	
-	@RequestMapping("/member/modify")
-	public String md() {
-		return "material/member_modify";
-	}
+	
+	
 }

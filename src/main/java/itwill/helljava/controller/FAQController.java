@@ -28,6 +28,11 @@ public class FAQController {
 	@Autowired
 	private NoticeServiceService noticeServiceService;
 	
+	@RequestMapping("/list" )
+	public String faqList() {
+		return "board/faq_list";
+	}
+	
 	//테이블에 저장된 게시글 목록을 검색하여 JSON 형식의 텍스트로 응답하는 요청 처리 메소드
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
