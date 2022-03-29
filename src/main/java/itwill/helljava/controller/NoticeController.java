@@ -153,7 +153,7 @@ public class NoticeController {
 				
 		noticeService.setMemberNo(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
 		noticeServiceService.addNoticeService(noticeService);
-		return "redirect:/notice/list";
+		return "redirect:/notice/board";
 	}
 	
 	//번호를 전달 받아 공지사항 수정 페이지 출력 요청 처리 메소드
@@ -171,7 +171,7 @@ public class NoticeController {
 		noticeServiceService.modifyNoticeService(noticeService);
 		
 		//글 수정 중 된 회원(관리자)이
-		return "redirect:/notice/list";
+		return "redirect:/notice/board";
 	}
 
 	//공지사항 삭제
@@ -179,7 +179,7 @@ public class NoticeController {
 	public String remove(@PathVariable int num, @ModelAttribute NoticeService noticeService) throws Exception{
 
 		noticeServiceService.removeNoticeService(num);
-		return "redirect:/notice/list";
+		return "redirect:/notice/board";
 	}
 	
 	//css용
