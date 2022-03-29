@@ -1,6 +1,7 @@
 package itwill.helljava.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -30,7 +31,7 @@ public class NoticeController {
 	
 	//공지사항 리스트 출력 처리 메소드
 	@RequestMapping(value = "/list" ,method = RequestMethod.GET)
-	public String List(Model model,NoticeService noticeService , @RequestParam(defaultValue = "1") int pageNum){
+	public String list(Model model,NoticeService noticeService , @RequestParam(defaultValue = "1") int pageNum){
 		//테이블에 저장된 모든 게시글의 갯수를 검색하여 반환받아 저장
 		
 		Map<String, Object> countMap = new HashMap<String, Object>();
@@ -55,11 +56,37 @@ public class NoticeController {
 		return "board/notice_list";
 	}
 	
+	//공지사항 리스트 출력 처리 메소드
+	@RequestMapping(value = "/pager" ,method = RequestMethod.GET)
+	public String pageMap(Model model,NoticeService noticeService , @RequestParam int pageNum){
+		//테이블에 저장된 모든 게시글의 갯수를 검색하여 반환받아 저장
+		
+		Map<String, Object> countMap = new HashMap<String, Object>();
+		
+		countMap.put("notice_service_sortation", NoticeServiceSortationEnum.공지사항.getValue());
+		
+		int totalBoard = noticeServiceService.getNoticeServiceCount(countMap);
+		int pageSize = 5; //한 페이지에 출력될 게시글의 갯수 저장
+		int blockSize = 10; //한 페이지 블럭에 출력될 페이지 번호의 갯수 저장
+		
+		//페이징 처리 관련 값을 제공하는 Pager 클래스로 객체를 생성하여 저장
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+		
+		//Service 클래스의 메소드 호출을 위한 Map 객체 생성
+		Map<String,	Object> pagerMap = new HashMap<String, Object>();
+		pagerMap.put("startRow", pager.getStartRow());
+		pagerMap.put("endRow", pager.getEndRow());
+		pagerMap.put("notice_service_sortation", NoticeServiceSortationEnum.공지사항.getValue());
+		pagerMap.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
+		
+		model.addAttribute("pagerMap", noticeServiceService.getNoticeServiceList(pagerMap));
+		return "pagerMap";
+	}
+	
 	
 	//공지사항 세부 사항 출력 요청 처리 메소드
 	@RequestMapping(value = "/view/{num}", method = RequestMethod.GET) 
 	public String view(@PathVariable int num , Model model) {
-		System.out.println("num = "+num);
 		model.addAttribute("notice", noticeServiceService.getNoticeService(num));
 		
 		return "board/notice_view";
@@ -83,14 +110,14 @@ public class NoticeController {
 	//번호를 전달 받아 공지사항 수정 페이지 출력 요청 처리 메소드
 	//=> 관리자만 요청 가능하도록 인터셉터 사용(필요하면 추가)
 	@RequestMapping(value =  "/modify" , method = RequestMethod.GET)
-	public String modify(@RequestParam int notice_service_no , Model model) throws Exception {
-		model.addAttribute("noticeNo" , noticeServiceService.getNoticeService(notice_service_no));
+	public String modify(@RequestParam int noticeServiceNo , Model model) throws Exception {
+		model.addAttribute("notice" , noticeServiceService.getNoticeService(noticeServiceNo));
 		return "board/notice_modify";
 	}
 	
 	//공지사항 수정 사항 저장 요청 처리 메소드
 	@RequestMapping(value =  "/modify" , method = RequestMethod.POST)
-	public String modify(@ModelAttribute NoticeService noticeService , HttpSession session) throws Exception {
+	public String modify(@ModelAttribute NoticeService noticeService) throws Exception {
 		noticeServiceService.modifyNoticeService(noticeService);
 		
 		//글 수정 중 된 회원(관리자)이
@@ -100,6 +127,9 @@ public class NoticeController {
 	//공지사항 삭제
 	@RequestMapping( value = "/remove/{num}" , method = RequestMethod.GET)
 	public String remove(@PathVariable int num, @ModelAttribute NoticeService noticeService) throws Exception{
+		System.out.println("num = "+num);
+		
+		
 		noticeServiceService.modifyNoticeService(noticeService);
 		return "redirect:/notice/list";
 	}
