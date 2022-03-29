@@ -15,5 +15,8 @@ public interface MemberDAO {
 
 	Member selectIdMember(String member_id);
 	
+	// 아이디 & 비밀번호 찾기 쿼리
+	Member selectSearchMember(Map<String, Object> map);
+	
 	List<Member> selectMemberList(Map<String, Object> map);
 }

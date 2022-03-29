@@ -32,7 +32,7 @@ public class joinController {
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(@ModelAttribute Member member, Model model, HttpServletRequest request) throws MemberExistsException {
 		
-		String phone = request.getParameter("member_phone1") + request.getParameter("member_phone2") + request.getParameter("member_phone3");
+		String phone = request.getParameter("member_phone1") +"-"+ request.getParameter("member_phone2") +"-"+ request.getParameter("member_phone3");
 		
 		member.setMemberPhone(phone);
 		memberService.addMember(member);

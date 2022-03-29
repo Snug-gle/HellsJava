@@ -46,6 +46,20 @@
 		select * from member where member_id = #{memberId}
 	</select>
 	
+	<!-- 아이디, 비밀번호 찾기 통합 쿼리 -->
+	<select id="selectSearchMember" parameterType="map" resultType="Member">
+		select * from member
+		<trim prefix="where" suffixOverrides="and">
+			<if test="memberPhone != null and memberPhone !='' and
+						memberName != null and memberName != ''">
+				member_phone = #{memberPhone} and member_name = #{memberName} and
+			</if>
+			<if test="memberId != null and memberId != ''">
+				member_id = #{memberId}
+			</if>
+		</trim>
+	</select>	
+	
 	<select id="selectMemberList" resultType="Member">
 		select * from
 		(select rownum rn,board.* from (select * from member 		
