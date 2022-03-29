@@ -8,7 +8,7 @@
 	</div>
 	<div class="main-top-banner" >
 		<c:choose>
-		  	<c:when test="${empty(loginMember) }">
+		  	<c:when test="${empty(loginUserinfo) }">
 		  		<div class="main-top-btn login" >
 					<button type="button" onclick="location.href='<c:url value="/user/login/login_form"/>';">로그인</button>
 				</div>
@@ -17,7 +17,7 @@
 				</div>
 			</c:when>
 			<c:otherwise>
-				<c:if test="${loginMember eq'관리자'}">
+				<c:if test="${loginUserinfo.memberStatus == 9}">
 					<div class="main-top-btn admin" >
 						<button type="button" >관리자 페이지</button>
 					</div>
@@ -26,10 +26,10 @@
 					<button type="button" onclick="location.href='<c:url value="/logout"/>';" >로그아웃</button>
 				</div>
 				<div class="main-top-btn mypage" >
-					<c:if test="${loginMember eq'김성훈' or loginMember eq '관리자'}">
+					<c:if test="${loginUserinfo.memberStatus == 1 or loginUserinfo.memberStatus == 9}">
 						<button type="button" >마이페이지</button>
 					</c:if>
-					<c:if test="${loginMember eq'트레이너'}">
+					<c:if test="${loginUserinfo.memberStatus == 3}">
 						<button type="button" >마이페이지(트레이너)</button>
 					</c:if>
 				</div>

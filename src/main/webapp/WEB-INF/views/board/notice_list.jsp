@@ -17,11 +17,11 @@
 			<%-- 공지사항 작성 버튼  --%>
 			<div class="actions pull-right">
 
-				<%-- <c:if test="${loginUserinfo.status==9}"> --%>
+				<c:if test="${loginUserinfo.memberStatus==9}">
 				<button type="button"
 					onclick="location.href='<c:url value="/notice/write"/>';">공지사항
 					작성</button>
-				<%-- </c:if> --%>
+				 </c:if> 
 			</div>
 		</div>
 
@@ -48,7 +48,7 @@
 		{{#each .}}
 			<tr>
 				<td align="center">{{noticeServiceNo}}</td>
-				<td align="center"><a href="<c:url value='/notice/view/'/>${notice.noticeServiceNo}">{{noticeServiceTitle}}</a></td>
+				<td align="center" id="title"><a href="<c:url value='/notice/view/'/>{{noticeServiceNo}}">{{noticeServiceTitle}}</a></td>
 				<td align="center">{{noticeServiceDate}}</td>
 				<td align="center">{{memberName}}</td>
 				<td align="center">{{noticeServiceHits}}</td>
