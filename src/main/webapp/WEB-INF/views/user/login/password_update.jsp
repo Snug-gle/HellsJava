@@ -9,25 +9,25 @@
 			</div>
 			<div>
 				<div>
-					<form action="" method="post"></form>
-					<table>
-						<tr>
-							<td>비밀번호</td>
-							<td>
-								<input type="text" placeholder="새로 설정할 비밀번호를 입력해주세요">
-							</td>
-						</tr>
-						<tr>
-							<td>비밀번호 확인</td>
-							<td>
-								<input type="password" placeholder="비밀번호를 다시 입력해주세요">
-							</td>
-						</tr>
-						<tr>
-							<td><button type="submit">확인</button></td>
-						</tr>
-			
-					</table>
+					<form action="<c:url value="/user/login/password_update"/>" method="post">
+						<table>
+							<tr>
+								<td>비밀번호</td>
+								<td>
+									<input type="text" placeholder="새로 설정할 비밀번호를 입력해주세요">
+								</td>
+							</tr>
+							<tr>
+								<td>비밀번호 확인</td>
+								<td>
+									<input type="password" placeholder="비밀번호를 다시 입력해주세요">
+								</td>
+							</tr>
+							<tr>
+								<td><button type="submit">확인</button></td>
+							</tr>
+						</table>
+					</form>
 				</div>
 			</div>
 		</div>
