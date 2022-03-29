@@ -11,32 +11,31 @@
 <body>
 	<div class="posting-detail-content">
 		<div class="posting-detail-content-header">
-			<div>
-				<table>
-					<tr>
-						<td>트레이너</td>
-						<td>후기</td>
-					</tr>
-					<tr>
-						<td>소개</td>
-						<td>자격사항</td>
-						<td>스케쥴</td>
-						<td>프로그램</td>
-						<td>최근후기</td>
-						<td>이용가격</td>
-						<td>위치</td>
-					</tr>
-				</table>
+			<div class="posting-detail-content-header-top">
+				<div class="posting-barContainer top">
+					<div>트레이너</div>
+					<div>후기</div>
+				</div>
+			</div>
+			<div class="posting-detail-content-header-low">
+				<div class="posting-barContainer low">
+					<a href="#posting-detail-frofile">소개</a>
+					<a href="#posting-detail-award">자격사항</a>
+					<a href="#posting-detail-schedule">스케줄</a>
+					<a href="#pposting-detail-program">프로그램</a>
+					<a href="#posting-detail-price">이용가격</a>
+					<a href="#posting-detail-shop">위치</a>
+				</div>
 			</div>
 		</div>
 		<div class="posting-detail-content-body">
-		
-			<div class="search-list-body">
+			<!-- 선생 소개 -->
+			<div class="posting-detail-frofile-top posting-detail-content-panel pdm">
 				<div class="panel-list">
 					<div class="panel-body profile-wrapper">
 				        <div class="col-md-3">
 				            <div class="profile-pic text-center">
-				                <img src="<spring:url value="/img/avatar2.png"/>" alt="" class="img-circle">
+				                <img src="<spring:url value="/img/avatar2.png"/>" alt="" class="img-circle"> 
 				            </div>
 				        </div>
 				        <div class="col-md-9">
@@ -56,6 +55,102 @@
 				    </div>
 				</div>
 			</div>
+			<!-- 선생님 소개 -->
+			<div class="posting-detail-frofile-content pdm" id="posting-detail-frofile">
+				<div class="frofile-content-title">
+					<h4>선생님 소개</h4>
+				</div>
+				<div class="frofile-content-body posting-detail-content-panel">
+					<div class="frofile-content-body-imglist">
+						<img alt="" src="">
+					</div>
+					<div class="frofile-content-body-text">
+						<p>테스트다아아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ</p>
+					</div>
+				</div>
+			</div>
+			<!-- 자격 사항 -->
+			<div class="posting-detail-award pdm" id="posting-detail-award">
+				<div class="frofile-award-title">
+					<h4>자격 사항</h4>
+				</div>
+				<div class="frofile-award-content posting-detail-content-panel">
+					<div class="frofile-award-content-body">
+						<div class="frofile-award-content-body-img">
+							<img alt="" src=""> 
+						</div>
+						<div class="frofile-award-content-body-title">
+							<h5>기타 등등 자격사항</h4>
+						</div>
+						<hr>
+					</div>
+				</div>
+			</div>
+			<!-- PT 스케쥴 -->
+			<div class="posting-detail-schedule pdm" id="posting-detail-schedule">
+				<div class="frofile-schedule-title">
+					<h4>PT 스케줄</h4>
+				</div>
+				<div class="frofile-schedule-content posting-detail-content-panel">
+					<div class="frofile-schedule-content-body">
+						<table>
+							<tr>
+								<td>평일</td>
+								<td>시간</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- 프로그램 -->
+			<div class="posting-detail-program pdm" id="posting-detail-program">
+				<div class="frofile-program-title">
+					<h4>프로그램</h4>
+				</div>
+				<div class="frofile-programcontent posting-detail-content-panel">
+					<div class="frofile-program-content-body">
+						<p>이것도 테스트다아아아아ㅏㅏ아아아아아</p>
+					</div>
+				</div>
+			</div>
+			<!-- PT 이용가격 -->
+			<div class="posting-detail-price pdm" id="posting-detail-price">
+				<div class="posting-price-title">
+					<h4>PT 이용 가격</h4>
+				</div>
+				<div class="posting-price-content posting-detail-content-panel">
+					<div class="posting-price-content-body">
+						<div class="fposting-price-content-body-num">
+							<p>회차다!!!!!</p> 
+						</div>
+						<div class="posting-price-content-body-text">
+							<div class="posting-price-content-body-top">
+								<p><span>회당</span>얼마임ㅇ<span>원</span></p>
+							</div>
+							<div class="posting-price-content-body-low">
+								<p>총 그래서 얼마임ㅇ<span>원</span></p>
+							</div>
+						</div>
+						<hr>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 위치 -->
+			<div class="posting-detail-shop pdm" id="posting-detail-shop">
+				<div class="posting-shop-title">
+					<h4>위치</h4>
+				</div>
+				<div class="posting-shop-content posting-detail-content-panel">
+					<div class="posting-shop-content-body">
+						모르겠다 이건 아직
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+		<div class="posting-detail-content-footer">
 			
 			<div class="search-review-list-body">
 				<div class="search-review-list">
@@ -103,14 +198,16 @@
 				</div>
 			</div>
 			
-			
-		</div>
-		
-		
-		<div class="posting-detail-content-footer">
-		
 		</div>
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	<div class="modal fade" id="test222" role="dialog" >

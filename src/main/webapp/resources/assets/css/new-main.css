@@ -82,3 +82,47 @@
 	border: solid 1px;
 }
 
+.posting-detail-content-body{
+	max-width: 700px;
+    margin: auto;
+}
+
+.posting-detail-content-body .pdm{
+	width: 700px
+}
+
+.posting-detail-content-panel{
+	display: flex;
+    background: cadetblue;
+    margin-bottom: 60px;
+    border-radius: 10px;
+    flex-direction: column;
+}
+
+.pdm h4{
+    font-size: 24px;
+    color: rgb(41, 46, 51);
+    font-weight: 700;
+    margin-bottom: 24px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+	
+}
+
+.posting-barContainer{
+	max-width: 700px;
+    margin: auto;
+    display: flex;
+}
+
+.posting-barContainer.top{
+	justify-content: space-evenly;
+}
+
+.posting-barContainer.low{
+	justify-content: space-around;
+}
+
