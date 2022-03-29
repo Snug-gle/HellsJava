@@ -10,8 +10,10 @@ public class Member {
 	private String memberEmail;
 	private int memberStatus;
 	private int memberCash;
-
 	
+	public Member() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public int getMemberNo() {
 		return memberNo;
