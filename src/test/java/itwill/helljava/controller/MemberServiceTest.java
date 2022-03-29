@@ -14,7 +14,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import itwill.helljava.dto.Member;
+import itwill.helljava.exception.MemberIdSearchNotFoundException;
 import itwill.helljava.exception.MemberNotFoundException;
+import itwill.helljava.exception.MemberPwSearchNotFoundException;
 import itwill.helljava.service.MemberService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -39,7 +41,7 @@ public class MemberServiceTest {
 	 */
 	
 	@Test
-	public void testgetSearchMember() throws MemberNotFoundException {
+	public void testgetSearchMember() throws MemberIdSearchNotFoundException, MemberPwSearchNotFoundException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("memberName", "트레이너1");

@@ -71,14 +71,14 @@ function boardDisplay(pageNum) {
 			dataType: "json",
 			success: function(json) {		
 				//페이지 번호를 출력하는 함수 호출
-				pagerDisplay(json.pager);
 			},
 			error: function(xhr) {
 				alert("에러코드 = "+xhr.status);
 			}
 		});		
-	}
+	} 
 
+				pagerDisplay(json.pager);
 		/* 페이지 번호를 출력하는 함수 */
 	function pagerDisplay(pager) {
 		var html="";
