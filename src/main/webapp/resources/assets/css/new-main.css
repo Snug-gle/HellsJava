@@ -126,3 +126,14 @@
 	justify-content: space-around;
 }
 
+.posting-review-panel-list{
+	max-width: 700px;
+    margin: auto;
+    display: flex;
+}
+
+.search-review-panel.panel-unit{
+	margin: 20px;
+}
+
+
