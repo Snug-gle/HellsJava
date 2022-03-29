@@ -14,6 +14,7 @@
         </div>
         <div class="panel-body">
             <form action="<c:url value = "/notice/write"/>" method="post" name="noticeForm" class="form-horizontal" role="form">
+                <input type="hidden" name="noticeServiceSortation" value="1"> 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">제목</label>
                     <div class="col-sm-10">

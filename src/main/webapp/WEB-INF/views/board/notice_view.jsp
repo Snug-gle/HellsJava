@@ -13,11 +13,11 @@
 	  
  <table border="0" cellpadding="0" cellspacing="1" width="590" bgcolor="BBBBBB">
  	<tr>
- 		<td width=100 align=center height="22">${notice.service.no }</td>
- 		<td width=100 align=center height="22">${notice.service.title }</td>
- 		<td width=100 align=center height="22">${notice.service.date }</td>
- 		<td width=100 align=center height="22">${notice.service.writer }</td>
- 		<td width=100 align=center height="22">${notice.service.hits }</td>
+ 		<td width=100 align=center height="22">gdgdg${notice.noticeServiceNo}</td>
+ 		<td width=100 align=center height="22">${notice.noticeServiceTitle}</td>
+ 		<td width=100 align=center height="22">${notice.noticeServiceDate}</td>
+ 		<td width=100 align=center height="22">${notice.noticeServiceWriter}</td>
+ 		<td width=100 align=center height="22">${notice.noticeServiceHits}</td>
 	</tr>
 	<tr>
 		<td width=500 style="padding-left:10px;">
@@ -31,8 +31,8 @@
 		<td align=center>
 		<input type="button" value="목록" onClick="location.href='<c:url value="/notice/list"/>';"> 
 		<c:if test="${loginUserinfo.status==9 }">
-		<input type="button" value="수정" onClick="location.href='<c:url value="/notice/modify"/>?notice.service.no=${notice.service.no }';">
-		<input type="button" value="삭제" onClick="noticeRemove('${notice.service.no }');">
+		<input type="button" value="수정" onClick="location.href='<c:url value="/notice/modify"/>?noticeServiceNo=${notice.noticeServiceNo }';">
+		<input type="button" value="삭제" onClick="noticeRemove('${notice.noticeServiceNo }');">
 		</c:if>
 			</td>
 		  </tr>

@@ -57,9 +57,10 @@ public class NoticeController {
 	
 	
 	//공지사항 세부 사항 출력 요청 처리 메소드
-	@RequestMapping(value = "/view", method = RequestMethod.GET) 
-	public String view(@RequestParam int notice_service_no , Model model) {
-		model.addAttribute("notice", noticeServiceService.getNoticeService(notice_service_no));
+	@RequestMapping(value = "/view/{num}", method = RequestMethod.GET) 
+	public String view(@PathVariable int num , Model model) {
+		System.out.println("num = "+num);
+		model.addAttribute("notice", noticeServiceService.getNoticeService(num));
 		
 		return "board/notice_view";
 	}

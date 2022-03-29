@@ -22,8 +22,8 @@
 						<tr>
 							<th width="100">번호</th>
 							<th width="100">제목</th>
-							<th width="250">내용</th>
 							<th width="150">작성일</th>
+							<th width="250">관리자</th>
 							<th width="100">조회수</th>
 						</tr>
 					</thead>
@@ -39,9 +39,9 @@
 								<c:forEach var="notice" items="${noticeList }">
 									<tr>
 										<td width="100">${notice.noticeServiceNo }</td>
-										<td width="100">${notice.noticeServiceTitle}</td>
-										<td width="150">${notice.noticeServiceContent}</td>
+										<td width="100"><a href="<c:url value='/notice/view'/>?num=${notice.noticeServiceNo}"/>${notice.noticeServiceTitle}</td>
 										<td width="250">${notice.noticeServiceDate}</td>
+										<td width="150">${notice.memberName}</td>
 										<td width="100">${notice.noticeServiceHits}</td>
 									</tr>
 								</c:forEach>
