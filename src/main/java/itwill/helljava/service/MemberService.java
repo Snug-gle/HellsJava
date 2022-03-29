@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import itwill.helljava.dto.Member;
+import itwill.helljava.exception.MemberExistsException;
 
 public interface MemberService {
 
-	void addMember(Member member);
+	void addMember(Member member) throws MemberExistsException;
 	void modifyMember(Member member);
 	Member getMember(int member_no);
 	Member getIdMember(String member_id);

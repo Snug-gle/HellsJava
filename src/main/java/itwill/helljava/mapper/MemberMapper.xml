@@ -43,7 +43,7 @@
 	</select>
 	
 	<select id="selectIdMember" resultType="Member">
-		select * from member where memeber_id = #{memberId}
+		select * from member where member_id = #{memberId}
 	</select>
 	
 	<select id="selectMemberList" resultType="Member">

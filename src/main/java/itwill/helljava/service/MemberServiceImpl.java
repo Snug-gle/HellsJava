@@ -10,7 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import itwill.helljava.dao.MemberDAO;
 import itwill.helljava.dto.Member;
-import xyz.itwill10.exception.UserinfoExistsException;
+import itwill.helljava.exception.MemberExistsException;
+
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -20,9 +21,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional
-	public void addMember(Member member) {
+	public void addMember(Member member) throws MemberExistsException {
 		// 전달받은 회원정보의 아이디가 기존 회원의 아이디와 중복된 경우
-		if (memberDAO.selectIdMember(member.getMemberId()).getMemberId() != null) {
+		if (memberDAO.selectIdMember(member.getMemberId())!= null) {
 			// 인위적 예외 발생
 			throw new MemberExistsException("이미 사용중인 아이디를 입력 하였습니다.", member);
 		}
