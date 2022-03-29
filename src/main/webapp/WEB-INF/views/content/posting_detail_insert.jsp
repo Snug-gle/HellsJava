@@ -64,7 +64,7 @@
 		<div class="pd-insert-body-profile">
 			<br>
 			<hr>
-			<h3>자기 소개</h3>
+			<h3>프로그램 소개</h3>
 			<textarea rows="" cols=""></textarea>
 		</div>
 		<div class="pd-insert-body-pt-schedule">
