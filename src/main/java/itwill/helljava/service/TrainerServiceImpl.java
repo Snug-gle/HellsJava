@@ -37,4 +37,9 @@ public class TrainerServiceImpl implements TrainerService {
 	public List<Trainer> getTrainerList(Map<String, Object> map) {
 		return trainerDAO.selectTrainerList(map);
 	}
+	
+	@Override
+	public List<Trainer> getMainPageTrainerList(Map<String, Object> map) {
+		return trainerDAO.selectMainPageTrainerList(map);
+	}
 }
