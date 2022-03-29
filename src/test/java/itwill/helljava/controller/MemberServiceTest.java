@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import itwill.helljava.dto.Member;
+import itwill.helljava.exception.MemberNotFoundException;
 import itwill.helljava.service.MemberService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,18 +27,27 @@ public class MemberServiceTest {
 	@Autowired
 	private MemberService memberService;
 	
+	/*
+	 * @Test public void testSelectMemeberList() { Map<String, Object> map = new
+	 * HashMap();
+	 * 
+	 * map.put("startRow", 1); map.put("endRow", 5); map.put("member_id", "ㄴㄴㄴ");
+	 * 
+	 * List<Member> memberList = memberService.getMemberList(map);
+	 * 
+	 * for(Member member : memberList) { logger.info(member.toString()); } }
+	 */
+	
 	@Test
-	public void testSelectMemeberList() {
-		Map<String, Object> map = new HashMap();
+	public void testgetSearchMember() throws MemberNotFoundException {
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		map.put("startRow", 1);
-		map.put("endRow", 5);
-		map.put("member_id", "ㄴㄴㄴ");
+		map.put("memberName", "트레이너1");
+		map.put("memberPhone", "010-1234-1234");
+		//map.put("memberId", "trainer1");
 		
-		List<Member> memberList =  memberService.getMemberList(map);
+		Member member = memberService.getSearchMember(map);
 		
-		for(Member member : memberList) {
-			logger.info(member.toString());
-		}
+		logger.info(member.toString());
 	}
 }

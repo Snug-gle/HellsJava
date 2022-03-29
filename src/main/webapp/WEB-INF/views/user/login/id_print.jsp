@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>회원님의 아이디는 무엇</h1>
+	<h1>아이디 : ${id}</h1>
 </body>
 </html>

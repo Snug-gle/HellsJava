@@ -1,5 +1,9 @@
 package itwill.helljava.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import itwill.helljava.dto.Member;
 import itwill.helljava.exception.LoginAuthFailException;
+import itwill.helljava.exception.MemberNotFoundException;
 import itwill.helljava.service.MemberService;
 
 @Controller
@@ -40,8 +45,6 @@ public class LoginController {
 	// 아이디 찾기 페이지 요청
 	@RequestMapping(value = "/user/login/id_search", method = RequestMethod.GET)
 	public String idSearch() {
-		
-		
 		return "user/login/id_search";
 	}
 
@@ -53,14 +56,41 @@ public class LoginController {
 
 	// 포스트 방식 -> 아이디 찾기 작업 요청
 	@RequestMapping(value = "/user/login/id_print", method = RequestMethod.POST)
-	public String idPrint() {
+	public String idPrint(@ModelAttribute Member member, HttpServletRequest request, Model model) throws MemberNotFoundException {
+	
+		String phone = request.getParameter("member_phone1") +"-"+ request.getParameter("member_phone2") +"-"+ request.getParameter("member_phone3");
+		
+		Map<String, Object> idSearchMap = new HashMap<String, Object>();
+		
+		idSearchMap.put("memberName", member.getMemberName());
+		idSearchMap.put("memberPhone", phone);
+		
+		if(memberService.getSearchMember(idSearchMap) == null) {
+			throw new MemberNotFoundException("검색된 회원 정보가 없습니다.");
+		}
+		
+		model.addAttribute("id", memberService.getSearchMember(idSearchMap).getMemberId());
+		
 		return "user/login/id_print";
 	}
 
 	// 포스트 방식 -> 비밀번호 수정 작업 요청
 	@RequestMapping(value = "/user/login/password_update", method = RequestMethod.POST)
-	public String pswdUpdate() {
-		return "user/login/password_update";
+	public String pswdUpdate(@ModelAttribute Member member, HttpServletRequest request, Model model) throws MemberNotFoundException {
+		
+		String phone = request.getParameter("member_phone1") +"-"+ request.getParameter("member_phone2") +"-"+ request.getParameter("member_phone3");
+
+		Map<String, Object> pwSearchMap = new HashMap<String, Object>();
+		
+		pwSearchMap.put("memberPhone", phone);
+		pwSearchMap.put("memberName", member.getMemberName());
+		pwSearchMap.put("memberId", member.getMemberId());
+		
+		if(memberService.getSearchMember(pwSearchMap) == null) {
+			throw new MemberNotFoundException("검색된 회원 정보가 없습니다.");
+		}
+		
+		return "user/login/login_form";
 	}
 
 	// 로그아웃 작업 요청
@@ -80,6 +110,14 @@ public class LoginController {
 		model.addAttribute("member_id", exception.getmemberId());
 		return "user/login/user_login"; 
 	}
+	
+	// 아이디 찾기 시 못 찾았을 때 예외 처리 
+	@ExceptionHandler(value = MemberNotFoundException.class)
+	public String exceptionHandler(MemberNotFoundException exception, Model model) {
+		model.addAttribute("message", exception.getMessage());
+		return "user/login/id_search";
+	}
+	
 	
 	/*
 	 * //요청 처리 메소드의 매개변수를 HttpSession 자료형으로 선언하면 Front Controller에 //의해 바인딩 처리된 세션을
