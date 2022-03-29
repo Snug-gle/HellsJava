@@ -28,7 +28,7 @@ public class LoginController {
 	MemberService memberService;
 
 	// 로그인 처리
-	@RequestMapping(value = "/user/login/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String login(@ModelAttribute Member member, Model model, HttpSession session) throws LoginAuthFailException {
 		// 메소드 호출시 예외가 발생된 경우 인증 실패
 		memberService.loginAuth(member);

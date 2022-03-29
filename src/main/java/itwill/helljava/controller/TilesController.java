@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import itwill.helljava.dto.Member;
 
@@ -20,7 +21,7 @@ import itwill.helljava.dto.Member;
 
 @Controller
 public class TilesController {
-	@RequestMapping("/")
+	@RequestMapping(value="/", method = RequestMethod.GET )
 	public String tiles() {
 		return "main";
 	}
