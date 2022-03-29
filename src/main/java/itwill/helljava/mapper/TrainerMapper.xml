@@ -7,10 +7,10 @@
 		</selectKey>
 		insert into trainer values(
 		#{trainer_no},
-		#{member_no},v
+		#{member_no},
 		#{trainer_profile_img},
 		#{trainer_address1},
-		#{trainer_addresss2},d
+		#{trainer_addresss2},
 		#{trainer_zip})
 	</insert>
 	
