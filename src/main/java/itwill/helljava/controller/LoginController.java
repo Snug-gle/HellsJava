@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import itwill.helljava.dto.Member;
 import itwill.helljava.exception.LoginAuthFailException;
-import itwill.helljava.exception.MemberNotFoundException;
+import itwill.helljava.exception.MemberIdSearchNotFoundException;
+
+import itwill.helljava.exception.MemberPwSearchNotFoundException;
 import itwill.helljava.service.MemberService;
 
 @Controller
@@ -56,7 +58,7 @@ public class LoginController {
 
 	// 포스트 방식 -> 아이디 찾기 작업 요청
 	@RequestMapping(value = "/user/login/id_print", method = RequestMethod.POST)
-	public String idPrint(@ModelAttribute Member member, HttpServletRequest request, Model model) throws MemberNotFoundException {
+	public String idPrint(@ModelAttribute Member member, HttpServletRequest request, Model model) throws MemberIdSearchNotFoundException, MemberPwSearchNotFoundException {
 	
 		String phone = request.getParameter("member_phone1") +"-"+ request.getParameter("member_phone2") +"-"+ request.getParameter("member_phone3");
 		
@@ -66,7 +68,7 @@ public class LoginController {
 		idSearchMap.put("memberPhone", phone);
 		
 		if(memberService.getSearchMember(idSearchMap) == null) {
-			throw new MemberNotFoundException("검색된 회원 정보가 없습니다.");
+			throw new MemberIdSearchNotFoundException("검색된 회원 정보가 없습니다.");
 		}
 		
 		model.addAttribute("id", memberService.getSearchMember(idSearchMap).getMemberId());
@@ -74,9 +76,9 @@ public class LoginController {
 		return "user/login/id_print";
 	}
 
-	// 포스트 방식 -> 비밀번호 수정 작업 요청
-	@RequestMapping(value = "/user/login/password_update", method = RequestMethod.POST)
-	public String pswdUpdate(@ModelAttribute Member member, HttpServletRequest request, Model model) throws MemberNotFoundException {
+	// 포스트 방식 -> 비밀번호 수정시 필요한 3개(아이디, 이름, 연락처) 유효성 검사 요청
+	@RequestMapping(value = "/user/login/password_search", method = RequestMethod.POST)
+	public String pswdSearch(@ModelAttribute Member member, HttpServletRequest request, Model model) throws MemberPwSearchNotFoundException, MemberIdSearchNotFoundException {
 		
 		String phone = request.getParameter("member_phone1") +"-"+ request.getParameter("member_phone2") +"-"+ request.getParameter("member_phone3");
 
@@ -87,12 +89,21 @@ public class LoginController {
 		pwSearchMap.put("memberId", member.getMemberId());
 		
 		if(memberService.getSearchMember(pwSearchMap) == null) {
-			throw new MemberNotFoundException("검색된 회원 정보가 없습니다.");
+			throw new MemberPwSearchNotFoundException("검색된 회원 정보가 없습니다.");
 		}
+		
+		return "user/login/password_update";
+	}
+
+	// 포스트 방식 -> 비밀번호 수정 요청 -> 로그인 페이지 이동
+	@RequestMapping(value = "/user/login/password_update", method = RequestMethod.POST)
+	public String pswdUpdate(@ModelAttribute Member member, HttpServletRequest request) {
+		
+		memberService.modifyMember(member);
 		
 		return "user/login/login_form";
 	}
-
+	
 	// 로그아웃 작업 요청
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
@@ -112,10 +123,17 @@ public class LoginController {
 	}
 	
 	// 아이디 찾기 시 못 찾았을 때 예외 처리 
-	@ExceptionHandler(value = MemberNotFoundException.class)
-	public String exceptionHandler(MemberNotFoundException exception, Model model) {
+	@ExceptionHandler(value = MemberIdSearchNotFoundException.class)
+	public String exceptionHandler(MemberIdSearchNotFoundException exception, Model model) {
 		model.addAttribute("message", exception.getMessage());
 		return "user/login/id_search";
+	}
+	
+	// 비밀번호 찾기 및 수정 시 해당 회원 못 찾았을 때 예외 처리 
+	@ExceptionHandler(value = MemberPwSearchNotFoundException.class)
+	public String exceptionHandler(MemberPwSearchNotFoundException exception, Model model) {
+		model.addAttribute("message", exception.getMessage());
+		return "user/login/password_search";
 	}
 	
 	
