@@ -18,25 +18,27 @@
 	
 	<update id="updateMember">
 		update member
-		<set>
-			<if test="member_pw != null and member_pw !=''" >
-				member_pw = #{member_pw},
-			</if>
-			<if test="member_phone != null and member_phone != ''">
-				member_phone = #{member_phone},
-			</if>
-			<if test="member_email != null and member_email != ''">
-				member_email = #{member_email},
-			</if>
-			<if test="member_status != null and member_status != ''">
-				member_status = #{member_status},
-			</if>
-			<if test="member_cash != null and member_cash != ''">
-				member_cash = #{member_cash}
-			</if>
-			where member_no = #{member_no}
-		</set>
+			<trim prefix="set" suffixOverrides=",">
+				<if test="memberPw != null and memberPw !=''" >
+					member_pw = #{memberPw},
+				</if>
+				<if test="memberPhone != null and memberPhone != ''">
+					member_phone = #{memberPhone},
+				</if>
+				<if test="memberEmail != null and memberEmail != ''">
+					member_email = #{memberEmail},
+				</if>
+				<if test="memberStatus != null and memberStatus != ''">
+					member_status = #{memberStatus},
+				</if>
+				<if test="memberCash != null and memberCash != ''">
+					member_cash = #{memberCash}
+				</if>
+			</trim>
+			where member_no = #{memberNo}
 	</update>
+	
+	
 	
 	<select id="selectMember" resultType="Member">
 		select * from member where member_no = #{memberNo}

@@ -43,6 +43,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Transactional
 	public void modifyMember(Member member) {
+		
+		member.setMemberPw(BCrypt.hashpw(member.getMemberPw(), BCrypt.gensalt()));
 		memberDAO.updateMember(member);
 	}
 

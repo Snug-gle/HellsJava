@@ -9,12 +9,13 @@
 			</div>
 			<div>
 				<div>
-					<form action="<c:url value="/user/login/password_update"/>" method="post">
+					<form action="<c:url value='/user/login/password_update'/>" method="post">
+						<input type="hidden" name = "memberNo" value="${member.memberNo}">
 						<table>
 							<tr>
 								<td>비밀번호</td>
 								<td>
-									<input type="text" placeholder="새로 설정할 비밀번호를 입력해주세요">
+									<input type="password" placeholder="새로 설정할 비밀번호를 입력해주세요">
 								</td>
 							</tr>
 							<tr>
