@@ -27,7 +27,7 @@
 				</div>
 				<div class="main-top-btn mypage" >
 					<c:if test="${loginUserinfo.memberStatus == 1 or loginUserinfo.memberStatus == 9}">
-						<button type="button" >마이페이지</button>
+						<button type="button" onclick="location.href='<c:url value="/mypage"/>';" >마이페이지</button>
 					</c:if>
 					<c:if test="${loginUserinfo.memberStatus == 3}">
 						<button type="button" onclick="location.href='<c:url value="/user/trainer/trainer_mypage"/>';" >마이페이지</button><!-- 트레이너 -->
