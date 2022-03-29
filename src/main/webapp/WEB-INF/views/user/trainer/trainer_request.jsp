@@ -39,51 +39,44 @@
 					</tr>
 				</table>
 			</div>
-
 		</div>
+	</div>
+	<form action="">
 		<div class="tr-in-header-award-title">
 			<h3>수상경력 및 이력</h3>
-			<img alt="" src="">
+			<i class="fa fa-plus-square"></i>
 			<hr>
 			<div class="tr-in-header-award-list">
 				<div class="tr-in-header-award-unit">
 					<div class="tr-in-header-award-rego">
-						<img alt="" src="">
+						<i class="fa fa-minus-square"></i>
 						<input>
 					</div>
 					<div class="tr-in-header-award-rego">
 						<input>
-						<button></button>
+						<button>첨부</button>
 					</div>
 				</div>
 			</div>	
 		</div>
-	</div>
-	<div class="tr-in-body">
-		<form action="">
-		<div class="tr-in-body-myprofile">
-			<div class="tr-in-body-myprofile-top">
-				<h3>자기 소개</h3>
-				<textarea rows="" cols=""></textarea>
-			</div>
-			<div class="tr-in-body-myprofile-body">
-				<h5>뭐야 이거 어케 해요 ㅠㅠ</h5>
-				<button type="button">첨부</button>
-			</div>
-		</div>
-		<div class="tr-in-body-profile">
-			
-		</div>
-		<div class="tr-in-body-pt-schedule">
 		
-			
-		</div>
-		<div class="tr-in-body-pt-price">
-			
-			
+		<div class="tr-in-payment">
+			<div class="tr-in-payment-title">
+				<h3>결제</h3>
+				<hr>
+				<div class="tr-in-payment-body">
+					<div class="tr-in-payment-text">
+						<p>결제는 30일 단위로 결제됩니다.</p>
+						<p>결제 금액 : 15000</p>
+					</div>
+					<div>
+						<h3>결제 비밀번호</h3>
+						<input type="text">
+					</div>
+				</div>
+			</div>
 		</div>
 	</form>
-	</div>
 	<div class="tr-in-footer">
 		<button type="submit">확인</button>
 		<button type="reset">다시쓰기</button>
