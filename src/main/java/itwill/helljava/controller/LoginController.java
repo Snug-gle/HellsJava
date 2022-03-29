@@ -28,48 +28,42 @@ public class LoginController {
 		memberService.loginAuth(member);
 		// 예외가 발생되지 않은 경우 인증 성공 - 세션에 권한 관련 정보를 속성값으로 저장
 		session.setAttribute("loginUserinfo", memberService.getIdMember(member.getMemberId()));
-
 		return "main";
 	}
 
+	// 로그인 화면을 요청
 	@RequestMapping(value = "/user/login/login_form", method = RequestMethod.GET)
 	public String loginForm() {
 		return "user/login/login_form";
 	}
-
 	
-	@RequestMapping(value = "/user/login/login_form", method = RequestMethod.POST)
-	public String login(HttpSession session) {
-		
-//		if() { //로그인 성공시
-//			
-//			session.setAttribute("loginMember", "관리자");
-//			return "main";
-//		}
-		
-		return "redirect:/user/login/login_form";
-	}
-	
+	// 아이디 찾기 페이지 요청
 	@RequestMapping(value = "/user/login/id_search", method = RequestMethod.GET)
 	public String idSearch() {
+		
+		
 		return "user/login/id_search";
 	}
 
+	// 비밀번호 찾기 => 수정 페이지 요청
 	@RequestMapping(value = "/user/login/password_search", method = RequestMethod.GET)
 	public String pswdSearch() {
 		return "user/login/password_search";
 	}
 
+	// 포스트 방식 -> 아이디 찾기 작업 요청
 	@RequestMapping(value = "/user/login/id_print", method = RequestMethod.POST)
 	public String idPrint() {
 		return "user/login/id_print";
 	}
 
+	// 포스트 방식 -> 비밀번호 수정 작업 요청
 	@RequestMapping(value = "/user/login/password_update", method = RequestMethod.POST)
 	public String pswdUpdate() {
 		return "user/login/password_update";
 	}
 
+	// 로그아웃 작업 요청
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
@@ -84,7 +78,7 @@ public class LoginController {
 	public String exceptionHandler(LoginAuthFailException exception, Model model) {
 		model.addAttribute("message", exception.getMessage());
 		model.addAttribute("member_id", exception.getmemberId());
-		return "userinfo/user_login"; // 주소 수정 요망 (성훈이형~)
+		return "user/login/user_login"; 
 	}
 	
 	/*
