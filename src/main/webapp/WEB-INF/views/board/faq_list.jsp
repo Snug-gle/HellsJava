@@ -104,13 +104,13 @@
 
 		{{#each .}}
 			<tr>
-				<td align="center">{{num}}</td>
-				<td align="center">{{category}}</td>
-				<td align="center">{{title}}</td>
-				<td>{{content}}</td>
-				<td align="center">{{regdate}}</td>
-				<td align="center">{{writer}}</td>
-				<td align="center">{{hits}}</td>
+				<td align="center">{{noticeSerivceNo}}</td>
+				<td align="center">{{noticeServiceCategory}}</td>
+				<td align="center">{{noticeServiceTitle}}</td>
+				<td>{{noticeServiceContent}}</td>
+				<td align="center">{{noticeServiceDate}}</td>
+				<td align="center">{{memberName}}</td>
+				<td align="center">{{noticeServiceHits}}</td>
 				<td align="center"><button type="button" onclick="modify({{num}});">변경</button></td>
 				<td align="center"><button type="button" onclick="remove({{num}});">삭제</button></td>
 				
@@ -130,7 +130,7 @@
 		page=pageNum;
 		$.ajax({
 			type: "get"
-			url: "faq_list?pageNum="+pageNum,
+			url: "/faq/list?pageNum="+pageNum,
 			dateType: "json"
 			success: function(json) {
 				if(json.faqList.length==0){

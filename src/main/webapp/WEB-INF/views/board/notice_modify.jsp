@@ -13,17 +13,19 @@
         </div>
         <div class="panel-body">
             <form method="post" name="noticeForm" class="form-horizontal" role="form">
-               	<input type="hidden" name="noticeNo" value="${notice.service.no }">
+               	
+               	<input type="hidden" name="noticeServiceStatus" value="0">
+               	<input type="hidden" name="noticeServiceCategory" value="${notice.noticeServiceCategory}">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">제목</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="title" value="${notice.service.title}" placeholder="제목">
+                        <input type="text" class="form-control" name="title" value="${notice.noticeServiceTitle}" placeholder="제목">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">내용</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="contentCss" name="content" value="${notice.service.content}" placeholder="내용">
+                        <textarea class="form-control" name="content" placeholder="내용">${notice.noticeServiceContent}</textarea>
                     </div>
                 </div>
 
