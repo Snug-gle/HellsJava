@@ -7,14 +7,15 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+
 </head>
 <body>
 	<div class="posting-detail-content">
 		<div class="posting-detail-content-header">
 			<div class="posting-detail-content-header-top">
 				<div class="posting-barContainer top">
-					<div>트레이너</div>
-					<div>후기</div>
+					<div class="triner-title">트레이너</div>
+					<div class="review-title">후기</div>
 				</div>
 			</div>
 			<div class="posting-detail-content-header-low">
@@ -22,7 +23,7 @@
 					<a href="#posting-detail-frofile">소개</a>
 					<a href="#posting-detail-award">자격사항</a>
 					<a href="#posting-detail-schedule">스케줄</a>
-					<a href="#pposting-detail-program">프로그램</a>
+					<a href="#posting-detail-program">프로그램</a>
 					<a href="#posting-detail-price">이용가격</a>
 					<a href="#posting-detail-shop">위치</a>
 				</div>
@@ -147,69 +148,101 @@
 					</div>
 				</div>
 			</div>
-			
-			
+
 		</div>
+		
+		
 		<div class="posting-detail-content-footer">
+			<div class="posting-review-panel-list">
 			
-			<div class="search-review-list-body">
-				<div class="search-review-list">
-					<div class="review-panel-list">
-						<div class="search-review-panel panel-unit">
-							<div class="search-review-panel-top">
-								<h4>제목</h4>
-								<div class="search-review-panel-score">
-									<i class="fa fa-heart"></i>
-									<label>566</label>
-								</div>
-								<hr>
-							</div>
-							<div class="search-review-panel-profile">
-								<img alt="" src="">
-								<table>
-									<tr>
-										<td>이름</td>
-										<td>날짜</td>
-										<td>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-half-o"></i>
-											<i class="fa fa-star-o"></i>
-										</td>
-									</tr>
-									<tr>
-										<td>1회 체험</td>
-									</tr>
-								</table>
-								<br>
-							</div>
-							<div class="search-review-panel-text">
-								<p>아수라 발발타 아아아아아아아아앙내가 미쳐간다으림나디ㅏ펌닝ㄹㅈ디맨ㅇ래맨ㅇ러ㅐ</p>
-							</div>
-							<div class="search-review-panel-re">
-								<div class="search-review-panel-re-text"></div>
-								<div class="search-review-panel-re-btn">
-									<button type="button">댓글달기</button>
-								</div>
-							</div>
-							
+				<div class="search-review-panel panel-unit">
+					<div class="search-review-panel-top">
+						<h4>제목</h4>
+						<div class="search-review-panel-score">
+							<i class="fa fa-heart"></i>
+							<label>566</label>
+						</div>
+						<hr>
+					</div>
+					<div class="search-review-panel-profile">
+						<img alt="" src="">
+						<table>
+							<tr>
+								<td>이름</td>
+								<td>날짜</td>
+								<td>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-half-o"></i>
+									<i class="fa fa-star-o"></i>
+								</td>
+							</tr>
+							<tr>
+								<td>1회 체험</td>
+							</tr>
+						</table>
+						<br>
+					</div>
+					<div class="search-review-panel-text">
+						<p>아수라 발발타 아아아아아아아아앙내가 미쳐간다으림나디ㅏ펌닝ㄹㅈ디맨ㅇ래맨ㅇ러ㅐ</p>
+					</div>
+					<div class="search-review-panel-re">
+						<div class="search-review-panel-re-text">
+							<textarea class="review-review review-textInsert1" rows="" cols=""></textarea>						
+						</div>
+						<div class="search-review-panel-re-btn">
+							<button type="button" class="review-btn1">댓글달기</button>
 						</div>
 					</div>
-				
+					
 				</div>
-			</div>
+				
+				<div class="search-review-panel panel-unit">
+						<div class="search-review-panel-top">
+							<h4>제목</h4>
+							<div class="search-review-panel-score">
+								<i class="fa fa-heart"></i>
+								<label>566</label>
+							</div>
+							<hr>
+						</div>
+						<div class="search-review-panel-profile">
+							<img alt="" src="">
+							<table>
+								<tr>
+									<td>이름</td>
+									<td>날짜</td>
+									<td>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star-half-o"></i>
+										<i class="fa fa-star-o"></i>
+									</td>
+								</tr>
+								<tr>
+									<td>1회 체험</td>
+								</tr>
+							</table>
+							<br>
+						</div>
+						<div class="search-review-panel-text">
+							<p>아수라 발발타 아아아아아아아아앙내가 미쳐간다으림나디ㅏ펌닝ㄹㅈ디맨ㅇ래맨ㅇ러ㅐ</p>
+						</div>
+						<div class="search-review-panel-re">
+							<div class="search-review-panel-re-text">
+								<textarea class="review-review" rows="" cols=""></textarea>
+							</div>
+							<div class="search-review-panel-re-btn">
+								<button type="button">댓글달기</button>
+							</div>
+						</div>
+						
+					</div>
+				</div>
 			
 		</div>
 	</div>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
 	<div class="modal fade" id="test222" role="dialog" >
 		<div class="modal-dialog" id="modal-dialog">
 			<div class="modal-content">
@@ -301,7 +334,38 @@
 	
 	
 	<script type="text/javascript">
-	
+		$(function(){
+			$(".posting-detail-content-header-low").show();
+			$(".posting-detail-content-body").show();
+			$(".posting-detail-content-footer").hide();
+			$(".review-review").hide();
+			$(".triner-title").css({"font-weight":"bold","cursor":"pointer"});
+			$(".review-title").css("cursor","pointer");
+		});
+		
+		$(".review-title").click(function() {
+			$(".posting-detail-content-header-low").toggle();
+			$(".posting-detail-content-body").toggle();
+			$(".posting-detail-content-footer").toggle();
+			$(".triner-title").css("font-weight","normal");
+			$(".review-title").css("font-weight","bold");
+		});
+		
+		$(".triner-title").click(function() {
+			$(".posting-detail-content-header-low").toggle();
+			$(".posting-detail-content-body").toggle();
+			$(".posting-detail-content-footer").toggle();
+			$(".triner-title").css("font-weight","bold");
+			$(".review-title").css("font-weight","normal");
+			
+		});
+		
+		$(".review-btn1").click(function() {
+			if($(".review-textInsert1").css("display","none")){
+				$(".review-textInsert1").show();
+			}
+
+		});
 	</script>
 	
 	
