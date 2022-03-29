@@ -47,8 +47,8 @@
 				                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 				                </p>
 				                <div class="connect">
-				                    <button type="button" data-toggle="modal" data-target="#test222" > 1회 PT 신청</button>
-				                    <button type="button" > 문의</button>
+				                    <button type="button" data-toggle="modal" data-target="#test222"> 1회 PT 신청</button>
+				                    <button type="button" data-toggle="modal" data-target="#test111"> 문의</button>
 				                </div>
 				                
 				            </div>
@@ -248,8 +248,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h1>오늘의 짐</h1>
-				</div>
-				<div>
+					<br>
 					<h2>회원정보</h2>
 				</div>
 				<div class="modal-body">
@@ -325,12 +324,53 @@
 				<div class="modal-footer">
 					<div>
 						<button type="submit">결제</button>
-						<button type="button" class="close" data-dismiss="modal">닫기</button>
+						<button type="button" data-dismiss="modal">닫기</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="test111" role="dialog" >
+		<div class="modal-dialog" id="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1>오늘의 짐</h1>
+					<br>
+					<h2>문의작성</h2>
+				</div>
+				<div class="modal-body">
+		
+					<div>
+						<form action="" method="post" style="text-align: -webkit-center;">
+							<table>
+								<tr>
+									<td>이름</td>
+									<td>김남영</td>
+								</tr>
+								<tr>
+									<td>연락처</td>
+									<td>번호임 ㅇㅇ</td>
+									
+								</tr>
+								<tr>
+									<td>문의 내용</td>
+								</tr>
+							</table>
+								<textarea rows="" cols=""></textarea>
+						</form>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div>
+						<button type="submit">확인</button>
+						<button type="button" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	
 	
 	<script type="text/javascript">

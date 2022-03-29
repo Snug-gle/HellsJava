@@ -64,7 +64,7 @@
 			<td>이메일</td>
 			<td>
 				<input type="text" id="email" name="memberEmail">
-				<p id="emailMsg" class="error">이메일 입력해 주세요.</p>
+				<p id="emailMsg" class="error">이메일을 입력해 주세요.</p>
 			</td>
 		</tr>
 		<tr>
