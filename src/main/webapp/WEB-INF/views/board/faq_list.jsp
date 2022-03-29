@@ -133,7 +133,6 @@
 				<td align="center"><button type="button" onclick="modify({{noticeServiceNo}});">변경</button></td>
 				<td align="center"><button type="button" onclick="remove({{noticeServiceNo}});">삭제</button></td>
 				
-				<%-- <td align="center"><button type="button" onclick="remove({{num}});">삭제</button></td> --%>
 			<tr>			
 		{{/each}}	
 		</table>
@@ -274,7 +273,7 @@
 			url: "view/"+num,
 			dataType: "json",
 			success: function(json) {
-				$("#updateNum").val(json.num);
+				$("#updateNum").val(json.noticeServiceNo);
 				$("#updateCategory").val(json.noticeServiceCategory);
 				$("#updateTitle").val(json.noticeServiceTitle);
 				$("#updateContent").val(json.noticeServiceContent);
@@ -284,13 +283,13 @@
 			}
 		});
 	}
-	
+                           	
 	//[수정]을 클릭한 경우 호출되는 이벤트 처리 함수 등록
 	$("#updateBtn").click(function() {
 		var noticeServiceNo=$("#updateNum").val();
-		var noticeServiceTitle=${"#updateTitle").val();
+		var noticeServiceTitle=$("#updateTitle").val();
 		var noticeServiceContent=$("#updateContent").val();
-		var noticeServiceCategory=$("updateCategory").val();
+		var noticeServiceCategory=$("#updateCategory").val();
 		
 		if(noticeServiceTitle=="") {
 			alert("제목을 입력해 주세요.");
