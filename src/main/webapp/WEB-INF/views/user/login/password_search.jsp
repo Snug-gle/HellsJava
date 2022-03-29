@@ -9,7 +9,7 @@
 			</div>
 			<div>
 				<div>
-					<form action="<c:url value="/user/login/password_update"/>" method="post">
+					<form action="<c:url value="/user/login/password_search"/>" method="post">
 						<table>
 							<tr>
 								<td>아이디</td>
