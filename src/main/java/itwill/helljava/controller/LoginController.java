@@ -17,6 +17,7 @@ import itwill.helljava.service.MemberService;
 @Controller
 public class LoginController {
 
+
 	@Autowired
 	MemberService memberService;
 
@@ -36,6 +37,19 @@ public class LoginController {
 		return "user/login/login_form";
 	}
 
+	
+	@RequestMapping(value = "/user/login/login_form", method = RequestMethod.POST)
+	public String login(HttpSession session) {
+		
+//		if() { //로그인 성공시
+//			
+//			session.setAttribute("loginMember", "관리자");
+//			return "main";
+//		}
+		
+		return "redirect:/user/login/login_form";
+	}
+	
 	@RequestMapping(value = "/user/login/id_search", method = RequestMethod.GET)
 	public String idSearch() {
 		return "user/login/id_search";

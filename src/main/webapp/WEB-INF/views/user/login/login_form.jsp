@@ -8,7 +8,7 @@
 			</div>
 			<div>
 				<div>
-					<form action="<c:url value="/"/>" method="post">
+					<form action="<c:url value="login_form"/>" method="post">
 						<table>
 							<tr>
 								<td>아이디</td>
