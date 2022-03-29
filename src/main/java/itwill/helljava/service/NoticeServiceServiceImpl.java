@@ -35,6 +35,11 @@ public class NoticeServiceServiceImpl implements NoticeServiceService {
 	}
 
 	@Override
+	public void removeNoticeService(int noticeServiceNo) {
+		noticeServiceDAO.deleteNoticeService(noticeServiceNo);		
+	}
+	
+	@Override
 	public int getNoticeServiceCount(Map<String, Object> map) {
 		return noticeServiceDAO.selectNoticeServiceCount(map);
 	}

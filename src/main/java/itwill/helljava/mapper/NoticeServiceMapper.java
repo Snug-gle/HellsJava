@@ -14,6 +14,9 @@ public interface NoticeServiceMapper {
 	// 답글 추가 메서드
 	int updateReplyNoticeService(NoticeService noticeService);
 
+	// 글 삭제 메서드
+	int deleteNoticeService(int noticeServiceNo);
+	
 	// 1:1 공지사항&FAQ 게시글 카운트 (검색 있음 제목, 내용, 이름(1:1문의 관리자) 검색)
 	int selectNoticeServiceCount(Map<String, Object> map);
 	

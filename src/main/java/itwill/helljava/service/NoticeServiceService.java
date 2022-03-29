@@ -12,6 +12,8 @@ public interface NoticeServiceService {
 	void modifyNoticeService(NoticeService noticeService);
 	
 	void modifyReplyNoticeService(NoticeService noticeService);
+	
+	void removeNoticeService(int noticeServiceNo);
 
 	// 1:1 공지사항&FAQ 게시글 카운트 (검색 있음 제목, 내용, 이름(1:1문의 관리자) 검색)
 	int getNoticeServiceCount(Map<String, Object> map);

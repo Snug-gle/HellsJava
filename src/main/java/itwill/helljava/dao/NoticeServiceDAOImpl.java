@@ -32,6 +32,11 @@ public class NoticeServiceDAOImpl implements NoticeServiceDAO {
 	}
 
 	@Override
+	public int deleteNoticeService(int noticeServiceNo) {
+		return sqlSession.getMapper(NoticeServiceMapper.class).deleteNoticeService(noticeServiceNo);
+	}
+	
+	@Override
 	public int selectNoticeServiceCount(Map<String, Object> map) {
 		return sqlSession.getMapper(NoticeServiceMapper.class).selectNoticeServiceCount(map);
 	}

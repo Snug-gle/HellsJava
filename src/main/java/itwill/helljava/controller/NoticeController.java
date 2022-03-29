@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import itwill.helljava.Enum.NoticeServiceSortationEnum;
 import itwill.helljava.Enum.NoticeServiceStatusEnum;
+import itwill.helljava.dto.Member;
 import itwill.helljava.dto.NoticeService;
 import itwill.helljava.service.NoticeServiceService;
 import itwill.helljava.util.Pager;
@@ -148,22 +149,25 @@ public class NoticeController {
 	
 	//공지사항 입력 사항 저장 요청 처리 메소드
 	@RequestMapping( value = "/write" , method = RequestMethod.POST)
-	public String write(@ModelAttribute NoticeService noticeService ,Model model ) {
+	public String write(@ModelAttribute NoticeService noticeService, Model model, HttpSession session) {
+				
+		noticeService.setMemberNo(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
 		noticeServiceService.addNoticeService(noticeService);
 		return "redirect:/notice/list";
 	}
 	
 	//번호를 전달 받아 공지사항 수정 페이지 출력 요청 처리 메소드
 	//=> 관리자만 요청 가능하도록 인터셉터 사용(필요하면 추가)
-	@RequestMapping(value =  "/modify" , method = RequestMethod.GET)
+	@RequestMapping(value = "/modify" , method = RequestMethod.GET)
 	public String modify(@RequestParam int noticeServiceNo , Model model) throws Exception {
 		model.addAttribute("notice" , noticeServiceService.getNoticeService(noticeServiceNo));
 		return "board/notice_modify";
 	}
 	
 	//공지사항 수정 사항 저장 요청 처리 메소드
-	@RequestMapping(value =  "/modify" , method = RequestMethod.POST)
+	@RequestMapping(value = "/modify" , method = RequestMethod.POST)
 	public String modify(@ModelAttribute NoticeService noticeService) throws Exception {
+		
 		noticeServiceService.modifyNoticeService(noticeService);
 		
 		//글 수정 중 된 회원(관리자)이
@@ -173,10 +177,8 @@ public class NoticeController {
 	//공지사항 삭제
 	@RequestMapping( value = "/remove/{num}" , method = RequestMethod.GET)
 	public String remove(@PathVariable int num, @ModelAttribute NoticeService noticeService) throws Exception{
-		System.out.println("num = "+num);
-		
-		
-		noticeServiceService.modifyNoticeService(noticeService);
+
+		noticeServiceService.removeNoticeService(num);
 		return "redirect:/notice/list";
 	}
 	

@@ -39,7 +39,7 @@
 					<input type="button" value="수정"
 					onClick="location.href='<c:url value="/notice/modify"/>?noticeServiceNo=${notice.noticeServiceNo }';">
 					<input type="button" value="삭제"
-					onClick="noticeRemove('${notice.noticeServiceNo }');"> <%-- </c:if> --%>
+					onClick="location.href='<c:url value="/notice/remove"/>/${notice.noticeServiceNo }';"> <%-- </c:if> --%>
 				</td>
 			</tr>
 		</table>

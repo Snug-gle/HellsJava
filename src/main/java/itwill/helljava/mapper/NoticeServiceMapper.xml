@@ -20,31 +20,35 @@
 	
 	<update id="updateNoticeService">
 		update notice_service 
-		<set>
-			<if test="notice_service_category != null and notice_service_category != ''">
-				notice_service_category = #{notice_service_category},
-			</if>
-			<if test="notice_service_title != null and notice_service_title != ''">
-				notice_service_title = #{notice_service_title},
-			</if>
-			<if test="notice_service_content != null and notice_service_content != ''" >
-				notice_service_content = #{notice_service_content},
-			</if>
-			<if test="notice_service_reply != null and notice_service_reply != ''">
-				notice_service_reply = #{notice_service_reply},
-			</if>
-			<if test="notice_service_hits != null and notice_service_hits != ''">
-				notice_service_hits = #{notice_service_hits},
-			</if>
-			<if test="notice_service_status != null and notice_service_status != ''">
-				notice_service_status = #{notice_service_status}
-			</if>
-		</set>
-			where notice_service_no = #{notice_service_no}
+			<trim prefix="set" suffixOverrides="," >
+				<if test="noticeServiceCategory != null and noticeServiceCategory != ''">
+					notice_service_category = #{noticeServiceCategory},
+				</if>
+				<if test="noticeServiceTitle != null and noticeServiceTitle != ''">
+					notice_service_title = #{noticeServiceTitle},
+				</if>
+				<if test="noticeServiceContent != null and noticeServiceContent != ''" >
+					notice_service_content = #{noticeServiceContent},
+				</if>
+				<if test="noticeServiceReply != null and noticeServiceReply != ''">
+					notice_service_reply = #{noticeServiceReply},
+				</if>
+				<if test="noticeServiceHits != null and noticeServiceHits != ''">
+					notice_service_hits = #{noticeServiceHits},
+				</if>
+				<if test="noticeServiceStatus != null and noticeServiceStatus != ''">
+					notice_service_status = #{noticeServiceStatus}
+				</if>
+		</trim>
+			where notice_service_no = #{noticeServiceNo}
+	</update>
+	
+	<update id="deleteNoticeService">
+		update notice_service set notice_service_status = 0 where notice_service_no = #{noticeServiceNo}
 	</update>
 	
 	<update id="updateReplyNoticeService"> 
-		update notice_service set notice_service_reply = #{notice_service_reply} where notice_service_no = #{notice_service_no}
+		update notice_service set notice_service_reply = #{noticeServiceReply} where notice_service_no = #{noticeServiceNo}
 	</update>
 	
 	<select id="selectNoticeServiceCount" resultType="int">
@@ -54,7 +58,7 @@
 				<when test="status != null and status != '' and
 							searchKeyword != null and searchKeyword != '' and
 							searchValue != null and searchValue != ''">
-					where notice_service_status = #{status} and 
+					where notice_service_status = #{notice_service_status} and 
 					${searchKeyword} like '%'||#{searchValue}||'%' and notice_service_sortation = #{notice_service_sortation} 
 				</when>
 				<when test="status == null and 
@@ -64,7 +68,7 @@
 				</when>
 				<when test="status != null and status != '' and
 							searchKeyword == null and searchKeyword == null">
-					where notice_service_status = #{status}	and notice_service_sortation = #{notice_service_sortation}		
+					where notice_service_status = #{notice_service_status}	and notice_service_sortation = #{notice_service_sortation}		
 				</when>
 				<otherwise>
 					where notice_service_sortation = #{notice_service_sortation} 
