@@ -97,6 +97,7 @@
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <input type="text" name="memberName" class="form-control" id="memberName" placeholder="이름을 입력해주세요">
+                                   		<p id="nameMsg" class="error" style="text-align: center;">이름을 입력해 주세요.</p>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -111,6 +112,7 @@
 										</select>
                                         <input type="text" name="member_phone2" class="phone-form-control" id="member_phone2" maxlength="4">
                                         <input type="text" name="member_phone3" class="phone-form-control" id="member_phone3" maxlength="4">
+                                    	<p id="phoneMsg" class="error">연락처를 입력해 주세요.</p>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -130,3 +132,40 @@
         </div>
 
     </section>
+<!-- 유효성검사 -->
+<script type="text/javascript">
+$("#idSearchForm").submit(function() {
+	var submitResult=true;
+	
+	$(".error").css("display","none");
+	
+	//이름 공백 검사
+	if($("#memberName").val()=="") {
+		$("#nameMsg").css("display","block");
+		submitResult=false;
+	}
+	
+	//연락처 공백 검사
+	var phone2Reg=/\d{3,4}/;
+	var phone3Reg=/\d{4}/;
+	if($("#member_phone2").val()=="" || $("#member_phone3").val()=="") {
+		$("#phoneMsg").css("display","block");
+		submitResult=false;
+	} else if(!phone2Reg.test($("#member_phone2").val()) || !phone3Reg.test($("#member_phone3").val())) {
+		$("#phoneRegMsg").css("display","block");
+		submitResult=false;
+	}
+	
+	if($("#member_phone2").val()=="") {
+		$("phoneMsg").css("display","block");
+		submitResult=false;
+	}
+	if($("#member_phone3").val()=="") {
+		$("#phoneMsg").css("display","block");
+		submitResult=false;
+	}
+	
+	return submitResult;
+});
+	
+</script>
