@@ -2,16 +2,16 @@ package itwill.helljava.dto;
 
 public class NoticeService {
 
-	int noticeServiceNo;
-	int memberNo;
-	int noticeServiceCategory;
-	String noticeServiceTitle;
-	String noticeServiceContent;
-	String noticeServiceReply;
-	int noticeServiceHits;
-	String noticeServiceDate;
-	int noticeServiceStatus;
-	int noticeServiceSortation;
+	private int noticeServiceNo;
+	private int memberNo;
+	private int noticeServiceCategory;
+	private String noticeServiceTitle;
+	private String noticeServiceContent;
+	private String noticeServiceReply;
+	private int noticeServiceHits;
+	private String noticeServiceDate;
+	private int noticeServiceStatus;
+	private int noticeServiceSortation;
 
 	String memberName;
 
