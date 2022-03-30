@@ -14,22 +14,23 @@
            <h3 class="panel-title">FAQ 작성</h3>
         </div>
         <div class="panel-body">
-            <form method="post" name="faqForm" class="form-horizontal" role="form">
+            <form action="<c:url value = "/faq/write"/>" method="post" name="faqForm" class="form-horizontal" role="form">
+            	<input type="hidden" name="noticeServiceSortation" value="2">
                 <div class="form-group" >
                     <label class="col-sm-2 control-label" id="subject">제목</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="title" value="${notice.service.title}" placeholder="제목">
+                        <input type="text" class="form-control" name="noticeServiceTitle" value="${noticeServiceTitle}" placeholder="제목">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" id="cate">카테고리</label>
+                    <label class="col-sm-2 control-label">카테고리</label>
                     <div class="col-sm-10">
                         
                        <div class="form-group" style="width: 400px; " >
-                           <select class="form-control input-lg" >
-                               <option value="" selected="selected">입금/결제</option>
-                               <option value="">트레이너</option>
-                               <option value="">기타문의</option>
+                           <select class="form-control input-lg" id="noticeServiceCategory" name="noticeServiceCategory" >
+                               <option value="1" selected="selected">결제관련문의</option>
+                               <option value="2">트레이너관련문의</option>
+                               <option value="3">기타문의</option>
                            </select>
                        </div>
                     </div>
@@ -37,14 +38,14 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">내용</label>
                     <div class="col-sm-10">
-                    <textarea class="form-control" id="contentCss" name="content" placeholder="내용"></textarea>
+                    <textarea class="form-control" id="contentCss" name="noticeServiceContent" value=${notice.noticeServiceContent } placeholder="내용"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary">확인</button>
-                        <button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/notice/list';">목록</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/faq/list';">목록</button>
                     </div>
                 </div>
             </form>
