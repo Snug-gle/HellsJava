@@ -9,7 +9,7 @@
 <!-- 은행, 계좌번호 , 등록된 계좌가 없습니다, 등록 삭제 버튼 -->
 <table>
 <c:choose>
-	<c:when test="${empty(bankList) }">
+	<c:when test="${empty(account) }">
 		<tr>
 			<td>등록된 계좌가 없습니다.</td> 
 		</tr> 
@@ -17,16 +17,19 @@
 	<c:otherwise>
 		<tr>
 			<td>은행</td>
-			<td>qq<%-- ${ } --%></td>
+			<td>${bankName}</td>
 			
 		</tr>
 		<tr>
 			<td>계좌번호</td>
-			<td>qq<%-- ${ } --%></td>
+			<td>${account.accountNumber}</td>
 			
 		</tr>
 	</c:otherwise>
 </c:choose>
 </table>
+<button type="button" onclick="location.href='<c:url value ="/account/register"/>';">등록</button>
+<button type="button" onclick="location.href='<c:url value ="/account/remove/"/>${account.accountNo }';">삭제</button>
+<button></button>
 
 </html>
