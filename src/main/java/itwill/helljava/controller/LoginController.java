@@ -33,7 +33,6 @@ public class LoginController {
 		// 메소드 호출시 예외가 발생된 경우 인증 실패
 		memberService.loginAuth(member);
 		// 예외가 발생되지 않은 경우 인증 성공 - 세션에 권한 관련 정보를 속성값으로 저장
-		session.setAttribute("loginUserinfo", memberService.getIdMember(member.getMemberId()));
 		return "main";
 	}
 
@@ -124,7 +123,7 @@ public class LoginController {
 	public String exceptionHandler(LoginAuthFailException exception, Model model) {
 		model.addAttribute("message", exception.getMessage());
 		model.addAttribute("member_id", exception.getmemberId());
-		return "user/login/user_login";
+		return "user/login/login_form";
 	}
 
 	// 아이디 찾기 시 못 찾았을 때 예외 처리
