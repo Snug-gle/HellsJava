@@ -12,6 +12,9 @@ public interface NoticeServiceService {
 	void modifyNoticeService(NoticeService noticeService);
 	
 	void modifyReplyNoticeService(NoticeService noticeService);
+
+	// 공지사항, FAQ 조회수 올리는 메서드
+	void modifyNoticeServiceHits(int noticeServiceNo);
 	
 	void removeNoticeService(int noticeServiceNo);
 

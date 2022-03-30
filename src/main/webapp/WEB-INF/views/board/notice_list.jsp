@@ -47,7 +47,7 @@
 
 		{{#each .}}
 			<tr>
-				<td align="center">{{noticeServiceNo}}</td>
+				<td align="center" id="">{{noticeServiceNo}}</td>
 				<td align="center" id="title"><a href="<c:url value='/notice/view/'/>{{noticeServiceNo}}">{{noticeServiceTitle}}</a></td>
 				<td align="center">{{noticeServiceDate}}</td>
 				<td align="center">{{memberName}}</td>

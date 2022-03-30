@@ -70,6 +70,10 @@ public class NoticeController {
 	//공지사항 세부 사항 출력 요청 처리 메소드
 	@RequestMapping(value = "/view/{num}", method = RequestMethod.GET) 
 	public String view(@PathVariable int num , Model model) {
+		
+		// 공지사항 상세글 요청 시 조회수 1 늘리기
+		noticeServiceService.modifyNoticeServiceHits(num);
+		
 		model.addAttribute("notice", noticeServiceService.getNoticeService(num));
 		
 		return "board/notice_view";
