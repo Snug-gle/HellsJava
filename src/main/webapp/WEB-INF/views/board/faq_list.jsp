@@ -231,7 +231,7 @@
 					$("#updateDiv").hide();
 					
 					//게시글 목록을 검색하여 출력하는 함수 호출
-					boardDisplaly(page);
+					boardDisplay(page);
 				}
 			},
 			error: function(xhr) {

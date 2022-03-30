@@ -50,6 +50,11 @@ public class NoticeServiceServiceImpl implements NoticeServiceService {
 	}
 
 	@Override
+	public int getNoticeServiceFaqCount(int noticeServiceCategory) {
+		return noticeServiceDAO.selectNoticeServiceFaqCount(noticeServiceCategory);
+	}
+	
+	@Override
 	public int getNoticeServicePersonalCount(int notice_service_sortation, int member_no) {
 		return noticeServiceDAO.selectNoticeServicePersonalCount(notice_service_sortation, member_no);
 	}
@@ -64,6 +69,11 @@ public class NoticeServiceServiceImpl implements NoticeServiceService {
 		return noticeServiceDAO.selectNoticeServiceList(map);
 	}
 
+	@Override
+	public List<NoticeService> getNoticeServiceFaqList(Map<String, Object> map) {
+		return noticeServiceDAO.selectNoticeServiceFaqList(map);
+	}
+	
 	@Override
 	public List<NoticeService> getNoticeServicePersonalList(Map<String, Object> map) {
 		return noticeServiceDAO.selectNoticeServicePersonalList(map);
