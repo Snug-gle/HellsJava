@@ -2,6 +2,7 @@ package itwill.helljava.service;
 
 import itwill.helljava.dto.Account;
 import itwill.helljava.dto.Member;
+import itwill.helljava.exception.AccountPwAuthException;
 
 public interface AccountSevice {
 
@@ -10,4 +11,7 @@ public interface AccountSevice {
 	void removeAccount(int member_no);
 
 	Account getMemberAccount(int member_no);
+	
+	// 계좌 비밀번호 인증 검사
+	void accountPwAuth(Account account) throws AccountPwAuthException;
 }

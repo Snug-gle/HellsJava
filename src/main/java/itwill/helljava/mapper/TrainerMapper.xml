@@ -36,7 +36,7 @@
 	<select id="selectTrainer" resultType="Trainer">
 		select * from trainer t right join member m
 			on t.member_no = m.member_no 
-		 where trainer_no= #{trainer_no}
+		 where t.member_no= #{member_no}
 	</select>
 	
 	<select id="selectTrainerListCount" resultType="int">
