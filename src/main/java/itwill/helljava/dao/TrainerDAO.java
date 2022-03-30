@@ -12,6 +12,10 @@ public interface TrainerDAO {
 
 	int updateTrainer(Trainer trainer);
 
+	int selectTrainerListCount(Map<String, Object> map);
+	
+	int selectMainPageTrainerListCount(Map<String, Object> map);
+	
 	// 포스팅에 띄울 친구 (member, Trainer join)
 	Trainer selectTrainer(int trainer_no);
 	

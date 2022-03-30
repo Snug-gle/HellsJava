@@ -14,9 +14,14 @@
 	<button type="button" class="fa fa-circle main-contorller image-contorller-circle"></button>
 	<button type="button" class="fa fa-chevron-right main-contorller image-contorller-right"></button>
 </div>
-<form action="<spring:url value="/content/search_list"/>" method="get">
+<form action="<spring:url value="/content/search"/>" method="post">
 	<div class="main-search-area">
-		<input class="main-search" placeholder="트레이너명/지역/헬스장 이름" name ="mainSearch">
+		<select name="searchKeyword">
+			<option value="member_name" selected="selected">트레이너 이름</option>
+			<option value="trainer_centername">센터명</option>
+			<option value="trainer_address">센터 주소(동)</option>
+		</select>
+		<input class="main-search" placeholder="트레이너명/지역/헬스장 이름" name ="searchValue">
 		<button type="submit" class="fa fa-search main-contorller"></button>
 	</div>
 </form>
