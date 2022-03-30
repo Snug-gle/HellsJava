@@ -17,4 +17,9 @@ public class AdminController {
 		return "admin/admin_trainerList";
 	}
 	
+	@RequestMapping(value = "admin/testList", method = RequestMethod.GET)
+	public String testList() {
+		return "admin/admin_testList";
+	}
+	
 }
