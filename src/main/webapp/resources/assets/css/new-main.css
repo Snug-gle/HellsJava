@@ -154,7 +154,7 @@
     cursor: pointer;
 }
 
-.userList-title {
+.admin-title {
 	text-align: center;
 }
 
@@ -162,27 +162,69 @@
     display: flex;
 }
 
-.userListPanel{
+.trainerList-content {
+    display: flex;
+}
+
+.admin-listPanel{
     margin: 30px;
     padding-left: 160px;
     text-align: -webkit-center;
 }
 
-.userList-body-list {
+.admin-listPanel ul{
+   	text-align: initial;
+   	cursor: pointer;
+   	padding-inline-start: inherit
+
+}
+
+.admin-listPanel ul li{
+    list-style:none;
+   	padding-left:0px;
+   	text-align: initial;
+}
+
+.admin-listPanel ul li:hover{
+    list-style:none;
+   	padding-left:0px;
+   	text-align: initial;
+   	background: darkgray;
+}
+
+.admin-listPanel ul li ul{
+	background: lightgray;
+   	display: none;
+   	margin-left: 60px;
+    margin-top: -10px;
+}
+
+.admin-listPanel ul li:hover ul {
+	position: absolute;
+    display: block;
+}
+
+.admin-listPanel ul li ul li:hover {
+    background: darkgray;
+}
+
+
+.admin-list-body-list {
     margin-top: 20px;
 }
 
-.userList-body-list-table {
+.admin-list-body-list-table {
     width: 100%;
     border-top: 1px solid #444444;
     border-collapse: collapse;
   }
-.userList-body-list-table th, td {
+  
+.admin-list-body-list-table th, td {
     border-bottom: 1px solid #444444;
     padding: 10px;
   }
 
-.userList-side-bar {
+.admin-side-bar {
     padding: 10px;
     background: lightgray;
 }
