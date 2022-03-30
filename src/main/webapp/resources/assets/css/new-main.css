@@ -186,3 +186,6 @@
     padding: 10px;
     background: lightgray;
 }
+.panel-list-unit {
+	cursor: pointer;	
+}

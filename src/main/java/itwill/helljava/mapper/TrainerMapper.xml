@@ -62,8 +62,8 @@
 	<select id="selectMainPageTrainerList" parameterType="map" resultType="Trainer">
 		select * from 
 		(select rownum rn, board.* from
-		(select * from member m right join trainer t
-					on m.member_no = t.member_no
+		(select * from member m right join trainer t on m.member_no = t.member_no
+									right join posting p on t.trainer_no = p.trainer_no 
 		<trim prefix="where" prefixOverrides="and">
 			<if test="member_name != null and member_name != '' and
 					trainer_address == null and  
