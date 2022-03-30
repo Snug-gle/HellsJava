@@ -14,23 +14,23 @@
 		<h2>관리자 페이지</h2>
 	</div>
 	<div class="trainerList-content">
-		<div class="trainerList-side admin-listPanel">
+		<div class="trainerList-side admin-Panel admin-listPanel">
 			<div class="admin-side-bar">
 				<ul>
-					<li>회원목록</li>
-					<li>트레이너 목록
+					<li onclick="location.href='<c:url value="/admin/userList"/>';">회원목록</li>
+					<li onclick="location.href='<c:url value="/admin/trainerList"/>';">트레이너 목록
 						<ul>
 							<li class="admin-side-bar-tlist1">트레이너 목록</li>
 							<li class="admin-side-bar-tlist2">트레이너 신청 목록</li>
 						</ul>
 					</li>
-					<li>1:1문의 목록</li>
+					<li onclick="location.href='<c:url value="/admin/questionList"/>';">1:1문의 목록</li>
 				</ul>
 			
 				
 			</div>
 		</div>
-		<div class="trainerList-body admin-listPanel">
+		<div class="trainerList-body admin-Panel">
 			<div class="admin-side-bar">
 				<h4 class="admin-side-bar-title1">트레이너 목록</h4>
 				<h4 class="admin-side-bar-title2">트레이너 신청 목록</h4>

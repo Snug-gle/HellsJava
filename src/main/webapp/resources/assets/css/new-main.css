@@ -166,7 +166,7 @@
     display: flex;
 }
 
-.admin-listPanel{
+.admin-Panel{
     margin: 30px;
     padding-left: 160px;
     text-align: -webkit-center;
@@ -215,7 +215,6 @@
 
 .admin-list-body-list-table {
     width: 100%;
-    border-top: 1px solid #444444;
     border-collapse: collapse;
   }
   
@@ -230,4 +229,19 @@
 }
 .panel-list-unit {
 	cursor: pointer;	
+}
+.admin-list-body-listTitle{
+	cursor: pointer;	
+}
+
+textarea {
+	resize: none;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+}
+
+.alblb{
+	text-align: right;
+	list-style:none;
+   	padding-left:0px;
 }
