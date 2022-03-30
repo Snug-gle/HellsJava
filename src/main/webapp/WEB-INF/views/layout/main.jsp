@@ -40,7 +40,7 @@
 		    </div>
 		    <div class="profile-text">
 		        <div class="profile-info">
-		            <h1>으어어어어어 </h1>
+		            <h1>으어어어어 </h1>
 		            <span class="text-muted">에헤헤헤헤</span>
 		           	<input type="text" value="${loginMember}">
 		        </div>
