@@ -59,18 +59,18 @@
 		select count(*) from notice_service n left join member m 
 			on n.member_no = m.member_no
 			<choose>
-				<when test="status != null and status != '' and
+				<when test="notice_service_status != null and notice_service_status != '' and
 							searchKeyword != null and searchKeyword != '' and
 							searchValue != null and searchValue != ''">
 					where notice_service_status = #{notice_service_status} and 
 					${searchKeyword} like '%'||#{searchValue}||'%' and notice_service_sortation = #{notice_service_sortation} 
 				</when>
-				<when test="status == null and 
+				<when test="notice_service_status == null and 
 							searchKeyword != null and searchKeyword != '' and
 							searchValue != null and searchValue != ''">
 					where ${searchKeyword} like '%'||#{searchValue}||'%' and notice_service_sortation = #{notice_service_sortation}
 				</when>
-				<when test="status != null and status != '' and
+				<when test="notice_service_status != null and notice_service_status != '' and
 							searchKeyword == null and searchKeyword == null">
 					where notice_service_status = #{notice_service_status}	and notice_service_sortation = #{notice_service_sortation}		
 				</when>
@@ -79,6 +79,21 @@
 				</otherwise>
 			</choose>
 			order by notice_service_no desc
+	</select>
+	
+	<select id="selectNoticeServiceFaqCount" resultType="int">
+        select count(*) from notice_service n left join member m 
+            on n.member_no = m.member_no
+            <choose>
+                <when test="notice_service_category != null and notice_service_categoery != ''">
+                    where notice_service_sortation = 2 and notice_service_status = 1 and
+                    notice_service_category = #{notice_service_category} 
+                </when>
+                <otherwise>
+                    where notice_service_sortation 2 and notice_service_status = 1 
+                </otherwise>
+            </choose>
+            order by notice_service_no desc
 	</select>
 
 	<select id="selectNoticeServicePersonalCount" resultType="int">
@@ -115,6 +130,23 @@
 			</choose>
 			order by notice_service_no desc)
 		board) where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="selectNoticeServiceFaqList" resultType="NoticeService">
+        select * from (select rownum rn,board.* from 
+        (select * from notice_service n left join member m 
+            on n.member_no = m.member_no
+            <choose>
+                <when test="notice_service_category != null and notice_service_category != ''">
+                    where notice_service_sortation = 2 and notice_service_status = 1 and
+                    notice_service_category = #{notice_service_category} 
+                </when>
+                <otherwise>
+                    where notice_service_sortation = 2 and notice_service_status = 1 
+                </otherwise>
+            </choose>
+            order by notice_service_no desc)
+        board) where rn between #{startRow} and #{endRow}
 	</select>
 	
 	<select id="selectNoticeServicePersonalList" resultType="NoticeService">

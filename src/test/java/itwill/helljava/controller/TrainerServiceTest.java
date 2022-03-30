@@ -54,7 +54,7 @@ public class TrainerServiceTest {
 
 		map.put("startRow", 1);
 		map.put("endRow", 10);
-		map.put("member_name", "예정");
+		map.put("trainer_address", "ㄴ");
 
 
 		List<Trainer> trainerList = trainerService.getMainPageTrainerList(map);

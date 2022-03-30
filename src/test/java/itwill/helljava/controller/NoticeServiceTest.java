@@ -21,14 +21,14 @@ import itwill.helljava.service.NoticeServiceService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
+@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/*.xml" })
 public class NoticeServiceTest {
-	
-	private static final Logger logger=LoggerFactory.getLogger(PtOnceServiceTest.class);
+
+	private static final Logger logger = LoggerFactory.getLogger(PtOnceServiceTest.class);
 
 	@Autowired
 	private NoticeServiceService noticeServiceService;
-	
+
 	/*
 	 * @Test public void testSearchSelectCount() { Map<String, Object> map = new
 	 * HashMap();
@@ -43,7 +43,7 @@ public class NoticeServiceTest {
 	 * 
 	 * for(NoticeService noticeService : list) { logger.info(list.toString()); } }
 	 */
-	
+
 	/*
 	 * @Test public void selectNoticeServicePersonalList() {
 	 * 
@@ -56,17 +56,20 @@ public class NoticeServiceTest {
 	 * 
 	 * for(NoticeService noticeService : list) { logger.info(list.toString()); } }
 	 */
-	
+
 	@Test
 	public void testselectNoticeServiceList() {
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("searchKeyword", NoticeServiceCategoryEnum.결제관련문의.getValue());
-		map.put("searchValue", "카테고리");
-		map.put("startRow", 1); 
+
+		map.put("startRow", 1);
 		map.put("endRow", 10);
-		map.put("notice_service_sortation", );
+		//map.put("notice_service_category", NoticeServiceCategoryEnum.결제관련문의.getValue());
+		
+		List<NoticeService> list = noticeServiceService.getNoticeServiceFaqList(map);
+
+		for (NoticeService lists : list) {
+			logger.info(list.toString());
+		}
 	}
-	
-	
+
 }

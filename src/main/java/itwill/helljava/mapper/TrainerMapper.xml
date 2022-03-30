@@ -65,13 +65,19 @@
 		(select * from member m right join trainer t
 					on m.member_no = t.member_no
 		<trim prefix="where" prefixOverrides="and">
-			<if test="member_name != null and member_name != ''">
+			<if test="member_name != null and member_name != '' and
+					trainer_address == null and  
+					trainer_centername == null ">
 				member_name like '%'||#{member_name}||'%'
 			</if>
-			<if test="trainer_address != null and trainer_address != ''">
+			<if test="member_name == null and
+					trainer_address != null and trainer != '' and 
+					trainer_centername == null">
 				trainer_address like '%'||#{trainer_address}||'%'
 			</if>
-			<if test="trainer_centername != null and trainer_centername != ''">
+			<if test="member_name == null and
+					trainer_address == null and  
+					trainer_centername != null and trainer_centername != ''">
 				trainer_centername like '%'||#{trainer_centername}||'%'
 			</if>
 				and m.member_status = 3

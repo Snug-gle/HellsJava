@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary">확인</button>
-                        <button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/faq/list';">목록</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/faq/board"/>';">목록</button>
                     </div>
                 </div>
             </form>

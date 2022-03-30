@@ -21,6 +21,9 @@ public interface NoticeServiceService {
 	// 1:1 공지사항&FAQ 게시글 카운트 (검색 있음 제목, 내용, 이름(1:1문의 관리자) 검색)
 	int getNoticeServiceCount(Map<String, Object> map);
 	
+	// FAQ 게시글 갯수
+	int getNoticeServiceFaqCount(int noticeServiceCategory);
+	
 	int getNoticeServicePersonalCount(int notice_service_sortation, int member_no);
 
 	// 합친 DB이기 때문에 구분하려면 혹시 몰라서 글 구분 매개변수도 추가함. (공지사항&FAQ)
@@ -28,6 +31,9 @@ public interface NoticeServiceService {
 
 	// 마찬가지로 글 구분 매개변수도 추가함
 	List<NoticeService> getNoticeServiceList(Map<String, Object> map);
+	
+	// FAQ 리스트 뽑기
+	List<NoticeService> getNoticeServiceFaqList(Map<String, Object> map);
 	
 	List<NoticeService> getNoticeServicePersonalList(Map<String, Object> map);
 }

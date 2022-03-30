@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,9 +77,9 @@ public class FAQController {
 	
 	// 게시글을 전달받아 테이블에 삽입하여 저장하고 처리 결과를 일반 텍스트로 응답하는 요청 처리 메소드
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String faqWrite(@RequestBody NoticeService noticeService, HttpSession session) {
+	public String faqWrite(@ModelAttribute NoticeService noticeService, HttpSession session) {
 		
-		noticeService.setNoticeServiceContent(HtmlUtils.htmlEscape(noticeService.getNoticeServiceContent()));
+		//noticeService.setNoticeServiceContent(HtmlUtils.htmlEscape(noticeService.getNoticeServiceContent()));
 		
 		// 누가 썻는지 회원 번호 담기
 		noticeService.setMemberNo(((Member) session.getAttribute("loginUserinfo")).getMemberNo());
@@ -87,7 +88,8 @@ public class FAQController {
 		noticeService.setNoticeServiceStatus(NoticeServiceStatusEnum.일반글.getValue());
 		
 		noticeServiceService.addNoticeService(noticeService);
-		return "board/faq_list";
+		
+		return "redirect:/faq/board";
 	}
 
 	// 글번호를 전달받아 테이블에 저장된 해당 글번호의 게시글을 검색하여 JSON 형식의
@@ -110,7 +112,9 @@ public class FAQController {
 	@RequestMapping(value = "/remove/{num}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String faqRemove(@PathVariable int num) {
-
+		
+		noticeServiceService.removeNoticeService(num);
+		
 		return "success";
 	}
 
