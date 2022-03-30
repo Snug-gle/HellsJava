@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import itwill.helljava.dao.TrainerDAO;
-import itwill.helljava.dto.Member;
 import itwill.helljava.dto.Trainer;
 
 @Service
@@ -26,6 +25,16 @@ public class TrainerServiceImpl implements TrainerService {
 	@Override
 	public void modifyTrainer(Trainer trainer) {
 		trainerDAO.updateTrainer(trainer);
+	}
+	
+	@Override
+	public int getTrainerListCount(Map<String, Object> map) {
+		return trainerDAO.selectTrainerListCount(map);
+	}
+	
+	@Override
+	public int getMainPageTrainerListCount(Map<String, Object> map) {
+		return trainerDAO.selectMainPageTrainerListCount(map);
 	}
 
 	@Override

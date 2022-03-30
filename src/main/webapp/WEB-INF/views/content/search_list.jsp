@@ -14,12 +14,19 @@
 	<div class="search-list-content">
 		<div class="search-list-header">
 			<div class="search-list-top-text">
-				<p><span>검색 키워드</span>"뭐여"</p>
+				<p><span>검색 키워드 : </span>${searchValue}</p>
 			</div>
+			<form action="<spring:url value="/content/search"/>" method="post">
 			<div class="search-list-top-search">
-				<input class="content-search">
+				<select name="searchKeyword">
+					<option value="member_name" selected="selected">트레이너 이름</option>
+					<option value="trainer_centername">센터명</option>
+					<option value="trainer_address">센터 주소(동)</option>
+				</select>
+				<input class="content-search"  placeholder="트레이너명/지역/헬스장 이름" name ="searchValue" value="${searchValue }">
 				<button type="submit" class="fa fa-search main-contorller"></button>
 			</div>
+		</form>	
 		</div>
 		<hr>
 		<div class="search-list-body">

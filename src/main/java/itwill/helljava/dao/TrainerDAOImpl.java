@@ -27,6 +27,16 @@ public class TrainerDAOImpl implements TrainerDAO {
 	}
 
 	@Override
+	public int selectTrainerListCount(Map<String, Object> map) {
+		return sqlSession.getMapper(TrainerMapper.class).selectTrainerListCount(map);
+	}
+
+	@Override
+	public int selectMainPageTrainerListCount(Map<String, Object> map) {
+		return sqlSession.getMapper(TrainerMapper.class).selectMainPageTrainerListCount(map);
+	}
+
+	@Override
 	public Trainer selectTrainer(int trainer_no) {
 		return sqlSession.getMapper(TrainerMapper.class).selectTrainer(trainer_no);
 	}
@@ -35,7 +45,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 	public List<Trainer> selectTrainerList(Map<String, Object> map) {
 		return sqlSession.getMapper(TrainerMapper.class).selectTrainerList(map);
 	}
-	
+
 	@Override
 	public List<Trainer> selectMainPageTrainerList(Map<String, Object> map) {
 		return sqlSession.getMapper(TrainerMapper.class).selectMainPageTrainerList(map);

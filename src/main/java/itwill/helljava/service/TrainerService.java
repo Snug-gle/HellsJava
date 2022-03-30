@@ -12,6 +12,10 @@ public interface TrainerService {
 
 	void modifyTrainer(Trainer trainer);
 
+	int getTrainerListCount(Map<String, Object> map);
+	
+	int getMainPageTrainerListCount(Map<String, Object> map);
+	
 	Trainer getTrainer(int trainer_no);
 
 	List<Trainer> getTrainerList(Map<String, Object> map);
