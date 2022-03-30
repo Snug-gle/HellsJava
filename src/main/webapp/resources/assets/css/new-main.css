@@ -154,3 +154,35 @@
     cursor: pointer;
 }
 
+.userList-title {
+	text-align: center;
+}
+
+.userList-content {
+    display: flex;
+}
+
+.userListPanel{
+    margin: 30px;
+    padding-left: 160px;
+    text-align: -webkit-center;
+}
+
+.userList-body-list {
+    margin-top: 20px;
+}
+
+.userList-body-list-table {
+    width: 100%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  }
+.userList-body-list-table th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+  }
+
+.userList-side-bar {
+    padding: 10px;
+    background: lightgray;
+}
