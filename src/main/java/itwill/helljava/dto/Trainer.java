@@ -5,7 +5,7 @@ public class Trainer {
 	private int memberNo;
 	private String trainerProfileImg;
 	private String trainerAddress;
-	private String trainerCenterName;
+	private String trainerCentername;
 	private String trainerZip;
 
 	private String memberId;
@@ -13,12 +13,31 @@ public class Trainer {
 	private String memberPhone;
 	private String memberEmail;
 
-	public String getTrainerCenterName() {
-		return trainerCenterName;
+	private String postingSelfIntroduction;
+	private String postingProgramIntroduction;
+	
+	public String getPostingSelfIntroduction() {
+		return postingSelfIntroduction;
 	}
 
-	public void setTrainerCenterName(String trainerCenterName) {
-		this.trainerCenterName = trainerCenterName;
+	public void setPostingSelfIntroduction(String postingSelfIntroduction) {
+		this.postingSelfIntroduction = postingSelfIntroduction;
+	}
+
+	public String getPostingProgramIntroduction() {
+		return postingProgramIntroduction;
+	}
+
+	public void setPostingProgramIntroduction(String postingProgramIntroduction) {
+		this.postingProgramIntroduction = postingProgramIntroduction;
+	}
+
+	public String getTrainerCentername() {
+		return trainerCentername;
+	}
+
+	public void setTrainerCentername(String trainerCentername) {
+		this.trainerCentername = trainerCentername;
 	}
 
 	public Trainer() {
@@ -100,7 +119,7 @@ public class Trainer {
 	@Override
 	public String toString() {
 		return "Trainer [trainerNo=" + trainerNo + ", memberNo=" + memberNo + ", trainerProfileImg=" + trainerProfileImg
-				+ ", trainerAddress=" + trainerAddress + ", trainerCenterName=" + trainerCenterName + ", trainerZip="
+				+ ", trainerAddress=" + trainerAddress + ", trainerCentername=" + trainerCentername + ", trainerZip="
 				+ trainerZip + ", memberId=" + memberId + ", memberName=" + memberName + ", memberPhone=" + memberPhone
 				+ ", memberEmail=" + memberEmail + "]";
 	}

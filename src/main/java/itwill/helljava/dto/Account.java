@@ -2,11 +2,11 @@ package itwill.helljava.dto;
 
 public class Account {
 
-	int accountNo;
-	int memberNo;
-	int accountBank;
-	int accountNumber;
-	String accountPw;
+	private int accountNo;
+	private int memberNo;
+	private int accountBank;
+	private int accountNumber;
+	private String accountPw;
 
 	public int getMemberNo() {
 		return memberNo;

@@ -2,10 +2,10 @@ package itwill.helljava.dto;
 
 public class Award {
 
-	int awardNo;
-	int trainerNo;
-	String awardContent;
-	String awardImage;
+	private int awardNo;
+	private int trainerNo;
+	private String awardContent;
+	private String awardImage;
 
 	public int getAwardNo() {
 		return awardNo;

@@ -2,14 +2,14 @@ package itwill.helljava.dto;
 
 public class Posting {
 
-	int postingNo;
-	int trainerNo;
-	String postingSelfIntroduction;
-	String postingSelfIntroductionImg1;
-	String postingSelfIntroductionImg2;
-	String postingSelfIntroductionImg3;
-	String postingSelfIntroductionImg4;
-	String postingProgramIntroduction;
+	private int postingNo;
+	private int trainerNo;
+	private String postingSelfIntroduction;
+	private String postingSelfIntroductionImg1;
+	private String postingSelfIntroductionImg2;
+	private String postingSelfIntroductionImg3;
+	private String postingSelfIntroductionImg4;
+	private String postingProgramIntroduction;
 
 	public int getPostingNo() {
 		return postingNo;
