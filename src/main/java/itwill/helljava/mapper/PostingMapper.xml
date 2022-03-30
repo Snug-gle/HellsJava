@@ -2,44 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="itwill.helljava.mapper.PostingMapper">
 	<insert id="insertPosting">
-		<selectKey keyProperty="posting_no" resultType="int" order="BEFORE">
+		<selectKey keyProperty="postingNo" resultType="int" order="BEFORE">
 			select seq_posting.nextval from dual
 		</selectKey>
 		insert into posting values(
-		#{posting_no, jdbcType=INTEGER},
-		#{trainer_no, jdbcType=INTEGER},
-		#{posting_self_introduction, jdbcType=VARCHAR},
-		#{posting_self_introduction_img1, jdbcType=VARCHAR},
-		#{posting_self_introduction_img2, jdbcType=VARCHAR},
-		#{posting_self_introduction_img3, jdbcType=VARCHAR},
-		#{posting_self_introduction_img4, jdbcType=VARCHAR},
-		#{posting_program_introduction, jdbcType=VARCHAR}
+		#{postingNo, jdbcType=INTEGER},
+		#{trainerNo, jdbcType=INTEGER},
+		#{postingSelfIntroduction, jdbcType=VARCHAR},
+		#{postingSelfIntroductionImg1, jdbcType=VARCHAR},
+		#{postingSelf_IntroductionImg2, jdbcType=VARCHAR},
+		#{postingSelfIntroductionImg3, jdbcType=VARCHAR},
+		#{postingSelfIntroductionImg4, jdbcType=VARCHAR},
+		#{postingProgramIntroduction, jdbcType=VARCHAR}
 		)
 	</insert>
 	
 	<update id="updatePosting">
 		update posting 
 		<set>
-			<if test="posting_self_introduction != null and posting_self_introduction != ''">
-				posting_self_introduction = #{posting_self_introduction},
+			<if test="postingSelfIntroduction != null and postingSelfIntroduction != ''">
+				posting_self_introduction = #{postingSelfIntroduction},
 			</if>
-			<if test="posting_self_introduction_img1 != null and posting_self_introduction_img1 !=''">
-				posting_self_introduction_img1 = #{posting_self_introduction_img1},
+			<if test="postingSelfIntroductionImg1 != null and postingSelfIntroductionImg1 !=''">
+				posting_self_introduction_img1 = #{postingSelfIntroductionImg1},
 			</if>
-			<if test="posting_self_introduction_img2 != null and posting_self_introduction_img2 != ''">
-				posting_self_introduction_img2 = #{posting_self_introduction_img2},
+			<if test="postingSelfIntroductionImg2 != null and postingSelfIntroductionImg2 != ''">
+				posting_self_introduction_img2 = #{postingSelfIntroductionImg2},
 			</if>
-			<if test="posting_self_introduction_img3 != null and posting_self_introduction_img3 != ''">
-				posting_self_introduction_img3 = #{posting_self_introduction_img3},
+			<if test="postingSelfIntroductionImg3 != null and postingSelfIntroductionImg3 != ''">
+				posting_self_introduction_img3 = #{postingSelfIntroductionImg3},
 			</if>
-			<if test="posting_self_introduction_img4 != null and posting_self_introduction_img4 != ''">
-				posting_self_introduction_img4 = #{posting_self_introduction_img4},
+			<if test="postingSelfIntroductionImg4 != null and postingSelfIntroductionImg4 != ''">
+				posting_self_introduction_img4 = #{postingSelfIntroductionImg4},
 			</if>
-			<if test="posting_program_introduction != null and posting_program_introduction != ''">
-				posting_program_introduction = #{posting_program_introduction}
+			<if test="postingProgramIntroduction != null and postingProgramIntroduction != ''">
+				posting_program_introduction = #{postingProgramIntroduction}
 			</if>
 		</set>
-		where posting_no = #{posting_no}
+		where posting_no = #{postingNo}
 	</update>
 	
 	<select id="selectPosting" resultType="Posting">

@@ -2,35 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="itwill.helljava.mapper.TrainerMapper">
 	<insert id="insertTrainer">
-		<selectKey resultType="int" keyProperty="trainer_no" order="BEFORE">
+		<selectKey resultType="int" keyProperty="trainerNo" order="BEFORE">
 			select seq_trainer.nextval from dual
 		</selectKey>
 		insert into trainer values(
-		#{trainer_no},
-		#{member_no},
-		#{trainer_profile_img},
-		#{trainer_address1},
-		#{trainer_addresss2},
-		#{trainer_zip})
+		#{trainerNo},
+		#{memberNo},
+		#{trainerProfileImg},
+		#{trainerAddress1},
+		#{trainerAddresss2},
+		#{trainerZip})
 	</insert>
 	
 	<update id="updateTrainer">
 		update trainer
 		<set>
-			<if test="trainer_profile_img!=null and trainer_profile_img!=''">
-				trainer_profile_img=#{trainer_profile_img}
+			<if test="trainerProfileImg!=null and trainerProfileImg!=''">
+				trainer_profile_img=#{trainerProfileImg}
 			</if>
-			<if test="trainer_address1!=null and trainer_address1!=''">
-				trainer_profile_img=#{trainer_profile_img}
+			<if test="trainerAddress1!=null and trainerAddress1!=''">
+				trainer_profile_img=#{trainerProfileImg}
 			</if>
-			<if test="trainer_addresss2!=null and trainer_addresss2!=''">
-				trainer_addresss2=#{trainer_addresss2}
+			<if test="trainerAddresss2!=null and trainerAddresss2!=''">
+				trainer_addresss2=#{trainerAddresss2}
 			</if>
-			<if test="trainer_zip!=null and trainer_zip!=''">
-				trainer_zip=#{trainer_zip}
+			<if test="trainerZip!=null and trainerZip!=''">
+				trainer_zip=#{trainerZip}
 			</if>
 		</set>
-			where trainer_no = #{trainer_no}
+			where trainer_no = #{trainerNo}
 	</update>
 	
 	<select id="selectTrainer" resultType="Trainer">
