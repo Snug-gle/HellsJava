@@ -2,11 +2,11 @@ package itwill.helljava.dto;
 
 public class Pay {
 
-	int payNo;
-	int memberNo;
-	String payStart;
-	int payPrice;
-	int payType;
+	private int payNo;
+	private int memberNo;
+	private String payStart;
+	private int payPrice;
+	private int payType;
 
 	
 	public int getPayNo() {
