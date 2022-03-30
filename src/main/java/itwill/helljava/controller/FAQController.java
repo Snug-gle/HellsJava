@@ -69,9 +69,13 @@ public class FAQController {
 
 	}
 
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
+	public String faqWrite() {
+		return "board/faq_write";
+	}
+	
 	// 게시글을 전달받아 테이블에 삽입하여 저장하고 처리 결과를 일반 텍스트로 응답하는 요청 처리 메소드
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	@ResponseBody
 	public String faqWrite(@RequestBody NoticeService noticeService, HttpSession session) {
 		
 		noticeService.setNoticeServiceContent(HtmlUtils.htmlEscape(noticeService.getNoticeServiceContent()));
@@ -83,7 +87,7 @@ public class FAQController {
 		noticeService.setNoticeServiceStatus(NoticeServiceStatusEnum.일반글.getValue());
 		
 		noticeServiceService.addNoticeService(noticeService);
-		return "success";
+		return "board/faq_list";
 	}
 
 	// 글번호를 전달받아 테이블에 저장된 해당 글번호의 게시글을 검색하여 JSON 형식의
