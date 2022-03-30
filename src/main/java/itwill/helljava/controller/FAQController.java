@@ -78,7 +78,7 @@ public class FAQController {
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String faqWrite(@RequestBody NoticeService noticeService, HttpSession session) {
 		
-		noticeService.setNoticeServiceContent(HtmlUtils.htmlEscape(noticeService.getNoticeServiceContent()));
+		//noticeService.setNoticeServiceContent(HtmlUtils.htmlEscape(noticeService.getNoticeServiceContent()));
 		
 		// 누가 썻는지 회원 번호 담기
 		noticeService.setMemberNo(((Member) session.getAttribute("loginUserinfo")).getMemberNo());
@@ -87,7 +87,8 @@ public class FAQController {
 		noticeService.setNoticeServiceStatus(NoticeServiceStatusEnum.일반글.getValue());
 		
 		noticeServiceService.addNoticeService(noticeService);
-		return "board/faq_list";
+		
+		return "redirect:faq/board";
 	}
 
 	// 글번호를 전달받아 테이블에 저장된 해당 글번호의 게시글을 검색하여 JSON 형식의

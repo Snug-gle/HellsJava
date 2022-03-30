@@ -90,6 +90,10 @@ public class NoticeController {
 	public String write(@ModelAttribute NoticeService noticeService, Model model, HttpSession session) {
 				
 		noticeService.setMemberNo(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
+		
+		noticeService.setNoticeServiceSortation(NoticeServiceSortationEnum.공지사항.getValue());
+		noticeService.setNoticeServiceStatus(NoticeServiceStatusEnum.일반글.getValue());
+		
 		noticeServiceService.addNoticeService(noticeService);
 		return "redirect:/notice/board";
 	}
