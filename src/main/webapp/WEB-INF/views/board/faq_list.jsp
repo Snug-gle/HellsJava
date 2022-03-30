@@ -31,7 +31,7 @@
 		<hr>
 		<div id="btnDiv">
 			<c:if test="${loginUserinfo.memberStatus==9}">
-			<button type="button" id="writeBtn" onclick="location.href='<c:url value="/board/faq_write"/>';">글쓰기</button>
+			<button type="button" id="writeBtn" onclick="location.href='<c:url value="/faq/write"/>';">글쓰기</button>
 			</c:if> 
 		</div>
 		
