@@ -16,4 +16,5 @@ public class TrainerInfoController {
 	public String trainerMypage() {
 		return "user/trainer/trainer_mypage";
 	}
+
 }
