@@ -16,20 +16,20 @@
 	
 	<update id="updateTrainer">
 		update trainer
-		<set>
+		<trim prefix="set" suffixOverrides=",">
 			<if test="trainerProfileImg!=null and trainerProfileImg!=''">
-				trainer_profile_img=#{trainerProfileImg}
+				trainer_profile_img=#{trainerProfileImg},
 			</if>
 			<if test="trainerAddress1!=null and trainerAddress1!=''">
-				trainer_profile_img=#{trainerProfileImg}
+				trainer_profile_img=#{trainerProfileImg},
 			</if>
 			<if test="trainerAddresss2!=null and trainerAddresss2!=''">
-				trainer_addresss2=#{trainerAddresss2}
+				trainer_addresss2=#{trainerAddresss2},
 			</if>
 			<if test="trainerZip!=null and trainerZip!=''">
 				trainer_zip=#{trainerZip}
 			</if>
-		</set>
+		</trim>
 			where trainer_no = #{trainerNo}
 	</update>
 	
@@ -37,6 +37,29 @@
 		select * from trainer t right join member m
 			on t.member_no = m.member_no 
 		 where trainer_no= #{trainer_no}
+	</select>
+	
+	<select id="selectTrainerListCount" resultType="int">
+		select count(*) from member m right join trainer t 
+			            on m.member_no = t.member_no 
+		<trim prefix="where" prefixOverrides="and">
+			<if test="member_id != null and member_id != ''" >
+				m.member_id like '%'||#{member_id}||'%'
+			</if>
+			<if test="member_name != null and member_name != ''">
+				m.member_name like '%'||#{member_name}||'%'
+			</if>
+			and m.member_status = #{member_status}
+		</trim>
+		order by m.member_no desc
+	</select>
+	
+	<select id="selectMainPageTrainerListCount" resultType="int">
+		select count(*) from member m right join trainer t on m.member_no = t.member_no
+								right join posting p on t.trainer_no = p.trainer_no 
+				where ${searchKeyword} like '%'||#{searchValue}||'%'
+				and m.member_status = 3
+			order by m.member_no desc
 	</select>
 	
 	<select id="selectTrainerList" parameterType="map" resultType="Trainer">
@@ -62,29 +85,14 @@
 	<select id="selectMainPageTrainerList" parameterType="map" resultType="Trainer">
 		select * from 
 		(select rownum rn, board.* from
-		(select * from member m right join trainer t
-					on m.member_no = t.member_no
-		<trim prefix="where" prefixOverrides="and">
-			<if test="member_name != null and member_name != '' and
-					trainer_address == null and  
-					trainer_centername == null ">
-				member_name like '%'||#{member_name}||'%'
-			</if>
-			<if test="member_name == null and
-					trainer_address != null and trainer != '' and 
-					trainer_centername == null">
-				trainer_address like '%'||#{trainer_address}||'%'
-			</if>
-			<if test="member_name == null and
-					trainer_address == null and  
-					trainer_centername != null and trainer_centername != ''">
-				trainer_centername like '%'||#{trainer_centername}||'%'
-			</if>
+		(select * from member m right join trainer t on m.member_no = t.member_no
+									right join posting p on t.trainer_no = p.trainer_no 
+				where ${searchKeyword} like '%'||#{searchValue}||'%'
 				and m.member_status = 3
-		</trim>
 			order by m.member_no desc) board)
 			where rn between #{startRow} and #{endRow}
 	</select>
 
 </mapper>
 	
+

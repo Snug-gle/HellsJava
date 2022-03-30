@@ -49,7 +49,7 @@ public class AccountController {
 	@RequestMapping(value = "/remove/{num}" , method = RequestMethod.GET)
 	public String remove(@PathVariable int num) {
 		accountService.removeAccount(num);	
-		return "redirect:account/account_info";s
+		return "account/account_info";
 	}
 	
 }

@@ -1,35 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
+<head>
+<style type="text/css">
+body {
+	margin: 100px;
+	align-items: center;
+}
+.panel panel-default {
+ 	margin-top: 100px;
+}
+</style>
+</head>
+<body>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h1><strong>계좌 정보</strong></h1>
+	</div>
+	<div class="panel-body">
+		<table class="table table-hover">
+			<c:choose>
+				<c:when test="${empty(account) }">
+					<tr>
+						<td class="panel-title">등록된 계좌가 없습니다.</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td><strong>은행</strong></td>
+						<td><strong>${bankName}</strong></td>
 
-<h1>계좌 정보</h1>
-<!-- 밑줄 -->
-<!-- 은행, 계좌번호 , 등록된 계좌가 없습니다, 등록 삭제 버튼 -->
-<table>
-<c:choose>
-	<c:when test="${empty(account) }">
-		<tr>
-			<td>등록된 계좌가 없습니다.</td> 
-		</tr> 
-	</c:when>
-	<c:otherwise>
-		<tr>
-			<td>은행</td>
-			<td>${bankName}</td>
-			
-		</tr>
-		<tr>
-			<td>계좌번호</td>
-			<td>${account.accountNumber}</td>
-			
-		</tr>
-	</c:otherwise>
-</c:choose>
-</table>
-<button type="button" onclick="location.href='<c:url value ="/account/register"/>';">등록</button>
-<button type="button" onclick="location.href='<c:url value ="/account/remove/"/>${account.accountNo }';">삭제</button>
-<button></button>
+					</tr>
+					<tr>
+						<td><strong>계좌번호</strong></td>
+						<td><strong>${account.accountNumber}</strong></td>
+
+					</tr>
+				</c:otherwise>
+			</c:choose>
+		</table>
+		<button type="button" class="btn btn-primary"
+			onclick="location.href='<c:url value ="/account/register"/>';">등록</button>
+		<button type="button" class="btn btn-primary"
+			onclick="location.href='<c:url value ="/account/remove/"/>${account.accountNo }';">삭제</button>
+	
+	</div>
+</div>
+</body>
 
 </html>

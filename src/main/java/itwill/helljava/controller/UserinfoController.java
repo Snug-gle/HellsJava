@@ -23,4 +23,9 @@ public class UserinfoController {
 		
 		return "user/member_modify";
 	}
+	
+	@RequestMapping("/mypage")
+	public String myPage2() {
+		return "material/mypage";
+	}
 }
