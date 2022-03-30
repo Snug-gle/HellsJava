@@ -5,14 +5,13 @@
 	<hr class="main-footer-line">  
 	<div>
 		<div>
-			<span><a href="<c:url value="terms1"/>">이용약관&nbsp;&nbsp;</a></span>&nbsp;
-			<span><a href="<c:url value="terms2"/>">개인정보보호정책&nbsp;&nbsp;</a></span>
-			<span><a href="<c:url value='notice/board'/>">공지사항&nbsp;&nbsp;</a></span>
+			<span><button type="button" onclick="location.href='<c:url value="/terms1"/>';">이용약관&nbsp;&nbsp;</button></span>&nbsp;
+			<span><button type="button" onclick="location.href='<c:url value="/terms2"/>';">개인보호정책&nbsp;&nbsp;</button></span>
+			<span><button type="button" onclick="location.href='<c:url value="/notice/board"/>';">공지사항&nbsp;&nbsp;</button></span>
 			<span><a href="">고객센터</a></span>
-			<span><a href="<c:url value="mypage"/>">마이페이지&nbsp;&nbsp;</a></span>
-			<span><a href="<c:url value="faq/board"/>">faq&nbsp;&nbsp;</a></span>
-			<span><a href="<c:url value="notice/list"/>">1:1문의&nbsp;&nbsp;</a></span>
-		
+			<span><button type="button" onclick="location.href='<c:url value="/mypage1"/>';">마이페이지&nbsp;&nbsp;</button></span>
+			<span><button type="button" onclick="location.href='<c:url value="/faq/board"/>';">faq&nbsp;&nbsp;</button></span>
+			<span><button type="button" onclick="location.href='<c:url value="/faq/board"/>';">1:1문의&nbsp;&nbsp;</button></span>
 		</div>
 		<br>
 		<div>
