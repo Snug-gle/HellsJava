@@ -9,23 +9,23 @@
 <title>염병할 고갱님들</title>
 </head>
 <body>
-<div class="userList">
-	<div class="userList-title">
+<div class="trainerList">
+	<div class="trainerList-title">
 		<h2>관리자 페이지</h2>
 	</div>
-	<div class="userList-content">
-		<div class="userList-side admin-listPanel">
+	<div class="trainerList-content">
+		<div class="trainerList-side admin-listPanel">
 			<div class="admin-side-bar">
-				<div class="userList-side-bar-btn">회원 목록</div>
-				<div class="userList-side-bar-btn">트레이너 목록</div>
-				<div class="userList-side-bar-btn">1:1 문의 목록</div>
+				<div class="trainerList-side-bar-btn">회원 목록</div>
+				<div class="trainerList-side-bar-btn">트레이너 목록</div>
+				<div class="trainerList-side-bar-btn">1:1 문의 목록</div>
 			</div>
 		</div>
-		<div class="userList-body admin-listPanel">
+		<div class="trainerList-body admin-listPanel">
 			<div class="admin-side-bar">
 				<h4>트레이너 목록</h4>
-				<div class="userList-body-list">
-					<table class="userList-body-list-table">
+				<div class="trainerList-body-list">
+					<table class="trainerList-body-list-table">
 						<colgroup>
 							<col style="width:140px">
 							<col style="width:150px">
