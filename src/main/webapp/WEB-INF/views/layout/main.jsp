@@ -16,8 +16,8 @@
 </div>
 <form action="<spring:url value="/content/search_list"/>" method="get">
 	<div class="main-search-area">
-		<input class="main-search" placeholder="트레이너명/지역/헬스장 이름">
-		<button type="submit" class="fa fa-search main-contorller" ></button>
+		<input class="main-search" placeholder="트레이너명/지역/헬스장 이름" name ="mainSearch">
+		<button type="submit" class="fa fa-search main-contorller"></button>
 	</div>
 </form>
 <div>
