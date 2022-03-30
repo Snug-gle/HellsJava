@@ -31,7 +31,7 @@
 		<hr>
 		<div id="btnDiv">
 			<c:if test="${loginUserinfo.memberStatus==9}">
-			<button type="button" id="writeBtn">글쓰기</button>
+			<button type="button" id="writeBtn" onclick="location.href='<c:url value="/board/faq_write"/>';">글쓰기</button>
 			</c:if> 
 		</div>
 		
@@ -40,36 +40,6 @@
 	
 	<%-- 페이지 번호를 출력하는 영역 --%>
 	<div id="pageNumDiv"></div>
-	
-	<%-- 신규 게시글을 입력하는 영역 --%>
-	<div id="insertDiv">
-		<table>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="noticeServiceTitle" id="insertTitle" class="insert"></td>
-			</tr>
-			<tr>
-				<td>카테고리</td>
-				<td>
-					<select name="noticeServiceCategory" id="insertCategory" class="insert">
-						<option value="1" selected="selected"> 입금/결제</option>
-						<option value="2">트레이너 관련 문의</option>
-						<option value="3">기타문의</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td><textarea name="noticeServiceContent" id="insertContent" class="insert"></textarea></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<button type="button" id="insertBtn">저장</button>
-					<button type="button" id="cancelInsertBtn">취소</button>
-				</td>
-			</tr>
-		</table>	
-	</div>	
 	
 	<%-- 변경 게시글을 입력하는 영역 --%>
 	<div id="updateDiv">
@@ -207,63 +177,11 @@
 		//변경 게시글 입력 영역 초기화
 		$(".update").val("");
 		$("#updateDiv").hide();
-		
-		//신규 게시글 입력 영역 출력
-		$("#insertDiv").show();
-	});
-	
-	//게시글 신규 입력 내용 저장 관련 처리 함수
-	$("#insertBtn").click(function() {
-		var title=$("#insertTitle").val();
-		var content=$("#insertContent").val();
-		
-		if(title=="") {
-			alert("제목을 입력해 주세요.")
-			return;
-		}
-
-		if(content=="") {
-			alert(" 내용을 입력해 주세요.")
-			return;
-		}
-		
-		//JSON 데이터를 텍스트 데이터로 변환
-		$.ajax({
-			type: "post",
-			url: "write",
-			contentType : "application/json",
-			data: JSON.stringify({"noticeServiceTitle":noticeServiceTitle,"noticeServiceCategory":noticeServiceCategory,"noticeServiceContent":noticeServiceContent}),
-			dateType: "text",
-			success: function (text) {
-				if(text=="success") {
-					//신규 게시글 입력 영역 초기화
-					$(".insert").val("");
-					$("#insertDiv").hide();
-					
-					//게시글 목록을 검색하여 출력하는 함수 호출
-					boardDisplay(1);
-				}
-			},
-			error: function(xhr) {
-				alert("에러코드 = "+xhr.status);
-			}
-		});
-	});
-	
-	//[취소]를 클릭한 경우 호출되는 이벤트 처리 함수 등록 
-	$("#cancelInsertBtn").click(function() {
-		//신규 게시글 입력 영역 초기화
-		$(".insert").val("");
-		$("#insertDiv").hide();
 	});
 	
 	//게시글의 [수정]을 클릭한 경우 호출되는 이벤트 처리 함수
 	function modify(num) {
 		//alert("num = "+num);
-		
-		//신규 게시글 입력 영역 초기화
-		$(".insert").val("");
-		$("#insertDiv").hide();
 		
 		//변경 게시글 입력 영역 출력
 		$("#updateDiv").show();

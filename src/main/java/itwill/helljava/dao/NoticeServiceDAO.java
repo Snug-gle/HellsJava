@@ -15,6 +15,9 @@ public interface NoticeServiceDAO {
 	// 답글 추가 메서드
 	int updateReplyNoticeService(NoticeService noticeService);
 
+	// 공지사항, FAQ 조회수 올리는 메서드
+	int updateNoticeServiceHits(int noticeServiceNo);
+	
 	// 글 삭제 메서드
 	int deleteNoticeService(int noticeServiceNo);
 	

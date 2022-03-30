@@ -21,13 +21,13 @@ public class NoticeServiceServiceImpl implements NoticeServiceService {
 	public void addNoticeService(NoticeService noticeService) {
 		noticeServiceDAO.insertNoticeService(noticeService);
 	}
-	
+
 	@Override
 	@Transactional
 	public void modifyNoticeService(NoticeService noticeService) {
 		noticeServiceDAO.updateNoticeService(noticeService);
 	}
-	
+
 	@Override
 	@Transactional
 	public void modifyReplyNoticeService(NoticeService noticeService) {
@@ -35,15 +35,20 @@ public class NoticeServiceServiceImpl implements NoticeServiceService {
 	}
 
 	@Override
-	public void removeNoticeService(int noticeServiceNo) {
-		noticeServiceDAO.deleteNoticeService(noticeServiceNo);		
+	public void modifyNoticeServiceHits(int noticeServiceNo) {
+		noticeServiceDAO.updateNoticeServiceHits(noticeServiceNo);
 	}
-	
+
+	@Override
+	public void removeNoticeService(int noticeServiceNo) {
+		noticeServiceDAO.deleteNoticeService(noticeServiceNo);
+	}
+
 	@Override
 	public int getNoticeServiceCount(Map<String, Object> map) {
 		return noticeServiceDAO.selectNoticeServiceCount(map);
 	}
-	
+
 	@Override
 	public int getNoticeServicePersonalCount(int notice_service_sortation, int member_no) {
 		return noticeServiceDAO.selectNoticeServicePersonalCount(notice_service_sortation, member_no);
@@ -53,7 +58,7 @@ public class NoticeServiceServiceImpl implements NoticeServiceService {
 	public NoticeService getNoticeService(int notice_service_no) {
 		return noticeServiceDAO.selectNoticeService(notice_service_no);
 	}
-	
+
 	@Override
 	public List<NoticeService> getNoticeServiceList(Map<String, Object> map) {
 		return noticeServiceDAO.selectNoticeServiceList(map);

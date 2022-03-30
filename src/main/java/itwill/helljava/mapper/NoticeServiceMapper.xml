@@ -51,6 +51,10 @@
 		update notice_service set notice_service_reply = #{noticeServiceReply} where notice_service_no = #{noticeServiceNo}
 	</update>
 	
+	<update id="updateNoticeServiceHits">
+		update notice_service set notice_service_hits = notice_service_hits+1 where notice_service_no = #{noticeServiceNo}
+	</update>
+	
 	<select id="selectNoticeServiceCount" resultType="int">
 		select count(*) from notice_service n left join member m 
 			on n.member_no = m.member_no
