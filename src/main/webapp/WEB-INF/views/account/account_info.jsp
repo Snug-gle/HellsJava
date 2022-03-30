@@ -6,7 +6,7 @@
 <head>
 <style type="text/css">
 body {
-	margin: 250px;
+	margin: 100px;
 	align-items: center;
 }
 .panel panel-default {
