@@ -87,7 +87,7 @@
 		(select rownum rn, board.* from
 		(select * from member m right join trainer t on m.member_no = t.member_no
 									right join posting p on t.trainer_no = p.trainer_no 
-				where ${searchKeyword} like '%'||#{searchValue}||'%'
+
 				and m.member_status = 3
 			order by m.member_no desc) board)
 			where rn between #{startRow} and #{endRow}
