@@ -12,4 +12,9 @@ public class AdminController {
 		return "admin/admin_userList";
 	}
 	
+	@RequestMapping(value = "admin/trainerList", method = RequestMethod.GET)
+	public String trainerList() {
+		return "admin/admin_trainerList";
+	}
+	
 }

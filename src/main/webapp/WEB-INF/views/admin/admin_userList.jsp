@@ -10,22 +10,25 @@
 </head>
 <body>
 <div class="userList">
-	<div class="userList-title">
+	<div class="admin-title">
 		<h2>관리자 페이지</h2>
 	</div>
 	<div class="userList-content">
 		<div class="userList-side admin-listPanel">
 			<div class="admin-side-bar">
-				<div class="userList-side-bar-btn">회원 목록</div>
-				<div class="userList-side-bar-btn">트레이너 목록</div>
-				<div class="userList-side-bar-btn">1:1 문의 목록</div>
+				<ul>
+					<li>회원목록</li>
+					<li>트레이너 목록
+					</li>
+					<li>1:1문의 목록</li>
+				</ul>
 			</div>
 		</div>
 		<div class="userList-body admin-listPanel">
 			<div class="admin-side-bar">
 				<h4>회원 관리</h4>
-				<div class="userList-body-list">
-					<table class="userList-body-list-table">
+				<div class="admin-list-body-list">
+					<table class="admin-list-body-list-table">
 						<colgroup>
 							<col style="width:140px">
 							<col style="width:150px">
@@ -33,7 +36,7 @@
 							<col style="width:140px">
 							<col style="width:200px">
 							<col style="width:100px">
-							<col style="width:80px">
+							<col style="width:110px">
 						</colgroup>
 						<tr>
 							<th scope="col">번호</th>
