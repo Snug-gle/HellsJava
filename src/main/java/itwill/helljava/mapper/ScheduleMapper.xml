@@ -2,35 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="itwill.helljava.mapper.ScheduleMapper">
 	<insert id="insertSchedule">
-		<selectKey resultType="int" keyProperty="schedule_no" order="BEFORE">
+		<selectKey resultType="int" keyProperty="scheduleNo" order="BEFORE">
 			select seq_schedule.nextval from dual
 		</selectKey>
 		insert into schedule values(
-		#{schedule_no},
-		#{schedule_workday, jdbcType=INTEGER},
-		#{schedule_hours, jdbcType=VARCHAR},
-		#{schedule_dayoff, jdbcType=VARCHAR},
-		#{trainer_no})
+		#{scheduleNo},
+		#{scheduleWorkday, jdbcType=INTEGER},
+		#{scheduleHours, jdbcType=VARCHAR},
+		#{scheduleDayoff, jdbcType=VARCHAR},
+		#{trainerNo})
 	</insert>
 	
 	<update id="updateSchedule">
 		update schedule 
 		<set>
-			<if test="schedule_workday != null schedule_workday != ''">
-				schedule_workday=#{schedule_workday},	
+			<if test="scheduleWorkday != null scheduleWorkday != ''">
+				schedule_workday=#{scheduleWorkday},	
 			</if>
-			<if test="schedule_hours != null schedule_hours != ''">
-				schedule_hours=#{schedule_hours},
+			<if test="scheduleHours != null scheduleHours != ''">
+				schedule_hours=#{scheduleHours},
 			</if>
-			<if test="schedule_dayoff != null schedule_dayoff != ''">
-				schedule_dayoff=#{schedule_dayoff} 
+			<if test="scheduleDayoff != null scheduleDayoff != ''">
+				schedule_dayoff=#{scheduleDayoff} 
 			</if>
-				where trainer_no=#{trainer_no}
+				where trainer_no=#{trainerNo}
 		</set> 
 	</update>
 	
 	<delete id="deleteSchedule">
-		delete from schedule where schedule_no = #{schedule_no}
+		delete from schedule where schedule_no = #{scheduleNo}
 	</delete>
 	
 	<select id="selectScheduleList" resultType="Schedule">

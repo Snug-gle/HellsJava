@@ -2,31 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="itwill.helljava.mapper.PtPricingMapper">
 	<insert id="insertPtPricing">
-		<selectKey resultType="int" keyProperty="pt_pricing_no" order="BEFORE">
+		<selectKey resultType="int" keyProperty="ptPricingNo" order="BEFORE">
 			select seq_pt_pricing.nextval from dual
 		</selectKey>
-		insert into pt_pricing values(
-		#{pt_pricing_no},
-		#{trainer_no},
-		#{pt_pricing_round},
-		#{pt_pricing_price},
-		#{pt_pricing_status})
+		insert into ptPricing values(
+		#{ptPricingNo},
+		#{trainerNo},
+		#{ptPricingRound},
+		#{ptPricingPrice},
+		#{ptPricingStatus})
 	</insert>
 	
 	<update id="updatePtPricing">
-		update pt_pricing
+		update ptPricing
 		<set>
-			<if test="pt_pricing_round!=null and pt_pricing_round!=''">
-				pt_pricing_round=#{pt_pricing_round},
+			<if test="ptPricingRound!=null and ptPricingRound!=''">
+				pt_pricing_round=#{ptPricingRound},
 			</if>
-			<if test="pt_pricing_price!=null and pt_pricing_price!=''">
-				pt_pricing_price=#{pt_pricing_price},
+			<if test="ptPricingPrice!=null and ptPricingPrice!=''">
+				pt_pricing_price=#{ptPricingPrice},
 			</if>
-			<if test="pt_pricing_status!=null and pt_pricing_status!=''">
-				pt_pricing_status=#{pt_pricing_status}
+			<if test="ptPricingStatus!=null and ptPricingStatus!=''">
+				pt_pricing_status=#{ptPricingStatus}
 			</if>
 		</set>
-		where trainer_no=#{trainer_no}
+		where trainer_no=#{trainerNo}
 	</update>
 	
 	<select id="selectPtPricingList" resultType="PtPricing">

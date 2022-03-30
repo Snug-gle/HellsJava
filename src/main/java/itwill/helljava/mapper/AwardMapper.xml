@@ -2,31 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="itwill.helljava.mapper.AwardMapper">
 	<insert id="insertAward">
-		<selectKey resultType="int" keyProperty="award_no" order="BEFORE">
+		<selectKey resultType="int" keyProperty="awardNo" order="BEFORE">
 			select seq_award.nextval from dual
 		</selectKey>
 		insert into award values(
-		#{award_no, jdbcType=INTEGER}, 
-		#{trainer_no, jdbcType=INTEGER}, 
-		#{award_content, jdbcType=VARCHAR}, 
-		#{award_image, jdbcType=VARCHAR})
+		#{awardNo, jdbcType=INTEGER}, 
+		#{trainerNo, jdbcType=INTEGER}, 
+		#{awardContent, jdbcType=VARCHAR}, 
+		#{awardImage, jdbcType=VARCHAR})
 	</insert>
 	
 	<update id="updateAward">
 		update award 
 		<set>
-			<if test="award_content!=null and award_content!=''">
-				award_content = {award_content},
+			<if test="awardContent!=null and awardContent!=''">
+				award_content = {awardContent},
 			</if>
-			<if test="award_image != null and award_image != ''">
-				award_image = {award_image}
+			<if test="awardImage != null and awardImage != ''">
+				award_image = {awardImage}
 			</if>
 		</set>
 		where award_no = #{award_no}
 	</update>
 	
 	<delete id="deleteAward">
-		delete from award where award_no = #{award_no}
+		delete from award where award_no = #{awardNo}
 	</delete>
 	
 	<select id="selectAward" resultType="Award">

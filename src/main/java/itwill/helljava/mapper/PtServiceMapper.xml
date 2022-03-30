@@ -2,44 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="itwill.helljava.mapper.PtServiceMapper">
 	<insert id="insertPtService">
-		<selectKey resultType="int" keyProperty="pt_service_no" order="BEFORE">
+		<selectKey resultType="int" keyProperty="ptServiceNo" order="BEFORE">
 			select seq_pt_service.nextval from dual
 		</selectKey>
 		insert into pt_service values(
-		#{pt_service_no},
-		#{member_no},
-		#{trainer_no},
-		#{pt_service_title, jdbcType=VARCHAR},
-		#{pt_service_content},
-		#{pt_service_reply, jdbcType=VARCHAR},
-		#{pt_service_stars jdbcType=INTEGER},
-		#{pt_service_good, jdbcType=INTEGER},
+		#{ptServiceNo},
+		#{memberNo},
+		#{trainerNo},
+		#{ptServiceTitle, jdbcType=VARCHAR},
+		#{ptServiceContent},
+		#{ptServiceReply, jdbcType=VARCHAR},
+		#{ptServiceStars jdbcType=INTEGER},
+		#{ptServiceGood, jdbcType=INTEGER},
 		sysdate,
-		#{pt_service_status},
-		#{pt_service_sortation})
+		#{ptServiceStatus},
+		#{ptServiceSortation})
 	</insert>
 	
 	<update id="updatePtService">
 		update pt_service
 		<set>
-			<if test="pt_service_title!=null and pt_service_title!=''">
-				pt_service_title=#{pt_service_title}
+			<if test="ptServiceTitle!=null and ptServiceTitle!=''">
+				pt_service_title=#{ptServiceTitle}
 			</if>
-			<if test="pt_service_content!=null and pt_service_content!=''">
-				pt_service_content=#{pt_service_content}
+			<if test="ptServiceContent!=null and ptServiceContent!=''">
+				pt_service_content=#{ptServiceContent}
 			</if>
-			<if test="pt_service_reply!=null and pt_service_reply!=''">
-				pt_service_reply=#{pt_service_reply}
+			<if test="ptServiceReply!=null and ptServiceReply!=''">
+				pt_service_reply=#{ptServiceReply}
 			</if>
-			<if test="pt_service_stars!=null and pt_service_stars!=''">
-				pt_service_stars=#{pt_service_stars}
+			<if test="ptServiceStars!=null and ptServiceStars!=''">
+				pt_service_stars=#{ptServiceStars}
 			</if>
 		</set>
-		where pt_service_no=#{pt_service_no}
+		where pt_service_no=#{ptServiceNo}
 	</update>
 	
 	<update id="updatePtServiceGood">
-		update pt_service set pt_service_good = pt_service_good + 1 where pt_service_no = #{pt_service_no}
+		update pt_service set pt_service_good = pt_service_good + 1 where pt_service_no = #{ptServiceNo}
 	</update>
 	
 	<select id="selectPtServiceCount" resultType="int">
