@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -91,7 +92,17 @@ public class FAQController {
 		
 		return "redirect:/faq/board";
 	}
-
+	
+	//(faq 세부 사항 출력 요청 처리 메소드)
+	@RequestMapping(value = "/view/{num}", method = RequestMethod.GET) 
+	public String view(@PathVariable int num , Model model) {
+		
+		model.addAttribute("faq", noticeServiceService.getNoticeService(num));
+		
+		return "board/faq_view";
+	}
+	
+	/*
 	// 글번호를 전달받아 테이블에 저장된 해당 글번호의 게시글을 검색하여 JSON 형식의
 	// 텍스트로 응답하는 요청 처리 메소드 - 요청 URL 주소를 이용하여 글번호 전달
 	@RequestMapping(value = "/view/{num}", method = RequestMethod.GET)
@@ -99,6 +110,7 @@ public class FAQController {
 	public NoticeService faqView(@PathVariable int num) {
 		return noticeServiceService.getNoticeService(num);
 	}
+	*/
 
 	// 게시글을 전달 받아 테이블에 저장된 게시글을 변경하고
 	// 처리 결과를 일반 텍스트로 응답하는 요청 처리 메소드
