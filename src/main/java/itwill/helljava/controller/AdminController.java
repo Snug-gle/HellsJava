@@ -65,7 +65,7 @@ public class AdminController {
 		pagerMap.put("notice_service_sortation", NoticeServiceSortationEnum.일대일문의.getValue());
 		
 		Map<String, Object> returnMap = new HashMap<String, Object>();
-		returnMap.put("restAdminQAListDiv", noticeServiceService.getNoticeServicePersonalList(pagerMap));
+		returnMap.put("restAdminQAListDiv", noticeServiceService.getNoticeServiceList(pagerMap));
 		returnMap.put("pager", pager);
 		
 		return returnMap;
