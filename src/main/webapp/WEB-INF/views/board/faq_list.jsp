@@ -57,7 +57,6 @@
 					<td align="center">{{memberName}}</td>
 				<tr>	
 			</tbody>		
-
 		{{/each}}	
 		</table>
 	</script>
