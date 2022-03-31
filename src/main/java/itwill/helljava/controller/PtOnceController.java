@@ -26,12 +26,7 @@ public class PtOnceController {
 	
 	@Autowired
 	private PtOnceService ptOnceService;
-	
-	@RequestMapping("/list")
-	public String list(@ModelAttribute PtOnce ptonce) {
-		
-		return "ptonce/ptonce_list";
-	}
+
 	
 	@RequestMapping(value = "/list" , method = RequestMethod.GET)
 	public String searchPtOnceList(HttpSession session , Model model, @RequestParam(defaultValue="1")int pageNum){
@@ -44,7 +39,8 @@ public class PtOnceController {
 		pagerMap.put("starRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
 		
-		model.addAttribute("ptOnceList", ptOnceService.getPtOnceTrainerList(pagerMap));
+		model.addAttribute("ptOnceList", ptOnceService.getPtOnceList(pagerMap));
+		model.addAttribute("pager", pager);
 		return "ptonce/ptonce_list";
 	}
 	
