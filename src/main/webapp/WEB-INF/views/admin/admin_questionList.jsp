@@ -161,7 +161,7 @@
 				page=pageNum;
 				$.ajax({
 					type: "get",
-					url: "questionList?pageNum="+pageNum,
+					url: "admin/questionList?pageNum="+pageNum,
 					dataType: "json",
 					success: function(json) {		
 						if(json.restAdminQAListDiv.length==0){
