@@ -68,11 +68,13 @@ public class FAQController {
 		returnMap.put("faqList", noticeServiceService.getNoticeServiceList(pagerMap));
 		returnMap.put("pager", pager);
 		
-
-		for(NoticeService noticeService : noticeServiceService.getNoticeServiceList(pagerMap) ) {
-			noticeService.setNoticeServiceCategoryName(String.valueOf(NoticeServiceCategoryEnum.of(noticeService.getNoticeServiceCategory())));
-			returnMap.put("", notice);
-		}
+		/*
+		 * for(NoticeService noticeService :
+		 * noticeServiceService.getNoticeServiceList(pagerMap) ) {
+		 * noticeService.setNoticeServiceCategoryName(String.valueOf(
+		 * NoticeServiceCategoryEnum.of(noticeService.getNoticeServiceCategory())));
+		 * returnMap.put("", notice); }
+		 */
 		
 		return returnMap;
 
