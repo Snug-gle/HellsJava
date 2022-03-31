@@ -41,13 +41,14 @@ public class AdminController {
 		return "admin/admin_testList";
 	}
 	
-	/*
-	 * @RequestMapping(value = "admin/questionList", method = RequestMethod.GET)
-	 * public String questionList() { return "admin/admin_questionList"; }
-	 */
+	@RequestMapping(value = "admin/questionList", method = RequestMethod.GET)
+	  public String questionList() { 
+		  return "admin/admin_questionList"; 
+	  }
+	 
 	
 	// 1:1 문의 리스트 출력 메서드 (Map 형태로 반환)
-	@RequestMapping(value = "admin/questionList",method = RequestMethod.GET)
+	@RequestMapping(value = "admin/question_list",method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> restQAList(@RequestParam(defaultValue = "1") int pageNum, Model model){
 		

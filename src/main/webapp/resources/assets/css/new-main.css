@@ -245,3 +245,11 @@
 	list-style:none;
    	padding-left:0px;
 }
+
+
+
+.admin-list-body-listBody , .admin-list-body-listBody-review,
+.admin-list-body-listBody-btn4 , .admin-list-body-listBody-btn5,
+.admin-list-body-listBody-review-if{
+	display: none;
+}

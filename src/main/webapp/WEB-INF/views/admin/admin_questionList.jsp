@@ -30,21 +30,9 @@
 		<div class="userList-body admin-Panel">
 			<div class="admin-side-bar">
 				<h4>1:1문의 목록</h4>
-				
-				<%-- 게시글 출력하는 영역 --%>
-				<div class="admin-list-body-list" id="restAdminQAListDiv"></div>
-			
-			</div>	
-		</div>
-	</div>
-	
-	<%-- 페이지 번호를 출력하는 영역 --%>
-	<div id="pageNumDiv"></div>
-</div>
 
-	<script id="admin_qa_template" type="text/x-handlebars-template">
-
-		<table class="admin-list-body-list-table" >
+				<div class="admin-list-body-list" id="showData" >
+					<%-- <table class="admin-list-body-list-table" >
 						<colgroup>
 							<col style="width:140px">
 							<col style="width:150px">
@@ -64,23 +52,22 @@
 							<th scope="col">답변상태</th>
 						</tr>
 						
-			{{#each .}}
 						<tr class="admin-list-body-listTitle">
-							<td>번호</td>
-							<td>카테고리</td>
-							<td>제목</td>
+							<td>${noticeServiceNo}</td>
+							<td>${noticeServiceCategory}</td>
+							<td>${noticeServiceTitle}</td>
 							<td></td>
-							<td>아이디</td>
-							<td>날짜</td>
-							<td>답변</td>
+							<td>${memberId}</td>
+							<td>${noticeServiceDate}</td>
+							<td>${noticeServiceStatus}</td>
 						</tr>
 						
-						<tr class="admin-list-body-listBody">
+						<tr class="admin-list-body-listBody" id="restAdminQAListDiv">
 							<td colspan="7">
 								<h4>소개</h4>
 								<hr>
 								<ul>
-									<li class="alblb">
+									<li class="alblb"> 
 										<button class="admin-list-body-listBody-btn1" type="button">답변</button>
 									</li>
 								</ul>
@@ -109,25 +96,50 @@
 								</form>
 							</td>
 						</tr>
-		{{/each}}	
-</table>
-
-						
-	</script>
+				</table> --%>
+				
+				
+				</div>
+			
+			</div>	
+		</div>
+	</div>
+	
+	<%-- 페이지 번호를 출력하는 영역 --%>
+	<div id="pageNumDiv"></div>
+</div>
 
 	<script type="text/javascript">
-		$(function(){
-			$(".admin-list-body-listBody").hide();
-			$(".admin-list-body-listBody-review").hide();
+		 
+		$(document).on("click",".admin-list-body-listTitle", function() {
+			$(".admin-list-body-listBody").toggle();
+		});
+		 
+		$(document).on("click",".admin-list-body-listBody-btn1", function() { 
+			 $(".admin-list-body-listBody-review").show();
+				$(".admin-list-body-listBody-btn1").hide();
+		});
+		
+		$(document).on("click",".admin-list-body-listBody-btn2", function() { 
+			 $(".admin-list-body-listBody-review").hide();
+				$(".admin-list-body-listBody-btn1").show();
+		});
+		
+		$(document).on("click",".admin-list-body-listBody-btn3", function() { 
+			$(".texttest").contents().unwrap().wrap( '<textarea class="admin-list-review rr" rows="" cols=""></textarea>' );
+			$(".admin-list-body-listBody-btn3").hide();
+			$(".admin-list-body-listBody-btn4").show();
+			$(".admin-list-body-listBody-btn5").show();
+		});
+		
+		$(document).on("click",".admin-list-body-listBody-btn5", function() { 
+			$(".admin-list-review.rr").contents().unwrap().wrap( '<p class="texttest"></p>' );
+			$(".admin-list-body-listBody-btn3").show();
 			$(".admin-list-body-listBody-btn4").hide();
 			$(".admin-list-body-listBody-btn5").hide();
 		});
 		
-		$(".admin-list-body-listTitle").click(function() {
-			$(".admin-list-body-listBody").toggle();
-		});
-		
-		$(".admin-list-body-listBody-btn1").click(function() {
+		/* $(".admin-list-body-listBody-btn1").click(function() {
 			$(".admin-list-body-listBody-review").show();
 			$(".admin-list-body-listBody-btn1").hide();
 		});
@@ -151,7 +163,7 @@
 			$(".admin-list-body-listBody-btn4").hide();
 			$(".admin-list-body-listBody-btn5").hide();
 			
-		});
+		}); */
 		
 		var page=1; //현재 요청 페이지 번호를 저장하기 위한 전역 변수
 		boardDisplay(page);
@@ -161,22 +173,107 @@
 				page=pageNum;
 				$.ajax({
 					type: "get",
-					url: "admin/questionList?pageNum="+pageNum,
+					url: "question_list?pageNum="+pageNum,
 					dataType: "json",
 					success: function(json) {		
+						var str1;
 						if(json.restAdminQAList.length==0){
-							$("#restAdminQAListDiv").html("<tr class='admin-list-body-listBody'><td colspan='7'>검색된 1:1 문의가 존재하지 않습니다.</td></tr>");
+							str1 += "<table class='admin-list-body-list-table' >";
+							str1 += "<colgroup>";
+							str1 += "<col style='width:140px'>";
+							str1 += "<col style='width:150px'>";
+							str1 += "<col style='width:100px'>";
+							str1 += "<col style='width:140px'>";
+							str1 += "<col style='width:200px'>";
+							str1 += "<col style='width:100px'>";
+							str1 += "<col style='width:110px'>";
+							str1 += "</colgroup>";
+							str1 += "<tr>";
+							str1 += "<td colspan='7'>검색된 1:1 문의가 존재하지 않습니다.</td>";
+							str1 += "</tr>";   
+							str1 += "</table>";
+							$("#showData").html(str1);
 							return;
 						}
 						
-						//응답된 게시글 목록을 HTML로 변환하도록 Handlebars 자바스크립트 라이브러리 이용
+						
+						var str = "<table class='admin-list-body-list-table' >";
+							str += "<colgroup>";
+							str += "<col style='width:140px'>";
+							str += "<col style='width:150px'>";
+							str += "<col style='width:100px'>";
+							str += "<col style='width:140px'>";
+							str += "<col style='width:200px'>";
+							str += "<col style='width:100px'>";
+							str += "<col style='width:110px'>";
+							str += "</colgroup>";
+							str += "<tr>";
+							str += "<th scope='col'>번호</th>";
+							str += "<th scope='col'>카테고리</th>";
+							str += "<th scope='col'>제목</th>";
+							str += "<th scope='col'></th>";
+							str += "<th scope='col'>아이디</th>";
+							str += "<th scope='col'>날짜</th>";
+							str += "<th scope='col'>답변상태</th>";
+							str += "</tr>";
+						var list = json.restAdminQAList;
+						$(list).each(function(ind, obj){
+							str += "<tr class='admin-list-body-listTitle'  id='admin-list-body-listTitle"+ind+"'>";
+							str += "<td>"+obj["noticeServiceNo"]+"</td>";
+							str += "<td>"+obj["noticeServiceCategory"]+"</td>";
+							str += "<td>"+obj["noticeServiceTitle"]+"</td>";
+							str += "<td></td>";
+							str += "<td>"+obj["memberId"]+"</td>";
+							str += "<td>"+obj["noticeServiceDate"]+"</td>";
+							str += "<td>"+obj["noticeServiceStatus"]+"</td>";
+							str += "</tr>";
+							str += "<tr class='admin-list-body-listBody'>";
+							str += "<td colspan='7'>";
+							str += "<h4>Q</h4>"+obj["noticeServiceContent"];
+							str += "<hr>";
+							str += "<ul>";
+							str += "<li class='alblb'>";
+							str += "<button class='admin-list-body-listBody-btn1' type='button'>답변</button>";
+							str += "</li>";
+							str += "</ul>";
+							str += "<form action=''>";
+							str += "<ul class='admin-list-body-listBody-review alblb'>";
+							str += "<li> <textarea class='admin-list-review' rows='' cols=''></textarea> </li>";
+							str += "<li class='alblb'>";
+							str += "<button type='submit'>작성</button> ";
+							str += "<button type='reset'>초기화</button>";
+							str += "<button class='admin-list-body-listBody-btn2' type='button'>취소</button>";
+							str += "</li>";
+							str += "</ul>";
+							str += "</form>";
+							str += "<form action=''>";
+							str += "<ul class='admin-list-body-listBody-review-if'>";
+							str += "<li>";
+							str += "<h4>A</h4>";
+							str += "<p class='texttest'>"+obj["noticeServiceReply"]+"</p>";
+							str += "</li>";
+							str += "<li class='alblb'>";
+							str += "<button class='admin-list-body-listBody-btn3' type='button'>수정</button>";
+							str += "<button class='admin-list-body-listBody-btn4 hidetest' type='submit'>입력</button>";
+							str += "<button class='admin-list-body-listBody-btn5 hidetest' type='button'>취소</button>";
+							str += "</li>";
+							str += "</ul>";
+							str += "</form>";
+							str += "</td>";
+							str += "</tr>";
+
+						});
+						str += "</table>";
+						$("#showData").html(str);
+
+						/* //응답된 게시글 목록을 HTML로 변환하도록 Handlebars 자바스크립트 라이브러리 이용
 						var source=$("#admin_qa_template").html();//템플릿 코드를 반환받아 저장
 						
 						//템플릿 코드를 전달받아 템플릿 객체로 생성하여 저장
 						var template=Handlebars.compile(source);
 						
 						//템플릿 객체에 JavaScript 객체(게시글 목록)를 전달하여 HTML 태그로 변환하여 출력
-						$("#restAdminQAListDiv").html(template(json.restAdminQAList));
+						$("#restAdminQAListDiv").html(template(json.restAdminQAList)); */
 						
 						//페이지 번호를 출력하는 함수 호출
 						pagerDisplay(json.pager);
