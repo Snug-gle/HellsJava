@@ -95,13 +95,11 @@
         <table class="table table-hover">
 			<thead>			
 				<tr>
-					<th width="50">번호</th>
-					<th width="100">카테고리</th>
-					<th width="100">제목</th>
-					<th width="200">작성일</th>
-					<th width="50">작성자</th>
-					<th width="50">변경</th>
-					<th width="50">삭제</th>
+					<th align="center" width="2px" style=" text-align: -webkit-center;">번호</th>
+					<th align="center" width="15px" style=" text-align: -webkit-center;">카테고리</th>
+					<th align="center" width="200px" style=" text-align: -webkit-center;">제목</th>
+					<th align="center" width="20px" style=" text-align: -webkit-center;">작성일</th>
+					<th align="center" width="15px" style=" text-align: -webkit-center;">작성자</th>
 				</tr>
  			</thead>
 		{{#each .}}
@@ -109,11 +107,9 @@
 				<tr>
 					<td align="center">{{noticeServiceNo}}</td>
 					<td align="center">{{noticeServiceCategory}}</td>
-					<td align="center" id="title"><a href="<c:url value='/notice/view/'/>{{noticeServiceNo}}">{{noticeServiceTitle}}</a></td>
+					<td align="center" id="title"><a href="<c:url value='/faq/view/'/>{{noticeServiceNo}}">{{noticeServiceTitle}}</a></td>
 					<td align="center">{{noticeServiceDate}}</td>
 					<td align="center">{{loginUserInfo.memberName}}</td>
-					<td align="center"><button type="button" onclick="modify({{noticeServiceNo}});">변경</button></td>
-					<td align="center"><button type="button" onclick="remove({{noticeServiceNo}});">삭제</button></td>
 				<tr>	
 			</tbody>		
 		{{/each}}	

@@ -66,7 +66,7 @@
 					<th align="center" width="2px" style=" text-align: -webkit-center;">번호</th>
 					<th align="center" width="150px" style=" text-align: -webkit-center;">제목</th>
 					<th align="center" width="20px" style=" text-align: -webkit-center;">작성일</th>
-					<th align="center" width="15px" style=" text-align: -webkit-center;">관리자</th>
+					<th align="center" width="15px" style=" text-align: -webkit-center;">작성자</th>
 					<th align="center" width="8px" style=" text-align: -webkit-center;">조회수</th>
 				</tr>
  			</thead>
