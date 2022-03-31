@@ -8,105 +8,124 @@
 <%-- => https://cdnjs.com 사이트에서 handlebars 라이브러리를 검색하여 JSP 문서에 포함 --%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 <style type="text/css">
-#btnDiv {
-	margin: 10px;
+.notice-list-print {
+	width: 100%;
 }
 
-#insertDiv, #updateDiv {
-	width: 240px;
-	height: 80px;
-	border: 2px solid black;
-	background-color: gray;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-top: -40px;
-	margin-left: -120px;
-	padding: 5px;
-	z-index: 100;
-	display: none;
+
+.notice-list-title {
+    font-weight: 400;
+    text-transform: uppercase;
+    padding: 14px 10px;
 }
+
+.notice-list-title {
+    color: #fff;
+    background-color: #556b8d;
+    border-color: #556b8d;
+}
+
+.notice-list-title {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
 </style>
-	<h1>FAQ</h1>
-		<hr>
-		<div id="btnDiv">
-			<c:if test="${loginUserinfo.memberStatus==9}">
-			<button type="button" id="writeBtn" onclick="location.href='<c:url value="/faq/write"/>';">글쓰기</button>
-			</c:if> 
+
+<div class="container">
+	<div style="text-align: right;">
+		<c:if test="${loginUserinfo.memberStatus==9}">
+				<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/faq/write"/>';">작성</button>
+		</c:if>
+	</div>
+	<div class="notice-list-print">
+		<div class="notice-list-title">
+			<h3 class="panel-title"><strong>FAQ</strong></h3>
 		</div>
 		
-	<%-- 게시글 목록을 출력하는 영역 --%>
-	<div id="faqListDiv"></div>
-	
-	<%-- 페이지 번호를 출력하는 영역 --%>
-	<div id="pageNumDiv"></div>
-	
-	<%-- 변경 게시글을 입력하는 영역 --%>
-	<div id="updateDiv">
-		<input type="hidden" name="noticeServiceNo" id="updateNum">
-		<table>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="noticeServiceTitle" id="updateTitle" class="insert"></td>
-			</tr>
-			<tr>
-				<td>카테고리</td>
-				<td><select name="noticeServiceCategory" id="updateCategory" class="update">
-						<option value="1" selected="selected"> 입금/결제</option>
-						<option value="2">트레이너 관련 문의</option>
-						<option value="3">기타문의</option>
-					</select>
-				</td>
+		<%--게시글 목록 출력 --%>
+		<div class="panel panel-default">
+		    <div class="panel-body" id="faqListDiv"></div>
+		</div>
+		<%-- 페이지 번호 출력 --%>
+		<div class="panel panel-default">
+		    <div class="panel-body"id="pageNumDiv"></div>
+		</div>
+		
+		<%-- 변경 게시글을 입력하는 영역 --%>
+		<div id="updateDiv">
+			<input type="hidden" name="noticeServiceNo" id="updateNum">
+			<table>
+				<tr>
+					<td>제목</td>
+					<td><input type="text" name="noticeServiceTitle" id="updateTitle" class="insert"></td>
 				</tr>
-			<tr>
-				<td>내용</td>
-				<td><textarea name="noticeServiceContent" id="updateContent" class="update"></textarea></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<button type="button" id="updateBtn">변경</button>
-					<button type="button" id="cancelUpdateBtn">취소</button>
-				</td>
-			</tr>
-		</table>	
+				<tr>
+					<td>카테고리</td>
+					<td><select name="noticeServiceCategory" id="updateCategory" class="update">
+							<option value="1" selected="selected"> 입금/결제</option>
+							<option value="2">트레이너 관련 문의</option>
+							<option value="3">기타문의</option>
+						</select>
+					</td>
+					</tr>
+				<tr>
+					<td>내용</td>
+					<td><textarea name="noticeServiceContent" id="updateContent" class="update"></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button type="button" id="updateBtn">변경</button>
+						<button type="button" id="cancelUpdateBtn">취소</button>
+					</td>
+				</tr>
+			</table>	
+		</div>
+		
 	</div>
-	
-	
-	
-	<%-- handlebars 템플릿 코드 작성 >> HTML --%>
-	<%-- => {{#each}} 표현식을 사용하여 Array 객체에 대한 반복 처리 --%>
-	<%-- => {{propertyName}} 표현식을 사용하여 Object 객체의 속성값 표현 --%>	
-	
-	<script id="template" type="text/x-handlebars-template">
-		<table border="1" cellspacing="0" cellpadding="3">
-			<tr>
-				<th width="50">번호</th>
-				<th width="100" >카테고리</th>
-				<th width="100">제목</th>
-				<th width="300">내용</th>
-				<th width="200">작성일</th>
-				<th width="50">작성자</th>
-				<th width="50">조회수</th>
-				<th width="50">변경</th>
-				<th width="50">삭제</th>
-			</tr>
+</div>
 
+<%-- handlebars 템플릿 코드 작성 >> HTML --%>
+<%-- => {{#each}} 표현식을 사용하여 Array 객체에 대한 반복 처리 --%>
+<%-- => {{propertyName}} 표현식을 사용하여 Object 객체의 속성값 표현 --%>
+<script id="template" type="text/x-handlebars-template">
+	<div class="panel-body" style="display: block;">
+        <table class="table table-hover" border="1" cellspacing="0" cellpadding="3">
+			<thead>			
+				<tr>
+					<th width="50">번호</th>
+					<th width="100">카테고리</th>
+					<th width="100">제목</th>
+					<th width="200">작성일</th>
+					<th width="50">작성자</th>
+					<th width="50">조회수</th>
+					<th width="50">변경</th>
+					<th width="50">삭제</th>
+				</tr>
+ 			</thead>
 		{{#each .}}
-			<tr>
-				<td align="center">{{noticeServiceNo}}</td>
-				<td align="center">{{noticeServiceCategory}}</td>
-				<td align="center">{{noticeServiceTitle}}</td>
-				<td align="center">{{noticeServiceContent}}</td>
-				<td align="center">{{noticeServiceDate}}</td>
-				<td align="center">{{memberName}}</td>
-				<td align="center">{{noticeServiceHits}}</td>
-				<td align="center"><button type="button" onclick="modify({{noticeServiceNo}});">변경</button></td>
-				<td align="center"><button type="button" onclick="remove({{noticeServiceNo}});">삭제</button></td>
-				
-			<tr>			
+			<tbody>
+				<tr>
+					<td align="center">{{noticeServiceNo}}</td>
+					<td align="center">{{noticeServiceCategory}}</td>
+					<td align="center">{{noticeServiceTitle}}</td>
+					<td align="center">{{noticeServiceDate}}</td>
+					<td align="center">{{loginUserInfo.memberName}}</td>
+					<td align="center">{{noticeServiceHits}}</td>
+					<td align="center"><button type="button" onclick="modify({{noticeServiceNo}});">변경</button></td>
+					<td align="center"><button type="button" onclick="remove({{noticeServiceNo}});">삭제</button></td>
+				<tr>	
+			</tbody>		
 		{{/each}}	
 		</table>
 	</script>
+
+
+
+
+
 	
 	<script type="text/javascript">
 	var page=1;//현재 요청 페이지 번호를 저장한 전역변수
