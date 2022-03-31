@@ -4,7 +4,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 
 
-<form id="requestForm" action="<c:url value = "/trainer/request"/>" method = "post">
+<form id="requestForm" enctype="multipart/form-data" action="<c:url value = "${pageContext.request.contextPath}/trainer/request"/>" method = "post">
 	<input type="hidden" name="memberNo" value="${loginUserinfo.memberNo }">
 		<div class="tr-in-centent" >
 			<div class="tr-in-header">
@@ -15,7 +15,7 @@
 				<div class="tr-in-header-img">
 					<div class="">
 						<img alt="" src="">
-						<input id ="trainer_profile_image" type="file" readonly="readonly" name="trainer_profile_image" placeholder="프로필 사진 첨부">
+						<input id ="trainer_profile_image" type="file" readonly="readonly" name="trainerProfileImage" placeholder="프로필 사진 첨부">
 						<button>첨부</button>
 						<p id="trainerProfileImgRegMsg" class="error">프로필 사진을 필히 첨부하시오.</p>
 					</div>
@@ -24,11 +24,11 @@
 						<table>
 							<tr>
 								<td>이름</td>
-								<td>${loginUserinfo.member_name }</td>
+								<td>${loginUserinfo.memberName }</td>
 							</tr>
 							<tr>
 								<td>연락처</td>
-								<td>${loginUserinfo.member_phone }</td>
+								<td>${loginUserinfo.memberPhone }</td>
 							</tr>
 							<tr>
 								<td>소속 센터 주소</td>
@@ -54,11 +54,11 @@
 						<div class="tr-in-header-award-unit">
 							<div class="tr-in-header-award-rego">
 								<i class="fa fa-minus-square"></i>
-								<input type="text" id="award_content" name= "award_content">
+								<input type="text" id="award_content" name= "awardContent">
 								<p id="awardContentRegMsg" class="error">수상 경력 설명을 필히 입력하세요.</p>
 							</div>
 							<div class="tr-in-header-award-rego">
-								<input type="file" id = "award_image" name = "award_image"> 
+								<input type="file" id = "award_image" name = "awardImage"> 
 								<p id="awardImageRegMsg" class="error">수상 경력 사진을 필히 첨부하세요.</p>
 								<button>첨부</button>
 							</div>

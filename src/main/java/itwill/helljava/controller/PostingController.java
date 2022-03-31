@@ -29,9 +29,9 @@ public class PostingController {
 	private AccountSevice accountSevice;
 	
 	// 트레이너 신청 포스트 요청
-	@RequestMapping(value = "/trainer/request", method = RequestMethod.POST)
-	public String trainerRequesAdd() {
-		return "";
-	}
+	/*
+	 * @RequestMapping(value = "/trainer/request", method = RequestMethod.POST)
+	 * public String trainerRequesAdd() { return ""; }
+	 */
 	
 }

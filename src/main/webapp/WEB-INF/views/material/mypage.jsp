@@ -44,7 +44,7 @@
 	        <c:if test="${loginUserinfo.memberStatus == 2}">
 	        	<div class="flex-item"><a href="${pageContext.request.contextPath}/account/register"; style="color: black">트레이너 신청내역</a></div>
 	        </c:if>
-	        <div class="flex-item"><a href="${pageContext.request.contextPath}/user/trainer/trainer_request"; style="color: black">트레이너 신청</a></div>
+	        <div class="flex-item"><a href="${pageContext.request.contextPath}/trainer/request"; style="color: black">트레이너 신청</a></div>
 	    </div>
 	    
 	    
