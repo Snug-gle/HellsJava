@@ -168,7 +168,7 @@
 
 .admin-Panel{
     margin: 30px;
-    padding-left: 160px;
+    padding-left: 120px;
     text-align: -webkit-center;
 }
 
@@ -249,7 +249,7 @@
 
 
 .admin-list-body-listBody , .admin-list-body-listBody-review,
-.admin-list-body-listBody-btn4 , .admin-list-body-listBody-btn5,
-.admin-list-body-listBody-review-if{
+.admin-list-body-listBody-btn4 , .admin-list-body-listBody-btn5
+{
 	display: none;
 }

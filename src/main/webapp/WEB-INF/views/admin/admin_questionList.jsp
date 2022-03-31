@@ -36,10 +36,10 @@
 						<colgroup>
 							<col style="width:140px">
 							<col style="width:150px">
-							<col style="width:100px">
+							<col style="width:200px">
 							<col style="width:140px">
 							<col style="width:200px">
-							<col style="width:100px">
+							<col style="width:200px">
 							<col style="width:110px">
 						</colgroup>
 						<tr>
@@ -82,7 +82,7 @@
 									</ul>
 								</form>
 								<form action="">
-									<ul class="">
+									<ul class="admin-list-body-listBody-review-af">
 										<li>
 											<h4>답변</h4>
 											<p class="texttest"></p>
@@ -110,33 +110,46 @@
 </div>
 
 	<script type="text/javascript">
-		 
+		 //제목 누르면 내용 펼치기
 		$(document).on("click",".admin-list-body-listTitle", function() {
-			$(".admin-list-body-listBody").toggle();
+			/* $(".admin-list-body-listBody").toggle(); */
+			$(this).next().toggle();
 		});
-		 
+		//답변 버튼 누르면 text창 펼치기
 		$(document).on("click",".admin-list-body-listBody-btn1", function() { 
-			 $(".admin-list-body-listBody-review").show();
-				$(".admin-list-body-listBody-btn1").hide();
+			 /* $(".admin-list-body-listBody-review").show();
+				$(".admin-list-body-listBody-btn1").hide(); */
+			$(this).hide();
+			$(this).parent().parent().next().children().show();
 		});
 		
 		$(document).on("click",".admin-list-body-listBody-btn2", function() { 
-			 $(".admin-list-body-listBody-review").hide();
-				$(".admin-list-body-listBody-btn1").show();
+		/*	$(".admin-list-body-listBody-review").hide();
+			$(".admin-list-body-listBody-btn1").show(); */
+			$(this).parent().parent().hide();
+			$(this).parent().parent().parent().prev().children().children().show();
 		});
 		
 		$(document).on("click",".admin-list-body-listBody-btn3", function() { 
-			$(".texttest").contents().unwrap().wrap( '<textarea class="admin-list-review rr" rows="" cols=""></textarea>' );
+			/* $(".texttest").contents().unwrap().wrap( '<textarea class="admin-list-review rr" rows="" cols=""></textarea>' );
 			$(".admin-list-body-listBody-btn3").hide();
 			$(".admin-list-body-listBody-btn4").show();
-			$(".admin-list-body-listBody-btn5").show();
+			$(".admin-list-body-listBody-btn5").show(); */
+			$(this).parent().prev().children().next().contents().unwrap().wrap( '<textarea class="admin-list-review rr" rows="" cols=""></textarea>' );
+			$(this).hide();
+			$(this).next().show();
+			$(this).next().next().show();
 		});
 		
 		$(document).on("click",".admin-list-body-listBody-btn5", function() { 
-			$(".admin-list-review.rr").contents().unwrap().wrap( '<p class="texttest"></p>' );
+			/* $(".admin-list-review.rr").contents().unwrap().wrap( '<p class="texttest"></p>' );
 			$(".admin-list-body-listBody-btn3").show();
 			$(".admin-list-body-listBody-btn4").hide();
-			$(".admin-list-body-listBody-btn5").hide();
+			$(".admin-list-body-listBody-btn5").hide(); */
+			$(this).parent().prev().children().next().contents().unwrap().wrap( '<p class="texttest"></p>' );
+			$(this).hide();
+			$(this).prev().hide();
+			$(this).prev().prev().show();
 		});
 		
 		/* $(".admin-list-body-listBody-btn1").click(function() {
@@ -201,10 +214,10 @@
 							str += "<colgroup>";
 							str += "<col style='width:140px'>";
 							str += "<col style='width:150px'>";
-							str += "<col style='width:100px'>";
+							str += "<col style='width:200px'>";
 							str += "<col style='width:140px'>";
 							str += "<col style='width:200px'>";
-							str += "<col style='width:100px'>";
+							str += "<col style='width:200px'>";
 							str += "<col style='width:110px'>";
 							str += "</colgroup>";
 							str += "<tr>";
@@ -231,37 +244,40 @@
 							str += "<td colspan='7'>";
 							str += "<h4>Q</h4>"+obj["noticeServiceContent"];
 							str += "<hr>";
-							str += "<ul>";
-							str += "<li class='alblb'>";
-							str += "<button class='admin-list-body-listBody-btn1' type='button'>답변</button>";
-							str += "</li>";
-							str += "</ul>";
-							str += "<form action=''>";
-							str += "<ul class='admin-list-body-listBody-review alblb'>";
-							str += "<li> <textarea class='admin-list-review' rows='' cols=''></textarea> </li>";
-							str += "<li class='alblb'>";
-							str += "<button type='submit'>작성</button> ";
-							str += "<button type='reset'>초기화</button>";
-							str += "<button class='admin-list-body-listBody-btn2' type='button'>취소</button>";
-							str += "</li>";
-							str += "</ul>";
-							str += "</form>";
-							str += "<form action=''>";
-							str += "<ul class='admin-list-body-listBody-review-if'>";
-							str += "<li>";
-							str += "<h4>A</h4>";
-							str += "<p class='texttest'>"+obj["noticeServiceReply"]+"</p>";
-							str += "</li>";
-							str += "<li class='alblb'>";
-							str += "<button class='admin-list-body-listBody-btn3' type='button'>수정</button>";
-							str += "<button class='admin-list-body-listBody-btn4 hidetest' type='submit'>입력</button>";
-							str += "<button class='admin-list-body-listBody-btn5 hidetest' type='button'>취소</button>";
-							str += "</li>";
-							str += "</ul>";
-							str += "</form>";
-							str += "</td>";
-							str += "</tr>";
-
+							if(obj["noticeServiceStatus"]!=3){
+								str += "<ul>";
+								str += "<li class='alblb'>";
+								str += "<button class='admin-list-body-listBody-btn1' type='button' id='lb-btn1-"+ind+"'>답변</button>";
+								str += "</li>";
+								str += "</ul>";
+							
+								str += "<form action=''>";
+								str += "<ul class='admin-list-body-listBody-review alblb'>";
+								str += "<li> <textarea class='admin-list-review' rows='' cols=''></textarea> </li>";
+								str += "<li class='alblb'>";
+								str += "<button type='submit'>작성</button> ";
+								str += "<button type='reset'>초기화</button>";
+								str += "<button class='admin-list-body-listBody-btn2' id='lb-btn2-"+ind+"' type='button'>취소</button>";
+								str += "</li>";
+								str += "</ul>";
+								str += "</form>";
+							} else {
+								str += "<form action=''>";
+								str += "<ul class='admin-list-body-listBody-review-bf'>";
+								str += "<li>";
+								str += "<h4>A</h4>";
+								str += "<p class='texttest'>"+obj["noticeServiceReply"]+"</p>";
+								str += "</li>";
+								str += "<li class='alblb'>";
+								str += "<button class='admin-list-body-listBody-btn3' id='lb-btn3-"+ind+"' type='button'>수정</button>";
+								str += "<button class='admin-list-body-listBody-btn4' id='lb-btn4-"+ind+"' type='submit'>입력</button>";
+								str += "<button class='admin-list-body-listBody-btn5' id='lb-btn5-"+ind+"' type='button'>취소</button>";
+								str += "</li>";
+								str += "</ul>";
+								str += "</form>";
+							}
+								str += "</td>";
+								str += "</tr>";
 						});
 						str += "</table>";
 						$("#showData").html(str);
