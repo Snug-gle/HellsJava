@@ -7,32 +7,7 @@
 기능을 제공하는 자바스크립트 템플릿 라이브러리 --%>
 <%-- => https://cdnjs.com 사이트에서 handlebars 라이브러리를 검색하여 JSP 문서에 포함 --%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-<style type="text/css">
-.notice-list-print {
-	width: 100%;
-}
 
-
-.notice-list-title {
-    font-weight: 400;
-    text-transform: uppercase;
-    padding: 14px 10px;
-}
-
-.notice-list-title {
-    color: #fff;
-    background-color: #556b8d;
-    border-color: #556b8d;
-}
-
-.notice-list-title {
-    padding: 10px 15px;
-    border-bottom: 1px solid transparent;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-}
-
-</style>
 
 <div class="container">
 	<div style="text-align: right;">

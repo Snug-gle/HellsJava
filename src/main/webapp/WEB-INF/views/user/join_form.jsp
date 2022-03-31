@@ -1,34 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
-<style type="text/css">
-.phone-form-control {
-    width: 15%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    text-align: center;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
-    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
-    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-}
-.phone-form-control {
-    border: 2px solid #e8ebed;
-    border-radius: 2px;
-    box-shadow: none;
-    height: 37px;
-    padding: 8px 12px 9px 12px;
-}
 
-</style>
 <!-- 
 	<h1>회원가입</h1>
 	<hr>
