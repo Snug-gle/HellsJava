@@ -53,7 +53,8 @@
 		<div class="panel panel-default">
 		    <div class="panel-body"id="pageNumDiv"></div>
 		</div>
-		
+	</div>
+</div>		
 		<%-- 변경 게시글을 입력하는 영역 --%>
 		<div id="updateDiv">
 			<input type="hidden" name="noticeServiceNo" id="updateNum">
@@ -84,15 +85,14 @@
 			</table>	
 		</div>
 		
-	</div>
-</div>
+
 
 <%-- handlebars 템플릿 코드 작성 >> HTML --%>
 <%-- => {{#each}} 표현식을 사용하여 Array 객체에 대한 반복 처리 --%>
 <%-- => {{propertyName}} 표현식을 사용하여 Object 객체의 속성값 표현 --%>
 <script id="template" type="text/x-handlebars-template">
 	<div class="panel-body" style="display: block;">
-        <table class="table table-hover" border="1" cellspacing="0" cellpadding="3">
+        <table class="table table-hover">
 			<thead>			
 				<tr>
 					<th width="50">번호</th>
@@ -100,7 +100,6 @@
 					<th width="100">제목</th>
 					<th width="200">작성일</th>
 					<th width="50">작성자</th>
-					<th width="50">조회수</th>
 					<th width="50">변경</th>
 					<th width="50">삭제</th>
 				</tr>
@@ -110,10 +109,9 @@
 				<tr>
 					<td align="center">{{noticeServiceNo}}</td>
 					<td align="center">{{noticeServiceCategory}}</td>
-					<td align="center">{{noticeServiceTitle}}</td>
+					<td align="center" id="title"><a href="<c:url value='/notice/view/'/>{{noticeServiceNo}}">{{noticeServiceTitle}}</a></td>
 					<td align="center">{{noticeServiceDate}}</td>
 					<td align="center">{{loginUserInfo.memberName}}</td>
-					<td align="center">{{noticeServiceHits}}</td>
 					<td align="center"><button type="button" onclick="modify({{noticeServiceNo}});">변경</button></td>
 					<td align="center"><button type="button" onclick="remove({{noticeServiceNo}});">삭제</button></td>
 				<tr>	
