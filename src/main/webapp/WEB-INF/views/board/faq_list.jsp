@@ -79,8 +79,8 @@
 	
 	<script id="template" type="text/x-handlebars-template">
 		<table border="1" cellspacing="0" cellpadding="3">
-			<tr>
-				<th width="50">번호</th>
+			<div>
+				<div width="50">번호</div>
 				<th width="100" >카테고리</th>
 				<th width="100">제목</th>
 				<th width="300">내용</th>
@@ -93,7 +93,7 @@
 
 		{{#each .}}
 			<tr>
-				<td align="center">{{noticeServiceNo}}</td>
+				<div align="center">{{noticeServiceNo}}</div>
 				<td align="center">{{noticeServiceCategory}}</td>
 				<td align="center">{{noticeServiceTitle}}</td>
 				<td align="center">{{noticeServiceContent}}</td>

@@ -17,7 +17,7 @@
 		</div>
 	</c:when>
 	<c:otherwise>
-		<c:forEach var="ptOnce" items="${ptOnceList}" varStatus="i">
+		<c:forEach var="ptOnce" items="${ptOnceList}" >
 			<!-- 리스트 타이틀 -->
 			<div class="panel-body">
 				<div class="panel-group accordion" id="accordion">
@@ -25,10 +25,10 @@
 						<div class="panel-heading">
 							<div class="panel-title">
 							<%-- ${전체게시글수 - (현재페이지-1)*페이지당 보여지는 게시물수 - i.index} --%>
-								<div>${pager.totalBoard }-(${pageNum }-1)*5-i.index</div>
-								<div>${ptOnce.ptOnceApplication }</div>
+								<div>번호</div>
+								<div>날짜</div>
 								<div>트레이너</div>
-								<div>${ptOnce.ptOnceStatus }</div>
+								<div>${ptOnce.ptOnceStatus } </div>
 								<div>
 									<a data-toggle="collapse" data-parent="#accordion"
 										href="#collapseOne" class="collapsed" aria-expanded="false">
@@ -43,12 +43,12 @@
 						<div id="collapseOne" class="panel-collapse collapse"
 							aria-expanded="false" style="height: 0px;">
 							<div class="panel-body">
-							성별 : ${ptOnce.ptOnceGender}<br>
+							<%-- 성별 : ${ptOnce.ptOnceGender}<br>
 							나이대 : ${ptOnce.ptOnceAge}<br>
 							경험 : ${ptOnce.ptOnceExperience}<br>
 							목적 : ${ptOnce.ptOncePurpose}<br>
-							특이사항 : ${ptOnce.ptOnceSignificant}<br>
-							${ptOnce.ptOnceSignificant }<br></div>
+							특이사항 : ${ptOnce.ptOnceSignificant}<br> --%>
+						</div>
 							<button type="button" onclick="location.href='<c:url value="/mypage"/>';">확인</button>
 							<button type="button" onclick="history.back()">목록</button>
 						</div>
@@ -56,6 +56,12 @@
 				</div>
 			</div>
 		</c:forEach>
+		<!-- 페이지 번호 처리 -->
+		<%-- <c:forEach var="pager" items="{pager}" begin="${pager.starRow }" end="${pager.endRow }">
+			<li class="${pager.pageNum eq pageNum ? 'active' : '' }">
+			<a href="<c:url value='ptonce/list?pageNum=${pager.pageNum }'/>"></a></li>
+		</c:forEach> --%>
+		
 	</c:otherwise>
 </c:choose>
 
