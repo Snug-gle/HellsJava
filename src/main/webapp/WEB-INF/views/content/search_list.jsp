@@ -36,7 +36,9 @@
 						        <div class="col-md-9">
 						            <div class="profile-info">
 						                <h1>${searchTrainer.memberName }</h1>
+						                <hr>
 						                <span class="text-muted">${searchTrainer.trainerCentername }</span>
+						                <hr>
 						                <p>
 						                	${fn:substring(searchTrainer.postingSelfIntroduction,0,100)  }. . .
 						                </p>
