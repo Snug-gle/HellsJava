@@ -51,10 +51,10 @@
 			<tbody>
 				<tr>
 					<td align="center">{{noticeServiceNo}}</td>
-					<td align="center">{{noticeServiceCategory}}</td>
+					<td align="center">{{noticeServiceCategoryName}}</td>
 					<td align="center" id="title"><a href="<c:url value='/faq/view/'/>{{noticeServiceNo}}">{{noticeServiceTitle}}</a></td>
 					<td align="center">{{noticeServiceDate}}</td>
-					<td align="center">{{loginUserinfo.memberName}}</td>
+					<td align="center">{{memberName}}</td>
 				<tr>	
 			</tbody>		
 		{{/each}}	
