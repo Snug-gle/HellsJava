@@ -25,7 +25,10 @@ public class AccountController {
 	
 	@RequestMapping(value = "/info" , method = RequestMethod.GET)
 	public String accountInfo(Model model, HttpSession session) {
-		accountService.getMemberAccount(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
+		
+		if(accountService.getMemberAccount(((Member)session.getAttribute("loginUserinfo")).getMemberNo()) == null) {
+			return "redirect:/account/register"; // 얘는 url로 요청이구나.. 바보다
+		}
 		model.addAttribute("account", accountService.getMemberAccount(((Member)session.getAttribute("loginUserinfo")).getMemberNo()));
 		model.addAttribute("bankName", String.valueOf(AccountEnum.of(accountService.getMemberAccount(((Member)session.getAttribute("loginUserinfo")).getMemberNo()).getAccountBank())));
 		return "account/account_info";
@@ -34,7 +37,7 @@ public class AccountController {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register() {
 		
-		return "account/account_register";
+		return "/account/account_register";
 	}
 	
 	@RequestMapping(value = "/register" , method = RequestMethod.POST)
