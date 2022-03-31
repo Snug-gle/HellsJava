@@ -32,6 +32,7 @@ public class LoginController {
 	public String login(@ModelAttribute Member member, Model model, HttpSession session) throws LoginAuthFailException {
 		// 메소드 호출시 예외가 발생된 경우 인증 실패
 		memberService.loginAuth(member);
+		session.setAttribute("loginUserinfo",memberService.getIdMember(member.getMemberId()));
 		// 예외가 발생되지 않은 경우 인증 성공 - 세션에 권한 관련 정보를 속성값으로 저장
 		return "main";
 	}
