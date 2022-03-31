@@ -22,6 +22,7 @@ public class AccountController {
 	@Autowired
 	private AccountSevice accountService;
 	
+	//내 계좌 정보 요청 
 	@RequestMapping(value = "/info" , method = RequestMethod.GET)
 	public String accountInfo(Model model, HttpSession session) {
 		
@@ -30,28 +31,31 @@ public class AccountController {
 		}
 		model.addAttribute("account", accountService.getMemberAccount(((Member)session.getAttribute("loginUserinfo")).getMemberNo()));
 		model.addAttribute("bankName", String.valueOf(AccountEnum.of(accountService.getMemberAccount(((Member)session.getAttribute("loginUserinfo")).getMemberNo()).getAccountBank())));
-		return "account/account_info";
+		return "/account/account_info";
 	}
 	
+	// 계좌 등록 페이지 요청
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register() {
 		
 		return "/account/account_register";
 	}
 	
+	// 계좌 등록 포스트 방식 요청
 	@RequestMapping(value = "/register" , method = RequestMethod.POST)
 	public String register(@ModelAttribute Account account, HttpSession session) {
 		
 		account.setMemberNo(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
 		accountService.addAccount(account);
 		
-		return "account/account_info";
+		return "/account/account_info";
 	}
 	
+	// 계좌 삭제 요청
 	@RequestMapping(value = "/remove/{num}" , method = RequestMethod.GET)
 	public String remove(@PathVariable int num) {
 		accountService.removeAccount(num);	
-		return "account/account_info";
+		return "/account/account_info";
 	}
 	
 }
