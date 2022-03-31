@@ -1,8 +1,10 @@
 package itwill.helljava.controller;
 
+import java.io.File;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,10 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
 import itwill.helljava.dto.Award;
+import itwill.helljava.dto.Member;
 import itwill.helljava.dto.Trainer;
 import itwill.helljava.exception.AccountPwAuthException;
 import itwill.helljava.service.AccountSevice;
@@ -25,6 +29,10 @@ import itwill.helljava.service.TrainerService;
 @Controller
 public class TrainerController {
 
+	//필드에 WebApplicationContext 객체(Spring Container)를 저장하도록 인젝션 처리
+	@Autowired
+	private WebApplicationContext context;
+	
 	@Autowired
 	private TrainerService trainerService;
 
@@ -45,14 +53,29 @@ public class TrainerController {
 	// 결제 비밀번호
 	@RequestMapping(value = "/trainer/request", method = RequestMethod.POST)
 	public String trainerRequest(@RequestParam Map<String, Object> map, @ModelAttribute Trainer trainer,
-			@ModelAttribute Award award, @RequestParam MultipartFile uploadFile) throws AccountPwAuthException {
+			@ModelAttribute Award award, @RequestParam MultipartFile uploadFile, HttpSession session) throws AccountPwAuthException {
 
 		// 파일 없을 경우 다시 요청 페이지로 가라
 		if(uploadFile.isEmpty()) {
 			return "/user/trainer/trainer_request";
 		}
 		
+		//WebApplicationContext 객체를 이용하여 ServletContext 객체를 제공받아 서버 디렉토리의
+		//파일 시스템 경로를 반환받아 저장
+		String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/img");
 		
+		//일단 프로필 이미지 받은 거 전달 파일명을 트레이너 번호든 이름이든 붙여서 반환받아 저장
+		String originalFilename = uploadFile.getOriginalFilename()+"_"+"profile_memberNo_"+((Member)session.getAttribute("loginUserinfo")).getMemberNo();
+		File file = new File(uploadDirectory, originalFilename);
+		
+		//실제 서버 디렉토리에 저장되는 파일명을 저장하기 위한 변수 선언
+		// => 초기값으로 전달파일의 이름을 저장
+		String uploadFilename=originalFilename;
+		
+		uploadFile.transferTo(file);
+		
+	
+		uploadFile.transferTo(new File(fileName));
 
 		
 			/*
