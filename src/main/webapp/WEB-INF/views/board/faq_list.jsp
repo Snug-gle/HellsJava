@@ -111,7 +111,7 @@
 					<td align="center">{{noticeServiceCategory}}</td>
 					<td align="center" id="title"><a href="<c:url value='/notice/view/'/>{{noticeServiceNo}}">{{noticeServiceTitle}}</a></td>
 					<td align="center">{{noticeServiceDate}}</td>
-					<td align="center">{{loginUserInfo.memberName}}</td>
+					<td align="center">{{memberName}}</td>
 					<td align="center"><button type="button" onclick="modify({{noticeServiceNo}});">변경</button></td>
 					<td align="center"><button type="button" onclick="remove({{noticeServiceNo}});">삭제</button></td>
 				<tr>	
