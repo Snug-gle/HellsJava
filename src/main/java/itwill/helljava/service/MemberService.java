@@ -14,6 +14,7 @@ public interface MemberService {
 
 	void addMember(Member member) throws MemberExistsException;
 	void modifyMember(Member member);
+	int getMemberListCount(Map<String, Object> map);
 	Member getMember(int member_no);
 	Member getIdMember(String member_id);
 	Member getSearchMember(Map<String, Object> map) throws MemberIdSearchNotFoundException, MemberPwSearchNotFoundException;

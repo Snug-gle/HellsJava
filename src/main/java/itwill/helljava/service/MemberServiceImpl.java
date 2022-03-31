@@ -49,6 +49,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public int getMemberListCount(Map<String, Object> map) {
+		return memberDAO.selectMemberListCount(map);
+	}
+	
+	@Override
 	public Member getMember(int member_no) {
 		return memberDAO.selectMember(member_no);
 	}

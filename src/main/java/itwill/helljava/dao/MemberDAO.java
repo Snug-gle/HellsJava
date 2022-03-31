@@ -11,6 +11,8 @@ public interface MemberDAO {
 
 	int updateMember(Member member);
 
+	int selectMemberListCount(Map<String, Object> map);
+	
 	Member selectMember(int member_no);
 
 	Member selectIdMember(String member_id);

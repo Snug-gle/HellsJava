@@ -28,10 +28,10 @@
 				<if test="memberEmail != null and memberEmail != ''">
 					member_email = #{memberEmail},
 				</if>
-				<if test="memberStatus != null and memberStatus != ''">
+				<if test="memberStatus &gt;= 0 and memberStatus &lt;= 9">
 					member_status = #{memberStatus},
 				</if>
-				<if test="memberCash != null and memberCash != ''">
+				<if test="memberCash &gt;= 0 and memberCash &lt;= 10000001">
 					member_cash = #{memberCash}
 				</if>
 			</trim>
@@ -61,6 +61,20 @@
 			</if>
 		</trim>
 	</select>	
+	
+	<select id="selectMemberListCount" resultType="int">
+		select count(*) from member
+		
+		<choose>
+		<when test="member_id != null and member_id != ''" >
+		 	 where member_id like '%'||#{member_id}||'%' 
+		</when>
+		<when test="member_name != null and member_name != ''">
+			 where member_name like '%'||#{member_name}||'%'
+		</when>
+		 </choose>
+		  order by member_no desc
+	</select>
 	
 	<select id="selectMemberList" resultType="Member">
 		select * from
