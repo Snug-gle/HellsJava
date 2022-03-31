@@ -40,14 +40,14 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">별점</label>
 					<div class="col-sm-3">
-							<select id="selbox" name="" class="form-control">
-							<option selected="selected" style="text-align: center;">====선택====</option>
-							<option value="0">결제관련</option>
-							<option value="1">트레이너 관련</option>
-							<option value="2">기타문의</option>
+				<c:forEach var="rating" items="${ ratingOptions }" varStatus="status" begin="1" end="${ }">
+							
+							
+							
 						</select>
 
 					</div>
+					</c:forEach>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">내용</label>
