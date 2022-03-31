@@ -78,10 +78,10 @@
 		page = pageNum;
 		$.ajax({
 			type : "get",
-			url : "board?pageNum=" + pageNum,
+			url : "board?pageNum=" +pageNum,
 			dataType : "json",
 			success : function(json) {
-				if (json.restNoticeList.length == 0) {
+				if (json.ptOnceList.length == 0) {
 					$("#restNoticeListDiv").html("검색된 게시글이 존재하지 않습니다.");
 					return;
 				}
@@ -93,7 +93,7 @@
 				var template = Handlebars.compile(source);
 
 				//템플릿 객체에 JavaScript 객체(게시글 목록)를 전달하여 HTML 태그로 변환하여 출력
-				$("#restNoticeListDiv").html(template(json.restNoticeList));
+				$("#restNoticeListDiv").html(template(json.ptOnceList));
 
 				//페이지 번호를 출력하는 함수 호출
 				pagerDisplay(json.pager);
