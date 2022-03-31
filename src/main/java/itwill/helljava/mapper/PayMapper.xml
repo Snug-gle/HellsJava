@@ -5,12 +5,8 @@
 		<selectKey resultType="int" keyProperty="payNo" order="BEFORE">
 			select pay_seq.nextval from dual
 		</selectKey>
-		insert into values(#{"payNo"}, #{memberNo}, #{accountBank}, #{accountNumber}, #{accountPw}) 
+		insert into values(#{"payNo"}, #{memberNo}, sysdate, ${payPrice}, ${payType}) 
 	</insert>
-
-	<select id="selectPayCount" resultType="int">
-		select count(*) from pay where member_no = #{member_no}
-	</select>
 	
 	<select id="selectPay" resultType="Pay">
 		select * from pay where pay_no = #{pay_no} 

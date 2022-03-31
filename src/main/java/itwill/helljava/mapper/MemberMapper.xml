@@ -31,8 +31,9 @@
 				<if test="memberStatus &gt;= 0 and memberStatus &lt;= 9">
 					member_status = #{memberStatus},
 				</if>
+				<!-- 캐쉬 업데이트는 결제 시에만 이므로 살짝 바꾸자  -->
 				<if test="memberCash &gt;= 0 and memberCash &lt;= 10000001">
-					member_cash = #{memberCash}
+					member_cash = member_cash - #{memberCash}
 				</if>
 			</trim>
 			where member_no = #{memberNo}
