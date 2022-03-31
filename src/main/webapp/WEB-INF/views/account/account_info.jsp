@@ -41,8 +41,10 @@ body {
 				</c:otherwise>
 			</c:choose>
 		</table>
-		<button type="button" class="btn btn-primary"
-			onclick="location.href='<c:url value ="/account/register"/>';">등록</button>
+		<c:if test="${empty(account) }">
+			<button type="button" class="btn btn-primary"
+				onclick="location.href='<c:url value ="/account/register"/>';">등록</button>
+		</c:if>
 		<button type="button" class="btn btn-primary"
 			onclick="location.href='<c:url value ="/account/remove/"/>${account.accountNo }';">삭제</button>
 	

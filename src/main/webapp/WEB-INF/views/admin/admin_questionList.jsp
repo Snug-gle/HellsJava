@@ -2,13 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>염병할 고갱님들</title>
-</head>
-<body>
+
 <div class="userList">
 	<div class="admin-title">
 		<h2>관리자 페이지</h2>
@@ -31,8 +30,21 @@
 		<div class="userList-body admin-Panel">
 			<div class="admin-side-bar">
 				<h4>1:1문의 목록</h4>
-				<div class="admin-list-body-list">
-					<table class="admin-list-body-list-table" id="restAdminQAListDiv">
+				
+				<%-- 게시글 출력하는 영역 --%>
+				<div class="admin-list-body-list" id="restAdminQAListDiv"></div>
+			
+			</div>	
+		</div>
+	</div>
+	
+	<%-- 페이지 번호를 출력하는 영역 --%>
+	<div id="pageNumDiv"></div>
+</div>
+
+	<script id="admin_qa_template" type="text/x-handlebars-template">
+
+		<table class="admin-list-body-list-table" >
 						<colgroup>
 							<col style="width:140px">
 							<col style="width:150px">
@@ -52,18 +64,7 @@
 							<th scope="col">답변상태</th>
 						</tr>
 						
-
-					</table>
-				</div>
-			</div>	
-		</div>
-	</div>
-	<%-- 페이지 번호를 출력하는 영역 --%>
-	<div id="pageNumDiv"></div>
-</div>
-
-	<script id="admin_qa_template" type="text/x-handlebars-template">
-	{{#each .}}
+			{{#each .}}
 						<tr class="admin-list-body-listTitle">
 							<td>번호</td>
 							<td>카테고리</td>
@@ -77,7 +78,6 @@
 						<tr class="admin-list-body-listBody">
 							<td colspan="7">
 								<h4>소개</h4>
-								Java는 뛰어난 객체 지향 특성과 플랫폼 독립성을 가진 프로그래밍 언어로 인터넷 기반의 프로그램과 응용 프로그램 개발에 널리 사용되고 있다. 본 교과의 목적은 Java 언어의 기능과 특성을 이해하고 기초적 Java 프로그래밍 기술을 익히는 것이다. 차후 Java 언어를 이용한 고급 프로그래밍 기술을 학습하려면 반드시 수강하여야 한다. 선수과목은 객체지향 프로그래밍으로 객체지향 개념과 객체지향 언어의 기본 지식을 갖추고 있어야 한다. 교재를 중심으로 Java 언어의 기초적 프로그래밍 기술을 이해하고 나아가 최신 기술들인 GUI, 입출력, 멀티스레딩, 예외처리, 데이터베이스 연동 및 네트워크 프로그래밍 등의 내용을 학습하도록 한다. 예제로 주어지는 소스 코드를 분석하며 실습 위주의 강의를 통해 학생 스스로 원리를 이해하고 문제를 풀고 응용할 수 있는 능력과 기회를 제공하도록 한다.
 								<hr>
 								<ul>
 									<li class="alblb">
@@ -98,7 +98,7 @@
 									<ul class="">
 										<li>
 											<h4>답변</h4>
-											<p class="texttest">Java는 뛰어난 객체 지향 특성과 플랫폼 독립성을 가진 프로그래밍 언어로 인터넷 기반의 프로그램과 응용 프로그램 개발에 널리 사용되고 있다. 본 교과의 목적은 Java 언어의 기능과 특성을 이해하고 기초적 Java 프로그래밍 기술을 익히는 것이다. 차후 Java 언어를 이용한 고급 프로그래밍 기술을 학습하려면 반드시 수강하여야 한다. 선수과목은 객체지향 프로그래밍으로 객체지향 개념과 객체지향 언어의 기본 지식을 갖추고 있어야 한다. 교재를 중심으로 Java 언어의 기초적 프로그래밍 기술을 이해하고 나아가 최신 기술들인 GUI, 입출력, 멀티스레딩, 예외처리, 데이터베이스 연동 및 네트워크 프로그래밍 등의 내용을 학습하도록 한다. 예제로 주어지는 소스 코드를 분석하며 실습 위주의 강의를 통해 학생 스스로 원리를 이해하고 문제를 풀고 응용할 수 있는 능력과 기회를 제공하도록 한다.</p>
+											<p class="texttest"></p>
 										</li>
 										<li class="alblb">
 											<button class="admin-list-body-listBody-btn3" type="button">수정</button>
@@ -110,7 +110,7 @@
 							</td>
 						</tr>
 		{{/each}}	
-
+</table>
 
 						
 	</script>
@@ -161,10 +161,10 @@
 				page=pageNum;
 				$.ajax({
 					type: "get",
-					url: "questionList?pageNum="+pageNum,
+					url: "admin/questionList?pageNum="+pageNum,
 					dataType: "json",
 					success: function(json) {		
-						if(json.restAdminQAListDiv.length==0){
+						if(json.restAdminQAList.length==0){
 							$("#restAdminQAListDiv").html("<tr class='admin-list-body-listBody'><td colspan='7'>검색된 1:1 문의가 존재하지 않습니다.</td></tr>");
 							return;
 						}
@@ -176,7 +176,7 @@
 						var template=Handlebars.compile(source);
 						
 						//템플릿 객체에 JavaScript 객체(게시글 목록)를 전달하여 HTML 태그로 변환하여 출력
-						$("#restAdminQAListDiv").html(template(json.restAdminQAListDiv));
+						$("#restAdminQAListDiv").html(template(json.restAdminQAList));
 						
 						//페이지 번호를 출력하는 함수 호출
 						pagerDisplay(json.pager);
@@ -218,5 +218,3 @@
 				$("#pageNumDiv").html(html);
 			}
 	</script>
-</body>
-</html>

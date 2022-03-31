@@ -50,8 +50,6 @@ public class AdminController {
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		
 		searchMap.put("notice_service_sortation", NoticeServiceSortationEnum.일대일문의.getValue());
-		searchMap.put("notice_service_status1", NoticeServiceStatusEnum.문의미답변.getValue());
-		searchMap.put("notice_service_status2", NoticeServiceStatusEnum.문의답변.getValue());
 		
 		int totalBoard = noticeServiceService.getNoticeServiceCount(searchMap);
 		int pageSize = 5; //한 페이지에 출력될 게시글의 갯수 저장
@@ -65,11 +63,9 @@ public class AdminController {
 		pagerMap.put("startRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
 		pagerMap.put("notice_service_sortation", NoticeServiceSortationEnum.일대일문의.getValue());
-		pagerMap.put("notice_service_status1", NoticeServiceStatusEnum.문의미답변.getValue());
-		pagerMap.put("notice_service_status2", NoticeServiceStatusEnum.문의답변.getValue());
 		
 		Map<String, Object> returnMap = new HashMap<String, Object>();
-		returnMap.put("restAdminQAListDiv", noticeServiceService.getNoticeServicePersonalList(pagerMap));
+		returnMap.put("restAdminQAList", noticeServiceService.getNoticeServiceList(pagerMap));
 		returnMap.put("pager", pager);
 		
 		return returnMap;
