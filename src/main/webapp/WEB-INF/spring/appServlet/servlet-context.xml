@@ -88,16 +88,16 @@
 	<!-- name 속성 : 트렌젝션 관리자에 의해 처리될 메소드 이름을 속성값으로 설정 -->
 	<!-- rollback-for 속성 : ROLLBACK 명령이 실행되기 위한 예외를 속성값으로 설정 -->
 	<!-- read-only 속성 : false(기본) 또는 true(읽기 전용) 중 하나를 속성값으로 설정 -->
-	<!-- 
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	
+	<!-- <tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="add*" rollback-for="Exception"/>
 			<tx:method name="modify*" rollback-for="Exception"/>
 			<tx:method name="erase*" rollback-for="Exception"/>
 			<tx:method name="get*" read-only="true"/>
 		</tx:attributes>
-	</tx:advice>
-	-->
+	</tx:advice> -->
+	
 	
 	<!-- config : AspectJ 프로그램을 이용하여 AOP 설정 엘리먼트 -->
 	<!-- advisor : tx 네임스페이스의 advice 엘리먼트로 등록된 Advisor를 사용하기 위한 엘리먼트 -->
@@ -109,32 +109,32 @@
 	-->
 	
 	<!-- Interceptor 클래스를 Spring Bean으로 등록 -->
-	<!-- <beans:bean class="xyz.itwill10.util.AdminAuthInterceptor" id="adminAuthInterceptor"/>
-	<beans:bean class="xyz.itwill10.util.LoginAuthInterceptor" id="loginAuthInterceptor"/> -->
+	<beans:bean class="itwill.helljava.util.AdminAuthInterceptor" id="adminAuthInterceptor"/>
+	<beans:bean class="itwill.helljava.util.LoginAuthInterceptor" id="loginAuthInterceptor"/>
 	
 	<!-- interceptors : 인터셉터를 설정하기 위한 상위 엘리먼트 -->
-	<!-- <interceptors>
-		interceptor : 인터셉터를 등록하기 위한 엘리먼트
-		<interceptor> -->
-			<!-- mapping : 인터셉터가 동작될 요청 URL 주소의 패턴을 등록하는 엘리먼트 -->
-			<!-- path 속성 : 클라이언트의 요청 URL 주소의 패턴을 속성값으로 설정 -->
-			<!-- <mapping path="/userinfo/join"/>
-			<mapping path="/userinfo/modify"/>
-			<mapping path="/userinfo/remove"/> -->
-			<!-- ref : 클라이언트 요청에 의해 동작될 Interceptor SpringBean을 등록하는 엘리먼트 -->
-			<!-- bean 속성 : Interceptor 클래스의 Spring BeanName을 속성값으로 설정 -->
-		<!-- 	<beans:ref bean="adminAuthInterceptor"/>
+<!-- 	<interceptors>
+ -->		<!-- interceptor : 인터셉터를 등록하기 위한 엘리먼트 -->
+	<!-- 	<interceptor> -->
+			<!-- mapping : 인터셉터가 동작될 요청 URL 주소의 패턴을 등록하는 엘리먼트
+			path 속성 : 클라이언트의 요청 URL 주소의 패턴을 속성값으로 설정 -->
+			<!-- <mapping path="/userinfo/join"/> -->
+<!-- 			<mapping path="/member/modify"/> 회원 정보 수정
+ -->			<!-- <mapping path="/userinfo/remove"/> -->
+			<!-- ref : 클라이언트 요청에 의해 동작될 Interceptor SpringBean을 등록하는 엘리먼트
+			bean 속성 : Interceptor 클래스의 Spring BeanName을 속성값으로 설정 -->
+<!-- 			<beans:ref bean="adminAuthInterceptor"/>
 		</interceptor>
 		
-		<interceptor> -->
-			<!-- * : 현재 폴더의 모든 페이지, ** : 현재 폴더와 하위 폴더의 모든 페이지 -->
-			<!-- <mapping path="/userinfo/*"/> -->
-			<!-- <mapping path="/userinfo/li*"/> -->
-			<!-- <mapping path="/userinfo/**"/> -->
-			<!-- exclude-mapping : 인터셉터가 동작되지 않는 요청 URL 주소의 패턴을 설정하는 엘리먼트 -->
-			<!-- <exclude-mapping path="/userinfo/login"/>  -->
-			
-			<!-- <mapping path="/userinfo/list"/>			
+		<interceptor>
+ -->			<!-- * : 현재 폴더의 모든 페이지, ** : 현재 폴더와 하위 폴더의 모든 페이지 -->
+<!-- 			<mapping path="/userinfo/*"/>
+			<mapping path="/userinfo/li*"/>
+			<mapping path="/userinfo/**"/>
+ -->			<!-- exclude-mapping : 인터셉터가 동작되지 않는 요청 URL 주소의 패턴을 설정하는 엘리먼트 -->
+<!-- 			<exclude-mapping path="/userinfo/login"/> 
+ -->			
+<!-- 			<mapping path="/userinfo/list"/>			
 			<mapping path="/userinfo/view"/>			
 			<beans:ref bean="loginAuthInterceptor"/>
 		</interceptor>

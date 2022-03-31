@@ -5,13 +5,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import itwill.helljava.dto.Member;
 
 @Controller
 public class UserinfoController {
 
-	@RequestMapping("/member/modify")
+	@RequestMapping(value = "/member/modify", method = RequestMethod.GET)
 	public String md(@ModelAttribute Member member, HttpServletRequest reqeust) {
 		
 		String email = reqeust.getParameter("email1") + "@" + reqeust.getParameter("email2");
