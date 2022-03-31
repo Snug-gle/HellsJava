@@ -1,34 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<style type="text/css">
-.notice-list-print {
-	width: 100%;
-}
-
-
-.notice-list-title {
-    font-weight: 400;
-    text-transform: uppercase;
-    padding: 14px 10px;
-}
-
-.notice-list-title {
-    color: #fff;
-    background-color: #556b8d;
-    border-color: #556b8d;
-}
-
-.notice-list-title {
-    padding: 10px 15px;
-    border-bottom: 1px solid transparent;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-}
-
-</style>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 <div class="container">
 	<div style="text-align: right;">
 		<c:if test="${loginUserinfo.memberStatus==9}">
