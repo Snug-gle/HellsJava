@@ -124,7 +124,7 @@ public class FAQController {
 		noticeServiceService.modifyNoticeService(noticeService);
 		return "success";
 	}
-
+	/*
 	@RequestMapping(value = "/remove/{num}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String faqRemove(@PathVariable int num) {
@@ -132,6 +132,14 @@ public class FAQController {
 		noticeServiceService.removeNoticeService(num);
 		
 		return "success";
+	}*/
+	
+	//faq 삭제
+	@RequestMapping( value = "/remove/{num}" , method = RequestMethod.GET)
+	public String remove(@PathVariable int num, @ModelAttribute NoticeService noticeService) throws Exception{
+
+		noticeServiceService.removeNoticeService(num);
+		return "redirect:/faq/board";
 	}
 
 	/*
