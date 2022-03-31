@@ -10,9 +10,7 @@
 						<ul class="nav navbar-nav pull-right" id="main-menu">
 							<li class=""><a href="<c:url value="/terms1"/>">이용약관</a></li>
 							<li class=""><a href="<c:url value="/terms2"/>">개인보호정책</a></li>
-							<li class=""><a href="">고객센터</a></li>
 							<li class=""><a href="<c:url value="/notice/board"/>">공지사항</a></li>
-							<li class=""><a href="<c:url value="/mypage1"/>">마이페이지</a></li>
 							<li class=""><a href="<c:url value="/faq/board"/>">FAQ</a></li>
 							<li class=""><a href="<c:url value="/faq/board"/>">1:1문의</a></li>
 						</ul>
