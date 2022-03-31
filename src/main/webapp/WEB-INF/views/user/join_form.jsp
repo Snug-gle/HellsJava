@@ -192,9 +192,9 @@
 		
 		//비밀번호 유효성 검사
 		//8 ~ 16자 영문, 숫자 조합
-		var pwReg=/^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;;
+		var pwReg=/^(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/g;
 		//비밀번호 공백 검사
-		if($("#passwd").val()=="") {
+		if($("#memberPw").val()=="") {
 			$("#passwdMsg").css("display","block");
 			submitResult=false;
 		//비밀번호 형식 검사
@@ -209,7 +209,7 @@
 			$("#passwd2Msg").css("display","block");
 			submitResult=false;
 		//비밀번호 일치 검사
-		} else if($("#passwd").val()!=$("#passwd2").val()) {
+		} else if($("#memberPw").val()!=$("#passwd2").val()) {
 			$("#pwMatchMsg").css("display","block");
 			submitResult=false;
 		}

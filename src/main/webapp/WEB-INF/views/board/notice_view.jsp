@@ -44,14 +44,28 @@
 			</div>
 		</div>
 		
-		<%--게시글 목록 출력 --%>
+		<%--게시글 내용 출력 --%>
 		<div class="panel panel-default">
-		    <div class="panel-body" id="restNoticeListDiv">
+		    <div class="panel-body" id="restNoticeListDiv" style="height: 400px;">
 		    	${notice.noticeServiceContent}
 		    </div>
+		</div>
+		
+		<div style="text-align: right;">
+			<c:if test="${loginUserinfo.memberStatus==9}">
+				<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/notice/modify"/>';">수정</button>
+				<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/notice/remove"/>/${notice.noticeServiceNo }';">삭제</button>
+			</c:if>
 		</div>
 		
 	</div>
 </div>
 
+<script language="JavaScript">
+	function noticeRemove(num) {
+		if (confirm("정말로 삭제 하시겠습니까?")) {
+			location.href = '<c:url value="/notice/remove/"/>${notice.noticeServiceNo}';
+		}
+	}
+</script>
 	
