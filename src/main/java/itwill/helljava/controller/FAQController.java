@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.HtmlUtils;
 
 import itwill.helljava.Enum.NoticeServiceSortationEnum;
 import itwill.helljava.Enum.NoticeServiceStatusEnum;
@@ -91,7 +90,17 @@ public class FAQController {
 		
 		return "redirect:/faq/board";
 	}
-
+	
+	//(faq 세부 사항 출력 요청 처리 메소드)
+	@RequestMapping(value = "/view/{num}", method = RequestMethod.GET) 
+	public String view(@PathVariable int num , Model model) {
+		
+		model.addAttribute("faq", noticeServiceService.getNoticeService(num));
+		
+		return "board/faq_view";
+	}
+	
+	/*
 	// 글번호를 전달받아 테이블에 저장된 해당 글번호의 게시글을 검색하여 JSON 형식의
 	// 텍스트로 응답하는 요청 처리 메소드 - 요청 URL 주소를 이용하여 글번호 전달
 	@RequestMapping(value = "/view/{num}", method = RequestMethod.GET)
@@ -99,6 +108,7 @@ public class FAQController {
 	public NoticeService faqView(@PathVariable int num) {
 		return noticeServiceService.getNoticeService(num);
 	}
+	*/
 
 	// 게시글을 전달 받아 테이블에 저장된 게시글을 변경하고
 	// 처리 결과를 일반 텍스트로 응답하는 요청 처리 메소드
@@ -108,7 +118,7 @@ public class FAQController {
 		noticeServiceService.modifyNoticeService(noticeService);
 		return "success";
 	}
-
+	/*
 	@RequestMapping(value = "/remove/{num}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String faqRemove(@PathVariable int num) {
@@ -116,6 +126,14 @@ public class FAQController {
 		noticeServiceService.removeNoticeService(num);
 		
 		return "success";
+	}*/
+	
+	//faq 삭제
+	@RequestMapping( value = "/remove/{num}" , method = RequestMethod.GET)
+	public String remove(@PathVariable int num, @ModelAttribute NoticeService noticeService) throws Exception{
+
+		noticeServiceService.removeNoticeService(num);
+		return "redirect:/faq/board";
 	}
 
 	/*

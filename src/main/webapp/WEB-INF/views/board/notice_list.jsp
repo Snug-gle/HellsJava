@@ -1,48 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<head>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<%-- handlebars 라이브러리 : JSON 형식으로 표현된 JavaScrit 객체를 전달받아 HTML 태그로 변환하는
-기능을 제공하는 자바스크립트 템플릿 라이브러리 --%>
-<%-- => https://cdnjs.com 사이트에서 handlebars 라이브러리를 검색하여 JSP 문서에 포함 --%>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+
 <style type="text/css">
-.mm {
-	width: 500px;
-	align-self: center;
-	
+.notice-list-print {
+	width: 100%;
 }
+
+
+.notice-list-title {
+    font-weight: 400;
+    text-transform: uppercase;
+    padding: 14px 10px;
+}
+
+.notice-list-title {
+    color: #fff;
+    background-color: #556b8d;
+    border-color: #556b8d;
+}
+
+.notice-list-title {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
 </style>
-</head>
 
-
-<div class="col-md-12 mm"  style="all: none;">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title">
-				<strong>공지사항</strong>
-			</h3>
-			<%-- 공지사항 작성 버튼  --%>
-			<div class="actions pull-right">
-
-				<c:if test="${loginUserinfo.memberStatus==9}">
-					<button type="button"
-						onclick="location.href='<c:url value="/notice/write"/>';">공지사항
-						작성</button>
-				</c:if>
-			</div>
+<div class="container">
+	<div style="text-align: right;">
+		<c:if test="${loginUserinfo.memberStatus==9}">
+				<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/notice/write"/>';">작성</button>
+		</c:if>
+	</div>
+	<div class="notice-list-print">
+		<div class="notice-list-title">
+			<h3 class="panel-title"><strong>공지사항</strong></h3>
 		</div>
-
-		<%-- 게시글 목록을 출력하는 영역 --%>
-		<div class="panel-body" id="restNoticeListDiv"></div>
+		
+		<%--게시글 목록 출력 --%>
+		<div class="panel panel-default">
+		    <div class="panel-body" id="restNoticeListDiv"></div>
+		</div>
+		<%-- 페이지 번호 출력 --%>
+		<div class="panel panel-default">
+		    <div class="panel-body"id="pageNumDiv">
+		    </div>
+		</div>
 	</div>
 </div>
-<%-- 페이지 번호를 출력하는 영역 --%>
-<div class="panel-body"id="pageNumDiv"></div>
-
 <%-- handlebars 템플릿 코드 작성 >> HTML --%>
 <%-- => {{#each}} 표현식을 사용하여 Array 객체에 대한 반복 처리 --%>
 <%-- => {{propertyName}} 표현식을 사용하여 Object 객체의 속성값 표현 --%>
@@ -51,21 +59,11 @@
         <table class="table table-hover">
 			<thead>			
 				<tr>
-					<th align="center" width="60" 
-					style=" text-align: -webkit-center;
-					">번호</th>
-					<th align="center" width="60" 
-					style=" text-align: -webkit-center;
-					">제목</th>
-					<th align="center" width="60" 
-					style=" text-align: -webkit-center;
-					">작성일</th>
-					<th align="center" width="60" 
-					style=" text-align: -webkit-center;
-					">관리자</th>
-					<th align="center" width="60" 
-					style=" text-align: -webkit-center;
-					">조회수</th>
+					<th align="center" width="2px" style=" text-align: -webkit-center;">번호</th>
+					<th align="center" width="150px" style=" text-align: -webkit-center;">제목</th>
+					<th align="center" width="20px" style=" text-align: -webkit-center;">작성일</th>
+					<th align="center" width="15px" style=" text-align: -webkit-center;">작성자</th>
+					<th align="center" width="8px" style=" text-align: -webkit-center;">조회수</th>
 				</tr>
  			</thead>
 		{{#each .}}

@@ -1,55 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-</head>
-<body>
-	
 
-	<h3>공지사항</h3>
+<div class="container">
+	<div class="notice-list-print">
+		<div class="notice-list-title">
+			<div style="float: left;">
+				<span>${notice.noticeServiceTitle}</span>
+			</div>
+			<div style="text-align: right;">
+				<span>조회수 ${notice.noticeServiceHits} 회</span>
+			</div>
+		</div>
+		
+		<%--게시글 내용 출력 --%>
+		<div class="panel panel-default">
+		    <div class="panel-body" id="restNoticeListDiv" style="height: 400px;">
+		    	${notice.noticeServiceContent}
+		    </div>
+		</div>
+		
+		<div style="text-align: right;">
+			<c:if test="${loginUserinfo.memberStatus==9}">
+				<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/notice/modify"/>';">수정</button>
+				<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/notice/remove"/>/${notice.noticeServiceNo }';">삭제</button>
+			</c:if>
+		</div>
+		
+	</div>
+</div>
 
-	<form action="">
-		<table>
-			<thead>
-				<tr>
-					<th style="width: 40px; align-content: center; ">${notice.noticeServiceNo}</th>
-					<th style="width: 40px; align-content: center; ">${notice.noticeServiceTitle}</th>
-					<th style="width: 40px; align-content: center; ">${notice.noticeServiceDate}</th>
-					<%-- <th width=40 align=center height="22">${notice.noticeServiceWriter}</td> --%>
-					<th style="width: 40px; align-content: center; ">${notice.noticeServiceHits}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td width=480 >
-						${notice.noticeServiceContent}</td>
-				</tr>
-			</tbody>
-		</table>
-		<br> <input type="hidden">
-		<table>
-			<tr>
-				<td align=center><input type="button" value="목록"
-					onClick="location.href='<c:url value="/notice/board"/>';"> <%-- <c:if test="${loginUserinfo.status==9 }"> --%>
-					<input type="button" value="수정"
-					onClick="location.href='<c:url value="/notice/modify"/>?noticeServiceNo=${notice.noticeServiceNo }';">
-					<input type="button" value="삭제"
-					onClick="location.href='<c:url value="/notice/remove"/>/${notice.noticeServiceNo }';"> <%-- </c:if> --%>
-				</td>
-			</tr>
-		</table>
-	</form>
-
-	<script language="JavaScript">
-		function noticeRemove(num) {
-			if (confirm("정말로 삭제 하시겠습니까?")) {
-				location.href = '<c:url value="/notice/remove/"/>${notice.noticeServiceNo}';
-			}
+<script language="JavaScript">
+	function noticeRemove(num) {
+		if (confirm("정말로 삭제 하시겠습니까?")) {
+			location.href = '<c:url value="/notice/remove/"/>${notice.noticeServiceNo}';
 		}
-	</script>
-</body>
-</html>
+	}
+</script>
+	

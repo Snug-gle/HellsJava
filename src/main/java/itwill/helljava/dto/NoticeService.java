@@ -13,7 +13,18 @@ public class NoticeService {
 	private int noticeServiceStatus;
 	private int noticeServiceSortation;
 
+	//카테고리 이름 필드 추가
+	private String noticeServiceCategoryName;
+	
 	String memberName;
+
+	public String getNoticeServiceCategoryName() {
+		return noticeServiceCategoryName;
+	}
+
+	public void setNoticeServiceCategoryName(String noticeServiceCategoryName) {
+		this.noticeServiceCategoryName = noticeServiceCategoryName;
+	}
 
 	public String getMemberName() {
 		return memberName;

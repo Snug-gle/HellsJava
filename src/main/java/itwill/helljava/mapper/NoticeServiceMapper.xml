@@ -3,10 +3,10 @@
 <mapper namespace="itwill.helljava.mapper.NoticeServiceMapper">
 	<insert id="insertNoticeService">
 		<selectKey resultType="int" keyProperty="noticeServiceNo" order="BEFORE">
-			select seq_noticeervice.nextval from dual
+			select seq_notice_service.nextval from dual
 		</selectKey>
 		insert into notice_service values(
-		#{noticeServiceNo, jdbcType=INTEGER},
+		#{noticeServiceNo},
 		#{memberNo, jdbcType=INTEGER},
 		#{noticeServiceCategory, jdbcType=INTEGER},
 		#{noticeServiceTitle, jdbcType=VARCHAR},

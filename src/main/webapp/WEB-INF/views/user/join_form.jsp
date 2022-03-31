@@ -1,34 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
-<style type="text/css">
-.phone-form-control {
-    width: 15%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    text-align: center;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
-    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
-    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-}
-.phone-form-control {
-    border: 2px solid #e8ebed;
-    border-radius: 2px;
-    box-shadow: none;
-    height: 37px;
-    padding: 8px 12px 9px 12px;
-}
 
-</style>
 <!-- 
 	<h1>회원가입</h1>
 	<hr>
@@ -192,9 +165,9 @@
 		
 		//비밀번호 유효성 검사
 		//8 ~ 16자 영문, 숫자 조합
-		var pwReg=/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$/;
+
 		//비밀번호 공백 검사
-		if($("#passwd").val()=="") {
+		if($("#memberPw").val()=="") {
 			$("#passwdMsg").css("display","block");
 			submitResult=false;
 		//비밀번호 형식 검사
@@ -209,7 +182,7 @@
 			$("#passwd2Msg").css("display","block");
 			submitResult=false;
 		//비밀번호 일치 검사
-		} else if($("#passwd").val()!=$("#passwd2").val()) {
+		} else if($("#memberPw").val()!=$("#passwd2").val()) {
 			$("#pwMatchMsg").css("display","block");
 			submitResult=false;
 		}

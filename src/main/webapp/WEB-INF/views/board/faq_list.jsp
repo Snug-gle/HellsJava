@@ -7,103 +7,29 @@
 기능을 제공하는 자바스크립트 템플릿 라이브러리 --%>
 <%-- => https://cdnjs.com 사이트에서 handlebars 라이브러리를 검색하여 JSP 문서에 포함 --%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-<style type="text/css">
-#btnDiv {
-	margin: 10px;
-}
 
-#insertDiv, #updateDiv {
-	width: 240px;
-	height: 80px;
-	border: 2px solid black;
-	background-color: gray;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-top: -40px;
-	margin-left: -120px;
-	padding: 5px;
-	z-index: 100;
-	display: none;
-}
-</style>
-	<h1>FAQ</h1>
-		<hr>
-		<div id="btnDiv">
-			<c:if test="${loginUserinfo.memberStatus==9}">
-			<button type="button" id="writeBtn" onclick="location.href='<c:url value="/faq/write"/>';">글쓰기</button>
-			</c:if> 
+
+<div class="container">
+	<div style="text-align: right;">
+		<c:if test="${loginUserinfo.memberStatus==9}">
+				<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/faq/write"/>';">작성</button>
+		</c:if>
+	</div>
+	<div class="notice-list-print">
+		<div class="notice-list-title">
+			<h3 class="panel-title"><strong>FAQ</strong></h3>
 		</div>
 		
-	<%-- 게시글 목록을 출력하는 영역 --%>
-	<div id="faqListDiv"></div>
-	
-	<%-- 페이지 번호를 출력하는 영역 --%>
-	<div id="pageNumDiv"></div>
-	
-	<%-- 변경 게시글을 입력하는 영역 --%>
-	<div id="updateDiv">
-		<input type="hidden" name="noticeServiceNo" id="updateNum">
-		<table>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="noticeServiceTitle" id="updateTitle" class="insert"></td>
-			</tr>
-			<tr>
-				<td>카테고리</td>
-				<td><select name="noticeServiceCategory" id="updateCategory" class="update">
-						<option value="1" selected="selected"> 입금/결제</option>
-						<option value="2">트레이너 관련 문의</option>
-						<option value="3">기타문의</option>
-					</select>
-				</td>
-				</tr>
-			<tr>
-				<td>내용</td>
-				<td><textarea name="noticeServiceContent" id="updateContent" class="update"></textarea></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<button type="button" id="updateBtn">변경</button>
-					<button type="button" id="cancelUpdateBtn">취소</button>
-				</td>
-			</tr>
-		</table>	
+		<%--게시글 목록 출력 --%>
+		<div class="panel panel-default">
+		    <div class="panel-body" id="faqListDiv"></div>
+		</div>
+		<%-- 페이지 번호 출력 --%>
+		<div class="panel panel-default">
+		    <div class="panel-body"id="pageNumDiv"></div>
+		</div>
 	</div>
-	
-	
-	
-	<%-- handlebars 템플릿 코드 작성 >> HTML --%>
-	<%-- => {{#each}} 표현식을 사용하여 Array 객체에 대한 반복 처리 --%>
-	<%-- => {{propertyName}} 표현식을 사용하여 Object 객체의 속성값 표현 --%>	
-	
-	<script id="template" type="text/x-handlebars-template">
-		<table border="1" cellspacing="0" cellpadding="3">
-			<div>
-				<div width="50">번호</div>
-				<th width="100" >카테고리</th>
-				<th width="100">제목</th>
-				<th width="300">내용</th>
-				<th width="200">작성일</th>
-				<th width="50">작성자</th>
-				<th width="50">조회수</th>
-				<th width="50">변경</th>
-				<th width="50">삭제</th>
-			</tr>
 
-		{{#each .}}
-			<tr>
-				<div align="center">{{noticeServiceNo}}</div>
-				<td align="center">{{noticeServiceCategory}}</td>
-				<td align="center">{{noticeServiceTitle}}</td>
-				<td align="center">{{noticeServiceContent}}</td>
-				<td align="center">{{noticeServiceDate}}</td>
-				<td align="center">{{memberName}}</td>
-				<td align="center">{{noticeServiceHits}}</td>
-				<td align="center"><button type="button" onclick="modify({{noticeServiceNo}});">변경</button></td>
-				<td align="center"><button type="button" onclick="remove({{noticeServiceNo}});">삭제</button></td>
-				
-			<tr>			
 		{{/each}}	
 		</table>
 	</script>
@@ -179,73 +105,7 @@
 		$("#updateDiv").hide();
 	});
 	
-	//게시글의 [수정]을 클릭한 경우 호출되는 이벤트 처리 함수
-	function modify(num) {
-		//alert("num = "+num);
-		
-		//변경 게시글 입력 영역 출력
-		$("#updateDiv").show();
-		
-		$.ajax({
-			type: "get",
-			url: "view/"+num,
-			dataType: "json",
-			success: function(json) {
-				$("#updateNum").val(json.noticeServiceNo);
-				$("#updateCategory").val(json.noticeServiceCategory);
-				$("#updateTitle").val(json.noticeServiceTitle);
-				$("#updateContent").val(json.noticeServiceContent);
-			}, 
-			error: function(xhr) {
-				alert("에러코드 = "+xhr.status);
-			}
-		});
-	}
-                           	
-	//[수정]을 클릭한 경우 호출되는 이벤트 처리 함수 등록
-	$("#updateBtn").click(function() {
-		var noticeServiceNo=$("#updateNum").val();
-		var noticeServiceTitle=$("#updateTitle").val();
-		var noticeServiceContent=$("#updateContent").val();
-		var noticeServiceCategory=$("#updateCategory").val();
-		
-		if(noticeServiceTitle=="") {
-			alert("제목을 입력해 주세요.");
-			return;
-		}
-		
-		if(noticeServiceContent=="") {
-			alert("내용을 입력해 주세요.");
-			return;
-		}
-		
-		$.ajax({
-			type: "put",
-			url: "modify",
-			contentType: "application/json",
-			data: JSON.stringify({"noticeServiceNo":noticeServiceNo,"noticeServiceTitle":noticeServiceTitle,"noticeServiceCategory":noticeServiceCategory,"noticeServiceContent":noticeServiceContent}),
-			dateType: "text",
-			success: function(text) {
-				if(text=="success") {
-					$(".update").val("");
-					$("#updateDiv").hide();
-					
-					//게시글 목록을 검색하여 출력하는 함수 호출
-					boardDisplay(page);
-				}
-			},
-			error: function(xhr) {
-				alert("에러코드 = "+xhr.status)
-			}
-		});
-	});
 	
-	//[취소]를 클릭한 경우 호출되는 이벤트 처리 함수 등록 
-	$("#cancelUpdateBtn").click(function() {
-		//변경 게시글 입력 영역 초기화
-		$(".update").val("");
-		$("#updateDiv").hide();
-	});
 	
 	//게시글 [삭제]버튼을 클릭한 경우 호출되는 이벤트 처리 함수
 	function remove(num) {

@@ -2,13 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>염병할 고갱님들</title>
-</head>
-<body>
+
 <div class="userList">
 	<div class="admin-title">
 		<h2>관리자 페이지</h2>
@@ -40,7 +34,6 @@
 							<col style="width:140px">
 							<col style="width:200px">
 							<col style="width:100px">
-							<col style="width:110px">
 						</colgroup>
 						<tr>
 							<th scope="col">번호</th>
@@ -49,30 +42,67 @@
 							<th scope="col">연락처</th>
 							<th scope="col">이메일</th>
 							<th scope="col">상태</th>
-							<th scope="col"></th>
 						</tr>
-					
-						<tr>
-							<td>번호</td>
-							<td>아이디</td>
-							<td>이름</td>
-							<td>연락처</td>
-							<td>이메일</td>
-							<td>
-								<select class="" id="">
-									<option class="" id="" value="" selected>회원</option>
-									<option class="" id="" value="">탈퇴</option>
-								</select>
-							</td>
-							<td>
-								<button type="button">변경</button>
-							</td>
-						</tr>
+						<c:forEach var="member" items="${memberList }">
+							<tr>
+								<td>${member.memberNo }</td>
+								<td>${member.memberId }</td>
+								<td>${member.memberName }</td>
+								<td>${member.memberPhone }</td>
+								<td>${member.memberEmail }</td>
+								<td>
+									<select class="status" id="memberStatus" name="${member.memberNo }">
+											<option class="" <c:if test="${member.memberStatus==0 }">selected="selected"</c:if> id="quit" value="0">탈퇴 회원</option>
+											<option class="" <c:if test="${member.memberStatus==1 }">selected="selected"</c:if>  id="normal" value="1" >일반 회원</option>
+											<option class="" <c:if test="${member.memberStatus==9 }">selected="selected"</c:if> id="manager" value="9" >관리자 회원</option>
+										
+									</select>
+								</td>
+							</tr>
+						</c:forEach>
 					</table>
 				</div>
 			</div>	
 		</div>
 	</div>
+	
+	<form id="searchForm" method="get">
+		<select id = "nameIdSearch" name = "nameIdSearch">
+			<option value = "member_name" selected="selected">&nbsp;이름&nbsp;</option>
+			<option value = "member_id" >&nbsp;아이디&nbsp;</option>			
+		</select>
+		<input type="text" name="searchValue" id="searchValue">
+		<button type="button" id="searchBtn">검색</button>
+	</form>
 </div>
-</body>
-</html>
+
+<script type="text/javascript">
+
+	
+	$(".status").change(function () {
+		
+		// 회원 상태 값
+		var memberStatus = $(this).val(); 
+		
+		// 회원 번호 값
+		var memberNo = $(this).attr("name");
+		
+		location.href="${pageContext.request.contextPath}/admin/userStatusModify?memberNo="+memberNo+"&memberStatus="+memberStatus;
+	});
+	
+	$("#searchBtn").click(function() {
+		
+		// 검색 카테고리
+		var searchKeyword = $("#nameIdSearch").val();
+		
+		alert(searchKeyword);
+		
+		// 검색 값
+		var searchValue = $("#searchValue").val();
+		alert(searchValue);
+		
+		location.href="${pageContext.request.contextPath}/admin/userSearch?searchKeyword="+searchKeyword+"&searchValue="+searchValue;
+
+	})
+	
+</script>

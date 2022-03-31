@@ -11,6 +11,8 @@ public interface MemberMapper {
 
 	int updateMember(Member member);
 
+	int selectMemberListCount(Map<String, Object> map);
+	
 	Member selectMember(int member_no);
 	
 	// 아이디로 회원 검색
