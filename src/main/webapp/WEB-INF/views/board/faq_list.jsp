@@ -54,7 +54,6 @@
 					<td align="center">{{noticeServiceCategory}}</td>
 					<td align="center" id="title"><a href="<c:url value='/faq/view/'/>{{noticeServiceNo}}">{{noticeServiceTitle}}</a></td>
 					<td align="center">{{noticeServiceDate}}</td>
-					<td align="center">{{loginUserinfo.memberName}}</td>
 				<tr>	
 			</tbody>		
 		{{/each}}	
