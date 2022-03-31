@@ -21,7 +21,7 @@
 		                    </ul>
 						</c:when>
                 		<c:otherwise>
-			                <c:if test="${loginUserinfo.memberStatus == 9}">
+			                <c:if test="${loginUserinfo.memberStatus == 9}">	        
 								<div class="main-top-btn admin" >
 									<ul class="nav navbar-nav pull-right" id="main-menu">
 				                       <li class=""><a href="">관리자페이지</a></li>
@@ -104,3 +104,11 @@
             </div>
         </div></div>
     </header>
+    
+    <script type="text/javascript">
+    	
+    if(${loginUserinfo != null} ){
+    	alert("로그인 완료!");
+    }
+    
+    </script> 
