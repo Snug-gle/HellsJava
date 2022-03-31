@@ -20,9 +20,12 @@
 		<div style="text-align: right;">
 			<c:if test="${loginUserinfo.memberStatus==9}">
 				<!-- <button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/faq/modify"/>';">수정</button> -->
-				<button onclick="location.href='#faq-update'" data-toggle="modal" data-target="#faq-update" data-backdrop="static" class="btn btn-primary">수정</button>
+				<button onclick="location.href='#faq-update'" data-toggle="modal" data-target="#faq-update" data-backdrop="static" class="btn btn-primary" id="updateBtn">수정</button>
 				<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/faq/remove"/>/${faq.noticeServiceNo }';">삭제</button>
 			</c:if>
+		</div>
+		<div style="text-align: center;">
+			<button style="width: 200px;" type="button" class="btn btn-primary" value="목록" onClick="location.href='<c:url value="/faq/board"/>';">목록</button>
 		</div>
 		
 	</div>
@@ -42,15 +45,15 @@
 							<h3 class="panel-title">FAQ 수정</h3>
 						</div>
 						<div class="panel-body">
-							<form role="form" action="faq_view" method="post" id="faqUpdateForm">
+							<form role="form" action="#" method="get" id="faqUpdateForm">
 								<div id="updateDiv">
-									<input type="hidden" name="noticeServiceNo" id="updateNum">
+									<input type="hidden" name="noticeServiceNo" id="updateNum" value="${faq.noticeServiceNo }">
 									<div class="form-group">
                                 		<label for="nameLabel">제목</label>
-                                		<input type="text" class="form-control" id="noticeServiceTitle" name="noticeServiceTitle" class="form-control" value="${noticeServiceTitle }">
+                                		<input type="text" class="form-control" id="updateTitle" name="noticeServiceTitle" class="form-control" value="${faq.noticeServiceTitle }">
 									</div>
 									<div class="form-group">
-										<select name="noticeServiceCategory" id="noticeServiceCategory" class="btn btn-primary dropdown-toggle">
+										<select name="noticeServiceCategory" id="updateCategory" class="btn btn-primary dropdown-toggle">
 											<option value="1" selected="selected">입금/결제</option>
 											<option value="2">트레이너 관련 문의</option>
 											<option value="3">기타문의</option>
@@ -58,7 +61,7 @@
 									</div>
 									<div class="form-group">
                                 		<label for="nameLabel">내용</label>
-                                		<input type="text" class="form-control" id="noticeServiceContent" name="noticeServiceContent" class="form-control" value="${noticeServiceContent }" style="height: 150px;">
+                                		<input type="text" class="form-control" id="updateContent" name="noticeServiceContent" class="form-control" value="${faq.noticeServiceContent }" style="height: 150px;">
 									</div>
 									<div>
 										<button type="submit" id="updateBtn" class="btn btn-primary btn-block">변경</button>
@@ -75,7 +78,6 @@
 		</div>
 	</div>
 </div>
-
 
 
 
@@ -104,7 +106,6 @@
 	</tr>
 </table>
  --%>
-
 <%--
 <script language="JavaScript">
 	function noticeRemove(num) {
@@ -184,5 +185,28 @@
 	
 	
 </script>
- --%>
-	
+	--%>
+<script language="JavaScript">
+$(document).ready(function() {
+	$("#updateBtn").click(function() {
+		var noticeServiceNo=$("#updateNum").val();
+		var noticeServiceTitle=$("#updateTitle").val();
+		var noticeServiceContent=$("#updateContent").val();
+		var noticeServiceCategory=$("#updateCategory").val();
+		
+		if(noticeServiceTitle=="") {
+			alert("제목을 입력해 주세요.");
+			noticeServiceTitle.focus();
+			return false;
+		}
+		
+		if(noticeServiceContent=="") {
+			alert("내용을 입력해 주세요.");
+			noticeServiceContent.focus();
+			return;
+		}
+		
+	});
+});
+
+</script>

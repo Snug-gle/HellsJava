@@ -6,7 +6,7 @@
 <%-- handlebars 라이브러리 : JSON 형식으로 표현된 JavaScrit 객체를 전달받아 HTML 태그로 변환하는
 기능을 제공하는 자바스크립트 템플릿 라이브러리 --%>
 <%-- => https://cdnjs.com 사이트에서 handlebars 라이브러리를 검색하여 JSP 문서에 포함 --%>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>--%>s
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 
 
 <div class="container">
@@ -24,7 +24,7 @@
 		<div class="panel panel-default">
 		    <div class="panel-body" id="faqListDiv">
 		    	<table class="table table-hover">
-				<thead>			
+		    	<!-- 
 				<tr>
 					<th align="center" width="2px">번호</th>
 					<th align="center" width="15px">카테고리</th>
@@ -32,16 +32,17 @@
 					<th align="center" width="20px">작성일</th>
 					<th align="center" width="15px">작성자</th>
 				</tr>
- 			</thead>
- 			<tbody>
-				<tr>
-					<td align="center">{{noticeServiceNo}}</td>
-					<td align="center">{{noticeServiceCategoryName}}</td>
-					<td align="center" id="title"><a href="<c:url value='/faq/view/'/>{{noticeServiceNo}}">{{noticeServiceTitle}}</a></td>
-					<td align="center">{{noticeServiceDate}}</td>
-					<td align="center">{{memberName}}</td>
-				<tr>	
-			</tbody>	
+				<c:forEach var="faq" items="${faqList }">
+					<tr>
+						<th>${faq.noticeServiceNo}</th>
+						<th>${faq.noticeServiceCategory}</th>
+						<td align="center" id="title"><a href="<c:url value='/faq/view/'/>${faqTitle.noticeServiceNo}">${faqTitle.noticeServiceTitle}</a></td>
+						<th>${faq.noticeServiceTitle}</th>
+						<th>${faq.noticeServiceDate}</th>
+						<th>${faq.memberName}</th>
+					<tr>	
+				</c:forEach>
+		    	 -->
 		    </table>
 		    </div>
 		</div>
@@ -86,7 +87,6 @@
 	var page=1;//현재 요청 페이지 번호를 저장한 전역변수
 	
 	boardDisplay(page);
-	
 	//게시글 목록을 검색하여 JSON 텍스트로 응답하는 웹프로그램을 AJAX로 요청
 	function boardDisplay(pageNum) {
 		page=pageNum;
@@ -116,7 +116,6 @@
 			}
 		});
 	}
-	
 	//페이지 번호를 출력하는 함수
 	function pagerDisplay(pager) {
 		var html="";
