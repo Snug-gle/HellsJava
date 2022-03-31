@@ -8,20 +8,19 @@
 
 </head>
 <body>
-	<br>
+	
 
 	<h3>공지사항</h3>
-
 
 	<form action="">
 		<table>
 			<thead>
 				<tr>
-					<th width=40 align=center height="22">${notice.noticeServiceNo}</th>
-					<th width=80 align=center height="22">${notice.noticeServiceTitle}</th>
-					<th width=40 align=center height="22">${notice.noticeServiceDate}</th>
+					<th style="width: 40px; align-content: center; ">${notice.noticeServiceNo}</th>
+					<th style="width: 40px; align-content: center; ">${notice.noticeServiceTitle}</th>
+					<th style="width: 40px; align-content: center; ">${notice.noticeServiceDate}</th>
 					<%-- <th width=40 align=center height="22">${notice.noticeServiceWriter}</td> --%>
-					<th width=40 align=center height="22">${notice.noticeServiceHits}</th>
+					<th style="width: 40px; align-content: center; ">${notice.noticeServiceHits}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -44,9 +43,6 @@
 			</tr>
 		</table>
 	</form>
-
-
-
 
 	<script language="JavaScript">
 		function noticeRemove(num) {
