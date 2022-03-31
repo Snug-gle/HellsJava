@@ -29,34 +29,7 @@
 		    <div class="panel-body"id="pageNumDiv"></div>
 		</div>
 	</div>
-</div>		
-		
-		
-<%-- handlebars 템플릿 코드 작성 >> HTML --%>
-<%-- => {{#each}} 표현식을 사용하여 Array 객체에 대한 반복 처리 --%>
-<%-- => {{propertyName}} 표현식을 사용하여 Object 객체의 속성값 표현 --%>
-<script id="template" type="text/x-handlebars-template">
-	<div class="panel-body" style="display: block;">
-        <table class="table table-hover">
-			<thead>			
-				<tr>
-					<th align="center" width="2px" style=" text-align: -webkit-center;">번호</th>
-					<th align="center" width="15px" style=" text-align: -webkit-center;">카테고리</th>
-					<th align="center" width="200px" style=" text-align: -webkit-center;">제목</th>
-					<th align="center" width="20px" style=" text-align: -webkit-center;">작성일</th>
-					<th align="center" width="15px" style=" text-align: -webkit-center;">작성자</th>
-				</tr>
- 			</thead>
-		{{#each .}}
-			<tbody>
-				<tr>
-					<td align="center">{{noticeServiceNo}}</td>
-					<td align="center">{{noticeServiceCategory}}</td>
-					<td align="center" id="title"><a href="<c:url value='/faq/view/'/>{{noticeServiceNo}}">{{noticeServiceTitle}}</a></td>
-					<td align="center">{{noticeServiceDate}}</td>
-					<td align="center">{{loginUserinfo.memberName}}</td>
-				<tr>	
-			</tbody>		
+
 		{{/each}}	
 		</table>
 	</script>

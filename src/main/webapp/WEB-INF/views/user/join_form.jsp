@@ -165,7 +165,7 @@
 		
 		//비밀번호 유효성 검사
 		//8 ~ 16자 영문, 숫자 조합
-		var pwReg=/^(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/g;
+
 		//비밀번호 공백 검사
 		if($("#memberPw").val()=="") {
 			$("#passwdMsg").css("display","block");
