@@ -124,22 +124,4 @@ public class NoticeController {
 		return "redirect:/notice/board";
 	}
 	
-	//css용
-	
-	@RequestMapping("/list") 
-	public String cssList() { 
-	  return "board/notice_list";
-	  }
-	
-	@RequestMapping("/write") 
-	public String cssWrite() { 
-		return "board/notice_list";
-	}
-
-	@RequestMapping("/view") 
-	public String cssView() { 
-		return "board/notice_view";
-	}
-	 
-	 
 }
