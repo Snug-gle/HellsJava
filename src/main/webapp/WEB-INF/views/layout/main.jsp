@@ -2,63 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
-<style type="text/css">
-.main-search {
-    border: 2px solid #e8ebed;
-    border-radius: 2px;
-    box-shadow: none;
-    height: 37px;
-    padding: 8px 12px 9px 12px;
-}
-.main-search {
-    width: 30%;
-    height: 42px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
-    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
-    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-}
 
-#pricing {
-    padding: 75px 0;
-}
-#pricing .spacer {
-    height: 2px;
-    width: 80px;
-    margin: 20px auto;
-    background: #556b8d;
-}
-.row {
-    margin-right: -15px;
-    margin-left: -15px;
-}
-
-#pricing #pricePlans {
-    margin: 2em auto;
-}
-
-#trainer-content {
-	width: 30%;
-}
-
-#trainer-review-content {
-	width: 30%;
-}
-
-.review-trainer-name {
-	color: #556b8d;
-	font-weight: bold; 
-}
-</style>
 <div class="main-banner-image">
 	<img class="main-banner-image_01" src="<spring:url value="/img/vac-4.jpg"/>">
 </div>
