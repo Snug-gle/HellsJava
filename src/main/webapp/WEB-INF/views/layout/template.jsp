@@ -45,11 +45,11 @@
 	</div>
 	
 	<div id="content">
-		<tiles:insertAttribute name="content"/>
+		<tiles:insertAttribute name="content" ignore="true"/>
 	</div>
 	
 	<div id="footer">
-		<tiles:insertAttribute name="footer"/>
+		<tiles:insertAttribute name="footer" />
 	</div>
 </body>
 </html>
