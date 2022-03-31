@@ -115,4 +115,35 @@ public class AdminController {
 		return "redirect:/admin/userList";
 	}
 	
+	// 회원 검색 get 방식 요청
+	@RequestMapping(value = "/admin/userSearch", method = RequestMethod.GET)
+	public String memberSearch(@RequestParam(defaultValue ="1") int pageNum, @RequestParam String searchKeyword, @RequestParam String searchValue, Model model) {
+		
+		
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		
+		// 검색 값 넣고.
+		searchMap.put("searchKeyword", searchKeyword);
+		searchMap.put("searchValue", searchValue);
+		
+		int totalBoard = memberService.getMemberListCount(searchMap);
+		int pageSize = 5;
+		int blockSize = 10;
+		
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		returnMap.put("searchKeyword", searchKeyword);
+		returnMap.put("searchValue", searchValue);
+		returnMap.put("startRow", pager.getStartRow());
+		returnMap.put("endRow", pager.getEndRow());
+		
+		model.addAttribute("memberList", memberService.getMemberList(returnMap));
+		
+		return "/admin/admin_userList";
+	}
+	
+	
+	
 }

@@ -65,13 +65,21 @@
 			</div>	
 		</div>
 	</div>
+	
+	<form id="searchForm" method="get">
+		<select id = "nameIdSearch" name = "nameIdSearch">
+			<option value = "member_name" selected="selected">&nbsp;이름&nbsp;</option>
+			<option value = "member_id" >&nbsp;아이디&nbsp;</option>			
+		</select>
+		<input type="text" name="searchValue" id="searchValue">
+		<button type="button" id="searchBtn">검색</button>
+	</form>
 </div>
 
 <script type="text/javascript">
 
 	
 	$(".status").change(function () {
-		//var memberNo = ${member.memberNo};
 		
 		// 회원 상태 값
 		var memberStatus = $(this).val(); 
@@ -81,4 +89,20 @@
 		
 		location.href="${pageContext.request.contextPath}/admin/userStatusModify?memberNo="+memberNo+"&memberStatus="+memberStatus;
 	});
+	
+	$("#searchBtn").click(function() {
+		
+		// 검색 카테고리
+		var searchKeyword = $("#nameIdSearch").val();
+		
+		alert(searchKeyword);
+		
+		// 검색 값
+		var searchValue = $("#searchValue").val();
+		alert(searchValue);
+		
+		location.href="${pageContext.request.contextPath}/admin/userSearch?searchKeyword="+searchKeyword+"&searchValue="+searchValue;
+
+	})
+	
 </script>

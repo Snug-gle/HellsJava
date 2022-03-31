@@ -66,11 +66,8 @@
 		select count(*) from member
 		
 		<choose>
-		<when test="member_id != null and member_id != ''" >
-		 	 where member_id like '%'||#{member_id}||'%' 
-		</when>
-		<when test="member_name != null and member_name != ''">
-			 where member_name like '%'||#{member_name}||'%'
+		<when test="searchKeyword != null and searchKeyword !=''" >
+		 	 where ${searchKeyword} like '%'||#{searchValue}||'%' 
 		</when>
 		 </choose>
 		  order by member_no desc
@@ -80,11 +77,8 @@
 		select * from
 		(select rownum rn,board.* from (select * from member 		
 		<choose>
-		<when test="member_id != null and member_id != ''" >
-		 	 where member_id like '%'||#{member_id}||'%' 
-		</when>
-		<when test="member_name != null and member_name != ''">
-			 where member_name like '%'||#{member_name}||'%'
+		<when test="searchKeyword != null and searchKeyword !=''" >
+		 	 where ${searchKeyword} like '%'||#{searchValue}||'%' 
 		</when>
 		 </choose>
 			 order by member_no desc) 
