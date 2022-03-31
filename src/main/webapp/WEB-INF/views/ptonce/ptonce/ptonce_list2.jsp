@@ -1,84 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<style type="text/css">
-.notice-list-print {
-	width: 100%;
-}
-
-
-.notice-list-title {
-    font-weight: 400;
-    text-transform: uppercase;
-    padding: 14px 10px;
-}
-
-.notice-list-title {
-    color: #fff;
-    background-color: #556b8d;
-    border-color: #556b8d;
-}
-
-.notice-list-title {
-    padding: 10px 15px;
-    border-bottom: 1px solid transparent;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-}
-
-</style>
-
-<div class="container">
-	<div style="text-align: right;">
-		<c:if test="${loginUserinfo.memberStatus==9}">
-				<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/notice/write"/>';">작성</button>
-		</c:if>
+<head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<%-- handlebars 라이브러리 : JSON 형식으로 표현된 JavaScrit 객체를 전달받아 HTML 태그로 변환하는
+기능을 제공하는 자바스크립트 템플릿 라이브러리 --%>
+<%-- => https://cdnjs.com 사이트에서 handlebars 라이브러리를 검색하여 JSP 문서에 포함 --%>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+</head>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			<strong>1회 pt 신청 내역 목록</strong>
+		</h3>
 	</div>
-	<div class="notice-list-print">
-		<div class="notice-list-title">
-			<h3 class="panel-title"><strong>공지사항</strong></h3>
-		</div>
-		
-		<%--게시글 목록 출력 --%>
-		<div class="panel panel-default">
-		    <div class="panel-body" id="restNoticeListDiv"></div>
-		</div>
-		<%-- 페이지 번호 출력 --%>
-		<div class="panel panel-default">
-		    <div class="panel-body"id="pageNumDiv">
-		    </div>
-		</div>
-	</div>
+
+	<%-- 게시글 목록을 출력하는 영역 --%>
+	<div class="panel-body" id="restNoticeListDiv"></div>
+
+	<%-- 페이지 번호를 출력하는 영역 --%>
+	<div class="panel-body" id="pageNumDiv"></div>
 </div>
+
 <%-- handlebars 템플릿 코드 작성 >> HTML --%>
 <%-- => {{#each}} 표현식을 사용하여 Array 객체에 대한 반복 처리 --%>
 <%-- => {{propertyName}} 표현식을 사용하여 Object 객체의 속성값 표현 --%>
 <script id="template" type="text/x-handlebars-template">
+	<!-- 리스트 타이틀 -->
 	<div class="panel-body" style="display: block;">
-        <table class="table table-hover">
-			<thead>			
-				<tr>
-					<th align="center" width="2px" style=" text-align: -webkit-center;">번호</th>
-					<th align="center" width="150px" style=" text-align: -webkit-center;">제목</th>
-					<th align="center" width="20px" style=" text-align: -webkit-center;">작성일</th>
-					<th align="center" width="15px" style=" text-align: -webkit-center;">작성자</th>
-					<th align="center" width="8px" style=" text-align: -webkit-center;">조회수</th>
-				</tr>
- 			</thead>
-		{{#each .}}
-			<tbody>
-				<tr>
-					<td align="center" id="">{{noticeServiceNo}}</td>
-					<td align="center" id="title"><a href="<c:url value='/notice/view/'/>{{noticeServiceNo}}">{{noticeServiceTitle}}</a></td>
-					<td align="center">{{noticeServiceDate}}</td>
-					<td align="center">{{memberName}}</td>
-					<td align="center">{{noticeServiceHits}}</td>
-				<tr>	
-			</tbody>		
-		{{/each}}	
-		</table>
-	</script>
+		<div class="panel-group accordion" id="accordion">
+{{#each .}}
+					
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title">
+							
+						<div>{{ptOnceApplicationDate }}</div>
+						<div>트레이너</div>
+						<div>{{ptOnceStatus }}</div>
+						<div>
+							<a data-toggle="collapse" data-parent="#accordion"
+								href="#collapseOne" class="collapsed" aria-expanded="false">
+										상세보기</a>
+						</div>
+						<div class="collapsed">
+									<a href="#">리뷰쓰기</a>
+						</div>
+							</div>
+						</div>
+						<!-- 상세내용 -->
+						<div id="collapseOne" class="panel-collapse collapse"
+							aria-expanded="false" style="height: 0px;">
+							<div class="panel-body">
+							<div>{{ptOnceGender}}</div>							
+					s		<div>{{ptOnceAge}}</div>							
+							<div>{{ptOnceExperience}}</div>							
+							<div>{{ptOncePurpose}}</div>							
+							<div>{{ptOnceSignificant}}</div>
+							</div>						
+						</div>
+				
+					</div>
+				</div>
+{{/each}}
+			</div>
+		</div>
+</script>
 
 <script type="text/javascript">
 	var page = 1; //현재 요청 페이지 번호를 저장하기 위한 전역 변수
@@ -89,7 +78,7 @@
 		page = pageNum;
 		$.ajax({
 			type : "get",
-			url : "list?pageNum=" + pageNum,
+			url : "board?pageNum=" + pageNum,
 			dataType : "json",
 			success : function(json) {
 				if (json.restNoticeList.length == 0) {
@@ -149,4 +138,4 @@
 		$("#pageNumDiv").html(html);
 	}
 </script>
-
+</html>
