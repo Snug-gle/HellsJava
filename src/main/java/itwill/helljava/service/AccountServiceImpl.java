@@ -17,12 +17,13 @@ public class AccountServiceImpl implements AccountSevice {
 	@Autowired
 	private AccountDAO accountDAO;
 
-	@Autowired
-	private MemberService memberService;
-	
 	@Override
 	@Transactional
 	public void addAccount(Account account) {
+	
+		// 계좌 비번에 첨가물 섞기
+		account.setAccountPw(BCrypt.hashpw(account.getAccountPw(), BCrypt.gensalt()));
+
 		accountDAO.insertAccount(account);
 	}
 	
