@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.HtmlUtils;
 
 import itwill.helljava.Enum.NoticeServiceSortationEnum;
 import itwill.helljava.Enum.NoticeServiceStatusEnum;
@@ -40,7 +38,7 @@ public class FAQController {
 	// 테이블에 저장된 게시글 목록을 검색하여 JSON 형식의 텍스트로 응답하는 요청 처리 메소드
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> faqList(@RequestParam(defaultValue = "1") int pageNum, Model model) {
+	public Map<String, Object> faqList(@RequestParam(defaultValue = "1") int pageNum) {
 		// 테이블에 저장된 모든 게시글의 갯수 검색하여 반환받아 저장
 
 		Map<String, Object> countMap = new HashMap<String, Object>();
@@ -66,11 +64,7 @@ public class FAQController {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("faqList", noticeServiceService.getNoticeServiceList(pagerMap));
 		returnMap.put("pager", pager);
-		
 
-		
-		
-		
 		return returnMap;
 
 	}
