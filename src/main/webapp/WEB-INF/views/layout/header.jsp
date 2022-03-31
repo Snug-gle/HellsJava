@@ -29,7 +29,7 @@
 								<li class="dropdown profile hidden-xs">
 									<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 										<span class="meta">
-										<span class="text">${loginUserinfo.memberName }&nbsp;회원님</span>
+										<span class="text" style="font-size: 15px;">${loginUserinfo.memberName }&nbsp;회원님</span>
 										<span class="caret"></span>
 										</span>
 	                   				</a>

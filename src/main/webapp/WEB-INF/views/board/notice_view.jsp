@@ -27,6 +27,9 @@
 				<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/notice/remove"/>/${notice.noticeServiceNo }';">삭제</button>
 			</c:if>
 		</div>
+		<div style="text-align: center;">
+			<button style="width: 200px;" type="button" class="btn btn-primary" value="목록" onClick="location.href='<c:url value="/notice/board"/>';">목록</button>
+		</div>
 		
 	</div>
 </div>

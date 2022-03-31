@@ -127,3 +127,11 @@
 .formDiv {
 	text-align: center;
 }
+
+#selbox {
+	width: 100%;
+}
+
+.trainer-search-list {
+	width: 100%
+}
