@@ -136,6 +136,8 @@
                                 <label for="emailLabel">Email</label>
                                 <input type="text" class="form-control" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해 주세요">
                                 <p id="emailMsg" class="error">이메일을 입력해 주세요.</p>
+                                <p id="emailRegMsg" class="error">이메일 형식에 알맞게 작성해 주세요.</p>
+								
                             </div>
                             	 <button type="submit" class="btn btn-primary btn-block">회원가입</button>
                         </form>
@@ -148,11 +150,19 @@
 
 	<script type="text/javascript">
 	
+	
 	$("#joinForm").submit(function() {
 		var submitResult=true;
-
-		$(".error").css("display","none");
 		
+		$(".error").css("display","none");
+		$("#memberId").val($("#memberId").val().replace(/\s/g, ""));
+		$("#memberPw").val($("#memberId").val().replace(/\s/g, ""));
+		$("#memberName").val($("#memberId").val().replace(/\s/g, ""));
+		$("#member_phone2").val($("#memberId").val().replace(/\s/g, ""));
+		$("#member_phone3").val($("#memberId").val().replace(/\s/g, ""));
+		$("#memberEmail").val($("#memberId").val().replace(/\s/g, ""));
+		
+
 		//아이디 유효성 검사
 		//정규식 영문자로 시작하는 영문자 또는 숫자 6~20자 
 		var idReg=/^[a-z]+[a-z0-9]{5,19}$/g;
@@ -166,13 +176,13 @@
 		
 		//비밀번호 유효성 검사
 		//8 ~ 16자 영문, 숫자 조합
-
+		var pwReg = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;
 		//비밀번호 공백 검사
 		if($("#memberPw").val()=="") {
 			$("#passwdMsg").css("display","block");
 			submitResult=false;
 		//비밀번호 형식 검사
-		} else if(!pwReg.test($("#passwd").val())) {
+		} else if(!pwReg.test($("#memberPw").val())) {
 			$("#passwdMsg2").css("display","block");
 			submitResult=false;
 		} 
@@ -189,7 +199,7 @@
 		}
 		
 		//이름 공백 검사
-		if($("#name").val()=="") {
+		if($("#memberName").val()=="") {
 			$("#nameMsg").css("display","block");
 			submitResult=false;
 		}
@@ -213,59 +223,72 @@
 			$("#phoneMsg").css("display","block");
 			submitResult=false;
 		}
+		//아이디 중복검사 체크여부
+		if(idck==0){
+			alert("아이디 중복확인을 해주세요");
+			submitResult=false;
+		}
 		
-		//아이디 중복검사
-		<%--$("#idCheck").click(function() {
-			$("#idMsg").css("display","none");
-			$("#idRegMsg").css("display","none");
-					
-			window.open("<%=request.getContextPath()%>/site/member/email_check.jsp?email="+$("#member_email").val()
-								,"emailcheck","width=450,height=100,left=700,top=400");
-			});
-							
-		$("#memberId").change(function() {
-			if($("#emailCheckResult").val()=="1") {
-				$("#emailCheckResult").val("0");//아이디 중복 검사 상태를 미실행 상태로 변경
-			}
-		});
-		--%>
+		var emailReg=/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+		if($("#memberEmail").val()=="") {
+			$("#emailMsg").css("display","block");
+			submitResult=false;
+		} else if(!emailReg.test($("#memberEmail").val())) {
+			$("#emailRegMsg").css("display","block");
+			submitResult=false;
+		}
+		
+		
+		
+		
 		return submitResult;
 	});
 	
+	//id 중복검사
+	var idck=0;
 	$(function() {
 	    //idck 버튼을 클릭했을 때 
 	    $("#idCheck").click(function() {
-	        
-	        //userid 를 param.
-	        var userid =  $("#memberId").val(); 
-	        
-	        $.ajax({
-	            async: true,
-	            type : 'get',
-	            data : userid,
-	            url : "user/idcheck?id="+userid,
-	            contentType: "application/json; charset=UTF-8",
-	            success : function(cnt) {
-	                if (cnt > 0) {
-	                    
-	                    alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
-	                    $("#memberId").focus();
-	                    
-	                
-	                } else {
-	                    alert("사용가능한 아이디입니다.");
-	                    $("#memberPw").focus();
-	                    //아이디가 중복하지 않으면  idck = 1 
-	                    idck = 1;
-	                    
-	                }
-	            },
-	            error : function(error) {
-	                
-	                alert("error : " + error);
-	            }
-	        });
-	    });
+
+	    	$("#memberId").val($("#memberId").val().replace(/\s/g, ""));
+
+	    	
+	    	if($("#memberId").val()!="") {
+
+		        //userid 를 param.
+		        var userid =  $("#memberId").val(); 
+		        
+		        $.ajax({
+		            async: true,
+		            type : 'get',
+		            data : userid,
+		            url : "user/idcheck?id="+userid,
+		            contentType: "application/json; charset=UTF-8",
+		            success : function(cnt) {
+		                if (cnt > 0) {
+		                    
+		                    alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
+		                    $("#memberId").focus();
+		                    idck=0;
+		                
+		                } else {
+		                    alert("사용가능한 아이디입니다.");
+		                    $("#memberPw").focus();
+		                    //아이디가 중복하지 않으면  idck = 1 
+		                    idck = 1;
+		                    
+		                }
+		            },
+		            error : function(error) {
+		                
+		                alert("error : " + error);
+		            }
+		        });
+	   		} else{
+	   	 		$("#idMsg").css("display","block");
+	    	
+	    	}
+	    });	
 	});
 
 	</script>
