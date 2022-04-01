@@ -27,16 +27,18 @@ public class PtOnceController {
 	
 	@Autowired
 	private PtOnceService ptOnceService;
+	
 	/*
 	@RequestMapping("/list")
 	public String list() {
-		return "ptonce/ptonce_list";
+		return "board/ptonce_list";
 	}
 	*/
+	
 	//list : 페이징 처리 시도
 	@RequestMapping(value = "/list" , method = RequestMethod.GET)
-	public String searchPtOnceList(HttpSession session, Model model, @RequestParam(defaultValue="1")int pageNum){
-		
+	public String searchPtOnceList( HttpSession session, Model model, @RequestParam(defaultValue="1")int pageNum){
+			
 		int totalBoard = ptOnceService.getPtOnceCount(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
 		int pageSize = 5; //한 페이지에 출력될 게시글의 갯수 저장
 		int blockSize = 10; //한 페이지 블럭에 출력될 페이지 번호의 갯수 저장
@@ -44,6 +46,7 @@ public class PtOnceController {
 		Map<String, Object> pagerMap = new HashMap<String, Object>();
 		pagerMap.put("starRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
+		//트레이너 No
 		
 		
 		model.addAttribute("ptOnceList", ptOnceService.getPtOnceList(pagerMap));
@@ -51,14 +54,13 @@ public class PtOnceController {
 		return "board/ptonce_list";
 	}
 	
-	
-	@RequestMapping("/board")
+	@RequestMapping("/list2")
 	public String showList() {
 		return "board/ptonce_list2";
 	}
 
 	//list2 JSON 형식으로 텍스트를 넘김
-	@RequestMapping(value = "/board" , method = RequestMethod.GET)
+	@RequestMapping(value = "/list2" , method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> searchPtOnceList2(HttpSession session, @RequestParam(defaultValue="1")int pageNum){
 		
