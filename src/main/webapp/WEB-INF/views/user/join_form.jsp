@@ -81,11 +81,11 @@
 		
 		$(".error").css("display","none");
 		$("#memberId").val($("#memberId").val().replace(/\s/g, ""));
-		$("#memberPw").val($("#memberId").val().replace(/\s/g, ""));
-		$("#memberName").val($("#memberId").val().replace(/\s/g, ""));
-		$("#member_phone2").val($("#memberId").val().replace(/\s/g, ""));
-		$("#member_phone3").val($("#memberId").val().replace(/\s/g, ""));
-		$("#memberEmail").val($("#memberId").val().replace(/\s/g, ""));
+		$("#memberPw").val($("#memberPw").val().replace(/\s/g, ""));
+		$("#memberName").val($("#memberName").val().replace(/\s/g, ""));
+		$("#member_phone2").val($("#member_phone2").val().replace(/\s/g, ""));
+		$("#member_phone3").val($("#member_phone3").val().replace(/\s/g, ""));
+		$("#memberEmail").val($("#memberEmail").val().replace(/\s/g, ""));
 		
 
 		//아이디 유효성 검사
@@ -162,10 +162,7 @@
 			$("#emailRegMsg").css("display","block");
 			submitResult=false;
 		}
-		
-		
-		
-		
+
 		return submitResult;
 	});
 	
