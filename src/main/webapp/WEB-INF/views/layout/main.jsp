@@ -3,6 +3,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 
+
 <div class="main-banner-image">
 	<img class="main-banner-image_01" src="<spring:url value="/img/vac-4.jpg"/>">
 </div>
@@ -32,13 +33,14 @@
 		<div class="row">
 			<div class="col-lg-12 text-center">
                  <header>
-                     <h1>이달의 트레이너</h1>
+                     <h1 class="main-h1">이달의 트레이너</h1>
                      <div class="spacer"></div>
                      <br>
                  </header>
              </div>
 		</div>
-		<div class="panel panel-primary" id="trainer-content" style="float: left;">
+  
+		 <div class="panel panel-primary" id="trainer-content" style="float: left;">
 			<div class="panel-heading">
 				<h3 class="panel-title" style="text-align: center;">     
 					트레이너명
@@ -56,6 +58,7 @@
 				 </form>
 			</div>
 		</div>
+
 		<div class="panel panel-primary" id="trainer-content" style="float: left; margin: 0px 5%;">
 			<div class="panel-heading">
 				<h3 class="panel-title" style="text-align: center;">     
@@ -93,13 +96,14 @@
 			</div>
 		</div>
 	</div>
+</div>
 </section>
 <section id="pricing">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
                  <header>
-                     <h1>많이 도움된 리뷰</h1>
+                     <h1 class="main-h1">많이 도움된 리뷰</h1>
                      <div class="spacer"></div>
                      <br>
                  </header>

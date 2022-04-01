@@ -52,7 +52,7 @@
 									   		</c:if>
 									    </li>
 									    <li>
-									      <a href="#cache_charge" data-toggle="modal" data-target="#cache_charge" data-backdrop="static"><span class="icon"><i class="icon-wallet"></i></span><span>2000</span>캐쉬</a>
+									      <a href="#cache_charge" data-toggle="modal" data-target="#cache_charge" data-backdrop="static"><span class="icon"><i class="icon-wallet"></i></span><span>${loginUserinfo.memberCash }</span>캐쉬</a>
 									    </li>
 											
 									    <li class="divider"></li>
