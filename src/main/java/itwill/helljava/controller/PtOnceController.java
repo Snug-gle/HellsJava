@@ -48,13 +48,13 @@ public class PtOnceController {
 		
 		model.addAttribute("ptOnceList", ptOnceService.getPtOnceList(pagerMap));
 		model.addAttribute("pager", pager); 
-		return "ptonce/ptonce_list";
+		return "board/ptonce_list";
 	}
 	
 	
 	@RequestMapping("/board")
 	public String showList() {
-		return "ptonce/ptonce_list2";
+		return "board/ptonce_list2";
 	}
 
 	//list2 JSON 형식으로 텍스트를 넘김
