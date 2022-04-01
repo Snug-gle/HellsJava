@@ -54,7 +54,7 @@
 		
 		$(".error").css("display","none");
 		$("#memberId").val($("#memberId").val().replace(/\s/g, ""));
-		$("#memberPw").val($("#memberId").val().replace(/\s/g, ""));
+		$("#memberPw").val($("#memberPw").val().replace(/\s/g, ""));
 		
 		//아이디 공백 검사
 		if($("#memberId").val()=="") {
