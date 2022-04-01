@@ -49,6 +49,11 @@
 		select * from member where member_id = #{memberId}
 	</select>
 	
+	<!-- 아이디 중복체크 -->
+	<select id="selectIdCheck" parameterType="String" resultType="int">
+        SELECT COUNT(member_Id) FROM member WHERE member_id= #{memberId}
+    </select>
+	
 	<!-- 아이디, 비밀번호 찾기 통합 쿼리 -->
 	<select id="selectSearchMember" parameterType="map" resultType="Member">
 		select * from member

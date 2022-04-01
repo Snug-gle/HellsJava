@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import itwill.helljava.dto.Member;
 import itwill.helljava.exception.MemberExistsException;
@@ -45,4 +47,14 @@ public class joinController {
 		model.addAttribute("member", exception.getMember());
 		return "user/join_form";
 	}
+	
+	@RequestMapping(value = "/user/idcheck", method = RequestMethod.GET)
+    @ResponseBody
+    public int idCheck(@RequestParam("id") String id){
+		
+		System.out.println("전달받은 id:"+id);
+        int cnt = memberService.idCheck(id);
+        System.out.println("전달받은 cnt:"+cnt);
+        return cnt;
+    }
 }

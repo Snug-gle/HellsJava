@@ -154,7 +154,7 @@
     cursor: pointer;
 }
 
-.admin-title {
+.admin-title , #pageNumDiv {
 	text-align: center;
 }
 
