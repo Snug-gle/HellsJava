@@ -20,18 +20,13 @@ import itwill.helljava.dto.Member;
 //3.Tiles Configuration File(XML) 작성 - 요청 처리 메소드에서 반환되는 ViewName에 대한 템플릿 페이지(JSP) 설정
 
 @Controller
-public class TilesController {
+public class HomeController {
 	@RequestMapping(value="/", method = RequestMethod.GET )
 	public String tiles() {
 		return "main";
 	}
 	
-	/*
-	 * @RequestMapping("/admin") public String admin() { return "admin"; }
-	 * 
-	 * @RequestMapping("/admin/member") public String manager() { return
-	 * "admin/member_manager"; }
-	 */
+	
 	@RequestMapping("/terms1")
 		
 	public String terms1() {
