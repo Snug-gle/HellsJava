@@ -82,7 +82,7 @@
 	border: solid 1px;
 }
 
-.posting-detail-content-body{
+/* .posting-detail-content-body{
 	max-width: 700px;
     margin: auto;
 }
@@ -130,7 +130,7 @@
 	max-width: 700px;
     margin: auto;
     display: flex;
-}
+} */
 
 .search-review-panel.panel-unit{
 	margin: 20px;
