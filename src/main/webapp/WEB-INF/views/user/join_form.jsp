@@ -96,6 +96,7 @@
                                 <p id="idMsg" class="error">아이디를 입력해 주세요.</p>
 								<p id="idRegMsg" class="error">아이디 형식에 알맞게 작성해 주세요.(영문자로 시작하는 영문자 또는 숫자 6~20자)</p>
 								<p id="idCheckMsg" class="error">아이디 중복검사를 반드시 실행해 주세요.</p>
+								<div>${message}</div>
                             </div>
                              <div class="form-group">
                                 <label for="passwordLabel">비밀번호</label>
@@ -231,5 +232,40 @@
 		return submitResult;
 	});
 	
+	$(function() {
+	    //idck 버튼을 클릭했을 때 
+	    $("#idCheck").click(function() {
+	        
+	        //userid 를 param.
+	        var userid =  $("#memberId").val(); 
+	        
+	        $.ajax({
+	            async: true,
+	            type : 'get',
+	            data : userid,
+	            url : "user/idcheck?id="+userid,
+	            contentType: "application/json; charset=UTF-8",
+	            success : function(cnt) {
+	                if (cnt > 0) {
+	                    
+	                    alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
+	                    $("#memberId").focus();
+	                    
+	                
+	                } else {
+	                    alert("사용가능한 아이디입니다.");
+	                    $("#memberPw").focus();
+	                    //아이디가 중복하지 않으면  idck = 1 
+	                    idck = 1;
+	                    
+	                }
+	            },
+	            error : function(error) {
+	                
+	                alert("error : " + error);
+	            }
+	        });
+	    });
+	});
 
 	</script>

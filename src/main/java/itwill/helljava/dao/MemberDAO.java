@@ -21,4 +21,6 @@ public interface MemberDAO {
 	Member selectSearchMember(Map<String, Object> map);
 	
 	List<Member> selectMemberList(Map<String, Object> map);
+	//
+	int selectIdCheck(String member_id);
 }

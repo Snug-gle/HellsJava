@@ -87,5 +87,10 @@ public class MemberServiceImpl implements MemberService {
 			throw new LoginAuthFailException("아이디가 없거나 비밀번호가 맞지 않습니다.", member.getMemberId());
 		}
 	}
+	
+	@Override
+	public int idCheck(String member_id) {
+		return memberDAO.selectIdCheck(member_id);
+	}
 
 }

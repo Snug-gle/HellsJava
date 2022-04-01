@@ -50,6 +50,10 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<Member> selectMemberList(Map<String, Object> map) {
 		return sqlSession.getMapper(MemberMapper.class).selectMemberList(map);
 	}
-
+	
+	@Override
+	public int selectIdCheck(String member_id) {
+		return sqlSession.getMapper(MemberMapper.class).selectIdCheck(member_id);
+	}
 	
 }

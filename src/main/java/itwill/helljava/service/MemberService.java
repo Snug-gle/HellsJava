@@ -20,4 +20,5 @@ public interface MemberService {
 	Member getSearchMember(Map<String, Object> map) throws MemberIdSearchNotFoundException, MemberPwSearchNotFoundException;
 	List<Member> getMemberList(Map<String, Object> map);
 	void loginAuth(Member member) throws LoginAuthFailException;
+	int idCheck(String member_id);
 }
