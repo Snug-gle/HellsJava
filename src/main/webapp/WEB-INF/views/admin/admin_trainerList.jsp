@@ -140,7 +140,14 @@
 			</form>
 		</div>
 	</div>
-	
+	<form id="searchForm" method="get">
+		<select id = "nameIdSearch" name = "nameIdSearch">
+			<option value = "member_name" selected="selected">&nbsp;이름&nbsp;</option>
+			<option value = "member_id" >&nbsp;아이디&nbsp;</option>			
+		</select>
+		<input type="text" name="searchValue" id="searchValue">
+		<button type="button" id="searchBtn">검색</button>
+	</form>
 </div>
 
 <script type="text/javascript">
