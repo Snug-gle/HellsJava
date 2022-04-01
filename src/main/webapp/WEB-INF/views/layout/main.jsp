@@ -40,26 +40,27 @@
              </div>
 		</div>
   
-		 <div class="panel panel-primary" id="trainer-content" style="float: left;">
-			<div class="panel-heading">
-				<h3 class="panel-title" style="text-align: center;">     
-					트레이너명
-				</h3>
-			</div>
-			<div class="panel-body" style="text-align: center;">
-				<form class="form-horizontal" role="form">
-					<div class="profile-pic text-center">
-						<img src="<spring:url value="/img/avatar2.png"/>" alt="" class="img-circle">
-					</div>
-					<!-- <span class="text-muted">소속센터명</span> -->
-					<div class="form-group">
-						<p>트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명</p>
-					</div>
-				 </form>
-			</div>
+		 <div class="panel panel-primary" id="trainer-content" style="float: left;" onclick="location='<c:url value="/content/posting_detail"/>'">
+				<div class="panel-heading">
+					<h3 class="panel-title" style="text-align: center;">     
+						트레이너명
+					</h3>
+				</div>
+				<div class="panel-body" style="text-align: center;">
+					<form class="form-horizontal" role="form">
+						<div class="profile-pic text-center">
+							<img src="<spring:url value="/img/avatar2.png"/>" alt="" class="img-circle">
+						</div>
+						<!-- <span class="text-muted">소속센터명</span> -->
+						<div class="form-group">
+							<p>트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명</p>
+						</div>
+					 </form>
+				</div>
+			
 		</div>
 
-		<div class="panel panel-primary" id="trainer-content" style="float: left; margin: 0px 5%;">
+		<div class="panel panel-primary" id="trainer-content" style="float: left; margin: 0px 5%;" onclick="location='<c:url value="/content/posting_detail"/>'">
 			<div class="panel-heading">
 				<h3 class="panel-title" style="text-align: center;">     
 					트레이너명
@@ -77,7 +78,7 @@
 				 </form>
 			</div>
 		</div>
-		<div class="panel panel-primary" id="trainer-content" style="float: left;">
+		<div class="panel panel-primary" id="trainer-content" style="float: left;" onclick="location='<c:url value="/content/posting_detail"/>'">
 			<div class="panel-heading">
 				<h3 class="panel-title" style="text-align: center;">     
 					트레이너명
@@ -120,7 +121,7 @@
 					<div class="form-group">
 						<p>좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요</p>
 					</div>
-					<span class="review-trainer-name">ㅇㅇㅇ 트레이너</span>
+					<span class="review-trainer-name" onclick="location='<c:url value="/content/posting_detail"/>'">ㅇㅇㅇ 트레이너</span>
 					<div class="main-review-panel-score">
 						<i type="button" class="fa fa-heart"></i>
 						<label>566</label>
@@ -142,7 +143,7 @@
 					<div class="form-group">
 						<p>좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요</p>
 					</div>
-					<span class="review-trainer-name">ㅇㅇㅇ 트레이너</span>
+					<span class="review-trainer-name" onclick="location='<c:url value="/content/posting_detail"/>'">ㅇㅇㅇ 트레이너</span>
 					<div class="main-review-panel-score">
 						<i type="button" class="fa fa-heart"></i>
 						<label>566</label>
@@ -164,7 +165,7 @@
 					<div class="form-group">
 						<p>좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요</p>
 					</div>
-					<span class="review-trainer-name">ㅇㅇㅇ 트레이너</span>
+					<span class="review-trainer-name" onclick="location='<c:url value="/content/posting_detail"/>'">ㅇㅇㅇ 트레이너</span>
 					<div class="main-review-panel-score">
 						<i type="button" class="fa fa-heart"></i>
 						<label>566</label>

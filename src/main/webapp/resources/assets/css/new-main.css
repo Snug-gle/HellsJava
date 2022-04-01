@@ -227,10 +227,8 @@
     padding: 10px;
     background: lightgray;
 }
-.panel-list-unit {
-	cursor: pointer;	
-}
-.admin-list-body-listTitle{
+.panel-list-unit , .admin-list-body-listTitle , #trainer-content,
+.review-trainer-name {
 	cursor: pointer;	
 }
 
@@ -245,8 +243,6 @@
 	list-style:none;
    	padding-left:0px;
 }
-
-
 
 .admin-list-body-listBody , .admin-list-body-listBody-review,
 .admin-list-body-listBody-btn4 , .admin-list-body-listBody-btn5
