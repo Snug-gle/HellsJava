@@ -52,7 +52,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void modifyMemberPw(Map<String, Object> map) {		
+	public void modifyMemberPw(Map<String, Object> map) {	
+		System.out.println((String) map.get("memberPw"));
 		map.put("memberPw",(BCrypt.hashpw((String) map.get("memberPw"), BCrypt.gensalt())));
 		memberDAO.updateMemberPw(map);
 	}
