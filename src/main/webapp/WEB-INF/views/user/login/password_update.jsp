@@ -58,7 +58,7 @@
                                 <input type="hidden" name = "memberNo" value="${member.memberNo}">
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <input type="password" class="form-control" id="passwd" placeholder="새로 설정할 비밀번호를 입력해 주세요">
+                                        <input type="password" name = "memberPw"class="form-control" id="passwd" placeholder="새로 설정할 비밀번호를 입력해 주세요">
                                         <p id="passwdMsg" class="error">비밀번호를 입력해 주세요.</p>
 										<p id="passwdMsg2" class="error">비밀번호는 8 ~ 16자 영문, 숫자 조합으로 입력해주세요</p>
                                     </div>

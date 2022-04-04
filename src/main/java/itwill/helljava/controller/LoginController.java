@@ -34,7 +34,7 @@ public class LoginController {
 		memberService.loginAuth(member);
 		session.setAttribute("loginUserinfo",memberService.getIdMember(member.getMemberId()));
 		// 예외가 발생되지 않은 경우 인증 성공 - 세션에 권한 관련 정보를 속성값으로 저장
-		return "/main";
+		return "main";
 	}
 
 	// 로그인 화면을 요청
@@ -101,9 +101,7 @@ public class LoginController {
 	
 	// 포스트 방식 -> 비밀번호 수정 요청 -> 로그인 페이지 이동
 	@RequestMapping(value = "/user/login/password_update", method = RequestMethod.POST)
-	public String pswdUpdate(@ModelAttribute Member member, HttpServletRequest request) {
-		
-		member.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));
+	public String pswdUpdate(@ModelAttribute Member member) {
 		
 		Map<String, Object> modifyPwMap = new HashMap<String, Object>();
 		modifyPwMap.put("memberPw",member.getMemberPw());
