@@ -117,20 +117,20 @@ function sample4_execDaumPostcode() {
 
 			<div class="tr-in-header-award-title">
 				<h3>수상경력 및 이력</h3>
-				<i class="fa fa-plus-square"></i>
+				<i class="fa fa-plus-square" id="award-plus-btn"></i>
 				<hr>
 				<div class="tr-in-header-award-list">
-					<div class="tr-in-header-award-unit">
-						<div class="tr-in-header-award-rego">
-							<i class="fa fa-minus-square"></i>
-							<input type="text" id="award_content" name= "awardContent">
+					<ul class="tr-in-header-award-unit" style=" list-style:none;">
+						<li class="tr-in-header-award-rego">
+							
+							<img alt="" src="" class="award-load-img">
+							<input type="file" id="award_image" name = "awardImage" placeholder="사진 첨부" accept="image/*"> 
+							<input type="text" id="award_content" name= "awardContent" placeholder="수상 경력 및 이력">
 							<p id="awardContentRegMsg" class="error">수상 경력 설명을 필히 입력하세요.</p>
-						</div>
-						<div class="tr-in-header-award-rego">
-							<input type="file" id = "award_image" name = "awardImage"> 
 							<p id="awardImageRegMsg" class="error">수상 경력 사진을 필히 첨부하세요.</p>
-						</div>
-					</div>
+						</li>
+					</ul>
+
 				</div>	
 			</div>
 
@@ -161,7 +161,7 @@ function sample4_execDaumPostcode() {
 
 <script>
 
-	if($("#submitBtn").click(function(){
+	$("#submitBtn").click(function(){
 		
 		var submitResult = true;
 		$(".error").css("display","none");
@@ -181,13 +181,13 @@ function sample4_execDaumPostcode() {
 		}
 		
 		// 등록 센터명 배열
-		var centerNameArr = {""};
+		var centerNameArr = ["테스트1","테스트2"];
 		
 		if($("#sample6_detailAddress").val()==""){
 			$("#centernameRegMsg").css("display","block");
 			submitResult=false;	
 			//centerNameArr 배열에 센터명이 포함되어 있는지 확인
-		} else if($.inArray($("#sample6_detailAddress").val(), centerNameArr == -1){
+		} else if($.inArray($("#sample6_detailAddress").val(), centerNameArr == -1)){
 			$("#centernameValidRegMsg").css("display","block");
 			submitResult=false;	
 		}
@@ -211,6 +211,98 @@ function sample4_execDaumPostcode() {
 		}
 		
 		return submitResult;
-	})                                
+	});                                
+	
+	//동적 태그 생성을 위한 변수 선언
+	var html2 = "<li class='tr-in-header-award-rego'>";
+	html2 += "<i class='fa fa-minus-square' id='award-remove-btn'></i>";
+	html2 += "<img alt='' src='' class='award-load-img'>";
+	html2 += "<input type='file' id='award_image' name='awardImage' accept='image/*'> ";
+	html2 += "<input type='text' id='award_content' name='awardContent' placeholder='수상 경력 및 이력'>";
+	html2 += "<p id='awardContentRegMsg' class='error'>수상 경력 설명을 필히 입력하세요.</p>";
+	html2 += "<p id='awardImageRegMsg' class='error'>수상 경력 사진을 필히 첨부하세요.</p>";
+	html2 += "</li>";
+	
+	
+	//동적 태그 생성(수상경력 추가시)
+	$(document).on("click", "#award-plus-btn", function() {
+		
+	    $(".tr-in-header-award-unit").append(html2);
+	});
+	
+	//동적 태그 삭제(수상경력 삭제시)
+	$(document).on("click", "#award-remove-btn", function() {
+		
+	    $(this).parent().remove();
+	});
+	
+	
+/* 	$(document).ready(function (e){
+    $("input[type='file']").change(function(e){
 
+      //div 내용 비워주기
+      $('#preview').empty();
+
+      var files = e.target.files;
+      var arr =Array.prototype.slice.call(files);
+      
+      //업로드 가능 파일인지 체크
+      for(var i=0;i<files.length;i++){
+        if(!checkExtension(files[i].name,files[i].size)){
+          return false;
+        }
+      }
+      
+      preview(arr);
+      
+      
+    });//file change
+    
+    function checkExtension(fileName,fileSize){
+
+      var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+      var maxSize = 20971520;  //20MB
+      
+      if(fileSize >= maxSize){
+        alert('파일 사이즈 초과');
+        $("input[type='file']").val("");  //파일 초기화
+        return false;
+      }
+      
+      if(regex.test(fileName)){
+        alert('업로드 불가능한 파일이 있습니다.');
+        $("input[type='file']").val("");  //파일 초기화
+        return false;
+      }
+      return true;
+    }
+    
+    function preview(arr){
+      arr.forEach(function(f){
+        
+        //파일명이 길면 파일명...으로 처리
+        var fileName = f.name;
+        if(fileName.length > 10){
+          fileName = fileName.substring(0,7)+"...";
+        }
+        
+         */
+         
+    //이미지 미리보기
+	$(document).on("change", "#award_image", function() {
+	    setImageFromFile(this);
+
+	});
+
+	function setImageFromFile(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	            $(input).prev().attr('src', e.target.result);
+	        }
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+	
+	
 </script>
