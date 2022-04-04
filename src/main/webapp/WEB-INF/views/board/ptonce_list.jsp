@@ -56,19 +56,18 @@
 				</div>
 			</div>
 		</c:forEach>
-		<!-- 페이지 번호 처리 -->
-		<%-- <c:forEach var="pager" items="{pager}" begin="${pager.starRow }" end="${pager.endRow }">
-			<li class="${pager.pageNum eq pageNum ? 'active' : '' }">
-			<a href="<c:url value='ptonce/list?pageNum=${pager.pageNum }'/>"></a></li>
-		</c:forEach> --%>
 		
 	</c:otherwise>
 </c:choose>
 
 
+	
+		<c:forEach var="pager" items="{pager}" begin="${pager.starRow }" end="${pager.endRow }">
+			<li class="${pager.pageNum eq pageNum ? 'active' : '' }">
+			<a href="<c:url value='ptonce/list?pageNum=${pager.pageNum }'/>"></a></li>
+		</c:forEach> 
 
-
-<!--  <div class="panel-body">
+<div class="panel-body">
 
 	<div class="panel-group accordion" id="accordion">
 		<div class="panel panel-default">
@@ -99,7 +98,7 @@
 		</div>
 	</div>
 
-</div> -->
+</div> 
 
 
 </html>
