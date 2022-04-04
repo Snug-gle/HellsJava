@@ -48,8 +48,8 @@ public class TrainerController {
 		return "/user/trainer/trainer_request";
 	}
 
-	// 트레이너 신청 포스트 요청 받아온 값
-	// 회원 번호, 프로필 사진, 우편번호, 소속센터 주소, 소속센터명, 수상 내용, 수상 사진,
+	// 트레이너 신청 POST 요청 받아온 값
+	// 회원 번호, 프로필 사진, 우편번호, 소속센터 주소, 소속센터명, 수상 내용들, 수상 사진들,
 	// 결제 비밀번호
 	@RequestMapping(value = "/trainer/request", method = RequestMethod.POST)
 	public String trainerRequest(@RequestParam Map<String, Object> map, @ModelAttribute Trainer trainer,
@@ -72,10 +72,10 @@ public class TrainerController {
 		// => 초기값으로 전달파일의 이름을 저장
 		String uploadFilename=originalFilename;
 		
-		uploadFile.transferTo(file);
+		//uploadFile.transferTo(file);
 		
 	
-		uploadFile.transferTo(new File(fileName));
+		//uploadFile.transferTo(new File(fileName));
 
 		
 			/*
