@@ -12,6 +12,7 @@ import itwill.helljava.dao.MemberDAO;
 import itwill.helljava.dto.Member;
 import itwill.helljava.exception.LoginAuthFailException;
 import itwill.helljava.exception.MemberExistsException;
+import itwill.helljava.exception.PhoneExistsException;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -21,13 +22,16 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional
-	public void addMember(Member member) throws MemberExistsException {
+	public void addMember(Member member) throws MemberExistsException, PhoneExistsException {
 		// 전달받은 회원정보의 아이디가 기존 회원의 아이디와 중복된 경우
 		if (memberDAO.selectIdMember(member.getMemberId()) != null) {
 			// 인위적 예외 발생
 			throw new MemberExistsException("이미 사용중인 아이디를 입력 하였습니다.", member);
 		}
 
+		if (memberDAO.selectPhoneMember(member.getMemberPhone()) != null) {
+			throw new PhoneExistsException("이미 사용중인 휴대폰 번호를 입력 하셨습니다.", member);
+		}
 		// 사용자로부터 입력받아 전달된 비밀번호를 암호화 처리하여 필드값 변경
 		// => 요청 처리 메소드에서 암호화 처리하여 필드값 변경 가능
 		// 암호화 처리 기능을 제공하는 jbcrypt 라이브러리를 프로젝트에 빌드 처리 - pom.xml
@@ -52,9 +56,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void modifyMemberPw(Map<String, Object> map) {	
+	public void modifyMemberPw(Map<String, Object> map) {
 		System.out.println((String) map.get("memberPw"));
-		map.put("memberPw",(BCrypt.hashpw((String) map.get("memberPw"), BCrypt.gensalt())));
+		map.put("memberPw", (BCrypt.hashpw((String) map.get("memberPw"), BCrypt.gensalt())));
 		memberDAO.updateMemberPw(map);
 	}
 
@@ -71,6 +75,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member getIdMember(String member_id) {
 		return memberDAO.selectIdMember(member_id);
+	}
+
+	@Override
+	public Member getPhoneMember(String memberPhone) {
+		return memberDAO.selectPhoneMember(memberPhone);
 	}
 
 	@Override

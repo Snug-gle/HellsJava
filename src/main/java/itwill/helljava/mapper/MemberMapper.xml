@@ -50,6 +50,10 @@
 		select * from member where member_id = #{memberId}
 	</select>
 	
+	<select id="selectPhoneMember" resultType="Member">
+		select * from member where member_phone = #{memberPhone}
+	</select>
+	
 	<!-- 아이디 중복체크 -->
 	<select id="selectIdCheck" parameterType="String" resultType="int">
         SELECT COUNT(member_Id) FROM member WHERE member_id= #{memberId}

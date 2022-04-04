@@ -23,6 +23,8 @@ public interface MemberDAO {
 
 	Member selectIdMember(String member_id);
 
+	Member selectPhoneMember(String memberPhone);
+
 	// 아이디 & 비밀번호 찾기 쿼리
 	Member selectSearchMember(Map<String, Object> map);
 
@@ -30,4 +32,5 @@ public interface MemberDAO {
 
 	//
 	int selectIdCheck(String member_id);
+
 }

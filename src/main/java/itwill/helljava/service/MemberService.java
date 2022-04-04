@@ -9,10 +9,11 @@ import itwill.helljava.exception.MemberExistsException;
 import itwill.helljava.exception.MemberIdSearchNotFoundException;
 import itwill.helljava.exception.MemberNotFoundException;
 import itwill.helljava.exception.MemberPwSearchNotFoundException;
+import itwill.helljava.exception.PhoneExistsException;
 
 public interface MemberService {
 
-	void addMember(Member member) throws MemberExistsException;
+	void addMember(Member member) throws MemberExistsException, PhoneExistsException;
 
 	void modifyMember(Member member);
 
@@ -28,6 +29,8 @@ public interface MemberService {
 
 	Member getIdMember(String member_id);
 
+	Member getPhoneMember(String memberPhone);
+	
 	Member getSearchMember(Map<String, Object> map)
 			throws MemberIdSearchNotFoundException, MemberPwSearchNotFoundException;
 
