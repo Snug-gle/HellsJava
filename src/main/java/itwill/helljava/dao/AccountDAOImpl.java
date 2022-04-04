@@ -20,8 +20,8 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	@Override
-	public int deleteAccount(int member_no) {
-		return sqlSession.getMapper(AccountMapper.class).deleteAccount(member_no);
+	public int deleteAccount(int accountNo) {
+		return sqlSession.getMapper(AccountMapper.class).deleteAccount(accountNo);
 	}
 
 	@Override

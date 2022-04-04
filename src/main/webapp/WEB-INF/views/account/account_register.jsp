@@ -18,7 +18,7 @@
 							<div class="form-group">
 								<label for="bankName">&nbsp;&nbsp;&nbsp;은행명</label>
 								<div class="col-md-12">
-									<select id="selbox" name="accountBank" class="btn btn-primary dropdown-toggle">
+									<select id="selbox" name="accountBank" class="btn btn -primary dropdown-toggle">
 										<option selected="selected" style="text-align: center;">====선택====</option>
 										<option value="0">국민은행</option>
 										<option value="1">신한은행</option>
@@ -34,7 +34,7 @@
 								<label for="accountNo">&nbsp;&nbsp;&nbsp;계좌번호</label>
 								<div class="col-md-12">
 									<input id="accountNum" type="text" class="form-control"
-										name="accountNum" value="${accountNumber}"
+										name="accountNumber"
 										placeholder="계좌번호를 입력해주세요" />
 									<div id="idMsg" class="error">계좌 번호를 입력해 주세요.</div>
 									<div id="idRegMsg" class="error">숫자만 입력해 주세요.</div>
@@ -44,7 +44,7 @@
 								<label for="payPw">&nbsp;&nbsp;&nbsp;결제비밀번호</label>
 								<div class="col-md-12">
 									<input id="passwd" type="password" class="form-control"
-										name="passwd" value="${account.accountPw}"
+										name=accountPw 
 										placeholder="6자리의 숫자를 입력해주세요" />
 									<p id="passwdMsg" class="error">비밀번호를 입력해 주세요.</p>
 									<p id="passwdMsg2" class="error">비밀번호는 6자리의 숫자를 입력해주세요</p>

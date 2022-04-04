@@ -48,7 +48,7 @@ public class AccountController {
 		account.setMemberNo(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
 		accountService.addAccount(account);
 		
-		return "/account/account_info";
+		return "redirect:/account/info";
 	}
 	
 	// 계좌 삭제 요청
