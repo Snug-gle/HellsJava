@@ -12,7 +12,21 @@
 .trainer-sidemenu {
 	margin-left: 2%;
 	margin-right: 2%;
-	
+}
+#ask-label {
+	width: 20%;
+	float: left;
+}
+
+.form-control {
+	width: 80%;
+}
+
+.ptOnce-form-group {
+	border-bottom: 1px solid #444444;
+    padding: 5px;
+	margin-bottom: 0px;
+}
 }
 </style>
 <div class="posting-box">
@@ -330,6 +344,10 @@
 	<div class="modal-dialog" id="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
+				<div class="logo-location">
+					<a href="<c:url value="/"/>" class="modal-header-logo"><i
+						class="icon-layers"></i>오늘의 짐</a>
+				</div>
 			</div>
 			<div class="modal-body">
 				<div id="login-wrapper">
@@ -410,15 +428,15 @@
 							</form>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<div>
-							<button type="submit" class="btn btn-primary">결제</button>
-							<button type="button" data-dismiss="modal"
-								class="btn btn-primary">닫기</button>
-						</div>
-					</div>
 				</div>
 			</div>
+			<div class="modal-footer">
+				<div>
+					<button type="submit" class="btn btn-primary">결제</button>
+					<button type="button" data-dismiss="modal" class="btn btn-primary">닫기</button>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>
@@ -428,33 +446,36 @@
 	<div class="modal-dialog" id="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h1>오늘의 짐</h1>
-				<br>
-				<h2>문의작성</h2>
-			</div>
-			<div class="modal-body">
-
-				<div>
-					<form action="" method="post" style="text-align: -webkit-center;">
-						<table>
-							<tr>
-								<td>이름</td>
-								<td>김남영</td>
-							</tr>
-							<tr>
-								<td>연락처</td>
-								<td>번호임 ㅇㅇ</td>
-
-							</tr>
-							<tr>
-								<td>문의 내용</td>
-							</tr>
-						</table>
-						<textarea rows="" cols=""></textarea>
-					</form>
+				<div class="logo-location">
+					<a href="<c:url value="/"/>" class="modal-header-logo"><i class="icon-layers"></i>오늘의 짐</a>
 				</div>
 			</div>
-			<div class="modal-footer">
+			<div class="modal-body">
+				<div id="login-wrapper">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">1회 PT 문의</h3>
+						</div>
+						<div class="panel-body">
+							<form action="" method="post" style="text-align: -webkit-center;">
+								<div class="ptOnce-form-group">
+									<label for="name" id="ask-label">이름</label> 
+									<input type="text" readonly="readonly" class="form-control" id="memberName"name="memberName" value="${loginUserinfo.memberName }">
+								</div>
+								<br>
+								<div class="ptOnce-form-group">
+									<label for="phone" id="ask-label">연락처</label> 
+									<input type="text" readonly="readonly" class="form-control" id="memberName"name="memberName" value="${loginUserinfo.memberPhone }">
+								</div>
+								<br>
+								<div class="ptOnce-form-group">
+									<label for="ask" id="ask-label">문의내용</label> 
+									<textarea id="nestable-output" class="form-control" style="resize: none;"></textarea>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
 				<div>
 					<button type="submit">확인</button>
 					<button type="button" data-dismiss="modal">닫기</button>
