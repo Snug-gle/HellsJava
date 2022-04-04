@@ -27,6 +27,16 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	@Override
+	public int updateMemberPw(Map<String, Object> map) {
+		return sqlSession.getMapper(MemberMapper.class).updateMemberPw(map);
+	}
+	
+	@Override
+	public int updateMemberCash(Map<String, Object> map) {
+		return sqlSession.getMapper(MemberMapper.class).updateMemberCash(map);
+	}
+	
+	@Override
 	public int selectMemberListCount(Map<String, Object> map) {
 		return sqlSession.getMapper(MemberMapper.class).selectMemberListCount(map);
 	}

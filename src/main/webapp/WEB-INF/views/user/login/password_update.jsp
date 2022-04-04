@@ -109,8 +109,10 @@
 		if($("#passwd2").val()=="") {
 			$("#passwd2Msg").css("display","block");
 			submitResult=false;
+		} 
+
 		//비밀번호 일치 검사
-		} else if($("#passwd").val()!=$("#passwd2").val()) {
+		if($("#passwd").val()==$("#passwd2").val()) {
 			$("#pwMatchMsg").css("display","block");
 			submitResult=false;
 		}

@@ -71,7 +71,7 @@ function sample4_execDaumPostcode() {
 <div class="tr-in-centent" >
 
 	<%-- 트레이너 컨트롤러로 보내는 폼 --%>
-	<form id="trainerReqestForm" enctype="multipart/form-data" action="<c:url value = "${pageContext.request.contextPath}/trainer/request"/>" method = "post">
+	<form id="trainerReqestForm" enctype="multipart/form-data" action="<c:url value = "/trainer/request"/>" method = "post">
 		<input type="hidden" name="memberNo" value="${loginUserinfo.memberNo }">
 			<div class="tr-in-header">
 				<div class="tr-in-header-title">
@@ -81,7 +81,7 @@ function sample4_execDaumPostcode() {
 				<div class="tr-in-header-img">
 					<div class="">
 						<img alt="" src="" class="trainer-Profile-img">
-						<input id ="trainer_profile_image" type="file" readonly="readonly" name="trainerProfileImage" placeholder="프로필 사진 첨부" accept="image/*">
+						<input id ="trainer_profile_image" type="file" readonly="readonly" name="profileImage" placeholder="프로필 사진 첨부" accept="image/*">
 						<div id="trainerProfileImgRegMsg" class="error">프로필 사진을 필히 첨부하시오.</div>
 					</div>
 				
@@ -125,8 +125,8 @@ function sample4_execDaumPostcode() {
 						<li class="tr-in-header-award-rego">
 							
 							<img alt="" src="" class="award-load-img">
-							<input type="file" id="award_image" name = "awardImage" placeholder="사진 첨부" accept="image/*"> 
-							<input type="text" id="award_content" name= "awardContent" placeholder="수상 경력 및 이력">
+							<input type="file" id="award_image" name = "aImage" placeholder="사진 첨부" accept="image/*"> 
+							<input type="text" id="award_content" name= "aContent" placeholder="수상 경력 및 이력">
 							<p id="awardContentRegMsg" class="error">수상 경력 설명을 필히 입력하세요.</p>
 							<p id="awardImageRegMsg" class="error">수상 경력 사진을 필히 첨부하세요.</p>
 						</li>
@@ -154,8 +154,8 @@ function sample4_execDaumPostcode() {
 			</div>
 		
 			<div class="tr-in-footer">
-				<button id="submitBtn" type="button">확인</button>
-				<button type="button">다시쓰기</button>
+				<button id="submitBtn" type="submit">확인</button>
+				<button type="reset">다시쓰기</button>
 			</div>
 		</form>
 	</div>
@@ -170,25 +170,27 @@ function sample4_execDaumPostcode() {
 		
 		//프로필 이미지 유효성 검사
 		if($("#trainer_profile_image").val() == ""){
-			$("#trainerProfileImageRegMsg").css("display","block");
+			$("#trainerProfileImgRegMsg").css("display","block");
 			submitResult = false;
 		}
 		
 		// 주소 유효성 검사
-		if($("#sample6_address").val() == ""){
+		if($("#sample4_roadAddress").val() == ""){
 			$("#addressRegMsg").css("display","block");
-			$()
 			submitResult = false;
 		}
 		
 		// 등록 센터명 배열
-		var centerNameArr = ["테스트1","테스트2"];
+		var centerNameArr = ['테스트1','테스트2'];
 		
-		if($("#sample6_detailAddress").val()==""){
+		// 센터명 유효성 검사
+		if($("#sample4_detailAddress").val()==""){
 			$("#centernameRegMsg").css("display","block");
 			submitResult=false;	
-			//centerNameArr 배열에 센터명이 포함되어 있는지 확인
-		} else if($.inArray($("#sample6_detailAddress").val(), centerNameArr == -1)){
+		}  
+		
+		//centerNameArr 배열에 센터명이 포함되어 있는지 확인
+		if((centerNameArr.includes($("#sample4_detailAddress").val()))==false){
 			$("#centernameValidRegMsg").css("display","block");
 			submitResult=false;	
 		}

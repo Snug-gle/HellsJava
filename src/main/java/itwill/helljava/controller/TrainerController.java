@@ -22,12 +22,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
+import itwill.helljava.Enum.MemberEnum;
 import itwill.helljava.dto.Award;
 import itwill.helljava.dto.Member;
 import itwill.helljava.dto.Trainer;
 import itwill.helljava.exception.AccountPwAuthException;
 import itwill.helljava.service.AccountSevice;
 import itwill.helljava.service.AwardService;
+import itwill.helljava.service.MemberService;
 import itwill.helljava.service.TrainerService;
 
 @Controller
@@ -45,6 +47,9 @@ public class TrainerController {
 
 	@Autowired
 	private AccountSevice accountSevice;
+	
+	@Autowired
+	private MemberService memberService;
 
 	// 트레이너 신청 화면을 요청
 	@RequestMapping(value = "/trainer/request", method = RequestMethod.GET)
@@ -56,36 +61,38 @@ public class TrainerController {
 	// 회원 번호, 프로필 사진, 우편번호, 소속센터 주소, 소속센터명, 수상 내용들, 수상 사진들,
 	// 결제 비밀번호
 	@RequestMapping(value = "/trainer/request", method = RequestMethod.POST)
-	public String trainerRequest(@ModelAttribute Trainer trainer, @ModelAttribute Award award, 
+	public String trainerRequest(@RequestParam Map<String, Object> map, @ModelAttribute Trainer trainer, 
 			MultipartHttpServletRequest request, HttpSession session)
 			throws AccountPwAuthException, IllegalStateException, IOException {
 
 		// 파일 없을 경우 다시 요청 페이지로 가라
 		if (request.getFileNames() == null) {
-			return "/user/trainer/trainer_request";
+			return "redirect:/trainer/request";
 		}
 		
 		// 수상 경력 설명 배열
-		String[] content = request.getParameterValues("awardContent");
+		String[] content = request.getParameterValues("aContent");
 		
 		// input 태그 name 속성 이름들 담고
 		Iterator<String> fileNames = request.getFileNames();
 
+		
+		int contentCount = 0; // 수상 설명 카운트 변수
+		
 		// 이름들 있으면 돌려라 얜 두번 돌겄지..
 		while (fileNames.hasNext()) {
 
 			String fileName = fileNames.next();
-
-			if (fileName.equals("trainerProfileImage")) { // 프로필 이미지일 경우
+			
+			if (fileName.equals("profileImage")) { // 프로필 이미지일 경우
 				MultipartFile profileFile = request.getFile(fileName);
 
 				// WebApplicationContext 객체를 이용하여 ServletContext 객체를 제공받아 서버 디렉토리의
 				// 파일 시스템 경로를 반환받아 저장
 				String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/profileImages");
 
-				// 일단 프로필 이미지 받은 거 전달 파일명을 트레이너 번호든 이름이든 붙여서 반환받아 저장
-				String originalFilename = profileFile.getOriginalFilename() + "_profile_memberNo_"
-						+ ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
+				// 일단 프로필 이미지 받은 거 전달 파일명을 저장
+				String originalFilename = profileFile.getOriginalFilename();
 				
 				// 트레이너 이미지 파일 원본 주소 setter로 추가
 				trainer.setTrainerProfileImg(originalFilename);
@@ -112,9 +119,11 @@ public class TrainerController {
 			} 
 			
 			else { // 수상경력 이미지일 경우
+				
+				Award award = new Award();
 				List<MultipartFile> awardFiles = request.getFiles(fileName);
 
-				int contentCount = 0; // 수상 설명 카운트 변수
+				
 				// 얜 두번 돌거 아녀
 				for (MultipartFile multipartFile : awardFiles) {
 					
@@ -122,8 +131,7 @@ public class TrainerController {
 					// 파일 시스템 경로를 반환받아 저장
 					String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/awardImages");
 
-					String originalFilename = multipartFile.getOriginalFilename() + "_award_memberNo_"
-							+ ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
+					String originalFilename = multipartFile.getOriginalFilename();
 					
 					award.setAwardContent(content[contentCount]);
 					award.setAwardImage(originalFilename);
@@ -154,10 +162,20 @@ public class TrainerController {
 			}
 		}
 		
+		// 트레이너로 다 신청 되면은 멤버 등급을 말이야 트레이너 예정으로 변경해야지
+		Member modifyMember = new Member();
+		modifyMember.setMemberNo(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
+		modifyMember.setMemberStatus(MemberEnum.트레이너예정.getValue());
+		memberService.modifyMember(modifyMember);
+		
+		// 회원번호는 이미 map에 들가잇음. 캐쉬 차감
+		map.put("cash", 15000);
+		memberService.modifyMemberCash(map);
+		
 		// 이제 계좌 정보를 가져와서 비밀번호를 비교하고 결제 완료할 것임
 		accountSevice.accountPwAuth(accountSevice.getMemberAccount(trainer.getMemberNo()));
 
-		return "user/trainer/trainer_mypage"; // 트레이너 신청 내역 페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
+		return "/mypage"; // 트레이너 신청 내역 페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
 	}
 
 	@ExceptionHandler(value = AccountPwAuthException.class)
