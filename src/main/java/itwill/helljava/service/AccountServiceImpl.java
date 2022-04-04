@@ -32,14 +32,13 @@ public class AccountServiceImpl implements AccountSevice {
 	
 		// 계좌 비번에 첨가물 섞기
 		account.setAccountPw(BCrypt.hashpw(account.getAccountPw(), BCrypt.gensalt()));
-
 		accountDAO.insertAccount(account);
 	}
 	
 	@Override
 	@Transactional
-	public void removeAccount(int member_no) {
-		accountDAO.deleteAccount(member_no);
+	public void removeAccount(int accountNo) {
+		accountDAO.deleteAccount(accountNo);
 	}
 
 	@Override

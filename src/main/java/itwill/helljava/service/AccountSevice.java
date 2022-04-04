@@ -8,7 +8,7 @@ public interface AccountSevice {
 
 	void addAccount(Account account);
 
-	void removeAccount(int member_no);
+	void removeAccount(int accountNo);
 
 	Account getMemberAccount(int member_no);
 	

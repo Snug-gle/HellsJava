@@ -14,7 +14,7 @@
 	</insert>
 	
 	<delete id="deleteAccount">
-		delete from account where member_no = #{member_no}
+		delete from account where account_no = #{accountNo}
 	</delete>
 	
 	<select id="selectAccount"  resultType="Account">

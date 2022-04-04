@@ -220,8 +220,8 @@ function sample4_execDaumPostcode() {
 	var html2 = "<li class='tr-in-header-award-rego'>";
 	html2 += "<i class='fa fa-minus-square' id='award-remove-btn'></i>";
 	html2 += "<img alt='' src='' class='award-load-img'>";
-	html2 += "<input type='file' id='award_image' name='awardImage' accept='image/*'> ";
-	html2 += "<input type='text' id='award_content' name='awardContent' placeholder='수상 경력 및 이력'>";
+	html2 += "<input type='file' id='award_image' name='aImage' accept='image/*'> ";
+	html2 += "<input type='text' id='award_content' name='aContent' placeholder='수상 경력 및 이력'>";
 	html2 += "<p id='awardContentRegMsg' class='error'>수상 경력 설명을 필히 입력하세요.</p>";
 	html2 += "<p id='awardImageRegMsg' class='error'>수상 경력 사진을 필히 첨부하세요.</p>";
 	html2 += "</li>";

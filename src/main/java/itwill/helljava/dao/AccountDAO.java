@@ -7,7 +7,7 @@ public interface AccountDAO {
 
 	int insertAccount(Account account);
 
-	int deleteAccount(int member_no);
+	int deleteAccount(int accountNo);
 
 	Account selectAccount(int member_no);
 

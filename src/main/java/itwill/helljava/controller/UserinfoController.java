@@ -27,6 +27,6 @@ public class UserinfoController {
 	
 	@RequestMapping("/mypage")
 	public String myPage2() {
-		return "material/mypage";
+		return "/material/mypage";
 	}
 }

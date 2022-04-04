@@ -76,9 +76,6 @@ public class TrainerController {
 		// input 태그 name 속성 이름들 담고
 		Iterator<String> fileNames = request.getFileNames();
 
-		
-		int contentCount = 0; // 수상 설명 카운트 변수
-		
 		// 이름들 있으면 돌려라 얜 두번 돌겄지..
 		while (fileNames.hasNext()) {
 
@@ -123,10 +120,10 @@ public class TrainerController {
 				Award award = new Award();
 				List<MultipartFile> awardFiles = request.getFiles(fileName);
 
+				int contentCount = 0; // 수상 설명 카운트 변수
 				
-				// 얜 두번 돌거 아녀
+				// 얜 이미지 입력 갯수만큼 돌것지.
 				for (MultipartFile multipartFile : awardFiles) {
-					
 					// WebApplicationContext 객체를 이용하여 ServletContext 객체를 제공받아 서버 디렉토리의
 					// 파일 시스템 경로를 반환받아 저장
 					String uploadDirectory = context.getServletContext().getRealPath("/resources/assets/awardImages");
@@ -134,10 +131,11 @@ public class TrainerController {
 					String originalFilename = multipartFile.getOriginalFilename();
 					
 					award.setAwardContent(content[contentCount]);
+					contentCount++; // 돌려주고.
 					award.setAwardImage(originalFilename);
 					// 트레이너 번호를 얻어와서 award 추가
 					// 얘가 지금 트레이너를 추가하는 과정인데 과연 트레이너번호를 가져올 수 있을까..?
-					// => 프로필 이미지 저장할 때 트레이너 추가해버림
+					// => 프로필 이미지 저장할 때 트레이너 추가해버림 됨
 					award.setTrainerNo(trainerService.getTrainer(trainer.getMemberNo()).getTrainerNo());
 					awardService.addAward(award);
 					
@@ -157,7 +155,6 @@ public class TrainerController {
 
 					multipartFile.transferTo(file);
 					
-					contentCount++; // 돌려주고.
 				}
 			}
 		}
@@ -175,7 +172,7 @@ public class TrainerController {
 		// 이제 계좌 정보를 가져와서 비밀번호를 비교하고 결제 완료할 것임
 		accountSevice.accountPwAuth(accountSevice.getMemberAccount(trainer.getMemberNo()));
 
-		return "/mypage"; // 트레이너 신청 내역 페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
+		return "redirect:/mypage"; // 마이페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
 	}
 
 	@ExceptionHandler(value = AccountPwAuthException.class)
