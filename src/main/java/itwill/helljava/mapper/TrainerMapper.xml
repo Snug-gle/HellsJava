@@ -9,8 +9,8 @@
 		#{trainerNo},
 		#{memberNo},
 		#{trainerProfileImg},
-		#{trainerAddress1},
-		#{trainerAddresss2},
+		#{trainerAddress},
+		#{trainerCentername},
 		#{trainerZip})
 	</insert>
 	
@@ -18,16 +18,16 @@
 		update trainer
 		<trim prefix="set" suffixOverrides=",">
 			<if test="trainerProfileImg!=null and trainerProfileImg!=''">
-				trainer_profile_img=#{trainerProfileImg},
+				trainer_profile_img= #{trainerProfileImg},
 			</if>
-			<if test="trainerAddress1!=null and trainerAddress1!=''">
-				trainer_profile_img=#{trainerProfileImg},
+			<if test="trainerAddress!=null and trainerAddress!=''">
+				trainer_address= #{trainerAddress},
 			</if>
-			<if test="trainerAddresss2!=null and trainerAddresss2!=''">
-				trainer_addresss2=#{trainerAddresss2},
+			<if test="trainerCentername!=null and trainerCentername!=''">
+				trainer_centername= #{trainerCentername},
 			</if>
 			<if test="trainerZip!=null and trainerZip!=''">
-				trainer_zip=#{trainerZip}
+				trainer_zip= #{trainerZip}
 			</if>
 		</trim>
 			where trainer_no = #{trainerNo}

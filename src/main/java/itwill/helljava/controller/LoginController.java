@@ -34,25 +34,25 @@ public class LoginController {
 		memberService.loginAuth(member);
 		session.setAttribute("loginUserinfo",memberService.getIdMember(member.getMemberId()));
 		// 예외가 발생되지 않은 경우 인증 성공 - 세션에 권한 관련 정보를 속성값으로 저장
-		return "main";
+		return "/main";
 	}
 
 	// 로그인 화면을 요청
 	@RequestMapping(value = "/user/login/login_form", method = RequestMethod.GET)
 	public String loginForm() {
-		return "user/login/login_form";
+		return "/user/login/login_form";
 	}
 
 	// 아이디 찾기 페이지 요청
 	@RequestMapping(value = "/user/login/id_search", method = RequestMethod.GET)
 	public String idSearch() {
-		return "user/login/id_search";
+		return "/user/login/id_search";
 	}
 
 	// 비밀번호 찾기 => 수정 페이지 요청
 	@RequestMapping(value = "/user/login/password_search", method = RequestMethod.GET)
 	public String pswdSearch() {
-		return "user/login/password_search";
+		return "/user/login/password_search";
 	}
 
 	// 포스트 방식 -> 아이디 찾기 작업 요청
@@ -74,7 +74,7 @@ public class LoginController {
 
 		model.addAttribute("id", memberService.getSearchMember(idSearchMap).getMemberId());
 
-		return "user/login/id_print";
+		return "/user/login/id_print";
 	}
 
 	// 포스트 방식 -> 비밀번호 수정시 필요한 3개(아이디, 이름, 연락처) 유효성 검사 요청
@@ -96,7 +96,7 @@ public class LoginController {
 		}
 
 		model.addAttribute("member", memberService.getSearchMember(pwSearchMap)); // 멤버 객체 넘기기
-		return "user/login/password_update";
+		return "/user/login/password_update";
 	}
 	
 	// 포스트 방식 -> 비밀번호 수정 요청 -> 로그인 페이지 이동
@@ -104,9 +104,13 @@ public class LoginController {
 	public String pswdUpdate(@ModelAttribute Member member, HttpServletRequest request) {
 		
 		member.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));
-		memberService.modifyMember(member);
 		
-		return "user/login/login_form";
+		Map<String, Object> modifyPwMap = new HashMap<String, Object>();
+		modifyPwMap.put("memberPw",member.getMemberPw());
+		modifyPwMap.put("memberNo", member.getMemberNo());
+		memberService.modifyMemberPw(modifyPwMap);
+		
+		return "/user/login/login_form";
 	}
 
 	// 로그아웃 작업 요청
@@ -124,21 +128,21 @@ public class LoginController {
 	public String exceptionHandler(LoginAuthFailException exception, Model model) {
 		model.addAttribute("message", exception.getMessage());
 		model.addAttribute("member_id", exception.getmemberId());
-		return "user/login/login_form";
+		return "/user/login/login_form";
 	}
 
 	// 아이디 찾기 시 못 찾았을 때 예외 처리
 	@ExceptionHandler(value = MemberIdSearchNotFoundException.class)
 	public String exceptionHandler(MemberIdSearchNotFoundException exception, Model model) {
 		model.addAttribute("message", exception.getMessage());
-		return "user/login/id_search";
+		return "/user/login/id_search";
 	}
 
 	// 비밀번호 찾기 및 수정 시 해당 회원 못 찾았을 때 예외 처리
 	@ExceptionHandler(value = MemberPwSearchNotFoundException.class)
 	public String exceptionHandler(MemberPwSearchNotFoundException exception, Model model) {
 		model.addAttribute("message", exception.getMessage());
-		return "user/login/password_search";
+		return "/user/login/password_search";
 	}
 
 	/*

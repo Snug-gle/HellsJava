@@ -43,16 +43,25 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Transactional
 	public void modifyMember(Member member) {
-		
-		member.setMemberPw(BCrypt.hashpw(member.getMemberPw(), BCrypt.gensalt()));
 		memberDAO.updateMember(member);
+	}
+
+	@Override
+	public void modifyMemberCash(Map<String, Object> map) {
+		memberDAO.updateMemberCash(map);
+	}
+
+	@Override
+	public void modifyMemberPw(Map<String, Object> map) {		
+		map.put("memberPw",(BCrypt.hashpw((String) map.get("memberPw"), BCrypt.gensalt())));
+		memberDAO.updateMemberPw(map);
 	}
 
 	@Override
 	public int getMemberListCount(Map<String, Object> map) {
 		return memberDAO.selectMemberListCount(map);
 	}
-	
+
 	@Override
 	public Member getMember(int member_no) {
 		return memberDAO.selectMember(member_no);
@@ -62,12 +71,12 @@ public class MemberServiceImpl implements MemberService {
 	public Member getIdMember(String member_id) {
 		return memberDAO.selectIdMember(member_id);
 	}
-	
+
 	@Override
 	public Member getSearchMember(Map<String, Object> map) {
 		return memberDAO.selectSearchMember(map);
 	}
-	
+
 	@Override
 	public List<Member> getMemberList(Map<String, Object> map) {
 		return memberDAO.selectMemberList(map);
@@ -75,19 +84,19 @@ public class MemberServiceImpl implements MemberService {
 
 	// 로그인 인증 실패 : 예외 발생, 로그인 인증 성공 : 예외 미발생
 	@Override
-	public void loginAuth(Member member) throws LoginAuthFailException{
+	public void loginAuth(Member member) throws LoginAuthFailException {
 		Member authMember = memberDAO.selectIdMember(member.getMemberId());
 		if (authMember == null) {
-			throw new LoginAuthFailException("아이디의 회원정보가 존재하지 않습니다.",member.getMemberId());
+			throw new LoginAuthFailException("아이디의 회원정보가 존재하지 않습니다.", member.getMemberId());
 		}
-		
+
 		// BCrypt.checkpw(String plainText, String hashed) : 일반 문자열과 암호화 처리된 문자열을
 		// 비교하여 다른 경우 false 반환하고 같은 경우 true를 반환하는 메소드
 		if (!BCrypt.checkpw(member.getMemberPw(), authMember.getMemberPw())) {// 비밀번호 인증 실패
 			throw new LoginAuthFailException("아이디가 없거나 비밀번호가 맞지 않습니다.", member.getMemberId());
 		}
 	}
-	
+
 	@Override
 	public int idCheck(String member_id) {
 		return memberDAO.selectIdCheck(member_id);
