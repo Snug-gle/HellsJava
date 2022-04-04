@@ -475,12 +475,14 @@
 							</form>
 						</div>
 					</div>
-					<div class="modal-footer">
-				<div>
-					<button type="submit">확인</button>
-					<button type="button" data-dismiss="modal">닫기</button>
 				</div>
 			</div>
+				<div class="modal-footer">
+					<div>
+						<button type="submit">확인</button>
+						<button type="button" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
 		</div>
 	</div>
 </div>
