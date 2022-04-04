@@ -80,8 +80,9 @@ function sample4_execDaumPostcode() {
 				</div>
 				<div class="tr-in-header-img">
 					<div class="">
+						<img alt="" src="" class="trainer-Profile-img">
+						<input id ="trainer_profile_image" type="file" readonly="readonly" name="trainerProfileImage" placeholder="프로필 사진 첨부" accept="image/*">
 						<div id="trainerProfileImgRegMsg" class="error">프로필 사진을 필히 첨부하시오.</div>
-						<input id ="trainer_profile_image" type="file" readonly="readonly" name="trainerProfileImage" placeholder="프로필 사진 첨부">
 					</div>
 				
 					<div class="tr-in-header-info">
@@ -288,7 +289,7 @@ function sample4_execDaumPostcode() {
         
          */
          
-    //이미지 미리보기
+    //수상경력 이미지 미리보기
 	$(document).on("change", "#award_image", function() {
 	    setImageFromFile(this);
 
@@ -303,6 +304,20 @@ function sample4_execDaumPostcode() {
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}
-	
+	//프로필 이미지 미리보기
+	$(document).on("change", "#trainer_profile_image", function() {
+	    setImageFromFile(this);
+
+	});
+
+	function setImageFromFile(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	            $(input).prev().attr('src', e.target.result);
+	        }
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
 	
 </script>
