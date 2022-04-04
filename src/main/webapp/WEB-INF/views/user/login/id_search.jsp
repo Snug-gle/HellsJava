@@ -39,6 +39,7 @@
                                         <input type="text" name="member_phone2" class="phone-form-control" id="member_phone2" maxlength="4">
                                         <input type="text" name="member_phone3" class="phone-form-control" id="member_phone3" maxlength="4">
                                     	<p id="phoneMsg" class="error">연락처를 입력해 주세요.</p>
+                                    	<p id="phoneRegMsg" class="error" style="text-align: center;">번호는 각 3~4자리를 입력해야합니다.</p>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -65,9 +66,14 @@ $("#idSearchForm").submit(function() {
 	
 	$(".error").css("display","none");
 	
+	$("#memberName").val($("#memberName").val().replace(/\s/g, ""));
+	$("#member_phone2").val($("#member_phone2").val().replace(/\s/g, ""));
+	$("#member_phone3").val($("#member_phone3").val().replace(/\s/g, ""));
+	
 	//이름 공백 검사
 	if($("#memberName").val()=="") {
 		$("#nameMsg").css("display","block");
+		$("#memberName").focus();
 		submitResult=false;
 	}
 	
