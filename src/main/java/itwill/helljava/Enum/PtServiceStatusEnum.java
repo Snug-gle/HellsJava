@@ -12,14 +12,14 @@ public enum PtServiceStatusEnum {
 	public static PtServiceStatusEnum of(final int number) {
 		
 		switch (number) {
-		case 1:
+		case 0:
 			return 삭제리뷰;
 		case 2:
-			return 일반리뷰;
-		case 3:
 			return 미확인문의;
-		default:
+		case 3:
 			return 확인문의;
+		default:
+			return 일반리뷰;
 		}
 	}
 	public int getValue() {
