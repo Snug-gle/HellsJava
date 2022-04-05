@@ -146,8 +146,9 @@ function sample4_execDaumPostcode() {
 						</div>
 						<div>
 							<h3>결제 비밀번호</h3>
-							<input type="password" id="account_pw" name="account_pw">
+							<input type="password" id="account_pw" name="accountPw">
 							<p id="accountPwRegMsg" class="error">결제 비밀번호를 필히 입력하시오.</p>
+							<p id="accountErrorMsg">${message}</p>
 						</div>
 					</div>
 				</div>

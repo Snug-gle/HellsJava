@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
 import itwill.helljava.Enum.MemberEnum;
+import itwill.helljava.dto.Account;
 import itwill.helljava.dto.Award;
 import itwill.helljava.dto.Member;
 import itwill.helljava.dto.Trainer;
@@ -30,6 +31,7 @@ import itwill.helljava.exception.AccountPwAuthException;
 import itwill.helljava.service.AccountSevice;
 import itwill.helljava.service.AwardService;
 import itwill.helljava.service.MemberService;
+import itwill.helljava.service.PayService;
 import itwill.helljava.service.TrainerService;
 
 @Controller
@@ -62,6 +64,7 @@ public class TrainerController {
 	// 결제 비밀번호
 	@RequestMapping(value = "/trainer/request", method = RequestMethod.POST)
 	public String trainerRequest(@RequestParam Map<String, Object> map, @ModelAttribute Trainer trainer, 
+			@ModelAttribute Account account,
 			MultipartHttpServletRequest request, HttpSession session)
 			throws AccountPwAuthException, IllegalStateException, IOException {
 
@@ -170,7 +173,9 @@ public class TrainerController {
 		memberService.modifyMemberCash(map);
 		
 		// 이제 계좌 정보를 가져와서 비밀번호를 비교하고 결제 완료할 것임
-		accountSevice.accountPwAuth(accountSevice.getMemberAccount(trainer.getMemberNo()));
+		// account에 들어있는 값 : 받아온 비밀번호와 회원 번호
+		account.setMemberNo(trainer.getMemberNo());
+		accountSevice.accountPwAuth(account);
 
 		return "redirect:/mypage"; // 마이페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
 	}

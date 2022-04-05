@@ -3,18 +3,18 @@
 <mapper namespace="itwill.helljava.mapper.PayMapper">
 	<insert id="insertPay">
 		<selectKey resultType="int" keyProperty="payNo" order="BEFORE">
-			select pay_seq.nextval from dual
+			select seq_pay.nextval from dual
 		</selectKey>
-		insert into values(#{"payNo"}, #{memberNo}, sysdate, ${payPrice}, ${payType}) 
+		insert into pay values(#{payNo}, #{memberNo}, sysdate, #{payPrice}, #{payType}) 
 	</insert>
 	
 	<select id="selectPay" resultType="Pay">
-		select * from pay where pay_no = #{pay_no} 
+		select * from pay where pay_no = #{payNo} 
 	</select>
 	
 	<select id="selectPayList" resultType="Pay">
 		select * from (select rownum rn,board.* from 
-		(select * from pay where member_no = #{member_no} order by pay_no desc)
+		(select * from pay where member_no = #{memberNo} order by pay_no desc)
 		board) where rn between #{startRow} and #{endRow}
 	</select>
 </mapper>
