@@ -1,85 +1,125 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+.theme-default .sidebar-left {
+    border-radius: 4px;
+}
 
-<div class="userList">
-	<div class="admin-title">
-		<h2>관리자 페이지</h2>
-	</div>
-	<div class="userList-content">
-		<div class="userList-side admin-Panel admin-listPanel">
-			<div class="admin-side-bar">
-				<ul>
-					<li onclick="location.href='<c:url value="/admin/userList"/>';">회원목록</li>
-					<li onclick="location.href='<c:url value="/admin/trainerList"/>';">트레이너 목록
-						<ul>
-							<li class="admin-side-bar-tlist1">트레이너 목록</li>
-							<li class="admin-side-bar-tlist2">트레이너 신청 목록</li>
-						</ul>
+.memberBtn {
+	font-size: 13px;
+	margin-bottom: 0px;
+	width: 105px;
+}
+
+.userList {
+	margin: 100px auto;
+}
+
+.searchBtnBox {
+	margin-bottom: 0px;
+	height: 42px;
+}
+</style>
+
+
+<div class="container">
+	<div class="userList">
+		<section id="main-wrapper" class="theme-default">
+		<!-- 사이드메뉴 -->
+		<aside class="sidebar sidebar-left">
+			<nav>
+				<h1 class="sidebar-header">관리자 페이지</h1>
+				<ul class="nav nav-pills nav-stacked">
+					<li><a href="<c:url value="/admin/userList"/>"
+						title="userList"> <i class="icon-users"></i> 회원목록
+					</a></li>
+					<li class="nav-dropdown"><a href="#" title="trainerList"><span></span> 
+						<i class="icon-users"></i>트레이너 목록</a>
+							<ul class="nav-sub" data-index="0" style="display: none;">
+								<li class=""><a
+									href="<c:url value="/admin/trainerList"/>" title="Buttons">
+										트레이너목록</a></li>
+								<li><a href="" title="Sliders &amp; Progress">트레이너 신청 목록</a></li>
+							</ul>
 					</li>
-					<li onclick="location.href='<c:url value="/admin/questionList"/>';">1:1문의 목록</li>
+					<li class="nav-dropdown"><a
+						href="<c:url value="/admin/questionList"/>" title="questionList"><span></span>
+							<i class="fa  fa-fw fa-edit"></i> 1:1문의 목록 </a></li>
 				</ul>
+			</nav>
+		</aside>
+		<!-- 사이드메뉴 끝 -->
+		
+		
+		<section class="main-content-wrapper">
+			<div class="pageheader">
+				<h1>회원관리</h1>
 			</div>
-		</div>
-		<div class="userList-body admin-Panel">
-			<div class="admin-side-bar">
-				<h4>회원 관리</h4>
-				<div class="admin-list-body-list">
-					<table class="admin-list-body-list-table">
-						<colgroup>
-							<col style="width:140px">
-							<col style="width:150px">
-							<col style="width:100px">
-							<col style="width:140px">
-							<col style="width:200px">
-							<col style="width:100px">
-						</colgroup>
-						<tr>
-							<th scope="col">번호</th>
-							<th scope="col">아이디</th>
-							<th scope="col">이름</th>
-							<th scope="col">연락처</th>
-							<th scope="col">이메일</th>
-							<th scope="col">상태</th>
-						</tr>
-						<c:forEach var="member" items="${memberList }">
-							<tr>
-								<td>${member.memberNo }</td>
-								<td>${member.memberId }</td>
-								<td>${member.memberName }</td>
-								<td>${member.memberPhone }</td>
-								<td>${member.memberEmail }</td>
-								<td>
-									<select class="status" id="memberStatus" name="${member.memberNo }">
-											<option class="" <c:if test="${member.memberStatus==0 }">selected="selected"</c:if> id="quit" value="0">탈퇴 회원</option>
-											<option class="" <c:if test="${member.memberStatus==1 }">selected="selected"</c:if>  id="normal" value="1" >일반 회원</option>
-											<option class="" <c:if test="${member.memberStatus==9 }">selected="selected"</c:if> id="manager" value="9" >관리자 회원</option>
-										
-									</select>
-								</td>
-							</tr>
-						</c:forEach>
-					</table>
+			<section id="main-content" class="animated fadeInUp">
+				<div class="row">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th style="width: 60px;">번호</th>
+										<th>아이디</th>
+										<th style="width: 130px;">이름</th>
+										<th style="width: 140px;">연락처</th>
+										<th>이메일</th>
+										<th style="width: 100px;">상태</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="member" items="${memberList }">
+										<tr>
+											<td>${member.memberNo }</td>
+											<td>${member.memberId }</td>
+											<td>${member.memberName }</td>
+											<td>${member.memberPhone }</td>
+											<td>${member.memberEmail }</td>
+											<td><select class="btn btn-primary dropdown-toggle memberBtn" id="memberStatus"
+												name="${member.memberNo }">
+													<option class=""
+														<c:if test="${member.memberStatus==0 }">selected="selected"</c:if>
+														id="quit" value="0">탈퇴 회원</option>
+													<option class=""
+														<c:if test="${member.memberStatus==1 }">selected="selected"</c:if>
+														id="normal" value="1">일반 회원</option>
+													<option class=""
+														<c:if test="${member.memberStatus==9 }">selected="selected"</c:if>
+														id="manager" value="9">관리자 회원</option>
+
+											</select></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+						<form id="searchForm" method="get">
+							<div class="main-search-area">
+								<select id="nameIdSearch" name="nameIdSearch" class="btn btn-primary dropdown-toggle searchBtnBox">
+									<option value="member_name" selected="selected">&nbsp;이름&nbsp;</option>
+									<option value="member_id">&nbsp;아이디&nbsp;</option>
+								</select>
+								<input class="main-search" type="text" name="searchValue" id="searchValue">
+								<button type="button" id="searchBtn" class="btn btn-primary searchBtnBox">검색</button>
+							</div>
+						</form>
 				</div>
-			</div>	
-		</div>
+			</section>
+		</section>
+		</section>
 	</div>
-	
-	<form id="searchForm" method="get">
-		<select id = "nameIdSearch" name = "nameIdSearch">
-			<option value = "member_name" selected="selected">&nbsp;이름&nbsp;</option>
-			<option value = "member_id" >&nbsp;아이디&nbsp;</option>			
-		</select>
-		<input type="text" name="searchValue" id="searchValue">
-		<button type="button" id="searchBtn">검색</button>
-	</form>
 </div>
 
 <script type="text/javascript">
 
 	
-	$(".status").change(function () {
+	$("#memberStatus").change(function () {
 		
 		// 회원 상태 값
 		var memberStatus = $(this).val(); 
