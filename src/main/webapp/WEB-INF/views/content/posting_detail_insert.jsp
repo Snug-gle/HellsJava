@@ -77,18 +77,18 @@
 				<ul>
 					<c:forEach var="j" begin="1" end="3">
 						<li>
-							<input name = "workdayCheck" type="checkbox" class="cb${j}">
+							<input name = "workdayCheck" type="checkbox" class="cb${j}" value="${j}">
 							<c:if test="${j eq 1}">
 								<label>평일</label>
-								<input type="hidden" name="weekday">
+								<input type="hidden" name="weekday" value="1">
 							</c:if>
 							<c:if test="${j eq 2}">
 								<label>토요일</label>
-								<input type="hidden" name="saturday">
+								<input type="hidden" name="saturday" value="2">
 							</c:if>
 							<c:if test="${j eq 3}">
 								<label>일요일</label>
-								<input type="hidden" name="sunday">
+								<input type="hidden" name="sunday" value="3">
 							</c:if>
 							
 							<select id="pt-hour1" name = "hour1">
@@ -129,7 +129,7 @@
 					<li>
 						<input type="checkbox" class="cb4">
 						<label>휴무일</label>	
-						<input type="hidden" name="dayoff">
+						<input type="hidden" name="dayoff" value="4">
 						<input id="cb4-text" type="text" name="dayOffText">
 					</li>	
 				</ul>

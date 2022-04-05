@@ -1,5 +1,9 @@
 package itwill.helljava.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -10,16 +14,29 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import itwill.helljava.Enum.ScheduleWorkdayEnum;
 import itwill.helljava.dto.Award;
 import itwill.helljava.dto.Member;
+import itwill.helljava.dto.Posting;
+import itwill.helljava.dto.PtPricing;
+import itwill.helljava.dto.Schedule;
 import itwill.helljava.service.AccountSevice;
 import itwill.helljava.service.AwardService;
 import itwill.helljava.service.PostingService;
+import itwill.helljava.service.PtPricingService;
+import itwill.helljava.service.ScheduleService;
 import itwill.helljava.service.TrainerService;
 
 @Controller
 public class PostingController {
+
+	@Autowired
+	private WebApplicationContext context;
 
 	@Autowired
 	private PostingService postingService;
@@ -29,6 +46,12 @@ public class PostingController {
 
 	@Autowired
 	private AwardService awardService;
+
+	@Autowired
+	private ScheduleService scheduleService;
+
+	@Autowired
+	private PtPricingService ptPricingService;
 
 	// 포스팅 작성 페이지 요청
 	@RequestMapping(value = "/posting/write", method = RequestMethod.GET)
@@ -42,11 +65,125 @@ public class PostingController {
 
 		return "/content/posting_detail_insert";
 	}
-	
+
+	// 포스트 작성 페이지 post 요청 스케쥴과 포스팅 추가하는 핸들러 메서드
 	@RequestMapping(value = "/posting/write", method = RequestMethod.POST)
-	public String trainerRequestAdd() {
+	public String trainerRequestAdd(@ModelAttribute Posting posting, HttpSession httpSession,
+			MultipartHttpServletRequest request) throws IllegalStateException, IOException {
+
+		int memberNo = ((Member) (httpSession.getAttribute("loginUserinfo"))).getMemberNo();
+
+		// 파일 없을 경우 다시 포스팅 작성 페이지로 가라
+		if (request.getFileNames() == null) {
+			return "redirect:/positing/write";
+		}
+
+		Iterator<String> fileNames = request.getFileNames();
+
+		while (fileNames.hasNext()) {
+
+			// 파일 네임 가져오기
+			String fileName = fileNames.next();
+
+			List<MultipartFile> postingFiles = request.getFiles(fileName);
+
+			int count = 1; // for문 4번 도는 거 카운트
+			for (MultipartFile multipartFile : postingFiles) {
+
+				String uploadDirectory = context.getServletContext()
+						.getRealPath("/resources/assets/postingSelfIntroductionImages");
+
+				String originalFilename = multipartFile.getOriginalFilename();
+
+				switch (count) {
+
+				case 1:
+					posting.setPostingSelfIntroductionImg1(fileName);
+				case 2:
+					posting.setPostingSelfIntroductionImg2(fileName);
+				case 3:
+					posting.setPostingSelfIntroductionImg3(fileName);
+				default:
+					posting.setPostingSelfIntroductionImg4(fileName);
+				}
+
+				File file = new File(uploadDirectory, originalFilename);
+
+				String uploadFilename = originalFilename;
+
+				// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
+				int i = 0;
+				while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
+					i++;
+					int index = originalFilename.lastIndexOf(".");
+					uploadFilename = originalFilename.substring(0, index) + "_" + i + originalFilename.substring(index);
+					file = new File(uploadDirectory, uploadFilename);
+				}
+
+				multipartFile.transferTo(file); // 파일 이동
+			}
+
+		}
+		posting.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
+
+		// 포스팅 추가 서비스 메서드 호출 (자기소개, 프로그램 소개는 이미 들가있음)
+		postingService.addPosting(posting);
+
+		// ===============================PT 가격 추가===============================
+
+		String[] roundList = request.getParameterValues("round");
+		String[] priceList = request.getParameterValues("roundPrice");
+
+		int priceCount = 0;
+		for (String round : roundList) {
+
+			PtPricing ptPricing = new PtPricing();
+			ptPricing.setPtPricingRound(round);
+			ptPricing.setPtPricingPrice(Integer.parseInt(priceList[priceCount]));
+			ptPricing.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
+
+			ptPricingService.addPtPricing(ptPricing);
+
+			priceCount++;
+		}
+
+		// ===============================PT 스케쥴 추가===============================
+
+		// 체크 박스 선택된 애들만 받아옴
+		String[] workdays = request.getParameterValues("workdayCheck");
+		String[] hour1s = request.getParameterValues("hour1");
+		String[] minute1s = request.getParameterValues("minute1");
+		String[] hour2s = request.getParameterValues("hour2");
+		String[] minute2s = request.getParameterValues("minute2");
+
+		String dayOff = request.getParameter("dayoff");
+		String dayOffText = request.getParameter("dayOffText");
 		
-		return "";
+		int dayCount = 0;
+		for(String workday : workdays) {
+			
+			Schedule schedule = new Schedule();
+			String time = hour1s[dayCount]+":"+minute1s[dayCount]+"~"+hour2s[dayCount]+":"+minute2s[dayCount];
+			schedule.setScheduleHours(time);
+			schedule.setScheduleWorkday(ScheduleWorkdayEnum.of(Integer.parseInt(workday)).getValue());
+			schedule.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
+			
+			scheduleService.addSchedule(schedule);
+			
+			dayCount++;
+		}
+
+		// 휴무일 정보도 있을 시
+		if(!(dayOff == null && dayOffText == null)) {
+			Schedule schedule = new Schedule();
+			schedule.setScheduleWorkday(ScheduleWorkdayEnum.of(Integer.parseInt(dayOff)).getValue());
+			schedule.setScheduleDayoff(dayOffText);
+			schedule.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
+			
+			scheduleService.addSchedule(schedule);
+		}
+
+		return "/content/posting_detail"; // 포스팅 추가하면 포스팅 디테일 페이지로 이동
 	}
 
 }
