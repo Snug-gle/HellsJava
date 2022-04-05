@@ -77,36 +77,41 @@
 				<ul>
 					<c:forEach var="j" begin="1" end="3">
 						<li>
-							<input type="checkbox" class="cb${j}">
+							<input name = "workdayCheck" type="checkbox" class="cb${j}">
 							<c:if test="${j eq 1}">
 								<label>평일</label>
+								<input type="hidden" name="weekday">
 							</c:if>
 							<c:if test="${j eq 2}">
 								<label>토요일</label>
+								<input type="hidden" name="saturday">
 							</c:if>
 							<c:if test="${j eq 3}">
 								<label>일요일</label>
+								<input type="hidden" name="sunday">
 							</c:if>
 							
-							<select id="pt-hour1">
-								<option value="6" selected>6</option>
+							<select id="pt-hour1" name = "hour1">
+								<option value="6" selected="selected">6</option>
 								<c:forEach var="i" begin="7" end="23">
 								   <option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
 								</c:forEach>
 							</select>
-							<select>
-								<option value="00" selected>00</option>
+							
+							<select id="minute1" name="minute1">
+								<option value="00" selected="selected">00</option>
 								<option value="30">30</option>
 							</select>
 							~
-							<select id="pt-hour2">
-								<option value="6" selected>6</option>
+							<select id="pt-hour2" name="hour2">
+								<option value="6" selected="selected">6</option>
 								<c:forEach var="i" begin="7" end="23">
 								   <option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
 								</c:forEach>
 							</select>
-							<select>
-								<option value="00" selected>00</option>
+							
+							<select id="minute2" name="minute2">
+								<option value="00" selected="selected">00</option>
 								<option value="30">30</option>
 							</select>
 						</li>
@@ -114,7 +119,8 @@
 					<li>
 						<input type="checkbox" class="cb4">
 						<label>휴무일</label>	
-						<input id="cb4-text" type="text">
+						<input type="hidden" name="dayoff">
+						<input id="cb4-text" type="text" name="dayOffText">
 					</li>	
 				</ul>
 			</div>
@@ -130,8 +136,8 @@
 			<div class="pd-insert-body-pt-price-body">
 				<ul class="pt-price-unit">
 					<li>
-						<input class="p-pt" id="p-pt0" type="number" min="1" placeholder="PT 회차수">
-						<input class="p-pr" id="p-pr0" type="number" min="1000" placeholder="회당 가격">
+						<input class="p-pt" id="p-pt0" name="round" type="number" min="1" placeholder="PT 회차수">
+						<input class="p-pr" id="p-pr0" name = "roundPrice"type="number" min="1000" placeholder="회당 가격">
 						<p>총 가격= <span id="totPrice"></span></p>
 					</li>
 				</ul>
