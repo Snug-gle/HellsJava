@@ -42,12 +42,12 @@
 									    	</c:if>
 									    </li>
 									    <li>
-									    	<c:if test="${loginUserinfo.memberStatus == 1 or loginUserinfo.memberStatus == 9}">
+									    	<c:if test="${loginUserinfo.memberStatus == 1 or loginUserinfo.memberStatus == 2 or loginUserinfo.memberStatus == 9 }">
 									        	<a href="<c:url value="/mypage"/>"><span class="icon"><i class="fa fa-user"></i></span>마이페이지</a>
 									   		</c:if>
 									    </li>
 									    <li>
-									    	<c:if test="${loginUserinfo.memberStatus == 3}"><!-- 트레이너 마이페이지 -->
+									    	<c:if test="${loginUserinfo.memberStatus == 3}"><!-- 트레이너 전용 마이페이지 -->
 									        	<a href="<c:url value="/user/trainer/trainer_mypage"/>"><span class="icon"><i class="fa fa-user"></i></span>마이페이지</a>
 									   		</c:if>
 									    </li>

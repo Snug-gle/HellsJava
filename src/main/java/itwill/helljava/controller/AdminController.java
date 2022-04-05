@@ -31,24 +31,24 @@ public class AdminController {
 	 * @RequestMapping(value = "admin/userList", method = RequestMethod.GET) public
 	 * String userList() { return "admin/admin_userList"; }
 	 */
-	@RequestMapping(value = "admin/trainerList", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/trainerList", method = RequestMethod.GET)
 	public String trainerList() {
-		return "admin/admin_trainerList";
+		return "/admin/admin_trainerList";
 	}
 	
-	@RequestMapping(value = "admin/testList", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/testList", method = RequestMethod.GET)
 	public String testList() {
-		return "admin/admin_testList";
+		return "/admin/admin_testList";
 	}
 	
-	@RequestMapping(value = "admin/questionList", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/questionList", method = RequestMethod.GET)
 	  public String questionList() { 
-		  return "admin/admin_questionList"; 
+		  return "/admin/admin_questionList"; 
 	  }
 	 
 	
 	// 1:1 문의 리스트 출력 메서드 (Map 형태로 반환)
-	@RequestMapping(value = "admin/question_list",method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/question_list",method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> restQAList(@RequestParam(defaultValue = "1") int pageNum, Model model){
 		
@@ -77,7 +77,7 @@ public class AdminController {
 	}
 	
 	// 회원 리스트 요청
-	@RequestMapping(value = "admin/userList", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/userList", method = RequestMethod.GET)
 	public String memberList(@RequestParam(defaultValue ="1") int pageNum, Model model) {
 		
 		Map<String, Object> searchMap = new HashMap<String, Object>();
