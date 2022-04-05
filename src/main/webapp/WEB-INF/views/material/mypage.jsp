@@ -31,7 +31,7 @@
 	<br>
 	<div class="flex-container1">
 	 	<div class="flex-container">
-	        <div class="flex-item"><a href="${pageContext.request.contextPath}/account/register"; style="color: black">회원정보수정</a></div>
+	        <div class="flex-item"><a href="${pageContext.request.contextPath}/member/modify"; style="color: black">회원정보수정</a></div>
 	        <div class="flex-item"><a href="${pageContext.request.contextPath}/review/list"; style="color: black">내 리뷰 관리</a></div>
 	        <div class="flex-item"><a href="${pageContext.request.contextPath}/oOo/list"; style="color: black">1:1 문의 내역</a></div>
 	        <div class="flex-item"><a href="${pageContext.request.contextPath}/account/info"; style="color: black">계좌관리</a></div>

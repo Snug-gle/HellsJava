@@ -49,12 +49,12 @@ public class LoginController {
 		return "/user/login/id_search";
 	}
 
-	// 비밀번호 찾기 => 수정 페이지 요청
+	// 비밀번호 찾기 => 비밀번호 수정 페이지 요청
 	@RequestMapping(value = "/user/login/password_search", method = RequestMethod.GET)
 	public String pswdSearch() {
 		return "/user/login/password_search";
 	}
-
+	
 	// 포스트 방식 -> 아이디 찾기 작업 요청
 	@RequestMapping(value = "/user/login/id_print", method = RequestMethod.POST)
 	public String idPrint(@ModelAttribute Member member, HttpServletRequest request, Model model)
