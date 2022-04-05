@@ -373,9 +373,7 @@ canvas {
 }
 .sidebar {
   position: absolute;
-  min-height: 100%;
-  width: 240px;
-  padding-top: 60px;
+  width: 185px;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
@@ -534,7 +532,7 @@ canvas {
   margin-right: 5px;
 }
 .sidebar-header {
-  color: #6F737E;
+  color: #fff;
   font-weight: 600;
   line-height: 20px;
   margin: 0;
@@ -799,7 +797,6 @@ canvas {
 }
 .main-content-wrapper {
   margin-right: 0;
-  padding-top: 60px;
   background: #F0F3F3;
   position: relative;
 }
@@ -827,6 +824,7 @@ canvas {
   border-top: 1px solid #eee;
   background: #F6F8F8;
   position: relative;
+  text-align: center;
 }
 .pageheader h2 {
   font-weight: 300;
@@ -3490,7 +3488,7 @@ label.valid {
   background: #f6f8f8;
 }
 .theme-default .sidebar-left {
-  background-color: #1d212a;
+  background-color: #556b8d;
 }
 .theme-default .sidebar-mini .sidebar-left .nav > li.active > a:focus,
 .theme-default .sidebar-mini .sidebar-left .nav > li.active > a:hover,
