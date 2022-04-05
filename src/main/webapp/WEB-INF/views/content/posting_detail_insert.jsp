@@ -2,13 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
 
 <div class="pd-insert-centent" >
 	<div class="pd-insert-header">
@@ -20,15 +14,15 @@
 			<table>
 				<tr>
 					<td>이름</td>
-					<td>김남영</td>
+					<td>${trainer.memberName}</td>
 				</tr>
 				<tr>
 					<td>연락처</td>
-					<td>01011112222</td>
+					<td>${trainer.memberPhone}</td>
 				</tr>
 				<tr>
 					<td>소속 센터 주소</td>
-					<td>불러오니라</td>
+					<td>${trainer.trainerCentername }</td>
 				</tr>
 			</table>
 			<br>
@@ -40,10 +34,12 @@
 		<div class="pd-insert-header-award-content">
 			<div class="pd-insert-header-award-body">
 				<table>
+					<c:forEach var="taward" items="${trainerAwards}">
 					<tr>
-						<td> <img alt="" src="<spring:url value="/img/avatar2.png"/>"></td>
-						<td>수상이력 불러오니라</td>
+						<td> <img alt="tawardImage" src="<spring:url value="/awardImages/${taward.awardImage}"/>"></td>
+						<td>${taward.awardContent}</td>
 					</tr>	
+					</c:forEach>
 				</table>
 			</div>
 			<hr>
@@ -57,15 +53,18 @@
 				<textarea rows="" cols=""></textarea>
 			</div>
 			<div class="pd-insert-body-myprofile-body">
-				<h5>뭐야 이거 어케 해요 ㅠㅠ</h5>
-				<button type="button">첨부</button>
+				<h5>자기 소개 이미지 첨부 요망</h5>
+				<input type="file" id="postingSelfIntroductionImg1" name="postingSelfIntroductionImg1">
+				<input type="file" id="postingSelfIntroductionImg2" name="postingSelfIntroductionImg2">
+				<input type="file" id="postingSelfIntroductionImg3" name="postingSelfIntroductionImg3">
+				<input type="file" id="postingSelfIntroductionImg4" name="postingSelfIntroductionImg4">	
 			</div>
 		</div>
 		<div class="pd-insert-body-profile">
 			<br>
 			<hr>
 			<h3>프로그램 소개</h3>
-			<textarea rows="" cols=""></textarea>
+			<textarea rows="40" cols="100" id="postingProgramIntroduction" name="postingProgramIntroduction"></textarea>
 		</div>
 		<div class="pd-insert-body-pt-schedule">
 			<br>
@@ -134,7 +133,7 @@
 				<button>+</button>
 				<hr>
 			</div>
-			<div class="pd-insert-body-pt-price-body">\
+			<div class="pd-insert-body-pt-price-body">
 				<table>
 					<tr>
 						<td><input type="text" placeholder="PT 회차수"></td>
@@ -151,6 +150,3 @@
 		<button type="reset">다시쓰기</button>
 	</div>
 </div>
-
-</body>
-</html>

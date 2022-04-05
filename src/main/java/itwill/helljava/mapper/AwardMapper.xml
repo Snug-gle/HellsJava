@@ -16,10 +16,10 @@
 		update award 
 		<set>
 			<if test="awardContent!=null and awardContent!=''">
-				award_content = {awardContent},
+				award_content = #{awardContent},
 			</if>
 			<if test="awardImage != null and awardImage != ''">
-				award_image = {awardImage}
+				award_image = #{awardImage}
 			</if>
 		</set>
 		where award_no = #{award_no}
@@ -30,10 +30,10 @@
 	</delete>
 	
 	<select id="selectAward" resultType="Award">
-		select * from award where award_no = #{award_no}
+		select * from award where award_no = #{awardNo}
 	</select>
 	
 	<select id="selectAwardList" resultType="Award">
-		select * from award where trainer_no = {#trainer_no} order by award_no desc 
+		select * from award where trainer_no = #{trainerNo} order by award_no desc 
 	</select>
 </mapper>
