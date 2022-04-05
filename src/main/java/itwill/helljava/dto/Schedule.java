@@ -5,7 +5,7 @@ public class Schedule {
 	private int scheduleWorkday;
 	private String scheduleHours;
 	private String scheduleDayoff;
-	private String trainerNo;
+	private int trainerNo;
 	
 	public Schedule() {
 		// TODO Auto-generated constructor stub
@@ -43,11 +43,11 @@ public class Schedule {
 		this.scheduleDayoff = scheduleDayoff;
 	}
 
-	public String getTrainerNo() {
+	public int getTrainerNo() {
 		return trainerNo;
 	}
 
-	public void setTrainerNo(String trainerNo) {
+	public void setTrainerNo(int trainerNo) {
 		this.trainerNo = trainerNo;
 	}
 	
