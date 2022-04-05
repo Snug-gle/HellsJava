@@ -24,7 +24,7 @@ public interface NoticeServiceService {
 	// FAQ 게시글 갯수
 	int getNoticeServiceFaqCount(int noticeServiceCategory);
 	
-	int getNoticeServicePersonalCount(int notice_service_sortation, int member_no);
+	int getNoticeServicePersonalCount(Map<String, Object>map);
 
 	// 합친 DB이기 때문에 구분하려면 혹시 몰라서 글 구분 매개변수도 추가함. (공지사항&FAQ)
 	NoticeService getNoticeService(int notice_service_no);

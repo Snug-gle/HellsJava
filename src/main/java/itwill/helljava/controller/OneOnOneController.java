@@ -31,8 +31,11 @@ public class OneOnOneController {
 	//1:1 문의 내역
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(HttpSession session, Model model, @RequestParam(defaultValue = "1")int pageNum) {
+		Map<String, Object> countMap = new HashMap<String, Object>();
+		countMap.put("notice_service_sortation", NoticeServiceSortationEnum.일대일문의.getValue());
+		countMap.put("member_no",((Member)session.getAttribute("loginUserinfo")).getMemberNo());
 		
-		int totalBoard = noticeServiceService.getNoticeServicePersonalCount(2, ((Member)session.getAttribute("loginUserinfo")).getMemberNo());
+		int totalBoard = noticeServiceService.getNoticeServicePersonalCount(countMap);
 		int pageSize = 5;
 		int blockSize = 10;
 		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
@@ -40,8 +43,9 @@ public class OneOnOneController {
 		pagerMap.put("startRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
 		pagerMap.put("memberNo", ((Member)session.getAttribute("loginUserinfo")).getMemberNo());
+		/*
 		pagerMap.put("notice_service_sortation", NoticeServiceSortationEnum.일대일문의.getValue());
-		
+		*/
 		model.addAttribute("oOoList", noticeServiceService.getNoticeServicePersonalList(pagerMap));
 		model.addAttribute("pager",pager);
 		return "/board/oOo_list";

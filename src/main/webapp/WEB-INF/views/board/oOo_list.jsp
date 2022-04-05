@@ -7,7 +7,7 @@
 <h1 align="center">1:1 문의 목록</h1>
 <div class="panel-body">
 	<c:choose>
-		<c:when test="${empty(ptonceList) }">
+		<c:when test="${empty(oOoList) }">
 			<div align="center">
 				<h3>문의 내역이 없습니다.</h3>
 			</div>
@@ -34,7 +34,7 @@
 									${oOo.noticeServiceDate}</a>
 								<!-- 글내용 보기 -->
 								<a data-toggle="collapse" data-parent="#accordion"
-									href="#${oOo.noticeServiceNo}" class="collapsed"
+									href="#${index1 }" class="collapsed"
 									aria-expanded="false"> 상세보기</a>
 								<!-- 조회수 -->
 								<a data-toggle="collapse" data-parent="#accordion" href="#"
@@ -42,7 +42,7 @@
 									${ptOnce.ptOnceStatus }</a>
 							</div>
 							<!-- 글내용 -->
-							<div id="${oOo.noticeServiceNo}" class="panel-collapse collapse"
+							<div id="${index1 }" class="panel-collapse collapse"
 								aria-expanded="false" style="height: 0px;">
 								<div class="panel-body">${oOo.noticeServiceContent}</div>
 								<div class="panel-body">(확인용) 회원번호 :${oOo.memberNo}</div>
@@ -52,10 +52,10 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="panel-title">
-									<c:set var="index1" value="${index1+1 }" />
-									<!-- 글번호 -->
+									
+									<!-- 답글 -->
 									<a data-toggle="collapse" data-parent="#accordion" href="#"
-										class="collapsed" aria-expanded="false"> ${index1 }</a>
+										class="collapsed" aria-expanded="false"> 답글</a>
 									<!-- 제목 -->
 									<a data-toggle="collapse" data-parent="#accordion" href="#"
 										class="collapsed" aria-expanded="false">
@@ -74,11 +74,18 @@
 										${ptOnce.ptOnceStatus }</a>
 								</div>
 								<!-- 글내용 -->
+								<c:when test="${empty(oOoList.noticeServiceReply)}">
+								<div align="center">
+				<h3>답글이 없습니다.</h3>
+			</div>
+								</c:when>
+								<c:otherwise>
 								<div id="${oOo.noticeServiceNo}" class="panel-collapse collapse"
 									aria-expanded="false" style="height: 0px;">
 									<div class="panel-body">${oOo.noticeServiceReply}</div>
 									<div class="panel-body">(확인용) 회원번호 :${oOo.memberNo}</div>
 								</div>
+								</c:otherwise>
 							</div>
 						</div>
 					</div>
