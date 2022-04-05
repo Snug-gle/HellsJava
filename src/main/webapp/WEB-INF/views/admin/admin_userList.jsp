@@ -69,7 +69,7 @@
 														id="normal" value="1">일반 회원</option>
 													<option class=""
 														<c:if test="${member.memberStatus==9 }">selected="selected"</c:if>
-														id="manager" value="9">관리자 회원</option>
+														id="manager" value="9">관리자</option>
 
 											</select></td>
 										</tr>
