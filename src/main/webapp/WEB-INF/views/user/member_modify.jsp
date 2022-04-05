@@ -3,12 +3,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-</head>
-<body>
-<div class="col-md-12">
+
+<div class="container">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">내 정보 수정</h3>
@@ -20,7 +16,7 @@
                     <div class="col-sm-3">
                         <input type="text" readonly="readonly" class="form-control" name="memberId" value="${loginUserinfo.memberId}"/>
                     </div>
-                    <button type="button" onclick="location.href='<c:url value="/user/login/password_search"/>';">비밀번호수정</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/user/login/password_search"/>';">비밀번호수정</button>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">이름</label>
@@ -49,7 +45,7 @@
                 			<option <c:if test="${email[1] eq 'daum.net'}">selected="selected"</c:if> value="daum.net">daum.net</option>
                 			<option value="direct">==직접입력==</option>
                 		</select>
-                		<input type="text" id="selboxDirect" name="selboxDirect"/>
+                		<input type="text" id="selboxDirect" name="selboxDirect" class="form-control"/>
                 		
                 		</div>
                     </div>
@@ -86,6 +82,3 @@
     <script src="<c:url value ="/plugins/bootstrap-wysihtml5/js/wysihtml5-0.3.0.js"/>"></script>
     <script src="<c:url value ="/plugins/bootstrap-wysihtml5/js/bootstrap3-wysihtml5.js"/>"></script>
     <script src="<c:url value ="/plugins/ckeditor/ckeditor.js"/>"></script>
-
-</body>
-</html>

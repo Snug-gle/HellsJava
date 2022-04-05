@@ -160,3 +160,13 @@
     vertical-align: middle;
     cursor: pointer;
 }
+
+.account-info-box {
+	width: 50%;
+	margin: 200px auto;
+}
+
+.account-table {
+	padding-top: 20px;
+	padding-bottom: 10px;
+}
