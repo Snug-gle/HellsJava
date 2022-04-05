@@ -30,6 +30,8 @@
 	<resources mapping="/js/**" location="/resources/assets/js/" />
 	<resources mapping="/fonts/**" location="/resources/assets/fonts/" />
 	<resources mapping="/plugins/**" location="/resources/assets/plugins/" />
+	<resources mapping="/awardImages/**" location="/resources/assets/awardImages/" />
+	<resources mapping="/profileImages/**" location="/resources/assets/profileImages/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

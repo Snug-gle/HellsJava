@@ -38,8 +38,8 @@ public class TrainerServiceImpl implements TrainerService {
 	}
 
 	@Override
-	public Trainer getTrainer(int trainer_no) {
-		return trainerDAO.selectTrainer(trainer_no);
+	public Trainer getTrainer(int memberNo) {
+		return trainerDAO.selectTrainer(memberNo);
 	}
 
 	@Override

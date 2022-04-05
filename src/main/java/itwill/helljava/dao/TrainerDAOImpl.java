@@ -37,8 +37,8 @@ public class TrainerDAOImpl implements TrainerDAO {
 	}
 
 	@Override
-	public Trainer selectTrainer(int trainer_no) {
-		return sqlSession.getMapper(TrainerMapper.class).selectTrainer(trainer_no);
+	public Trainer selectTrainer(int memberNo) {
+		return sqlSession.getMapper(TrainerMapper.class).selectTrainer(memberNo);
 	}
 
 	@Override
