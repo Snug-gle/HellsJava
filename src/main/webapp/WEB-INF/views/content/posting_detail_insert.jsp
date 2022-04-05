@@ -92,9 +92,14 @@
 							</c:if>
 							
 							<select id="pt-hour1" name = "hour1">
-								<option value="6" selected="selected">6</option>
+								<option value="06" selected="selected">06</option>
 								<c:forEach var="i" begin="7" end="23">
-								   <option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
+								   <c:if test="${i>0 && i<10}">
+										<option value="<c:out value="0${i}"/>"><c:out value="0${i}" /></option>
+									</c:if>
+									<c:if test="${i>=10}">
+								  		<option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
+									</c:if>
 								</c:forEach>
 							</select>
 							
@@ -104,9 +109,14 @@
 							</select>
 							~
 							<select id="pt-hour2" name="hour2">
-								<option value="6" selected="selected">6</option>
+								<option value="06" selected="selected">06</option>
 								<c:forEach var="i" begin="7" end="23">
-								   <option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
+								  <c:if test="${i>0 && i<10}">
+										<option value="<c:out value="0${i}"/>"><c:out value="0${i}" /></option>
+									</c:if>
+									<c:if test="${i>=10}">
+								  		<option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
+									</c:if>
 								</c:forEach>
 							</select>
 							
