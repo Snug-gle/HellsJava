@@ -40,28 +40,40 @@
                                 <input type="text" class="form-control" id="memberName" name="memberName" placeholder="이름을 입력해 주세요">
                                 <p id="nameMsg" class="error">이름을 입력해 주세요.</p>
                             </div>
-                             <div class="form-group">
-                                <label for="phoneLabel">연락처</label>
-                                    <div class="formDiv">
-	                                    <select id="member_phone1" name="member_phone1" class="btn btn-primary dropdown-toggle">											
-											<option value="010" selected="selected">&nbsp;010&nbsp;</option>
-											<option value="011">&nbsp;011&nbsp;</option>
-											<option value="016">&nbsp;016&nbsp;</option>
-											<option value="017">&nbsp;017&nbsp;</option>
-											<option value="018">&nbsp;018&nbsp;</option>
-											<option value="019">&nbsp;019&nbsp;</option>
-										</select>
-                                        <input type="text" name="member_phone2" class="phone-form-control" id="member_phone2" maxlength="4">
-                                        <input type="text" name="member_phone3" class="phone-form-control" id="member_phone3" maxlength="4">
-                                    	<p id="phoneMsg" class="error">연락처를 입력해 주세요.</p>
-                                    	<div id="phoneRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해 주세요.</div>
-                                    </div>
-                             </div>
+                            <div class="form-group">
+                               <label for="phoneLabel">연락처</label>
+                                   <div class="formDiv">
+                                    <select id="member_phone1" name="member_phone1" class="btn btn-primary dropdown-toggle">											
+										<option value="010" selected="selected">&nbsp;010&nbsp;</option>
+										<option value="011">&nbsp;011&nbsp;</option>
+										<option value="016">&nbsp;016&nbsp;</option>
+										<option value="017">&nbsp;017&nbsp;</option>
+										<option value="018">&nbsp;018&nbsp;</option>
+										<option value="019">&nbsp;019&nbsp;</option>
+									</select>
+                                       <input type="text" name="member_phone2" class="phone-form-control" id="member_phone2" maxlength="4">
+                                       <input type="text" name="member_phone3" class="phone-form-control" id="member_phone3" maxlength="4">
+                                   	<p id="phoneMsg" class="error">연락처를 입력해 주세요.</p>
+                                   	<div id="phoneRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해 주세요.</div>
+                                   </div>
+                            </div>
+
                             <div class="form-group">
                                 <label for="emailLabel">Email</label>
-                                <input type="text" class="form-control" id="memberEmail" name="memberEmail" placeholder="이메일을 입력해 주세요">
+                                <input type="text" class="form-control" id="memberEmail" name="email1" placeholder="이메일을 입력해 주세요">
+                                <p>@</p>
+                                <select id="selbox" name="email2" class="form-control" >
+		                			<option selected="selected" value="1">==선택==</option>
+		                			<option value="google.com">google.com</option>
+		                			<option value="naver.com">naver.com</option>
+		                			<option value="daum.net">daum.net</option>
+		                			<option value="direct">==직접입력==</option>
+		                		</select>
+		                		<input type="text" id="selboxDirect" name="selboxDirect" class="form-control"/>
                                 <p id="emailMsg" class="error">이메일을 입력해 주세요.</p>
-                                <p id="emailRegMsg" class="error">이메일 형식에 알맞게 작성해 주세요.</p>
+                                <p id="emailMsg2" class="error">이메일주소를 입력해 주세요.</p>
+                                <p id="emailRegMsg" class="error">이메일 아이디 형식에 알맞게 작성해 주세요.</p>
+                                <p id="emailRegMsg2" class="error">이메일 주소 형식에 알맞게 작성해 주세요.</p>
 								
                             </div>
                             	 <button type="submit" class="btn btn-primary btn-block">회원가입</button>
@@ -75,6 +87,20 @@
 
 	<script type="text/javascript">
 	
+	$(function(){
+		$("#selboxDirect").hide();
+		
+		$("#selbox").change(function(){
+			//직접입력을 누를 때 나타남
+
+			if($("#selbox").val() == "direct") {
+				$("#selboxDirect").show();
+			}  else {
+	
+				$("#selboxDirect").hide();
+			}
+		}) 
+	});
 	
 	$("#joinForm").submit(function() {
 		var submitResult=true;
@@ -86,6 +112,7 @@
 		$("#member_phone2").val($("#member_phone2").val().replace(/\s/g, ""));
 		$("#member_phone3").val($("#member_phone3").val().replace(/\s/g, ""));
 		$("#memberEmail").val($("#memberEmail").val().replace(/\s/g, ""));
+		$("#selbox").val($("#selbox").val().replace(/\s/g, ""));
 		
 
 		//아이디 유효성 검사
@@ -154,13 +181,31 @@
 			submitResult=false;
 		}
 		
-		var emailReg=/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+		//이메일 정규식
+		
+		var emailIdReg=/^[a-z]+[a-z0-9]{5,19}$/g;
+		var emailReg=/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 		if($("#memberEmail").val()=="") {
 			$("#emailMsg").css("display","block");
 			submitResult=false;
-		} else if(!emailReg.test($("#memberEmail").val())) {
+		} else if(!emailIdReg.test($("#memberEmail").val())) {
 			$("#emailRegMsg").css("display","block");
 			submitResult=false;
+		}
+
+		if($("#selbox").val() == "1") {
+			$("#emailRegMsg2").css("display","block");
+			submitResult=false;
+		}
+		
+		if($("#selbox").val() == "direct") {
+			if($("#selboxDirect").val()=="") {
+				$("#emailMsg2").css("display","block");
+				submitResult=false;
+			} else if(!emailReg.test($("#selboxDirect").val())) {
+				$("#emailRegMsg2").css("display","block");
+				submitResult=false;
+			}
 		}
 
 		return submitResult;

@@ -37,7 +37,16 @@ public class joinController {
 
 		String phone = request.getParameter("member_phone1") + "-" + request.getParameter("member_phone2") + "-"
 				+ request.getParameter("member_phone3");
+		
+		String email;
 
+		if (request.getParameter("email2").equals("direct")) {
+			email = request.getParameter("email1") + "@" + request.getParameter("selboxDirect");
+		} else {
+			email = request.getParameter("email1") + "@" + request.getParameter("email2");
+		}
+ 
+		member.setMemberEmail(email);
 		member.setMemberPhone(phone);
 		memberService.addMember(member);
 		return "user/login/login_form";
