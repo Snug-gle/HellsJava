@@ -66,101 +66,128 @@ function sample4_execDaumPostcode() {
 	position: relative;
 	display: none;
 }
+
+.trainerRequestBody {
+	margin: auto 50px;
+}
+
 </style>
 
-<div class="tr-in-centent" >
 
-	<%-- 트레이너 컨트롤러로 보내는 폼 --%>
-	<form id="trainerReqestForm" enctype="multipart/form-data" action="<c:url value = "/trainer/request"/>" method = "post">
-		<input type="hidden" name="memberNo" value="${loginUserinfo.memberNo }">
-			<div class="tr-in-header">
-				<div class="tr-in-header-title">
-					<h2>트레이너 신청</h2>
-					<hr>
-				</div>
-				<div class="tr-in-header-img">
-					<div class="">
-						<img alt="" src="" class="trainer-Profile-img">
-						<input id ="trainer_profile_image" type="file" readonly="readonly" name="profileImage" placeholder="프로필 사진 첨부" accept="image/*">
-						<div id="trainerProfileImgRegMsg" class="error">프로필 사진을 필히 첨부하시오.</div>
+<div class="container">
+	<div class="panel panel-default">
+		<div id="login-wrapper">
+			<div class="panel panel-primary">
+				<div class="panel-body">
+						<h1>
+							<strong>트레이너 신청</strong>
+						</h1>
+						<hr>
+					<div class="trainerRequestBody">
+						<form id="trainerReqestForm" enctype="multipart/form-data" action="<c:url value = "/trainer/request"/>" method="post">
+							<input type="hidden" name="memberNo" value="${loginUserinfo.memberNo }">
+							<div class="">
+								<hr>
+								<h3><strong>프로필 사진 등록</strong></h3>
+								<hr>
+								<img alt="" src="" class="trainer-Profile-img"> 
+								<input id="trainer_profile_image" type="file" readonly="readonly" name="profileImage" placeholder="프로필 사진 첨부" accept="image/*">
+								<div id="trainerProfileImgRegMsg" class="error">프로필 사진을 반드시 첨부하세요.</div>
+							</div>
+							<br>
+							<div class="tr-in-header-info">
+								<hr>
+								<h3><strong>트레이너 정보</strong></h3>
+								<hr>
+								<table>
+									<tr>
+										<td>이름</td>
+										<td>${loginUserinfo.memberName }</td>
+									</tr>
+									<tr>
+										<td>연락처</td>
+										<td>${loginUserinfo.memberPhone }</td>
+									</tr>
+									<tr>
+										<td>소속 센터 주소</td>
+										<td><input type="text" id="sample4_postcode" name="trainerZip" placeholder="우편번호"> 
+										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br> 
+										<input type="text" id="sample4_roadAddress" placeholder="도로명주소"> 
+										<input type="text" id="sample4_jibunAddress" name="trainerAddress" placeholder="지번주소"> 
+										<span id="guide" style="color: #999; display: none"></span> 
+										<input type="text" id="sample4_detailAddress" name="trainerCentername" placeholder="센터명"> 
+										<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+	
+										<div id="addressRegMsg" class="error">소속 센터 주소를 반드시 입력하세요.</div>
+										<div id="centernameRegMsg" class="error">소속 센터명을 반드시 입력하세요.</div>
+										<div id="centernameValidRegMsg" class="error">등록된 센터명을 입력하세요.</div></td>
+									</tr>
+								</table>
+							</div>
+							<br>
+							<div class="tr-in-header-award-title">
+								<hr>
+								<h3><strong>수상경력 및 이력</strong>&nbsp;&nbsp;<i class="fa fa-plus-square" id="award-plus-btn"></i></h3> 
+								<hr>
+								<div class="tr-in-header-award-list" style="padding: 10px;">
+									<ul class="tr-in-header-award-unit" style="list-style: none;">
+										<li class="tr-in-header-award-rego">
+											<div>
+												<div style="float: left; margin: 5px;">
+												<img alt="" src="" class="award-load-img"> 
+												</div>
+												<div style="float: left; margin: 5px;">
+													<input type="text" id="award_content" name="aContent" placeholder="수상 경력 및 이력">
+												</div>
+												<div style="margin: 5px;">
+													<input type="file" id="award_image" name="aImage" placeholder="사진 첨부" accept="image/*"> 
+												</div>
+												<p id="awardContentRegMsg" class="error">수상 경력 설명을 반드시 입력하세요.</p>
+												<p id="awardImageRegMsg" class="error">수상 경력 사진을 반드시 첨부하세요.</p>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<br>
+							<div class="tr-in-payment">
+								<hr>
+								<h3><strong>결제 정보</strong></h3>
+								<hr>
+								<div class="tr-in-payment-title">
+									<div class="tr-in-payment-body">
+										<div class="tr-in-payment-text">
+											<div class="ad-t-v-header-award-footer-text">
+												<h3><strong>결제는 30일 단위로 결제됩니다.</strong></h3>
+											</div>
+											<div class="ad-t-v-header-award-footer-text">
+												<h3><strong>결제금액</strong> : 15000 원</h3>
+											</div>
+										</div>
+										<br>
+										<br>
+											<div class="form-group">
+												<label class="col-sm-2 control-label">결제 비밀번호</label>
+												<div class="col-sm-3">
+													<input type="password" id="account_pw" name="accountPw" class="form-control">
+													<p id="accountPwRegMsg" class="error">결제 비밀번호를 필히 입력하시오.</p>
+													<p id="accountErrorMsg">${message}</p>
+												</div>
+											</div>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
-				
-					<div class="tr-in-header-info">
-						<table>
-							<tr>
-								<td>이름</td>
-								<td>${loginUserinfo.memberName }</td>
-							</tr>
-							<tr>
-								<td>연락처</td>
-								<td>${loginUserinfo.memberPhone }</td>
-							</tr>
-							<tr>
-								<td>소속 센터 주소</td>
-								<td>
-									<input type="text" id="sample4_postcode" name = "trainerZip" placeholder="우편번호">
-									<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-									<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-									<input type="text" id="sample4_jibunAddress" name = "trainerAddress" placeholder="지번주소">
-									<span id="guide" style="color:#999;display:none"></span>
-									<input type="text" id="sample4_detailAddress" name="trainerCentername" placeholder="센터명">
-									<input type="text" id="sample4_extraAddress" placeholder="참고항목">
-									
-									<div id="addressRegMsg" class = "error">소속 센터 주소를 필히 입력하세요.</div>
-									<div id="centernameRegMsg" class="error">소속 센터명을 필히 입력하세요.</div>
-									<div id="centernameValidRegMsg" class = "error">등록된 센터명을 입력하세요.</div>
-								</td>
-							</tr>
-						</table>
-					</div>
+				</div>
+				<div class="tr-in-footer" style="text-align: center; margin: 10px auto;">
+					<button id="submitBtn" type="submit" class="btn btn-primary">확인</button>
+					<button type="reset" class="btn btn-primary">다시쓰기</button>
 				</div>
 			</div>
-
-			<div class="tr-in-header-award-title">
-				<h3>수상경력 및 이력</h3>
-				<i class="fa fa-plus-square" id="award-plus-btn"></i>
-				<hr>
-				<div class="tr-in-header-award-list">
-					<ul class="tr-in-header-award-unit" style=" list-style:none;">
-						<li class="tr-in-header-award-rego">
-							
-							<img alt="" src="" class="award-load-img">
-							<input type="file" id="award_image" name = "aImage" placeholder="사진 첨부" accept="image/*"> 
-							<input type="text" id="award_content" name= "aContent" placeholder="수상 경력 및 이력">
-							<p id="awardContentRegMsg" class="error">수상 경력 설명을 필히 입력하세요.</p>
-							<p id="awardImageRegMsg" class="error">수상 경력 사진을 필히 첨부하세요.</p>
-						</li>
-					</ul>
-
-				</div>	
-			</div>
-
-			<div class="tr-in-payment">
-				<div class="tr-in-payment-title">
-					<h3>결제</h3>
-					<hr>
-					<div class="tr-in-payment-body">
-						<div class="tr-in-payment-text">
-							<p>결제는 30일 단위로 결제됩니다.</p>
-							<p>결제 금액 : 15000</p>
-						</div>
-						<div>
-							<h3>결제 비밀번호</h3>
-							<input type="password" id="account_pw" name="accountPw">
-							<p id="accountPwRegMsg" class="error">결제 비밀번호를 필히 입력하시오.</p>
-							<p id="accountErrorMsg">${message}</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		
-			<div class="tr-in-footer">
-				<button id="submitBtn" type="submit">확인</button>
-				<button type="reset">다시쓰기</button>
-			</div>
-		</form>
+		</div>
 	</div>
-
+</div>
 <script>
 
 	$("#submitBtn").click(function(){
