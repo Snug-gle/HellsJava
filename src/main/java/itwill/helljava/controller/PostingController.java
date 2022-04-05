@@ -71,11 +71,12 @@ public class PostingController {
 	public String trainerRequestAdd(@ModelAttribute Posting posting, HttpSession httpSession,
 			MultipartHttpServletRequest request) throws IllegalStateException, IOException {
 
+		// 세션으로 얻어온 멤버 넘버
 		int memberNo = ((Member) (httpSession.getAttribute("loginUserinfo"))).getMemberNo();
 
 		// 파일 없을 경우 다시 포스팅 작성 페이지로 가라
 		if (request.getFileNames() == null) {
-			return "redirect:/positing/write";
+			return "redirect:/posting/write";
 		}
 
 		Iterator<String> fileNames = request.getFileNames();
@@ -87,41 +88,36 @@ public class PostingController {
 
 			List<MultipartFile> postingFiles = request.getFiles(fileName);
 
-			int count = 1; // for문 4번 도는 거 카운트
+			int count = 1; // for문 도는 거 카운트
 			for (MultipartFile multipartFile : postingFiles) {
-
-				String uploadDirectory = context.getServletContext()
-						.getRealPath("/resources/assets/postingSelfIntroductionImages");
-
-				String originalFilename = multipartFile.getOriginalFilename();
-
-				switch (count) {
-
-				case 1:
+				if (count == 1)
 					posting.setPostingSelfIntroductionImg1(fileName);
-				case 2:
+				else if (count == 2)
 					posting.setPostingSelfIntroductionImg2(fileName);
-				case 3:
+				else if (count == 3)
 					posting.setPostingSelfIntroductionImg3(fileName);
-				default:
+				else if (count == 4)
 					posting.setPostingSelfIntroductionImg4(fileName);
-				}
-
-				File file = new File(uploadDirectory, originalFilename);
-
-				String uploadFilename = originalFilename;
-
-				// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
-				int i = 0;
-				while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
-					i++;
-					int index = originalFilename.lastIndexOf(".");
-					uploadFilename = originalFilename.substring(0, index) + "_" + i + originalFilename.substring(index);
-					file = new File(uploadDirectory, uploadFilename);
-				}
-
-				multipartFile.transferTo(file); // 파일 이동
 			}
+			String uploadDirectory = context.getServletContext()
+					.getRealPath("/resources/assets/postingSelfIntroductionImages");
+
+			String originalFilename = multipartFile.getOriginalFilename();
+
+			File file = new File(uploadDirectory, originalFilename);
+
+			String uploadFilename = originalFilename;
+
+			// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
+			int i = 0;
+			while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
+				i++;
+				int index = originalFilename.lastIndexOf(".");
+				uploadFilename = originalFilename.substring(0, index) + "_" + i + originalFilename.substring(index);
+				file = new File(uploadDirectory, uploadFilename);
+			}
+
+			multipartFile.transferTo(file); // 파일 이동
 
 		}
 		posting.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
@@ -138,7 +134,7 @@ public class PostingController {
 		for (String round : roundList) {
 
 			PtPricing ptPricing = new PtPricing();
-			ptPricing.setPtPricingRound(round);
+			ptPricing.setPtPricingRound(round + "회");
 			ptPricing.setPtPricingPrice(Integer.parseInt(priceList[priceCount]));
 			ptPricing.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
 
@@ -158,32 +154,42 @@ public class PostingController {
 
 		String dayOff = request.getParameter("dayoff");
 		String dayOffText = request.getParameter("dayOffText");
-		
+
 		int dayCount = 0;
-		for(String workday : workdays) {
-			
+		for (String workday : workdays) {
+
 			Schedule schedule = new Schedule();
-			String time = hour1s[dayCount]+":"+minute1s[dayCount]+"~"+hour2s[dayCount]+":"+minute2s[dayCount];
+			String time = hour1s[dayCount] + ":" + minute1s[dayCount] + "~" + hour2s[dayCount] + ":"
+					+ minute2s[dayCount];
 			schedule.setScheduleHours(time);
 			schedule.setScheduleWorkday(ScheduleWorkdayEnum.of(Integer.parseInt(workday)).getValue());
 			schedule.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
-			
+
 			scheduleService.addSchedule(schedule);
-			
+
 			dayCount++;
 		}
 
 		// 휴무일 정보도 있을 시
-		if(!(dayOff == null && dayOffText == null)) {
+		if (!(dayOff == null && dayOffText == null)) {
 			Schedule schedule = new Schedule();
 			schedule.setScheduleWorkday(ScheduleWorkdayEnum.of(Integer.parseInt(dayOff)).getValue());
 			schedule.setScheduleDayoff(dayOffText);
 			schedule.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
-			
+
 			scheduleService.addSchedule(schedule);
 		}
 
-		return "/content/posting_detail"; // 포스팅 추가하면 포스팅 디테일 페이지로 이동
+		return "/";
+		// 포스팅 추가하면 포스팅 디테일 페이지로 이동 얘도 수정필요 리다이렉트 요청 ㄱㄱ
 	}
 
+	// 포스팅 디테일 페이지 GET 요청
+	@RequestMapping(value = "/posting/detail", method = RequestMethod.GET)
+	public String postingDetail() {
+
+		// 뭘 줄까?
+
+		return "/content/posting_detail";
+	}
 }

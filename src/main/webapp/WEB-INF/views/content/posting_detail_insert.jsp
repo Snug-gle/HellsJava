@@ -45,7 +45,7 @@
 			<hr>
 		</div>
 	</div>
-	<form id="postingForm" action="" >
+	<form enctype="multipart/form-data" id="postingForm" action='<c:url value="/posting/write"/>'  method="post">
 	<div class="pd-insert-body">
 		
 		<div class="pd-insert-body-myprofile">
@@ -55,10 +55,10 @@
 			</div>
 			<div class="pd-insert-body-myprofile-body">
 				<h5>자기 소개 이미지 첨부 요망</h5>
-				<input type="file" id="postingSelfIntroductionImg1" name="postingSelfIntroductionImg1" accept="image/*">
-				<input type="file" id="postingSelfIntroductionImg2" name="postingSelfIntroductionImg2" accept="image/*">
-				<input type="file" id="postingSelfIntroductionImg3" name="postingSelfIntroductionImg3" accept="image/*">
-				<input type="file" id="postingSelfIntroductionImg4" name="postingSelfIntroductionImg4" accept="image/*">	
+				<input type="file" id="postingSelfIntroductionImg1" name="Img1" accept="image/*">
+				<input type="file" id="postingSelfIntroductionImg2" name="Img2" accept="image/*">
+				<input type="file" id="postingSelfIntroductionImg3" name="Img3" accept="image/*">
+				<input type="file" id="postingSelfIntroductionImg4" name="Img4" accept="image/*">	
 			</div>
 		</div>
 		<div class="pd-insert-body-profile">
@@ -202,7 +202,7 @@
 		}
 		
 		//스케쥴 
-		var check = 0;
+		/* var check = 0;
 		for(var i = 1; i<=3; i++) {
 			if($(".cb"+i).is(":checked")==true){
 				check +=1; //체크시 카운트 +1
@@ -215,7 +215,7 @@
 					submitResult=false;
 				}
 			}
-		}
+		} */
 		
 		//스케쥴 체크 유무 (최소 1개)
 		if(check == 0){ //카운트가 0일경우
