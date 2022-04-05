@@ -13,30 +13,30 @@
             <h3 class="panel-title">내 정보 수정</h3>
         </div>
         <div class="panel-body">
-            <form method="post" name="noticeForm" class="form-horizontal" role="form">
+            <form method="post" action="<c:url value="/member/modify"/>" name="noticeForm" class="form-horizontal" role="form">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">아이디</label>
                     <div class="col-sm-3">
-                        <input type="text" readonly="readonly" class="form-control" name="id" value="${member.memberId}"/>
+                        <input type="text" readonly="readonly" class="form-control" name="memberId" value="${loginUserinfo.memberId}"/>
                     </div>
-                    <button type="button" onclick="location.href='<c:url value="member/modify_passwd"/>';">비밀번호수정</button>
+                    <button type="button" onclick="location.href='<c:url value="/user/login/password_search"/>';">비밀번호수정</button>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">이름</label>
                     <div class="col-sm-3">
-                        <input type="text" readonly="readonly" class="form-control"  name="name" value="${member.memberName}"/>
+                        <input type="text" readonly="readonly" class="form-control"  name="memberName" value="${loginUserinfo.memberName}"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">연락처</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" name="phone" value="${member_memberPhone}"/>
+                        <input type="text" class="form-control" name="memberPhone" value="${loginUserinfo.memberPhone}"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">이메일</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" name="email1" value="${member.memberEmail}" placeholder="내용을 입력해주세요."/>
+                        <input type="text" class="form-control" name="email1" value="${loginUserinfo.memberEmail}" placeholder="내용을 입력해주세요."/>
                         <p>@</p>
                         <div>
                 		<select id="selbox" name="email2" class="form-control" >
@@ -55,7 +55,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary">수정</button>
-                        <button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/mypage2';">목록</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/mypage';">목록</button>
                     </div>
                 </div>
             </form>
