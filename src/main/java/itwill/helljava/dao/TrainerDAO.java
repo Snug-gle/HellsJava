@@ -17,7 +17,7 @@ public interface TrainerDAO {
 	int selectMainPageTrainerListCount(Map<String, Object> map);
 	
 	// 포스팅에 띄울 친구 (member, Trainer join)
-	Trainer selectTrainer(int trainer_no);
+	Trainer selectTrainer(int memberNo);
 	
 	// 트레이너 조회 리스트 (검색 기능 아이디, 이름 포함)
 	List<Trainer> selectTrainerList(Map<String, Object> map);

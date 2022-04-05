@@ -15,7 +15,7 @@ import itwill.helljava.dto.PtService;
 import itwill.helljava.service.PtServiceService;
 
 @Controller
-@RequestMapping("/review")
+@RequestMapping("/review" )
 public class ReviewController {
 
 	@Autowired

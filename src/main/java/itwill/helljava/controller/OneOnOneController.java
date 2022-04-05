@@ -22,7 +22,7 @@ public class OneOnOneController {
 	private NoticeServiceService noticeServiceService;
 	
 	//1:1 문의 내역
-	@RequestMapping("/list")
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list() {
 		return "board/oOo_list";
 	}

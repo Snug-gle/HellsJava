@@ -16,7 +16,7 @@ public interface TrainerService {
 	
 	int getMainPageTrainerListCount(Map<String, Object> map);
 	
-	Trainer getTrainer(int trainer_no);
+	Trainer getTrainer(int memberNo);
 
 	List<Trainer> getTrainerList(Map<String, Object> map);
 
