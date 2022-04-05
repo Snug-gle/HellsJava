@@ -29,7 +29,7 @@
 	리퀘스트 메세지의 바디(Body)에 저장되어 전달되는 값의 캐릭터셋을 변경하는 기능 제공 -->
 	<!-- => encoding 이름으로 캐릭터셋의 인코딩 값을 반드시 전달 -->
 	<filter>
-		<filter-name>encodintFilter</filter-name>
+		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
@@ -39,7 +39,7 @@
 	
 	<!-- filter-mapping : 필터가 적용되기 위한 클라이언트 요청 URL 주소의 패턴을 설정하는 엘리먼트 -->
 	<filter-mapping>
-		<filter-name>encodintFilter</filter-name>
+		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	

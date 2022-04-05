@@ -32,13 +32,13 @@
 	<div class="flex-container1">
 	 	<div class="flex-container">
 	        <div class="flex-item"><a href="${pageContext.request.contextPath}/account/register"; style="color: black">회원정보수정</a></div>
-	        <div class="flex-item"><a href="${pageContext.request.contextPath}/account/register"; style="color: black">내 리뷰 관리</a></div>
-	        <div class="flex-item"><a href="${pageContext.request.contextPath}/account/register"; style="color: black">1:1 문의 내역</a></div>
+	        <div class="flex-item"><a href="${pageContext.request.contextPath}/review/list"; style="color: black">내 리뷰 관리</a></div>
+	        <div class="flex-item"><a href="${pageContext.request.contextPath}/oOo/list"; style="color: black">1:1 문의 내역</a></div>
 	        <div class="flex-item"><a href="${pageContext.request.contextPath}/account/info"; style="color: black">계좌관리</a></div>
 	    </div>
 	    <br>
 	    <div class="flex-container">
-	        <div class="flex-item"><a href="${pageContext.request.contextPath}/account/register"; style="color: black">1회 PT 신청 내역</a></div>
+	        <div class="flex-item"><a href="${pageContext.request.contextPath}/ptonce/list"; style="color: black">1회 PT 신청 내역</a></div>
 	        <div class="flex-item"><a href="${pageContext.request.contextPath}/account/register"; style="color: black">PT 문의 내역</a></div>
 	        
 	        <c:if test="${loginUserinfo.memberStatus == 2}">

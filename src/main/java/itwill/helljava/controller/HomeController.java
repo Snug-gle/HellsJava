@@ -27,15 +27,15 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping("/terms1")
+	@RequestMapping(value = "/terms1", method = RequestMethod.GET)
 		
 	public String terms1() {
-		return "material/terms1";
+		return "/material/terms1";
 	}
 	
-	@RequestMapping("/terms2")
+	@RequestMapping(value = "/terms2" , method = RequestMethod.GET)
 	public String terms2() {
-		return "material/terms2";
+		return "/material/terms2";
 	}
 	
 
