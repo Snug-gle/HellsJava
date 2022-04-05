@@ -153,7 +153,7 @@
 		select * from (select rownum rn,board.* from 
 		(select * from notice_service n left join member m 
 		on n.member_no = m.member_no 
-		where notice_service_sortation = 3 and n.member_no = #{member_no}
+		where notice_service_sortation = 3 and n.member_no = #{memberNo}
 		order by notice_service_no desc) board) 
 		where rn between #{startRow} and #{endRow}
 	</select>
