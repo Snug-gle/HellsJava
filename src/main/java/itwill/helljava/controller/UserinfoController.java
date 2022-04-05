@@ -25,7 +25,7 @@ public class UserinfoController {
 		return "user/member_modify";
 	}
 	
-	@RequestMapping("/mypage")
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String myPage2() {
 		return "/material/mypage";
 	}
