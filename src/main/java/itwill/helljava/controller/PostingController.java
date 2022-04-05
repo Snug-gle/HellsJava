@@ -32,7 +32,7 @@ public class PostingController {
 
 	// 포스팅 작성 페이지 요청
 	@RequestMapping(value = "/posting/write", method = RequestMethod.GET)
-	public String trainerRequesAdd(HttpSession session, Model model) {
+	public String trainerRequestAdd(HttpSession session, Model model) {
 
 		// 모델에다가 트레이너 객체 넘김
 		model.addAttribute("trainer",
@@ -41,6 +41,12 @@ public class PostingController {
 				.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo()));
 
 		return "/content/posting_detail_insert";
+	}
+	
+	@RequestMapping(value = "/posting/write", method = RequestMethod.POST)
+	public String trainerRequestAdd() {
+		
+		return "";
 	}
 
 }
