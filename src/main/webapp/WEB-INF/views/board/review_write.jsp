@@ -37,7 +37,7 @@
 					</div>
 				</div>
 				
-				<div class="form-group">
+				<%-- <div class="form-group">
 					<label class="col-sm-2 control-label">별점</label>
 					<div class="col-sm-3">
 				<c:forEach var="rating" items="${ ratingOptions }" varStatus="status" begin="1" end="${ }">
@@ -48,7 +48,7 @@
 
 					</div>
 					</c:forEach>
-				</div>
+				</div> --%>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">내용</label>
 					<div class="col-sm-4">
@@ -71,7 +71,7 @@
 	</div>
 </div>
 <!--  Bootstrap 4 -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <!-- // Star Rating -->
 <script src="js/star-rating.js" type="text/javascript">
 

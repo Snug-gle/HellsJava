@@ -24,7 +24,7 @@ public class ReviewController {
 	//list 페이지 요청 처리 메소드
 	@RequestMapping("/list")
 	public String searchList() {
-		return "board/review_lsit";
+		return "board/review_list";
 	}
 	//리뷰 작성 페이지 요청 처리 메소드
 	@RequestMapping(value = "/write" , method = RequestMethod.GET)
@@ -51,7 +51,7 @@ public class ReviewController {
 		model.addAttribute("ratingOptions", ratingOptions);
 	
 		
-		return "board/review_lsit";
+		return "board/review_list";
 	}
 	
 	//리뷰 수정 후 저장 요청 처리 메소드

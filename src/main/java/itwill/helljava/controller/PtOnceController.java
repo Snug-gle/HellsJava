@@ -28,12 +28,14 @@ public class PtOnceController {
 	@Autowired
 	private PtOnceService ptOnceService;
 	
-	/*
+	
 	@RequestMapping("/list")
 	public String list() {
+		
 		return "board/ptonce_list";
 	}
-	*/
+	
+	
 	
 	//list : 페이징 처리 시도
 	@RequestMapping(value = "/list" , method = RequestMethod.GET)
@@ -44,16 +46,18 @@ public class PtOnceController {
 		int blockSize = 10; //한 페이지 블럭에 출력될 페이지 번호의 갯수 저장
 		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
 		Map<String, Object> pagerMap = new HashMap<String, Object>();
-		pagerMap.put("starRow", pager.getStartRow());
+		pagerMap.put("startRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
-		//트레이너 No
+		pagerMap.put("memberNo", ((Member)session.getAttribute("loginUserinfo")).getMemberNo());
 		
-		
-		model.addAttribute("ptOnceList", ptOnceService.getPtOnceList(pagerMap));
-		model.addAttribute("pager", pager); 
-		return "board/ptonce_list";
+		model.addAttribute("ptonceList", ptOnceService.getPtOnceList(pagerMap));
+		model.addAttribute("pager",pager);
+				
+		return "/board/ptonce_list";
 	}
 	
+	
+	/*
 	@RequestMapping("/list2")
 	public String showList() {
 		return "board/ptonce_list2";
@@ -78,7 +82,7 @@ public class PtOnceController {
 		
 		return returnMap;
 	}
-
+	*/
 	
 	
 	
