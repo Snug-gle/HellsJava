@@ -20,22 +20,12 @@ import itwill.helljava.service.PtOnceService;
 import itwill.helljava.util.Pager;
 
 
-
 @Controller
 @RequestMapping("/ptonce")
 public class PtOnceController {
 	
 	@Autowired
 	private PtOnceService ptOnceService;
-	
-	
-	@RequestMapping("/list")
-	public String list() {
-		
-		return "board/ptonce_list";
-	}
-	
-	
 	
 	//list : 페이징 처리 시도
 	@RequestMapping(value = "/list" , method = RequestMethod.GET)
@@ -56,34 +46,10 @@ public class PtOnceController {
 		return "/board/ptonce_list";
 	}
 	
-	
-	/*
-	@RequestMapping("/list2")
+	@RequestMapping("/board")
 	public String showList() {
 		return "board/ptonce_list2";
 	}
-
-	//list2 JSON 형식으로 텍스트를 넘김
-	@RequestMapping(value = "/list2" , method = RequestMethod.GET)
-	@ResponseBody
-	public Map<String, Object> searchPtOnceList2(HttpSession session, @RequestParam(defaultValue="1")int pageNum){
 		
-		int totalBoard = ptOnceService.getPtOnceCount(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
-		int pageSize = 5; //한 페이지에 출력될 게시글의 갯수 저장
-		int blockSize = 10; //한 페이지 블럭에 출력될 페이지 번호의 갯수 저장
-		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
-		Map<String, Object> pagerMap = new HashMap<String, Object>();
-		pagerMap.put("starRow", pager.getStartRow());
-		pagerMap.put("endRow", pager.getEndRow());
-		
-		Map<String, Object> returnMap = new HashMap<String, Object>();
-		returnMap.put("ptOnce", ptOnceService.getPtOnceList(pagerMap));
-		returnMap.put("pager", pager);
-		
-		return returnMap;
-	}
-	*/
-	
-	
 	
 }
