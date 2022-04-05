@@ -55,8 +55,8 @@ public class NoticeServiceServiceImpl implements NoticeServiceService {
 	}
 	
 	@Override
-	public int getNoticeServicePersonalCount(int notice_service_sortation, int member_no) {
-		return noticeServiceDAO.selectNoticeServicePersonalCount(notice_service_sortation, member_no);
+	public int getNoticeServicePersonalCount(Map<String, Object> map) {
+		return noticeServiceDAO.selectNoticeServicePersonalCount(map);
 	}
 
 	@Override

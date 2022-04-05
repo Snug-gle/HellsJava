@@ -4,11 +4,8 @@
 
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <h1 align="center">1회 PT 신청 내역 목록(회원)</h1>
-
 <div class="panel-body">
-
 	<c:choose>
 		<c:when test="${empty(ptonceList) }">
 			<div align="center">
@@ -16,32 +13,29 @@
 			</div>
 		</c:when>
 		<c:otherwise>
-			<%-- ${(현재 페이지 * 페이지 당 행 개수) - 페이지 당 행 개수 - i.index} --%>
-			<c:forEach var="ptOnce" items="${ptonceList}">
+			<c:set var="cnt" value="1"/>
+			<c:forEach var="ptOnce" items="${ptonceList}" varStatus="status">
 				<div class="panel-group accordion" id="accordion">
-
 					<div class="panel panel-default">
-
 						<div class="panel-heading">
-
 							<div class="panel-title">
-
-
+								<c:set var="index" value="${index+1 }"/>
 								<a data-toggle="collapse" data-parent="#accordion" href="#"
-									class="collapsed" aria-expanded="false"> ${ptOnce.ptOnceNo }</a>
+									class="collapsed" aria-expanded="false"> ${index }</a>
+							
 								<a data-toggle="collapse" data-parent="#accordion" href="#"
 									class="collapsed" aria-expanded="false">
-									${ptOnce.ptOnceApplicationDate }</a> <a data-toggle="collapse"
+									${ptOnce.ptOnceApplicationDate }</a> 
+								<a data-toggle="collapse"
 									data-parent="#accordion" href="#" class="collapsed"
-									aria-expanded="false"> ${ptOnce.trainerNo }</a> <a
-									data-toggle="collapse" data-parent="#accordion" href="#"
+									aria-expanded="false"> ${ptOnce.trainerNo }</a> 
+								<a data-toggle="collapse" data-parent="#accordion" href="#"
 									class="collapsed" aria-expanded="false">
-									${ptOnce.ptOnceStatus }</a> <a data-toggle="collapse"
-									data-parent="#accordion" href="#${ptOnce.ptOnceNo }"
-									class="collapsed" aria-expanded="false"> 상세보기</a> <a
-									data-toggle="collapse" data-parent="#accordion" href="#"
+									${ptOnce.ptOnceStatus }</a> 
+								<a data-toggle="collapse"data-parent="#accordion" href="#${ptOnce.ptOnceNo }"
+									class="collapsed" aria-expanded="false"> 상세보기</a> 
+								<a data-toggle="collapse" data-parent="#accordion" href="<c:url value='review/write'/>"
 									class="collapsed" aria-expanded="false"> 리뷰쓰기</a>
-
 							</div>
 							<div id="${ptOnce.ptOnceNo }" class="panel-collapse collapse"
 								aria-expanded="false" style="height: 0px;">
@@ -57,9 +51,7 @@
 								<div class="panel-body">특이사항 :${ptOnce.ptOnceSignificant }
 								</div>
 								<div class="panel-body">(확인용) 회원번호 :${ptOnce.ptOnceNo }</div>
-
 							</div>
-
 						</div>
 					</div>
 				</div>
@@ -76,17 +68,17 @@
 </div>
 
 <script type="text/javascript">
-	
-	var page = 1; 
-	var html = "";
-
+	var page = 1; //현재 요청 페이지 번호를 저장하기 위한 전역 변수
+	var html = ""; //페이지 번호 출력하기 위한 전역 변수
+	//페이징 처리 
+	//[처음], [이전] 이동 설정
 	if (${pager.startPage} > ${pager.blockSize}) {
 		html += "<a href='<c:url value="/ptonce/list?pageNum=1"/>'>[처음]</a>";
 		html += "<a href='<c:url value="/ptonce/list?pageNum=${pager.prevPage}"/>'>[이전]</a>";
 	} else {
 		html += "[처음][이전]";
 	}
-
+	//페이지 번호 설정
 	for (var i = ${pager.startPage}; i <= ${pager.endPage}; i++) {
 		if (${pager.pageNum} != i) {
 			html += "<a href='<c:url value="/ptonce/list?pageNum=i"/>'>[" + i+ "]</a>";
@@ -94,16 +86,15 @@
 			html += "[" + i + "]";
 		}
 	}
-
+	//[다음],[마지막] 이동 설정
 	if (${pager.endPage} != ${pager.totalPage}) {
 		html += "<a href='<c:url value="/ptonce/list?pageNum=${pager.nextPage}"/>'>[다음]</a>";
 		html += "<a href='<c:url value="/ptonce/list?pageNum=${pager.totalPage}"/>'>[마지막]</a>";
 	} else {
 		html += "[다음][마지막]";
 	}
-
+	//페이징 처리 결과 출력
 	$("#pageNumDiv").html(html);
-	
 </script>
 
 

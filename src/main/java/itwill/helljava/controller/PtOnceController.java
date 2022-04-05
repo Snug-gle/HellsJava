@@ -29,7 +29,7 @@ public class PtOnceController {
 	
 	//list : 페이징 처리 시도
 	@RequestMapping(value = "/list" , method = RequestMethod.GET)
-	public String searchPtOnceList( HttpSession session, Model model, @RequestParam(defaultValue="1")int pageNum){
+	public String searchPtOnceList(HttpSession session, Model model, @RequestParam(defaultValue="1")int pageNum){
 			
 		int totalBoard = ptOnceService.getPtOnceCount(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
 		int pageSize = 5; //한 페이지에 출력될 게시글의 갯수 저장
