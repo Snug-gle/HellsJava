@@ -48,7 +48,7 @@
 									    </li>
 									    <li>
 									    	<c:if test="${loginUserinfo.memberStatus == 3}"><!-- 트레이너 전용 마이페이지 -->
-									        	<a href="<c:url value="/user/trainer/trainer_mypage"/>"><span class="icon"><i class="fa fa-user"></i></span>마이페이지</a>
+									        	<a href="<c:url value="/trainer/mypage"/>"><span class="icon"><i class="fa fa-user"></i></span>마이페이지</a>
 									   		</c:if>
 									    </li>
 									    <li>

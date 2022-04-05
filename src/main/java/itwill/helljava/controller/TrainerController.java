@@ -180,6 +180,13 @@ public class TrainerController {
 		return "redirect:/mypage"; // 마이페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
 	}
 
+	// 트레이너 마이페이지 Get 요청 
+	@RequestMapping(value = "/trainer/mypage", method = RequestMethod.GET)
+	public String trainerPage() {
+		
+		return "user/trainer/trainer_mypage";
+	}
+	
 	@ExceptionHandler(value = AccountPwAuthException.class)
 	public String exceptionHandler(AccountPwAuthException exception, Model model) {
 
