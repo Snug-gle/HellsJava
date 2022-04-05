@@ -115,7 +115,7 @@
 						<input type="checkbox" class="cb4">
 						<label>휴무일</label>	
 						<input id="cb4-text" type="text">
-					<li>	
+					</li>	
 				</ul>
 			</div>
 		</div>
@@ -192,8 +192,10 @@
 				check +=1; //체크시 카운트 +1
 				var hour1 = $(".cb"+i).next().next().val();
 				var hour2 = $(".cb"+i).next().next().next().next().val();
-				if(hour1==hour2 || hour1>hour2){ //스케쥴 시간이 동일하거나 시작시간이 끝나는 시간보다 낮은 경우
+				if(hour1>=hour2){ //스케쥴 시간이 동일하거나 시작시간이 끝나는 시간보다 낮은 경우
 					alert("시간을 다시 확인해 주세요");
+					alert(hour1);
+					alert(hour2);
 					submitResult=false;
 				}
 			}
@@ -232,7 +234,6 @@
 		return submitResult;
 	}); 
 	
-
 	//회차 및 가격의 총 가격
 	$(document).on('input', '.p-pt', function() {
 		var total= $(this).val()*$(this).next().val();
@@ -244,11 +245,6 @@
 	    $(this).next().children().text(total);
 	});
 
-	
-	
-	
-	
-	
 	var onp = 0;
 	var html2;
 	//동적 태그 생성(회차 추가시)
