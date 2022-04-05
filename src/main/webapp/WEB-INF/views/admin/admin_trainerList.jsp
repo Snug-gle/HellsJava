@@ -2,28 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
-<style>
-.theme-default .sidebar-left {
-    border-radius: 4px;
-}
-
-.memberBtn {
-	font-size: 13px;
-	margin-bottom: 0px;
-	width: 105px;
-}
-
-.userList {
-	margin: 100px auto;
-}
-
-.searchBtnBox {
-	margin-bottom: 0px;
-	height: 42px;
-}
-
-</style>
-
 
 <div class="container">
 	<div class="userList">
@@ -108,73 +86,90 @@
 	</div>
 </div>
 
+
+
 <!-- 트레이너 상세보기 모달 -->
 <div class="modal fade" id="trainer_view" role="dialog" >
-	<div class="modal-dialog" id="modal-dialog">
-		<form action="">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1>오늘의 짐</h1>
-					<br>
-					<h2>트레이너 상세</h2>
+	<div class="modal-dialog" id="modal-dialog" style="text-align: left;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="logo-location">
+					<a href="<c:url value="/"/>" class="modal-header-logo"><i class="icon-layers"></i>오늘의 짐</a>
 				</div>
-				<div class="modal-body">
-		
-					<div class="ad-t-v-header-info">
-						<table>
-							<tr>
-								<td>이름</td>
-								<td>김남영</td>
-							</tr>
-							<tr>
-								<td>연락처</td>
-								<td>01011112222</td>
-							</tr>
-							<tr>
-								<td>소속 센터 주소</td>
-								<td>불러오니라</td>
-							</tr>
-						</table>
-						<br>
-					</div>
-					<div class="ad-t-v-header-award-title">
-						<h3>수상경력 및 이력</h3>
-						<hr>
-					</div>
-					<div class="ad-t-v-header-award-content">
-						<div class="ad-t-v-header-award-body">
-							<table>
-								<tr>
-									<td> <img alt="" src="<spring:url value="/img/avatar2.png"/>"></td>
-									<td>수상이력 불러오니라</td>
-								</tr>	
-							</table>
+			</div>
+			<div class="modal-body">
+				<div id="login-wrapper">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">트레이너 상세</h3>
 						</div>
-						<hr>
-					</div>
-					<div class="ad-t-v-header-award-footer">
-						<div class="ad-t-v-header-award-footer-text">다음 결제일 : ??</div>
-						<div class="ad-t-v-header-award-footer-text">결제 금액 : 15000원</div>
-						
-						<div class="ad-t-v-header-award-footer-change">
-							<select>
-								<option value="1" selected>트레이너</option>
-								<option value="2">회원</option>
-								<option value="3">탈퇴</option>
-							</select>
+						<div class="panel-body">
+							<form action="">
+								<hr>
+									<h3><strong>트레이너 정보</strong></h3>
+								<hr>
+								<div class="row">
+									<div class="trainerDetailView">
+										<img alt="" src="<spring:url value="/img/avatar2.png"/>">
+									</div>
+									<div class="ad-t-v-header-info trainerDetailView">
+										<table>
+											<tr>
+												<td>이름</td>
+												<td>김남영</td>
+											</tr>
+											<tr>
+												<td>연락처</td>
+												<td>01011112222</td>
+											</tr>
+											<tr>
+												<td>소속 센터 주소</td>
+												<td>불러오니라</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<hr>
+									<h3><strong>수상경력 및 이력</strong></h3>
+								<hr>
+								<div class="ad-t-v-header-award-body">
+									<div class="row">
+										<div class="trainerDetailView">
+											<img class="trainer-detail-profile" alt="" src="<spring:url value="/img/avatar2.png"/>">
+										</div>
+										<div class="ad-t-v-header-info trainerDetailView">
+											<p>수상이력</p>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<div class="ad-t-v-header-award-footer">
+									<div class="ad-t-v-header-award-footer-text">
+										<h3><strong>다음결제일</strong>??</h3></div>
+									<div class="ad-t-v-header-award-footer-text">
+										<h3><strong>결제금액</strong> : 15000 원</h3>
+									</div>
+	
+									<div class="ad-t-v-header-award-footer-change">
+										<select class="btn btn-primary dropdown-toggle">
+											<option value="1" selected>트레이너</option>
+											<option value="2">회원</option>
+											<option value="3">탈퇴</option>
+										</select>
+									</div>
+								</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<div>
+									<button type="submit" class="btn btn-primary btn-block">확인</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default btn-block">닫기</button>
+								</div>
+							</div>
 						</div>
-					</div>
-					
-				</div>
-				
-				<div class="modal-footer">
-					<div>
-						<button type="submit">확인</button>
-						<button type="button" data-dismiss="modal">닫기</button>
 					</div>
 				</div>
 			</div>
-		</form>
 	</div>
 </div>
 

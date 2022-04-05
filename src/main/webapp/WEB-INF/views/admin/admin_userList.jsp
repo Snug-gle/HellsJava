@@ -2,27 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<style>
-.theme-default .sidebar-left {
-    border-radius: 4px;
-}
-
-.memberBtn {
-	font-size: 13px;
-	margin-bottom: 0px;
-	width: 105px;
-}
-
-.userList {
-	margin: 100px auto;
-}
-
-.searchBtnBox {
-	margin-bottom: 0px;
-	height: 42px;
-}
-</style>
-
 
 <div class="container">
 	<div class="userList">

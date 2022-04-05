@@ -170,3 +170,36 @@
 	padding-top: 20px;
 	padding-bottom: 10px;
 }
+
+.theme-default .sidebar-left {
+    border-radius: 4px;
+}
+
+.memberBtn {
+	font-size: 13px;
+	margin-bottom: 0px;
+	width: 105px;
+}
+
+.userList {
+	margin: 100px auto;
+}
+
+.searchBtnBox {
+	margin-bottom: 0px;
+	height: 42px;
+}
+
+.trainerDetailView {
+	float: left;
+	margin: auto 20px;
+}
+.trainer-detail-profile {
+	width: 60px;
+	height: 60px;
+}
+
+.ad-t-v-header-award-footer-text {
+	margin: 25px auto;
+}
+

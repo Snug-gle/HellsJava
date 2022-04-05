@@ -2,120 +2,63 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-<!DOCTYPE html>
-
-<div class="userList">
-	<div class="admin-title">
-		<h2>관리자 페이지</h2>
-	</div>
-	<div class="userList-content">
-		<div class="userList-side admin-Panel admin-listPanel">
-			<div class="admin-side-bar">
-				<ul>
-					<li onclick="location.href='<c:url value="/admin/userList"/>';">회원목록</li>
-					<li onclick="location.href='<c:url value="/admin/trainerList"/>';">트레이너 목록
-						<ul>
-							<li class="admin-side-bar-tlist1">트레이너 목록</li>
-							<li class="admin-side-bar-tlist2">트레이너 신청 목록</li>
-						</ul>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+<div class="container">
+	<div class="userList">
+		<section id="main-wrapper" class="theme-default">
+		<!-- 사이드메뉴 -->
+		<aside class="sidebar sidebar-left">
+			<nav>
+				<h1 class="sidebar-header">관리자 페이지</h1>
+				<ul class="nav nav-pills nav-stacked">
+					<li><a href="<c:url value="/admin/userList"/>"
+						title="userList"> <i class="icon-users"></i> 회원목록
+					</a></li>
+					<li class="nav-dropdown"><a href="#" title="trainerList"><span></span> 
+						<i class="icon-users"></i>트레이너 목록</a>
+							<ul class="nav-sub" data-index="0" style="display: none;">
+								<li class=""><a
+									href="<c:url value="/admin/trainerList"/>" title="Buttons">
+										트레이너목록</a></li>
+								<li><a href="" title="Sliders &amp; Progress">트레이너 신청 목록</a></li>
+							</ul>
 					</li>
-					<li onclick="location.href='<c:url value="/admin/questionList"/>';">1:1문의 목록</li>
+					<li class="nav-dropdown"><a
+						href="<c:url value="/admin/questionList"/>" title="questionList"><span></span>
+							<i class="fa  fa-fw fa-edit"></i> 1:1문의 목록 </a></li>
 				</ul>
+			</nav>
+		</aside>
+		<!-- 사이드메뉴 끝 -->
+		<section class="main-content-wrapper">
+			<div class="pageheader">
+				<h1>1:1문의 목록</h1>
 			</div>
-		</div>
-		<div class="userList-body admin-Panel">
-			<div class="admin-side-bar">
-				<h4>1:1문의 목록</h4>
-
-				<div class="admin-list-body-list" id="showData" >
-					<%-- <table class="admin-list-body-list-table" >
-						<colgroup>
-							<col style="width:140px">
-							<col style="width:150px">
-							<col style="width:200px">
-							<col style="width:140px">
-							<col style="width:200px">
-							<col style="width:200px">
-							<col style="width:110px">
-						</colgroup>
-						<tr>
-							<th scope="col">번호</th>
-							<th scope="col">카테고리</th>
-							<th scope="col">제목</th>
-							<th scope="col"></th>
-							<th scope="col">아이디</th>
-							<th scope="col">날짜</th>
-							<th scope="col">답변상태</th>
-						</tr>
-						
-						<tr class="admin-list-body-listTitle">
-							<td>${noticeServiceNo}</td>
-							<td>${noticeServiceCategory}</td>
-							<td>${noticeServiceTitle}</td>
-							<td></td>
-							<td>${memberId}</td>
-							<td>${noticeServiceDate}</td>
-							<td>${noticeServiceStatus}</td>
-						</tr>
-						
-						<tr class="admin-list-body-listBody" id="restAdminQAListDiv">
-							<td colspan="7">
-								<h4>소개</h4>
-								<hr>
-								<ul>
-									<li class="alblb"> 
-										<button class="admin-list-body-listBody-btn1" type="button">답변</button>
-									</li>
-								</ul>
-								<form action="">
-									<ul class="admin-list-body-listBody-review alblb">
-										<li> <textarea class="admin-list-review" rows="" cols=""></textarea> </li>
-										<li class="alblb">
-											<button type="submit">작성</button> 
-											<button type="reset">초기화</button>
-											<button class="admin-list-body-listBody-btn2" type="button">취소</button>
-										</li>
-									</ul>
-								</form>
-								<form action="">
-									<ul class="admin-list-body-listBody-review-af">
-										<li>
-											<h4>답변</h4>
-											<p class="texttest"></p>
-										</li>
-										<li class="alblb">
-											<button class="admin-list-body-listBody-btn3" type="button">수정</button>
-											<button class="admin-list-body-listBody-btn4" type="submit">입력</button>
-											<button class="admin-list-body-listBody-btn5" type="button">취소</button>
-										</li>
-									</ul>
-								</form>
-							</td>
-						</tr>
-				</table> --%>
-				
-				
-				</div>
-			
-			</div>	
-		</div>
+				<section id="main-content" class="animated fadeInUp">
+					<div class="row">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="admin-list-body-list" id="showData"></div>
+							</div>
+						</div>
+						<form id="searchForm" method="get">
+							<div class="main-search-area">
+								<select id="nameIdSearch" name="nameIdSearch"
+									class="btn btn-primary dropdown-toggle searchBtnBox">
+									<option value="member_name" selected="selected">&nbsp;이름&nbsp;</option>
+									<option value="member_id">&nbsp;아이디&nbsp;</option>
+								</select> <input class="main-search" type="text" name="searchValue"
+									id="searchValue">
+								<button type="button" id="searchBtn"
+									class="btn btn-primary searchBtnBox">검색</button>
+							</div>
+						</form>
+					</div>
+				</section>
+		</section>
+		</section>
 	</div>
-	
-	<%-- 페이지 번호를 출력하는 영역 --%>
-	<div id="pageNumDiv"></div>
-	
-	<form id="searchForm" method="get">
-		<select id = "nameIdSearch" name = "nameIdSearch">
-			<option value = "member_name" selected="selected">&nbsp;이름&nbsp;</option>
-			<option value = "member_id" >&nbsp;아이디&nbsp;</option>			
-		</select>
-		<input type="text" name="searchValue" id="searchValue">
-		<button type="button" id="searchBtn">검색</button>
-	</form>
 </div>
 
 	<script type="text/javascript">
@@ -256,7 +199,7 @@
 							if(obj["noticeServiceStatus"]!=3){
 								str += "<ul>";
 								str += "<li class='alblb'>";
-								str += "<button class='admin-list-body-listBody-btn1' type='button' id='lb-btn1-"+ind+"'>답변</button>";
+								str += "<button class='admin-list-body-listBody-btn1 btn btn-primary' type='button' id='lb-btn1-"+ind+"'>답변</button>";
 								str += "</li>";
 								str += "</ul>";
 							
@@ -266,7 +209,7 @@
 								str += "<li class='alblb'>";
 								str += "<button type='submit'>작성</button> ";
 								str += "<button type='reset'>초기화</button>";
-								str += "<button class='admin-list-body-listBody-btn2' id='lb-btn2-"+ind+"' type='button'>취소</button>";
+								str += "<button class='admin-list-body-listBody-btn2 btn btn-primary' id='lb-btn2-"+ind+"' type='button'>취소</button>";
 								str += "</li>";
 								str += "</ul>";
 								str += "</form>";
@@ -278,9 +221,9 @@
 								str += "<p class='texttest'>"+obj["noticeServiceReply"]+"</p>";
 								str += "</li>";
 								str += "<li class='alblb'>";
-								str += "<button class='admin-list-body-listBody-btn3' id='lb-btn3-"+ind+"' type='button'>수정</button>";
-								str += "<button class='admin-list-body-listBody-btn4' id='lb-btn4-"+ind+"' type='submit'>입력</button>";
-								str += "<button class='admin-list-body-listBody-btn5' id='lb-btn5-"+ind+"' type='button'>취소</button>";
+								str += "<button class='admin-list-body-listBody-btn3 btn btn-primary' id='lb-btn3-"+ind+"' type='button'>수정</button>";
+								str += "<button class='admin-list-body-listBody-btn4 btn btn-primary' id='lb-btn4-"+ind+"' type='submit'>입력</button>";
+								str += "<button class='admin-list-body-listBody-btn5 btn btn-primary' id='lb-btn5-"+ind+"' type='button'>취소</button>";
 								str += "</li>";
 								str += "</ul>";
 								str += "</form>";
