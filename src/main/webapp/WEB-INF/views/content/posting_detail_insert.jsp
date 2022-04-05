@@ -84,7 +84,7 @@
 								<td>토요일</td>
 							</c:if>
 							<c:if test="${j eq 3}">
-								<td>휴무일</td>
+								<td>일요일</td>
 							</c:if>
 							<td>
 								<select>
