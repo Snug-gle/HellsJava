@@ -145,8 +145,8 @@
 			<div class="pd-insert-body-pt-price-body">
 				<ul class="pt-price-unit">
 					<li>
-						<input class="p-pt" id="p-pt0" name="round" type="number" min="1" placeholder="PT 회차수">
-						<input class="p-pr" id="p-pr0" name ="roundPrice"type="number" min="1000" placeholder="회당 가격">
+						<input readonly="readonly" class="p-pt" id="p-pt0" name="round" type="number" min="1" value = "1" placeholder="1회">
+						<input class="p-pr" id="p-pr0" name ="roundPrice" type="number" min="1000" placeholder="1회 PT 가격">
 						<p>총 가격= <span id="totPrice"></span></p>
 					</li>
 				</ul>

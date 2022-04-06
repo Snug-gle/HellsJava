@@ -43,6 +43,6 @@
 	</update>
 	
 	<select id="selectPosting" resultType="Posting">
-		select * from posting where posting_no = #{postingNo}
+		select * from posting where trainer_no = #{trainerNo}
 	</select>
 </mapper>

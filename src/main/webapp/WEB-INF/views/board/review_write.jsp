@@ -3,13 +3,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <!-- 제목, 트레이너 이름(리드온니), 별점 , 내용 , 확인, 목록 -->
-<html>
-<head>
-<!--  Bootstrap 4 -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<!-- Start Rating -->
-<link href="css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
-</head>
 <div class="col-md-12">
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -22,9 +15,10 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">제목</label>
 					<div class="col-sm-3">
-						<input type="text" class="form-control"
-							name="" value="${accountNumber}"
+						<input type="text" class="form-control" id="reviewTitle"
+							name="ptServiceTitle" value="${accountNumber}"
 							placeholder="제목을 입력해주세요" />
+						<p id="titleMsg" class="error">제목을 입력해 주세요.</p>
 					</div>
 				</div>
 				
@@ -37,24 +31,36 @@
 					</div>
 				</div>
 				
-				<%-- <div class="form-group">
+				<!-- 한개단위 별
+				<div class="form-group">
 					<label class="col-sm-2 control-label">별점</label>
 					<div class="col-sm-3">
-				<c:forEach var="rating" items="${ ratingOptions }" varStatus="status" begin="1" end="${ }">
-							
-							
-							
-						</select>
-
+						<i class="fa fa-star starhold"  onmouseover="starChange(this)" onmouseout="grayStarChange(this)" onclick="StarHold(this)"></i>
+						<i class="fa fa-star-o starfree"  onmouseover="starChange(this)" onmouseout="grayStarChange(this)" onclick="StarHold(this)"></i>
+						<i class="fa fa-star-o starfree"  onmouseover="starChange(this)" onmouseout="grayStarChange(this)" onclick="StarHold(this)"></i>
+						<i class="fa fa-star-o starfree"  onmouseover="starChange(this)" onmouseout="grayStarChange(this)" onclick="StarHold(this)"></i>
+						<i class="fa fa-star-o starfree"  onmouseover="starChange(this)" onmouseout="grayStarChange(this)" onclick="StarHold(this)"></i>
 					</div>
-					</c:forEach>
-				</div> --%>
+				</div> -->
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">별점</label>
+					<div class="col-sm-3">
+						<span class="star">
+							 ★★★★★
+							 <span>★★★★★</span>
+							 <input class="fuck" type="range" oninput="drawStar(this)" value="0.5" step="0.5" min="0.5" max="5" name="ptServiceStars">
+						</span>
+					</div>
+				</div>
+		
 				<div class="form-group">
 					<label class="col-sm-2 control-label">내용</label>
 					<div class="col-sm-4">
-						<textarea class="form-control"
-							name="" 
+						<textarea class="form-control" id="reviewContent"
+							name="ptServiceContent" 
 							placeholder="내용을 입력해주세요" ></textarea>
+						<p id="contentMsg" class="error">내용을 입력해 주세요.</p>
 						
 					</div>
 				</div>
@@ -70,9 +76,59 @@
 		</div>
 	</div>
 </div>
-<!--  Bootstrap 4 -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<!-- // Star Rating -->
-<script src="js/star-rating.js" type="text/javascript">
 
-</html>
+<script type="text/javascript">
+	
+	//별 반개 단위
+	function drawStar(ths) {
+		var val = ($(ths).val() * 10 * 2);
+			val += "%";
+		$(".star span").css( "width", val );
+	};
+	
+	
+	$("#registerForm").submit( function() {
+		var submitResult = true;
+		
+		$(".error").css("display", "none");
+		$("#reviewTitle").val($("#reviewTitle").val().trim());
+		$("#reviewContent").val($("#reviewContent").val().trim());
+		
+		
+		if ($("#reviewTitle").val() == "") {
+			$("#titleMsg").css("display", "block");
+			submitResult = false;
+		}
+		
+		if ($("#reviewContent").val() == "") {
+			$("#contentMsg").css("display", "block");
+			submitResult = false;
+		}
+		
+		return submitResult;
+	});
+	
+	//별 1개 단위
+	/* function starChange(ths) {
+		$(ths).attr('class','fa fa-star af');
+		$(ths).prevAll(".fa.fa-star-o.starfree").attr('class','fa fa-star af');
+	};
+	
+	function grayStarChange() {
+		$(".fa.fa-star.af").attr('class','fa fa-star-o starfree');
+	};
+	
+	function StarHold(ths) {
+		$(ths).attr('onmouseout', '');
+		$(ths).attr('class','fa fa-star starhold');
+		
+		$(ths).prevAll().attr('onmouseout', '');
+		$(ths).prevAll().attr('onmouseover','');
+		$(ths).prevAll().attr('class','fa fa-star starhold');
+
+		$(ths).nextAll().attr('class','fa fa-star-o starfree');
+		$(ths).nextAll().attr('onmouseover','starChange(this)');
+		$(ths).nextAll().attr('onmouseout','grayStarChange()');
+	}; */
+
+</script>

@@ -39,6 +39,12 @@
 		 where t.member_no= #{memberNo}
 	</select>
 	
+	<select id="selectTrainerTrainerNo" resultType="Trainer">
+		select * from trainer t right join member m
+			on t.member_no = m.member_no 
+		 where t.trainer_no= #{trainerNo}
+	</select>
+	
 	<select id="selectTrainerListCount" resultType="int">
 		select count(*) from member m right join trainer t 
 			            on m.member_no = t.member_no 

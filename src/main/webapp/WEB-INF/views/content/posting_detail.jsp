@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <style type="text/css">
 .tab-wrapper .tab-content {
     border: 0;
@@ -54,15 +55,14 @@
 							<div class="panel-body profile-wrapper">
 								<div class="col-md-3">
 									<div class="profile-pic text-center">
-										<img src="<spring:url value="/img/avatar2.png"/>" alt=""
+										<img src="<spring:url value="/profileImages/${trainer.trainerProfileImg}"/>"
 											class="img-circle">
 									</div>
 								</div>
 								<div class="col-md-9">
 									<div class="profile-info">
-										<h1>${ } 트레이너</h1>
-										<span class="text-muted">아이티윌 센터</span>
-										<p>자기소개입니다~ 자기소개입니다~ 자기소개입니다~ 자기소개입니다~ 자기소개입니다~ 자기소개입니다~</p>
+										<h1>${trainer.memberName} 트레이너</h1>
+										<span class="text-muted">${trainer.trainerCentername} 센터</span>
 										<button type="button" data-toggle="modal"
 											data-target="#pt-application" class="btn btn-primary">1회 PT
 											신청</button>
@@ -81,13 +81,19 @@
 									</div>
 									<div class="frofile-content-body posting-detail-content-panel">
 									<div class="frofile-content-body-imglist">
-										<img alt="" src="">
+										<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg1}"/>" />
+										<c:if test="${not empty posting.postingSelfIntroductionImg2}">
+											<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg2}"/>" />
+										</c:if>
+										<c:if test="${not empty posting.postingSelfIntroductionImg3}">
+											<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg3}"/>" />
+										</c:if>
+										<c:if test="${not empty posting.postingSelfIntroductionImg4}">
+											<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg4}"/>" />
+										</c:if>
 									</div>
 									<div class="frofile-content-body-text">
-										<p>ㄴ;ㅣ알ㄴ;ㅣㅏㄹ;니ㅏㅅ;ㅣㅏㄴ;ㅇ하나어리ㅏ넝리ㅏ너이ㅏ넝라ㅣㅓㄴㅇ라ㅣㅓㄴㅇ라ㅣㅓㄴ아ㅣ러니ㅏㅇ러나ㅣ어리ㅏㄴ어라ㅣ너이ㅏ</p>
-										<p>ㄴ;ㅣ알ㄴ;ㅣㅏㄹ;니ㅏㅅ;ㅣㅏㄴ;ㅇ하나어리ㅏ넝리ㅏ너이ㅏ넝라ㅣㅓㄴㅇ라ㅣㅓㄴㅇ라ㅣㅓㄴ아ㅣ러니ㅏㅇ러나ㅣ어리ㅏㄴ어라ㅣ너이ㅏ</p>
-										<p>ㄴ;ㅣ알ㄴ;ㅣㅏㄹ;니ㅏㅅ;ㅣㅏㄴ;ㅇ하나어리ㅏ넝리ㅏ너이ㅏ넝라ㅣㅓㄴㅇ라ㅣㅓㄴㅇ라ㅣㅓㄴ아ㅣ러니ㅏㅇ러나ㅣ어리ㅏㄴ어라ㅣ너이ㅏ</p>
-										<p>ㄴ;ㅣ알ㄴ;ㅣㅏㄹ;니ㅏㅅ;ㅣㅏㄴ;ㅇ하나어리ㅏ넝리ㅏ너이ㅏ넝라ㅣㅓㄴㅇ라ㅣㅓㄴㅇ라ㅣㅓㄴ아ㅣ러니ㅏㅇ러나ㅣ어리ㅏㄴ어라ㅣ너이ㅏ</p>
+										<p>${posting.postingSelfIntroduction}</p>				
 									</div>
 								</div>
 								</div>
@@ -100,43 +106,18 @@
 										<h3 class="panel-title">자격 사항</h3>
 									</div>
 									<div class="frofile-content-body posting-detail-content-panel">
-									<div class="frofile-award-content-body">
-										<div class="frofile-award-content-body-img">
-											<img alt="" src=""> 
-										</div>
-										<div class="frofile-award-content-body-title">
-											<h5>기타 등등 자격사항</h4>
-										</div>
-										<hr>
+										<c:forEach var="awarditem" items="${award}">
+											<div class="frofile-award-content-body">
+												<div class="frofile-award-content-body-img">
+													<img alt="" src="<spring:url value="/awardImages/${awarditem.awardImage}"/>"> 
+												</div>
+												<div class="frofile-award-content-body-title">
+													<h4>${awarditem.awardContent}</h4>
+												</div>
+												<hr>
+											</div>
+										</c:forEach>
 									</div>
-									<div class="frofile-award-content-body">
-										<div class="frofile-award-content-body-img">
-											<img alt="" src=""> 
-										</div>
-										<div class="frofile-award-content-body-title">
-											<h5>기타 등등 자격사항</h4>
-										</div>
-										<hr>
-									</div>
-									<div class="frofile-award-content-body">
-										<div class="frofile-award-content-body-img">
-											<img alt="" src=""> 
-										</div>
-										<div class="frofile-award-content-body-title">
-											<h5>기타 등등 자격사항</h4>
-										</div>
-										<hr>
-									</div>
-									<div class="frofile-award-content-body">
-										<div class="frofile-award-content-body-img">
-											<img alt="" src=""> 
-										</div>
-										<div class="frofile-award-content-body-title">
-											<h5>기타 등등 자격사항</h4>
-										</div>
-										<hr>
-									</div>
-								</div>
 								</div>
 							</div>
 
@@ -149,22 +130,28 @@
 									<div class="frofile-content-body posting-detail-content-panel">
 										<div class="frofile-schedule-content-body">
 											<table>
-												<tr>
-													<td>평일</td>
-													<td>시간</td>
-												</tr>
-												<tr>
-													<td>평일</td>
-													<td>시간</td>
-												</tr>
-												<tr>
-													<td>평일</td>
-													<td>시간</td>
-												</tr>
-												<tr>
-													<td>평일</td>
-													<td>시간</td>
-												</tr>
+												<c:forEach var="itemSchedule" items="${schedule}">
+													<tr>
+														<c:choose>
+															<c:when test="${itemSchedule.scheduleWorkday eq 1}">
+																<td>평일</td>
+															</c:when>
+															<c:when test="${itemSchedule.scheduleWorkday eq 2}">
+																<td>토요일</td>
+															</c:when>
+															<c:when test="${itemSchedule.scheduleWorkday eq 3}">
+																<td>일요일</td>
+															</c:when>
+															<c:when test="${itemSchedule.scheduleWorkday eq 4}">
+																<td>휴무일</td>
+															</c:when>
+														</c:choose>
+														<c:if test="${empty itemSchedule.scheduleHours}">
+															<td>${itemSchedule.scheduleDayoff }</td>
+														</c:if>
+														<td>${itemSchedule.scheduleHours}</td>
+													</tr>
+												</c:forEach>	
 											</table>
 										</div>
 									</div>
@@ -175,17 +162,11 @@
 							<div class="col-md-12" id="posting-detail-program">
 								<div class="panel panel-primary">
 									<div class="panel-heading">
-										<h3 class="panel-title">프로그램</h3>
+										<h3 class="panel-title">프로그램 소개</h3>
 									</div>
 									<div class="frofile-content-body posting-detail-content-panel">
 										<div class="frofile-program-content-body">
-											<p>이것도 테스트다아아아아ㅏㅏ아아아아아</p>
-											<p>이것도 테스트다아아아아ㅏㅏ아아아아아</p>
-											<p>이것도 테스트다아아아아ㅏㅏ아아아아아</p>
-											<p>이것도 테스트다아아아아ㅏㅏ아아아아아</p>
-											<p>이것도 테스트다아아아아ㅏㅏ아아아아아</p>
-											<p>이것도 테스트다아아아아ㅏㅏ아아아아아</p>
-											<p>이것도 테스트다아아아아ㅏㅏ아아아아아</p>
+											<p>${posting.postingProgramIntroduction}</p>
 										</div>
 									</div>
 								</div>
@@ -195,80 +176,29 @@
 							<div class="col-md-12" id="posting-detail-price">
 								<div class="panel panel-primary">
 									<div class="panel-heading">
-										<h3 class="panel-title">이용가격</h3>
+										<h3 class="panel-title">PT 이용가격</h3>
 									</div>
 									<div class="frofile-content-body posting-detail-content-panel">
 										<div class="posting-price-content-body">
-											<div class="fposting-price-content-body-num">
-												<p>회차다!!!!!</p>
-											</div>
-											<div class="posting-price-content-body-text">
-												<div class="posting-price-content-body-top">
-													<p>
-														<span>회당</span>얼마임ㅇ<span>원</span>
-													</p>
+											<c:forEach var="itemPtPricing" items="${ptPricing}">	
+												<div class="fposting-price-content-body-num">
+													<p>${itemPtPricing.ptPricingRound}회</p>
 												</div>
-												<div class="posting-price-content-body-low">
-													<p>
-														총 그래서 얼마임ㅇ<span>원</span>
-													</p>
+												<div class="posting-price-content-body-text">
+													<div class="posting-price-content-body-top">
+														<p>
+															<span>회당 :</span>&nbsp;<span class="oncePrice">${itemPtPricing.ptPricingPrice}원</span>
+														</p>
+													</div>
+													<div class="posting-price-content-body-low">
+														
+														<p>
+															총 ${itemPtPricing.ptPricingRound * itemPtPricing.ptPricingPrice}<span>원</span>
+														</p>
+													</div>
 												</div>
-											</div>
-											<hr>
-										</div>
-										<div class="posting-price-content-body">
-											<div class="fposting-price-content-body-num">
-												<p>회차다!!!!!</p>
-											</div>
-											<div class="posting-price-content-body-text">
-												<div class="posting-price-content-body-top">
-													<p>
-														<span>회당</span>얼마임ㅇ<span>원</span>
-													</p>
-												</div>
-												<div class="posting-price-content-body-low">
-													<p>
-														총 그래서 얼마임ㅇ<span>원</span>
-													</p>
-												</div>
-											</div>
-											<hr>
-										</div>
-										<div class="posting-price-content-body">
-											<div class="fposting-price-content-body-num">
-												<p>회차다!!!!!</p>
-											</div>
-											<div class="posting-price-content-body-text">
-												<div class="posting-price-content-body-top">
-													<p>
-														<span>회당</span>얼마임ㅇ<span>원</span>
-													</p>
-												</div>
-												<div class="posting-price-content-body-low">
-													<p>
-														총 그래서 얼마임ㅇ<span>원</span>
-													</p>
-												</div>
-											</div>
-											<hr>
-										</div>
-										<div class="posting-price-content-body">
-											<div class="fposting-price-content-body-num">
-												<p>회차다!!!!!</p>
-											</div>
-											<div class="posting-price-content-body-text">
-												<div class="posting-price-content-body-top">
-													<p>
-														<span>회당</span>얼마임ㅇ<span>원</span>
-													</p>
-												</div>
-												<div class="posting-price-content-body-low">
-													<p>
-														총 그래서 얼마임ㅇ<span>원</span>
-													</p>
-												</div>
-											</div>
-											<hr>
+												<hr>
+											</c:forEach>
 										</div>
 									</div>
 								</div>
@@ -356,7 +286,7 @@
 							<h3 class="panel-title">1회 PT 신청</h3>
 						</div>
 						<div class="panel-body">
-							<form role="form" action="" method="post"
+							<form role="form" action='<c:url value="/ptonce/request/${trainer.trainerNo}"/>' method="post"
 								style="text-align: -webkit-center;">
 								<table>
 									<tr>
@@ -365,38 +295,38 @@
 									<tr>
 										<td>성별</td>
 										<td><input name="ptOnceGender" type="radio"
-											class="iradio_flat-grey checked" value=""> <label>남자</label>
+											class="iradio_flat-grey checked" value="1"> <label>남자</label>
 											<input name="ptOnceGender" type="radio"
-											class="iradio_flat-grey checked" value=""> <label>여자</label>
+											class="iradio_flat-grey checked" value="2"> <label>여자</label>
 										</td>
 									</tr>
 									<tr>
 										<td>연령대</td>
-										<td><select class="btn btn-primary dropdown-toggle">
-												<option value="10">&nbsp;10대&nbsp;</option>
-												<option value="20" selected="selected">&nbsp;20대&nbsp;</option>
-												<option value="30">&nbsp;30대&nbsp;</option>
-												<option value="40">&nbsp;40대&nbsp;</option>
-												<option value="50">&nbsp;50대&nbsp;</option>
-												<option value="60">&nbsp;60대&nbsp;</option>
+										<td><select class="btn btn-primary dropdown-toggle" name="ptOnceAge">
+												<option value="1">&nbsp;10대&nbsp;</option>
+												<option value="2" selected="selected">&nbsp;20대&nbsp;</option>
+												<option value="3">&nbsp;30대&nbsp;</option>
+												<option value="4">&nbsp;40대&nbsp;</option>
+												<option value="5">&nbsp;50대&nbsp;</option>
+												<option value="6">&nbsp;60대&nbsp;</option>
 										</select></td>
 									</tr>
 									<tr>
 										<td>운동 목적</td>
-										<td><select class="btn btn-primary dropdown-toggle">
-												<option value="10">몰라요</option>
-												<option value="20" selected="selected">다이어트</option>
-												<option value="30">뭐</option>
-												<option value="40">눈이</option>
-												<option value="50">멍하다</option>
-												<option value="60">멍</option>
+										<td><select class="btn btn-primary dropdown-toggle" name="ptOncePurpose">
+												<option value="1">다이어트</option>
+												<option value="2" selected="selected">체력증진</option>
+												<option value="3">취미활동</option>
+												<option value="4">기타</option>
 										</select></td>
 									</tr>
 									<tr>
 										<td>운동 경험 여부</td>
-										<td><select class="btn btn-primary dropdown-toggle">
-												<option value="10">예</option>
-												<option value="20" selected="selected">아니요</option>
+										<td><select class="btn btn-primary dropdown-toggle" name="ptOnceExperience">
+												<option value="1">1달 미만</option>
+												<option value="2" selected="selected">3개월</option>
+												<option value="3">6개월</option>
+												<option value="4">1년 이상</option>
 										</select></td>
 									</tr>
 
@@ -404,7 +334,7 @@
 										<td>특이사항</td>
 										<td>
 											<div class="panel-body">
-												<textarea id="nestable-output" class="form-control"
+												<textarea id="nestable-output" name="ptOnceSignificant" class="form-control"
 													style="resize: none;"></textarea>
 											</div>
 										</td>
@@ -416,13 +346,15 @@
 									</tr>
 									<tr>
 										<td>결제금액</td>
-										<td>10000</td>
+										<td><span id="payOnce"></span></td>
 									</tr>
 									<tr>
 										<td>결제 비밀번호</td>
-										<td><input type="password"></td>
+										<td><input type="password" name="accountPw"></td>
 									</tr>
 								</table>
+										<p id="accountValidMsg">${message}</p>
+										<input id = "payoPrice" type="hidden" name ="payoPrice" value=""/>
 							</form>
 						</div>
 					</div>
@@ -438,7 +370,7 @@
 	</div>
 </div>
 
-<!-- 1회 PT 문의 모달창 -->
+<!-- PT 문의 모달창 -->
 <div class="modal fade" id="pt-ask" role="dialog">
 	<div class="modal-dialog" id="modal-dialog">
 		<div class="modal-content">
@@ -451,10 +383,10 @@
 				<div id="login-wrapper">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<h3 class="panel-title">1회 PT 문의</h3>
+							<h3 class="panel-title">PT 문의</h3>
 						</div>
 						<div class="panel-body">
-							<form action="" method="post" style="text-align: -webkit-center;">
+							<form action="/pt/request/${trainer.trainerNo}" method="post" style="text-align: -webkit-center;">
 								<div class="ptOnce-form-group">
 									<label for="name" id="ask-label">이름</label> 
 									<input type="text" readonly="readonly" class="form-control" id="memberName"name="memberName" value="${loginUserinfo.memberName }">
@@ -462,12 +394,12 @@
 								<br>
 								<div class="ptOnce-form-group">
 									<label for="phone" id="ask-label">연락처</label> 
-									<input type="text" readonly="readonly" class="form-control" id="memberName"name="memberName" value="${loginUserinfo.memberPhone }">
+									<input type="text" readonly="readonly" class="form-control" id="memberPhone"name="memberPhone" value="${loginUserinfo.memberPhone }">
 								</div>
 								<br>
 								<div class="ptOnce-form-group">
 									<label for="ask" id="ask-label">문의내용</label> 
-									<textarea id="nestable-output" class="form-control" style="resize: none;"></textarea>
+									<textarea id="nestable-output" name="ptServiceContent" class="form-control" style="resize: none;"></textarea>
 								</div>
 							</form>
 						</div>
@@ -499,7 +431,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var geocoder = new kakao.maps.services.Geocoder();
 
 // 주소로 좌표를 검색합니다
-geocoder.addressSearch('사당동 252-17번지 6층 서림빌딩', function(result, status) {
+geocoder.addressSearch('${trainer.trainerAddress}', function(result, status) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === kakao.maps.services.Status.OK) {
@@ -522,4 +454,14 @@ geocoder.addressSearch('사당동 252-17번지 6층 서림빌딩', function(resu
         map.setCenter(coords);
     } 
 });    
+
+
+//---------------------------------------------------------------
+// 1회 PT 가격 1회 pt 결제 모달창에 띄우기
+var oncePrice = $(".oncePrice").html();
+$("#payOnce").text(oncePrice);
+$('input[name=payoPrice]').attr('value',oncePrice);
+
+
+
 </script>
