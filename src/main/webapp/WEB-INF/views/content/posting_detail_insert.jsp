@@ -170,9 +170,10 @@
 
 		/* $(".error").css("display","none");
 		$("#memberId").val($("#memberId").val().replace(/\s/g, "")); */
-		$("#profile-text").val().trim();
-		$("#programProfile-text").val().trim();
 		
+		
+		$("#profile-text").val($("#profile-text").val().trim());
+		$("#programProfile-text").val($("#programProfile-text").val().trim());
 	
 		//자기소개 유효성 검사
 		if($("#profile-text").val()=="") {
