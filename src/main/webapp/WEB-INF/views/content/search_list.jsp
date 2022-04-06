@@ -25,12 +25,12 @@
 	<section class="panel">
 		<div class="panel-body profile-wrapper">
 			<c:forEach var="searchTrainer" items="${searchList }">
-					<div class="panel-list-unit" onclick="location.href='<spring:url value="/content/posting_detail"/>';">
+					<div class="panel-list-unit" onclick="location.href='<spring:url value="/posting/detail/${searchTrainer.trainerNo}"/>';">
 					
 							<div class="panel-body profile-wrapper">
 						        <div class="col-md-3">
 						            <div class="profile-pic text-center">
-						                <img src="<spring:url value="/img/avatar2.png"/>" alt="" class="img-circle">
+						                <img src="<spring:url value="/profileImages/${searchTrainer.trainerProfileImg}"/>" alt="" class="img-circle">
 						            </div>
 						        </div>
 						        <div class="col-md-9">

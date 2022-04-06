@@ -279,98 +279,102 @@
 						class="icon-layers"></i>오늘의 짐</a>
 				</div>
 			</div>
-			<div class="modal-body">
-				<div id="login-wrapper">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">1회 PT 신청</h3>
-						</div>
-						<div class="panel-body">
-							<form role="form" action='<c:url value="/ptonce/request/${trainer.trainerNo}"/>' method="post"
-								style="text-align: -webkit-center;">
-								<table>
-									<tr>
-										<td>회원정보</td>
-									</tr>
-									<tr>
-										<td>성별</td>
-										<td><input name="ptOnceGender" type="radio"
-											class="iradio_flat-grey checked" value="1"> <label>남자</label>
-											<input name="ptOnceGender" type="radio"
-											class="iradio_flat-grey checked" value="2"> <label>여자</label>
-										</td>
-									</tr>
-									<tr>
-										<td>연령대</td>
-										<td><select class="btn btn-primary dropdown-toggle" name="ptOnceAge">
-												<option value="1">&nbsp;10대&nbsp;</option>
-												<option value="2" selected="selected">&nbsp;20대&nbsp;</option>
-												<option value="3">&nbsp;30대&nbsp;</option>
-												<option value="4">&nbsp;40대&nbsp;</option>
-												<option value="5">&nbsp;50대&nbsp;</option>
-												<option value="6">&nbsp;60대&nbsp;</option>
-										</select></td>
-									</tr>
-									<tr>
-										<td>운동 목적</td>
-										<td><select class="btn btn-primary dropdown-toggle" name="ptOncePurpose">
-												<option value="1">다이어트</option>
-												<option value="2" selected="selected">체력증진</option>
-												<option value="3">취미활동</option>
-												<option value="4">기타</option>
-										</select></td>
-									</tr>
-									<tr>
-										<td>운동 경험 여부</td>
-										<td><select class="btn btn-primary dropdown-toggle" name="ptOnceExperience">
-												<option value="1">1달 미만</option>
-												<option value="2" selected="selected">3개월</option>
-												<option value="3">6개월</option>
-												<option value="4">1년 이상</option>
-										</select></td>
-									</tr>
-
-									<tr>
-										<td>특이사항</td>
-										<td>
-											<div class="panel-body">
-												<textarea id="nestable-output" name="ptOnceSignificant" class="form-control"
-													style="resize: none;"></textarea>
-											</div>
-										</td>
-									</tr>
-								</table>
-								<table>
-									<tr>
-										<td>결제정보</td>
-									</tr>
-									<tr>
-										<td>결제금액</td>
-										<td><span id="payOnce"></span></td>
-									</tr>
-									<tr>
-										<td>결제 비밀번호</td>
-										<td><input type="password" name="accountPw"></td>
-									</tr>
-								</table>
-										<p id="accountValidMsg">${message}</p>
-										<input id = "payoPrice" type="hidden" name ="payoPrice" value=""/>
-							</form>
+			<form id="onemodalForm" role="form" action='<c:url value="/ptonce/request/${trainer.trainerNo}"/>' method="post"
+				style="text-align: -webkit-center;">
+				<div class="modal-body">
+					<div id="login-wrapper">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">1회 PT 신청</h3>
+							</div>
+							<div class="panel-body">
+								
+									<table>
+										<tr>
+											<td>회원정보</td>
+										</tr>
+										<tr>
+											<td>성별</td>
+											<td><input name="ptOnceGender" type="radio"
+												class="iradio_flat-grey checked" value="1" checked="checked"> <label>남자</label>
+												<input name="ptOnceGender" type="radio"
+												class="iradio_flat-grey checked" value="2"> <label>여자</label>
+											</td>
+										</tr>
+										<tr>
+											<td>연령대</td>
+											<td><select class="btn btn-primary dropdown-toggle" name="ptOnceAge">
+													<option value="1">&nbsp;10대&nbsp;</option>
+													<option value="2" selected="selected">&nbsp;20대&nbsp;</option>
+													<option value="3">&nbsp;30대&nbsp;</option>
+													<option value="4">&nbsp;40대&nbsp;</option>
+													<option value="5">&nbsp;50대&nbsp;</option>
+													<option value="6">&nbsp;60대&nbsp;</option>
+											</select></td>
+										</tr>
+										<tr>
+											<td>운동 목적</td>
+											<td><select class="btn btn-primary dropdown-toggle" name="ptOncePurpose">
+													<option value="1">다이어트</option>
+													<option value="2" selected="selected">체력증진</option>
+													<option value="3">취미활동</option>
+													<option value="4">기타</option>
+											</select></td>
+										</tr>
+										<tr>
+											<td>운동 경험 여부</td>
+											<td><select class="btn btn-primary dropdown-toggle" name="ptOnceExperience">
+													<option value="1">1달 미만</option>
+													<option value="2" selected="selected">3개월</option>
+													<option value="3">6개월</option>
+													<option value="4">1년 이상</option>
+											</select></td>
+										</tr>
+	
+										<tr>
+											<td>특이사항</td>
+											<td>
+												<div class="panel-body">
+													<textarea id="nestable-output" name="ptOnceSignificant" class="form-control"
+														style="resize: none;"></textarea>
+												</div>
+											</td>
+										</tr>
+									</table>
+									<table>
+										<tr>
+											<td>결제정보</td>
+										</tr>
+										<tr>
+											<td>결제금액</td>
+											<td><span id="payOnce"></span></td>
+										</tr>
+										<tr>
+											<td>결제 비밀번호</td>
+											<td>
+												<input type="password" name="accountPw" id="accountPw">
+												<p id="passwordMsg" class="error">비밀번호를 입력해 주세요.</p>
+											</td>
+										</tr>
+									</table>
+									<p id="accountValidMsg">${message}</p>
+									<input id = "payoPrice" type="hidden" name ="payoPrice" value=""/>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<div>
-					<button type="submit" class="btn btn-primary">결제</button>
-					<button type="button" data-dismiss="modal" class="btn btn-primary">닫기</button>
+				<div class="modal-footer">
+					<div>
+						<button type="submit" class="btn btn-primary">결제</button>
+						<button type="button" data-dismiss="modal" class="btn btn-primary">닫기</button>
+					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 </div>
 
-<!-- 1회 PT 문의 모달창 -->
+<!-- PT 문의 모달창 -->
 <div class="modal fade" id="pt-ask" role="dialog">
 	<div class="modal-dialog" id="modal-dialog">
 		<div class="modal-content">
@@ -379,39 +383,42 @@
 					<a href="<c:url value="/"/>" class="modal-header-logo"><i class="icon-layers"></i>오늘의 짐</a>
 				</div>
 			</div>
-			<div class="modal-body">
-				<div id="login-wrapper">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">1회 PT 문의</h3>
-						</div>
-						<div class="panel-body">
-							<form action="" method="post" style="text-align: -webkit-center;">
-								<div class="ptOnce-form-group">
-									<label for="name" id="ask-label">이름</label> 
-									<input type="text" readonly="readonly" class="form-control" id="memberName"name="memberName" value="${loginUserinfo.memberName }">
-								</div>
-								<br>
-								<div class="ptOnce-form-group">
-									<label for="phone" id="ask-label">연락처</label> 
-									<input type="text" readonly="readonly" class="form-control" id="memberName"name="memberName" value="${loginUserinfo.memberPhone }">
-								</div>
-								<br>
-								<div class="ptOnce-form-group">
-									<label for="ask" id="ask-label">문의내용</label> 
-									<textarea id="nestable-output" class="form-control" style="resize: none;"></textarea>
-								</div>
-							</form>
+			<form id="ptmodalForm" action="/pt/request/${trainer.trainerNo}" method="post" style="text-align: -webkit-center;">
+				<div class="modal-body">
+					<div id="login-wrapper">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">PT 문의</h3>
+							</div>
+							<div class="panel-body">
+								
+									<div class="ptOnce-form-group">
+										<label for="name" id="ask-label">이름</label> 
+										<input type="text" readonly="readonly" class="form-control" id="memberName"name="memberName" value="${loginUserinfo.memberName }">
+									</div>
+									<br>
+									<div class="ptOnce-form-group">
+										<label for="phone" id="ask-label">연락처</label> 
+										<input type="text" readonly="readonly" class="form-control" id="memberPhone"name="memberPhone" value="${loginUserinfo.memberPhone }">
+									</div>
+									<br>
+									<div class="ptOnce-form-group">
+										<label for="ask" id="ask-label">문의내용</label> 
+										<textarea id="nestable-output" name="ptServiceContent" class="form-control" style="resize: none;"></textarea>
+										<p id="nestable-outputMsg" class="error">문의내용을 입력해 주세요.</p>
+									</div>
+								
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 				<div class="modal-footer">
 					<div>
 						<button type="submit">확인</button>
 						<button type="button" data-dismiss="modal">닫기</button>
 					</div>
 				</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -463,5 +470,39 @@ $("#payOnce").text(oncePrice);
 $('input[name=payoPrice]').attr('value',oncePrice);
 
 
+	$("#onemodalForm").submit( function() {
+		var submitResult = true;
+	
+		$(".error").css("display", "none");
+		$("#nestable-output").val($("#nestable-output").val().trim());
+		$("#accountPw").val($("#accountPw").val().trim());
+		
+	
+		//아이디 유효성 검사
+		//정규식 영문자로 시작하는 영문자 또는 숫자 6~20자 
+		if ($("#accountPw").val() == "") {
+			$("#passwordMsg").css("display", "block");
+			submitResult = false;
+		}
+	
+		return submitResult;
+	});
+	
+	$("#ptmodalForm").submit( function() {
+		var submitResult = true;
+		
+		$(".error").css("display", "none");
+		$("#nestable-output").val($("#nestable-output").val().trim());
+		
+	
+		//아이디 유효성 검사
+		//정규식 영문자로 시작하는 영문자 또는 숫자 6~20자 
+		if ($("#nestable-output").val() == "") {
+			$("#nestable-outputMsg").css("display", "block");
+			submitResult = false;
+		}
+	
+		return submitResult;
+	});
 
 </script>

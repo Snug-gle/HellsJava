@@ -263,3 +263,13 @@
     border-width: 0 0 1px;
 }
 
+.error{
+	color: red;
+	position: relative;
+	display: none;
+}
+
+.trainerRequestBody {
+	margin: auto 50px;
+}
+

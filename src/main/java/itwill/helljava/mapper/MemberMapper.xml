@@ -75,12 +75,12 @@
 	
 	<select id="selectMemberListCount" resultType="int">
 		select count(*) from member
-		
-		<choose>
-		<when test="searchKeyword != null and searchKeyword !=''" >
-		 	 where ${searchKeyword} like '%'||#{searchValue}||'%' 
-		</when>
-		 </choose>
+		<trim prefix="where" prefixOverrides="and">
+			<if test="searchKeyword != null and searchKeyword !=''" >
+			 	 ${searchKeyword} like '%'||#{searchValue}||'%' 
+			</if>	
+			and member_status = 0 or member_status = 1 or member_status = 9
+		 </trim>
 		  order by member_no desc
 	</select>
 	

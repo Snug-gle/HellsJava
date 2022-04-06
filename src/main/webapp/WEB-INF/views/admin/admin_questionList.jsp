@@ -207,8 +207,8 @@
 								str += "<ul class='admin-list-body-listBody-review alblb'>";
 								str += "<li> <textarea class='admin-list-review' rows='' cols=''></textarea> </li>";
 								str += "<li class='alblb'>";
-								str += "<button type='submit'>작성</button> ";
-								str += "<button type='reset'>초기화</button>";
+								str += "<button type='submit' class='btn btn-primary'>작성</button> ";
+								str += "<button type='reset' class='btn btn-primary'>초기화</button> ";
 								str += "<button class='admin-list-body-listBody-btn2 btn btn-primary' id='lb-btn2-"+ind+"' type='button'>취소</button>";
 								str += "</li>";
 								str += "</ul>";
@@ -221,8 +221,8 @@
 								str += "<p class='texttest'>"+obj["noticeServiceReply"]+"</p>";
 								str += "</li>";
 								str += "<li class='alblb'>";
-								str += "<button class='admin-list-body-listBody-btn3 btn btn-primary' id='lb-btn3-"+ind+"' type='button'>수정</button>";
-								str += "<button class='admin-list-body-listBody-btn4 btn btn-primary' id='lb-btn4-"+ind+"' type='submit'>입력</button>";
+								str += "<button class='admin-list-body-listBody-btn3 btn btn-primary' id='lb-btn3-"+ind+"' type='button'>수정</button> ";
+								str += "<button class='admin-list-body-listBody-btn4 btn btn-primary' id='lb-btn4-"+ind+"' type='submit'>입력</button> ";
 								str += "<button class='admin-list-body-listBody-btn5 btn btn-primary' id='lb-btn5-"+ind+"' type='button'>취소</button>";
 								str += "</li>";
 								str += "</ul>";
