@@ -48,13 +48,13 @@ public class OneOnOneController {
 		*/
 		model.addAttribute("oOoList", noticeServiceService.getNoticeServicePersonalList(pagerMap));
 		model.addAttribute("pager",pager);
-		return "/board/oOo_list";
+		return "/user/oOo/oOo_list";
 	}
 	
 	//1:1 문의 작성 페이지 요청 처리 메소드
 	@RequestMapping(value =  "/write" ,method = RequestMethod.GET)
 	public String write() {
-		return "/board/oOo_write";
+		return "/user/oOo/oOo_write";
 	}
 	
 	//1:1 문의 등록 포스트 방식 요청 처리 메소드
@@ -71,6 +71,6 @@ public class OneOnOneController {
 	@RequestMapping(value = "/remove/{num}" ,method = RequestMethod.GET)
 	public String remove(@ModelAttribute PtService ptService ,@PathVariable int num) {
 		noticeServiceService.removeNoticeService(num);
-		return "/board/oOo_list";
+		return "/user/oOo/oOo_list";
 	}
 }

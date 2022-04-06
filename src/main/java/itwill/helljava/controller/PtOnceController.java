@@ -43,13 +43,8 @@ public class PtOnceController {
 		model.addAttribute("ptonceList", ptOnceService.getPtOnceList(pagerMap));
 		model.addAttribute("pager",pager);
 				
-		return "/board/ptonce_list";
+		return "/user/ptonce/ptonce_list";
 	}
 	
-	@RequestMapping("/board")
-	public String showList() {
-		return "board/ptonce_list2";
-	}
-		
 	
 }
