@@ -3,25 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<style type="text/css">
-.memberModifyBody {
-	margin: auto 50px;
-}
 
-.control-label {
-	text-align: right;
-}
-
-.email-form-control {
-    border: 2px solid #e8ebed;
-    border-radius: 2px;
-    box-shadow: none;
-    height: 37px;
-    padding: 8px 12px 9px 12px;
-}
-
-
-</style>
 <div class="container animated fadeInUp">
 	<div class="panel panel-default">
 		<div id="login-wrapper">

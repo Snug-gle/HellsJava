@@ -2,41 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
-<style type="text/css">
-.flex-container1 {
-	margin: 20px auto;
-}
-
-.flex-container {
-	justify-content: center;
-	display: flex;
-}
-.flex-item {
-	width: 240px;
-    height: 240px;
-    margin: 25px;
-    text-align: center;
-    line-height: 100px;
-    font-size: 25px;
-    /*color: black;*/
-    /*border: 2px solid black;*/
-    border-radius: 8px;
-    background-color: #556b8d;
-}
-
-.my-page-box {
-	margin: 100px auto;
-}
-
-.my-page-title {
-	margin-bottom: 20px;	
-}
-
-.myPageIcon {
-	font-size: 100px;
-}
-
-</style>
 
 <div class="container">
 	<div class="my-page-box" style="color: #fff">
