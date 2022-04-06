@@ -8,12 +8,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import itwill.helljava.Enum.PtServiceSortationEnum;
 import itwill.helljava.Enum.PtServiceStatusEnum;
 import itwill.helljava.dto.Member;
+import itwill.helljava.dto.PtService;
 import itwill.helljava.service.PtServiceService;
 import itwill.helljava.util.Pager;
 
@@ -25,7 +28,7 @@ public class PtQnAController {
 	private PtServiceService ptServiceService;
 	
 	//미확인 리스트 페이지 요청 처리 메소드
-	@RequestMapping("/list/miss")
+	@RequestMapping(value = "/list/miss", method = RequestMethod.GET)
 	public String searchMissList(Model model , HttpSession session ,@RequestParam(defaultValue = "1" )int pageNum) {
 		
 		//페이징 처리 위한 정보 저장
@@ -52,7 +55,7 @@ public class PtQnAController {
 	}
 	
 	//확인 리스트 페이지 요청 처리 메소드
-	@RequestMapping("/list/confirm")
+	@RequestMapping(value = "/list/confirm", method = RequestMethod.GET)
 	public String searchConfirmList(Model model , HttpSession session ,@RequestParam(defaultValue = "1" )int pageNum) {
 		
 		//페이징 처리 위한 정보 저장
@@ -71,10 +74,19 @@ public class PtQnAController {
 		confirmMap.put("endRow", pager.getEndRow());
 		confirmMap.put("pt_service_sortation",PtServiceSortationEnum.피티문의.getValue());
 		confirmMap.put("pt_service_status", PtServiceStatusEnum.확인문의.getValue());	
+		confirmMap.put("member_no", ((Member)session.getAttribute("loginUserinfo")).getMemberNo());
 		
 		model.addAttribute("pager",pager);
 		model.addAttribute("confirmList",ptServiceService.getPtServiceList(confirmMap));
 		return "/user/ptQnA/ptQnA_list_confirm";
+	}
+	
+	//PT 문의 수정 요청 처리 메소드
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modify(@ModelAttribute PtService ptService) {
+		
+		ptServiceService.modifyPtService(ptService);
+		return "redirect:/ptqna/list/miss";
 	}
 
 }

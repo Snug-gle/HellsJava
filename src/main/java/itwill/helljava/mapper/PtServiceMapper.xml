@@ -22,20 +22,20 @@
 	<update id="updatePtService">
 		update pt_service
 		<set>
-			<if test="ptServiceTitle!=null and ptServiceTitle!=''">
-				pt_service_title=#{ptServiceTitle}
+			<if test="ptServiceTitle != null and ptServiceTitle != ''">
+				pt_service_title = #{ptServiceTitle},
 			</if>
-			<if test="ptServiceContent!=null and ptServiceContent!=''">
-				pt_service_content=#{ptServiceContent}
+			<if test="ptServiceContent != null and ptServiceContent != ''">
+				pt_service_content = #{ptServiceContent},
 			</if>
-			<if test="ptServiceReply!=null and ptServiceReply!=''">
-				pt_service_reply=#{ptServiceReply}
+			<if test="ptServiceReply !=null and ptServiceReply != ''">
+				pt_service_reply = #{ptServiceReply},
 			</if>
-			<if test="ptServiceStars!=null and ptServiceStars!=''">
-				pt_service_stars=#{ptServiceStars}
+			<if test="ptServiceStars != null and ptServiceStars != ''">
+				pt_service_stars = #{ptServiceStars}
 			</if>
 		</set>
-		where pt_service_no=#{ptServiceNo}
+		where pt_service_no = #{ptServiceNo}
 	</update>
 	
 	<update id="updatePtServiceGood">

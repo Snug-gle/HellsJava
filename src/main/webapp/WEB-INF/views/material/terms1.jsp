@@ -328,7 +328,7 @@
 				(</strong><strong>사용</strong><strong> </strong><strong>가능한</strong><strong>
 			</strong><strong>결제</strong><strong> </strong><strong>수단</strong><strong>)</strong>
 		</p>
-		<p>1. 회원은 운동닥터에서 이루어지는 서비스 거래에 대한 대금 지급방법을 다음 각 호의 하나로 할 수 있습니다.</p>
+		<p>1. 회원은 오늘의짐에서 이루어지는 서비스 거래에 대한 대금 지급방법을 다음 각 호의 하나로 할 수 있습니다.</p>
 		<ol>
 			<li>기타 회사가 지정하는 결제 수단</li>
 		</ol>
