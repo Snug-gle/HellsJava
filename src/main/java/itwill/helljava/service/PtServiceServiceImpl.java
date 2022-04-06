@@ -34,8 +34,8 @@ public class PtServiceServiceImpl implements PtServiceService {
 	}
 
 	@Override
-	public int getPtServiceCount(int pt_service_sortation, int member_no) {
-		return ptServiceDAO.selectPtServiceCount(pt_service_sortation, member_no);
+	public int getPtServiceCount(Map<String, Object> map) {
+		return ptServiceDAO.selectPtServiceCount(map);
 	}
 
 	@Override

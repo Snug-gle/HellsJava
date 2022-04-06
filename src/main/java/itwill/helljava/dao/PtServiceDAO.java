@@ -15,7 +15,7 @@ public interface PtServiceDAO {
 	int updatePtServiceGood(int pt_service_no);
 
 	// 회원 문의 리스트 & 리뷰 글 갯수
-	int selectPtServiceCount(int pt_service_sortation, int member_no);
+	int selectPtServiceCount(Map<String, Object> map);
 	
 	// 트레이너 (나한테 온 문의들) 글 갯수
 	int selectPtServiceTrainerCount(int pt_service_sortation, int trainer_no);

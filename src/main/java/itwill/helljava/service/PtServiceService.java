@@ -13,7 +13,7 @@ public interface PtServiceService {
 	
 	void modifyPtServiceGood(int pt_service_no);
 
-	int getPtServiceCount(int pt_service_sortation, int member_no);
+	int getPtServiceCount(Map<String, Object> map);
 	
 	int getPtServiceTrainerCount(int pt_service_sortation, int trainer_no);
 

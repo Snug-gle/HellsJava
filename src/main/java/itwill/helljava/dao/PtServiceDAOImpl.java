@@ -31,8 +31,8 @@ public class PtServiceDAOImpl implements PtServiceDAO{
 	}
 
 	@Override
-	public int selectPtServiceCount(int pt_service_sortation, int member_no) {
-		return sqlSession.getMapper(PtServiceMapper.class).selectPtServiceCount(pt_service_sortation, member_no);
+	public int selectPtServiceCount(Map<String, Object> map) {
+		return sqlSession.getMapper(PtServiceMapper.class).selectPtServiceCount(map);
 	}
 
 	@Override
