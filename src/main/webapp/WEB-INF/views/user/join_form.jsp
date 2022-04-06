@@ -114,123 +114,115 @@
 		})
 	});
 
-	$("#joinForm")
-			.submit(
-					function() {
-						var submitResult = true;
+	$("#joinForm").submit( function() {
+		var submitResult = true;
 
-						$(".error").css("display", "none");
-						$("#memberId").val(
-								$("#memberId").val().replace(/\s/g, ""));
-						$("#memberPw").val(
-								$("#memberPw").val().replace(/\s/g, ""));
-						$("#memberName").val(
-								$("#memberName").val().replace(/\s/g, ""));
-						$("#member_phone2").val(
-								$("#member_phone2").val().replace(/\s/g, ""));
-						$("#member_phone3").val(
-								$("#member_phone3").val().replace(/\s/g, ""));
-						$("#memberEmail").val(
-								$("#memberEmail").val().replace(/\s/g, ""));
-						$("#selbox").val($("#selbox").val().replace(/\s/g, ""));
+		$(".error").css("display", "none");
+		$("#memberId").val($("#memberId").val().replace(/\s/g, ""));
+		$("#memberPw").val($("#memberPw").val().replace(/\s/g, ""));
+		$("#memberName").val($("#memberName").val().replace(/\s/g, ""));
+		$("#member_phone2").val($("#member_phone2").val().replace(/\s/g, ""));
+		$("#member_phone3").val($("#member_phone3").val().replace(/\s/g, ""));
+		$("#memberEmail").val($("#memberEmail").val().replace(/\s/g, ""));
+		$("#selbox").val($("#selbox").val().replace(/\s/g, ""));
 
-						//아이디 유효성 검사
-						//정규식 영문자로 시작하는 영문자 또는 숫자 6~20자 
-						var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;
-						if ($("#memberId").val() == "") {
-							$("#idMsg").css("display", "block");
-							submitResult = false;
-						} else if (!idReg.test($("#memberId").val())) {
-							$("#idRegMsg").css("display", "block");
-							submitResult = false;
-						}
+		//아이디 유효성 검사
+		//정규식 영문자로 시작하는 영문자 또는 숫자 6~20자 
+		var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;
+		if ($("#memberId").val() == "") {
+			$("#idMsg").css("display", "block");
+			submitResult = false;
+		} else if (!idReg.test($("#memberId").val())) {
+			$("#idRegMsg").css("display", "block");
+			submitResult = false;
+		}
 
-						//비밀번호 유효성 검사
-						//8 ~ 16자 영문, 숫자 조합
-						var pwReg = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;
-						//비밀번호 공백 검사
-						if ($("#memberPw").val() == "") {
-							$("#passwdMsg").css("display", "block");
-							submitResult = false;
-							//비밀번호 형식 검사
-						} else if (!pwReg.test($("#memberPw").val())) {
-							$("#passwdMsg2").css("display", "block");
-							submitResult = false;
-						}
+		//비밀번호 유효성 검사
+		//8 ~ 16자 영문, 숫자 조합
+		var pwReg = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;
+		//비밀번호 공백 검사
+		if ($("#memberPw").val() == "") {
+			$("#passwdMsg").css("display", "block");
+			submitResult = false;
+			//비밀번호 형식 검사
+		} else if (!pwReg.test($("#memberPw").val())) {
+			$("#passwdMsg2").css("display", "block");
+			submitResult = false;
+		}
 
-						//비밀번호 확인 유효성 검사
-						//비밀번호 확인 공백 검사
-						if ($("#passwd2").val() == "") {
-							$("#passwd2Msg").css("display", "block");
-							submitResult = false;
-							//비밀번호 일치 검사
-						} else if ($("#memberPw").val() != $("#passwd2").val()) {
-							$("#pwMatchMsg").css("display", "block");
-							submitResult = false;
-						}
+		//비밀번호 확인 유효성 검사
+		//비밀번호 확인 공백 검사
+		if ($("#passwd2").val() == "") {
+			$("#passwd2Msg").css("display", "block");
+			submitResult = false;
+			//비밀번호 일치 검사
+		} else if ($("#memberPw").val() != $("#passwd2").val()) {
+			$("#pwMatchMsg").css("display", "block");
+			submitResult = false;
+		}
 
-						//이름 공백 검사
-						if ($("#memberName").val() == "") {
-							$("#nameMsg").css("display", "block");
-							submitResult = false;
-						}
+		//이름 공백 검사
+		if ($("#memberName").val() == "") {
+			$("#nameMsg").css("display", "block");
+			submitResult = false;
+		}
 
-						//연락처 공백 검사
-						var phone2Reg = /\d{3,4}/;
-						var phone3Reg = /\d{4}/;
-						if ($("#member_phone2").val() == ""
-								|| $("#member_phone3").val() == "") {
-							$("#phoneMsg").css("display", "block");
-							submitResult = false;
-						} else if (!phone2Reg.test($("#member_phone2").val())
-								|| !phone3Reg.test($("#member_phone3").val())) {
-							$("#phoneRegMsg").css("display", "block");
-							submitResult = false;
-						}
+		//연락처 공백 검사
+		var phone2Reg = /\d{3,4}/;
+		var phone3Reg = /\d{4}/;
+		if ($("#member_phone2").val() == ""
+				|| $("#member_phone3").val() == "") {
+			$("#phoneMsg").css("display", "block");
+			submitResult = false;
+		} else if (!phone2Reg.test($("#member_phone2").val())
+				|| !phone3Reg.test($("#member_phone3").val())) {
+			$("#phoneRegMsg").css("display", "block");
+			submitResult = false;
+		}
 
-						if ($("#member_phone2").val() == "") {
-							$("phoneMsg").css("display", "block");
-							submitResult = false;
-						}
-						if ($("#member_phone3").val() == "") {
-							$("#phoneMsg").css("display", "block");
-							submitResult = false;
-						}
-						//아이디 중복검사 체크여부
-						if (idck == 0) {
-							alert("아이디 중복확인을 해주세요");
-							submitResult = false;
-						}
+		if ($("#member_phone2").val() == "") {
+			$("phoneMsg").css("display", "block");
+			submitResult = false;
+		}
+		if ($("#member_phone3").val() == "") {
+			$("#phoneMsg").css("display", "block");
+			submitResult = false;
+		}
+		//아이디 중복검사 체크여부
+		if (idck == 0) {
+			alert("아이디 중복확인을 해주세요");
+			submitResult = false;
+		}
 
-						//이메일 정규식
+		//이메일 정규식
 
-						var emailIdReg = /^[a-z]+[a-z0-9]{5,19}$/g;
-						var emailReg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-						if ($("#memberEmail").val() == "") {
-							$("#emailMsg").css("display", "block");
-							submitResult = false;
-						} else if (!emailIdReg.test($("#memberEmail").val())) {
-							$("#emailRegMsg").css("display", "block");
-							submitResult = false;
-						}
+		var emailIdReg = /^[a-z]+[a-z0-9]{5,19}$/g;
+		var emailReg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+		if ($("#memberEmail").val() == "") {
+			$("#emailMsg").css("display", "block");
+			submitResult = false;
+		} else if (!emailIdReg.test($("#memberEmail").val())) {
+			$("#emailRegMsg").css("display", "block");
+			submitResult = false;
+		}
 
-						if ($("#selbox").val() == "1") {
-							$("#emailRegMsg2").css("display", "block");
-							submitResult = false;
-						}
+		if ($("#selbox").val() == "1") {
+			$("#emailRegMsg2").css("display", "block");
+			submitResult = false;
+		}
 
-						if ($("#selbox").val() == "direct") {
-							if ($("#selboxDirect").val() == "") {
-								$("#emailMsg2").css("display", "block");
-								submitResult = false;
-							} else if (!emailReg.test($("#selboxDirect").val())) {
-								$("#emailRegMsg2").css("display", "block");
-								submitResult = false;
-							}
-						}
+		if ($("#selbox").val() == "direct") {
+			if ($("#selboxDirect").val() == "") {
+				$("#emailMsg2").css("display", "block");
+				submitResult = false;
+			} else if (!emailReg.test($("#selboxDirect").val())) {
+				$("#emailRegMsg2").css("display", "block");
+				submitResult = false;
+			}
+		}
 
-						return submitResult;
-					});
+		return submitResult;
+	});
 
 	//id 중복검사
 	var idck = 0;
