@@ -1,6 +1,8 @@
 package itwill.helljava.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import itwill.helljava.Enum.NoticeServiceSortationEnum;
+import itwill.helljava.dto.Award;
 import itwill.helljava.dto.Member;
 import itwill.helljava.dto.NoticeService;
 import itwill.helljava.service.AwardService;
@@ -213,18 +216,18 @@ public class AdminController {
 		model.addAttribute("number",number);
 		
 		return "/admin/admin_trainerList";
-	}
+	} 
 	
-	// 트레이너 리스트 모달 창 ajax get 요청 awardList map으로 반환
-	@RequestMapping(value="/modal/request",method = RequestMethod.GET)
-	@ResponseBody
-	public Map<String, Object> modalRequest(@RequestParam int trainerNo , Model model){
+	// 트레이너 리스트 모달 창 ajax get 요청 awardList로 반환
+	@RequestMapping(value="/admin/trainerList/modal/request",method = RequestMethod.GET)
+	public String modalAwardRequest(@RequestParam int trainerNo , Model model){
 		
-		Map<String, Object> returnMap = new HashMap<String, Object>();
+		List<Award> returnList = new ArrayList<Award>();
 		
-		returnMap.put("awardList", awardService.getAwardList(trainerNo));
+		returnList = awardService.getAwardList(trainerNo);
 		
-		return returnMap;
+		model.addAttribute("List",returnList);
+		return "/admin/testaward";
 	}
 	
 	// 답글 추가 메서드 post 방식 요청

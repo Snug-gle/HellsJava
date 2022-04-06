@@ -18,6 +18,10 @@
 		<put-attribute name="content" value="/WEB-INF/views/user/login/{1}.jsp"/>	
 	</definition>
 	
+	<definition name="/admin/testaward" template="/WEB-INF/views/layout/loginTemplate.jsp">
+		<put-attribute name="content" value="/WEB-INF/views/admin/testaward.jsp"/>	
+	</definition>
+	
 <!-- 	<definition name="admin" template="/WEB-INF/views/admin/admin_template.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/admin/admin_header.jsp"/>	
 		<put-attribute name="content" value="/WEB-INF/views/admin/admin_main.jsp"/>	
@@ -59,7 +63,7 @@
 	<definition name="*/*/*/*" extends="main">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp"/>	
 	</definition>
-</tiles-definitions>
+</tiles-definitions> 
 
 
 

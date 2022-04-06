@@ -308,3 +308,8 @@
 	   color: #5f779d;
 	   background: #F0F3F3
 	}
+	
+.row.award { 
+	display: inline-flex;
+    flex-direction: column-reverse;
+}
