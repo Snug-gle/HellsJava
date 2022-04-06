@@ -279,3 +279,32 @@
     overflow: hidden;
     pointer-events: none;
   }
+
+  /*슬라이드       */
+	#imgcontainer{
+		position: relative; /* 컨테이너는 포지션 요소다*/
+	}
+	
+	.itemsImg{
+	    height: 400px; display: flex;
+	    justify-content: center; align-items: center;
+	}
+	.imgItem{
+	    height: 400px; display: flex;
+	    justify-content: center; align-items: center;
+	    display: none;
+	}
+	.active{
+	    display: flex;
+	    height: 400px; width: 600px; background-color: brown;
+	    color: white;
+	}
+	.stepper{
+	    margin-top: 15px;
+	    display: flex;
+	    justify-content: center;
+	}
+	.active-step{
+	   color: #5f779d;
+	   background: #F0F3F3
+	}
