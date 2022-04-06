@@ -47,10 +47,9 @@ public class AdminController {
 	  }
 	 
 	
-	// 1:1 문의 리스트 출력 메서드 (Map 형태로 반환)
+	// 1:1 문의 리스트 출력 메서드
 	@RequestMapping(value = "/admin/question_list",method = RequestMethod.GET)
-	@ResponseBody
-	public Map<String, Object> restQAList(@RequestParam(defaultValue = "1") int pageNum, Model model){
+	public String restQAList(@RequestParam(defaultValue = "1") int pageNum, Model model){
 		
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		
@@ -69,11 +68,11 @@ public class AdminController {
 		pagerMap.put("endRow", pager.getEndRow());
 		pagerMap.put("notice_service_sortation", NoticeServiceSortationEnum.일대일문의.getValue());
 		
-		Map<String, Object> returnMap = new HashMap<String, Object>();
-		returnMap.put("restAdminQAList", noticeServiceService.getNoticeServiceList(pagerMap));
-		returnMap.put("pager", pager);
+
+		model.addAttribute("restAdminQAList", noticeServiceService.getNoticeServiceList(pagerMap));
+		model.addAttribute("pager", pager);
 		
-		return returnMap;
+		return "";
 	}
 	
 	// 회원 리스트 요청
@@ -86,6 +85,7 @@ public class AdminController {
 		
 		int pageSize = 5;
 		int blockSize = 10;
+		int number = totalBoard - (pageNum - 1) * pageSize;
 		
 		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
 
@@ -95,7 +95,9 @@ public class AdminController {
 		returnMap.put("endRow", pager.getEndRow());
 		
 		model.addAttribute("memberList", memberService.getMemberList(returnMap));
-
+		model.addAttribute("pager",pager);
+		model.addAttribute("number",number);
+		
 		return "/admin/admin_userList";
 	}
 	
