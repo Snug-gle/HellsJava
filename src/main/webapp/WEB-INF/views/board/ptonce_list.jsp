@@ -52,7 +52,7 @@
 										</c:choose>
 										<!-- 상세보기 -->
 										<a data-toggle="collapse" data-parent="#accordion"
-											href="#${ptOnce.ptOnceNo}" class="collapsed" aria-expanded="false">
+											href="#${index }" class="collapsed" aria-expanded="false">
 											상세보기</a>
 										<!-- 리뷰쓰기 -->
 										<a data-toggle="collapse" data-parent="#accordion"
@@ -60,16 +60,21 @@
 											aria-expanded="false"> 리뷰쓰기</a>
 									</div>
 									<!-- 상세내용 -->
-									<div id="${ptOnce.ptOnceNo }" class="panel-collapse collapse"
+									<div id="${index }" class="panel-collapse collapse"
 										aria-expanded="false" style="height: 0px;">
 										<!-- 성별, 연령, 운동경험, 운동목적 , 특이사항  -->
-									
+										<!-- 
 								<div class="panel-body">성별 : ${ptOnce.ptOnceGender}</div>
 								<div class="panel-body">연령 : ${ptOnce.ptOnceAge}</div>
-								<div class="panel-body">운동경험 : ${ptOnce.ptOnceExperience}</div>
-								<div class="panel-body">운동목적 :${ptOnce.ptOncePurpose}<br></div>
-								<div class="panel-body">특이사항 :${ptOnce.ptOnceSignificant }</div>
-								<div class="panel-body">(확인용) 회원번호 :${ptOnce.ptOnceNo }</div>
+								<div class="panel-body">운동경험 : ${ptOnce.ptOnceExperience}
+								</div>
+								<div class="panel-body">
+									운동목적 :${ptOnce.ptOncePurpose}<br>
+								</div>
+								<div class="panel-body">특이사항 :${ptOnce.ptOnceSignificant }
+								</div>
+								 -->
+										<div class="panel-body">(확인용) 회원번호 :${ptOnce.ptOnceNo }</div>
 									</div>
 								</div>
 							</div>
