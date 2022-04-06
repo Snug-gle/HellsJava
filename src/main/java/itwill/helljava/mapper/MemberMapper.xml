@@ -74,25 +74,31 @@
 	</select>	
 	
 	<select id="selectMemberListCount" resultType="int">
-		select count(*) from member
-		<trim prefix="where" prefixOverrides="and">
-			<if test="searchKeyword != null and searchKeyword !=''" >
-			 	 ${searchKeyword} like '%'||#{searchValue}||'%' 
+		select count(*) from
+		<trim>
+			<if test="searchKeyword != null and searchValue !=''" >
+			 	(select * from member where ${searchKeyword} like '%'||#{searchValue}||'%') 
 			</if>	
-			and member_status = 0 or member_status = 1 or member_status = 9
+			<if test="searchValue == null or searchValue == ''">
+				member
+			</if>
 		 </trim>
+			where member_status = 0 or member_status = 1 or member_status = 9
 		  order by member_no desc
 	</select>
 	
 	<select id="selectMemberList" resultType="Member">
 		select * from
-		(select rownum rn,board.* from (select * from member 		
-		<trim prefix="where" prefixOverrides="and">
-			<if test="searchKeyword != null and searchKeyword !=''" >
-			 	 ${searchKeyword} like '%'||#{searchValue}||'%'
+		(select rownum rn,board.* from (select * from 		
+		<trim>
+			<if test="searchKeyword != null and searchValue !=''" >
+			 	(select * from member where ${searchKeyword} like '%'||#{searchValue}||'%')
 			</if>
-			and member_status = 0 or member_status = 1 or member_status = 9 order by member_no desc) 
+			<if test="searchValue == null or searchValue == ''">
+				member
+			</if>
 		 </trim>
+			where member_status = 0 or member_status = 1 or member_status = 9 order by member_no desc) 
 			board) where rn between #{startRow} and #{endRow}
 	</select>
 </mapper>
