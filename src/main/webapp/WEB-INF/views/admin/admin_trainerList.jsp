@@ -161,7 +161,7 @@
 												<option value="3">탈퇴</option>
 											</select>
 										</div>
-									</div>
+									</div> 
 									</form>
 								</div>
 								<div class="modal-footer">

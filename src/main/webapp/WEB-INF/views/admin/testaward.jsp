@@ -9,5 +9,5 @@
 	</div>
 	<div class="ad-t-v-header-info trainerDetailView">
 		<p>${awardList.awardContent}</p>
-	</div>
+	</div> 
 </c:forEach>

@@ -309,7 +309,7 @@
 	   background: #F0F3F3
 	}
 	
-.row.award {
+.row.award { 
 	display: inline-flex;
     flex-direction: column-reverse;
 }

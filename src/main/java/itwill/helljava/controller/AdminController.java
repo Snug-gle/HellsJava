@@ -216,7 +216,7 @@ public class AdminController {
 		model.addAttribute("number",number);
 		
 		return "/admin/admin_trainerList";
-	}
+	} 
 	
 	// 트레이너 리스트 모달 창 ajax get 요청 awardList로 반환
 	@RequestMapping(value="/admin/trainerList/modal/request",method = RequestMethod.GET)
