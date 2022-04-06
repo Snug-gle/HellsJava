@@ -18,9 +18,9 @@
 						<i class="icon-users"></i>트레이너 목록</a>
 							<ul class="nav-sub" data-index="0" style="display: none;">
 								<li class="admin-side-bar-tlist1">
-									<a href="<c:url value="/admin/trainerList"/>" title="Buttons">트레이너목록</a>
+									<a href="<c:url value="/admin/trainerList/3"/>" title="Buttons">트레이너목록</a>
 								</li>
-								<li class="admin-side-bar-tlist2"><a href="" title="Sliders &amp; Progress">트레이너 신청 목록</a></li>
+								<li class="admin-side-bar-tlist2"><a href="<c:url value="/admin/trainerList/2"/>" title="Sliders &amp; Progress">트레이너 신청 목록</a></li>
 							</ul>
 					</li>
 					<li class="nav-dropdown"><a
@@ -47,29 +47,31 @@
 										<th>아이디</th>
 										<th style="width: 130px;">이름</th>
 										<th style="width: 140px;">연락처</th>
-										<th></th>
 										<th style="width: 100px;"><span class="admin-list-body-list-table-m">입금 상태</span></th>
 										<th style="width: 110px;">상세보기</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>번호</td>
-										<td>아이디</td>
-										<td>이름</td>
-										<td>연락처</td>
-										<td></td>
-										<td></td>
-										<td>
-											<button class="admin-list-body-list-t-btn1 btn btn-primary" type="button"
-												data-toggle="modal" data-target="#trainer_view">상세보기</button>
-										</td>
-									</tr>
+									<c:set var ="su" value="${number}"/>
+									<c:forEach var="trainer" items="${trainerList }" varStatus="status">
+                                        <c:set var ="number2" value="${su-status.index}"/>
+										<tr>
+											<td>${number2 }</td>
+											<td>${trainer.memberId }</td>
+											<td>${trainer.memberName}</td>
+											<td>${trainer.memberPhone}</td>
+											<td></td>
+											<td>
+												<button class="admin-list-body-list-t-btn1 btn btn-primary" type="button"
+													data-toggle="modal" data-target="#trainer_view">상세보기</button>
+											</td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
 					</div>
-						<form id="searchForm" method="get">
+						<form id="searchForm" method="post" action="">
 							<div class="main-search-area">
 								<select id="nameIdSearch" name="nameIdSearch" class="btn btn-primary dropdown-toggle searchBtnBox">
 									<option value="member_name" selected="selected">&nbsp;이름&nbsp;</option>

@@ -45,19 +45,32 @@
 		 where t.trainer_no= #{trainerNo}
 	</select>
 	
-	<select id="selectTrainerListCount" resultType="int">
-		select count(*) from member m right join trainer t 
-			            on m.member_no = t.member_no 
+	<!-- <select id="selectTrainerListCount" resultType="int">
+		select count(*) from 
 		<trim prefix="where" prefixOverrides="and">
 			<if test="member_id != null and member_id != ''" >
-				m.member_id like '%'||#{member_id}||'%'
+				m.member_id like '%'||#{memberId}||'%'
 			</if>
 			<if test="member_name != null and member_name != ''">
-				m.member_name like '%'||#{member_name}||'%'
+				m.member_name like '%'||#{memberName}||'%'
 			</if>
-			and m.member_status = #{member_status}
+			and m.member_status = #{memberStatus}
 		</trim>
 		order by m.member_no desc
+	</select> -->
+	
+	<select id="selectTrainerListCount" resultType="int">
+		select count(*) from
+			<if test="searchKeyword != null and searchValue !=''">
+				(select * from member m right join trainer t 
+			            on m.member_no = t.member_no where ${searchKeyword} like '%'||#{searchValue}||'%')
+			</if>
+			<if test="searchValue == null or searchValue == ''">
+				 member m right join trainer t 
+			            on m.member_no = t.member_no
+			</if>
+			where m.member_status = #{memberStatus} 
+			order by m.member_no desc
 	</select>
 	
 	<select id="selectMainPageTrainerListCount" resultType="int">
@@ -71,20 +84,21 @@
 	<select id="selectTrainerList" parameterType="map" resultType="Trainer">
 
 			select * from     
-			(select rownum rn,board.* from 
-			(select * from member m right join trainer t 
-			            on m.member_no = t.member_no 
-		<trim prefix="where" prefixOverrides="and">
-			<if test="member_id != null and member_id != ''" >
-				m.member_id like '%'||#{member_id}||'%'
+			(select rownum rn,board.* from (select * from
+			
+		<trim>
+			<if test="searchKeyword != null and searchValue !=''" >
+				(select * from member m right join trainer t 
+			            on m.member_no = t.member_no where ${searchKeyword} like '%'||#{searchValue}||'%')
 			</if>
-			<if test="member_name != null and member_name != ''">
-				m.member_name like '%'||#{member_name}||'%'
+			<if test="searchValue == null or searchValue == ''">
+				 member m right join trainer t 
+			            on m.member_no = t.member_no
 			</if>
-			and m.member_status = #{member_status}
 		</trim>
-		order by m.member_no desc) board)
-			where rn between #{startRow} and #{endRow}
+			where m.member_status = #{memberStatus}
+			order by m.member_no desc) board)
+				where rn between #{startRow} and #{endRow}
 			
 	</select>
 	

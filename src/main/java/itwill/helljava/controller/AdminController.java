@@ -16,6 +16,7 @@ import itwill.helljava.Enum.NoticeServiceSortationEnum;
 import itwill.helljava.dto.Member;
 import itwill.helljava.service.MemberService;
 import itwill.helljava.service.NoticeServiceService;
+import itwill.helljava.service.TrainerService;
 import itwill.helljava.util.Pager;
 
 @Controller
@@ -27,19 +28,8 @@ public class AdminController {
 	@Autowired
 	private MemberService memberService;
 
-	/*
-	 * @RequestMapping(value = "admin/userList", method = RequestMethod.GET) public
-	 * String userList() { return "admin/admin_userList"; }
-	 */
-	@RequestMapping(value = "/admin/trainerList", method = RequestMethod.GET)
-	public String trainerList() {
-		return "/admin/admin_trainerList";
-	}
-	
-	@RequestMapping(value = "/admin/testList", method = RequestMethod.GET)
-	public String testList() {
-		return "/admin/admin_testList";
-	}
+	@Autowired
+	private TrainerService trainerService;
 	
 	@RequestMapping(value = "/admin/questionList", method = RequestMethod.GET)
 	  public String questionList() { 
@@ -75,7 +65,7 @@ public class AdminController {
 		return "";
 	}
 	
-	// 회원 리스트 요청
+	// 회원 리스트 요청 get 방식
 	@RequestMapping(value = "/admin/userList", method = RequestMethod.GET)
 	public String memberList(@RequestParam(defaultValue ="1") int pageNum, Model model) {
 		
@@ -150,6 +140,34 @@ public class AdminController {
 		return "/admin/admin_userList";
 	}
 	
-	
+	// 트레이너 목록 get 방식 요청
+	@RequestMapping(value = "/admin/trainerList/{memberStatus}", method = RequestMethod.GET)
+	public String trainerList(@PathVariable("memberStatus") int memberStatus, @RequestParam(defaultValue="1") int pageNum,
+			Model model) {
+		
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		
+		searchMap.put("memberStatus", memberStatus);
+		
+		int totalBoard = trainerService.getTrainerListCount(searchMap);
+		
+		int pageSize = 5;
+		int blockSize = 10;
+		int number = totalBoard - (pageNum - 1) * pageSize;
+		
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		returnMap.put("startRow", pager.getStartRow());
+		returnMap.put("endRow", pager.getEndRow());
+		returnMap.put("memberStatus", memberStatus);
+		
+		model.addAttribute("trainerList", trainerService.getTrainerList(returnMap));
+		model.addAttribute("pager",pager);
+		model.addAttribute("number",number);
+		
+		return "/admin/admin_trainerList";
+	}
 	
 }
