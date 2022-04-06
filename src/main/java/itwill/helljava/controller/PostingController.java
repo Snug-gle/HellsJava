@@ -93,9 +93,7 @@ public class PostingController {
 			for (MultipartFile multipartFile : postingFiles) {
 
 				if (multipartFile.getSize() != 0) {// 파일이 있을 경우만
-					
-					System.out.println(count+"번째 multiFile = "+multipartFile.toString());
-					
+										
 					String uploadDirectory = context.getServletContext()
 							.getRealPath("/resources/assets/postingSelfIntroductionImages");
 					
@@ -109,8 +107,6 @@ public class PostingController {
 						posting.setPostingSelfIntroductionImg3(originalFilename);
 					else if (count == 4)
 						posting.setPostingSelfIntroductionImg4(originalFilename);
-
-					System.out.println("originalFilename = " + originalFilename);
 
 					File file = new File(uploadDirectory, originalFilename);
 
@@ -177,7 +173,7 @@ public class PostingController {
 			schedule.setScheduleWorkday(ScheduleWorkdayEnum.of(Integer.parseInt(workday)).getValue());
 			schedule.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
 
-			//scheduleService.addSchedule(schedule);
+			scheduleService.addSchedule(schedule);
 
 			dayCount++;
 		}
@@ -189,7 +185,7 @@ public class PostingController {
 			schedule.setScheduleDayoff(dayOffText);
 			schedule.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
 
-			//scheduleService.addSchedule(schedule);
+			scheduleService.addSchedule(schedule);
 		}
 
 		return "/user/trainer/trainer_mypage";
