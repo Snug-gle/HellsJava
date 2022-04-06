@@ -4,12 +4,13 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 
 <header class="navbar-wrapper">
+
         <div id="undefined-sticky-wrapper" class="sticky-wrapper" style="height: 82px;"><div class="navbar navbar-default navbar-static-top home-navbar" role="navigation" style="">
-            <div class="container">
+              <div class="container">  
                 <div class="navbar-header">
                     <!--logo start-->
                     <div class="brand">
-                        <a href="<c:url value="/"/>" class="logo"><i class="icon-layers"></i>오늘의 짐</a>
+                        <a style="font-size: 35px;" href="<c:url value="/"/>" class="logo"><i class="icon-layers"></i>오늘의 짐</a>
                     </div>
                     <!--logo end-->
                 </div>
@@ -122,7 +123,7 @@
 						</c:otherwise>
 					</c:choose>
                 </div>
-            </div>
+                </div>
         </div></div>
     </header>
     
