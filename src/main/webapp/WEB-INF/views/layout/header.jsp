@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
-
 <header class="navbar-wrapper">
         <div id="undefined-sticky-wrapper" class="sticky-wrapper" style="height: 82px;"><div class="navbar navbar-default navbar-static-top home-navbar" role="navigation" style="">
             <div class="container">

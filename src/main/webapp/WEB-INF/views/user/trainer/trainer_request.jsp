@@ -59,34 +59,39 @@ function sample4_execDaumPostcode() {
     }).open();
 }
 </script>
-
 <style type="text/css">
-.error{
-	color: red;
-	position: relative;
-	display: none;
+.center-form-control {
+	border: 2px solid #e8ebed;
+    border-radius: 2px;
+    box-shadow: none;
+    height: 37px;
+    padding: 8px 12px 9px 12px;
+	width: 250px; 
 }
 
-.trainerRequestBody {
-	margin: auto 50px;
+.trainer-profile-form-control {
+	border: 2px solid #e8ebed;
+    border-radius: 2px;
+    box-shadow: none;
+    height: 37px;
+    padding: 8px 12px 9px 12px;
+	width: 300px; 
 }
-
 </style>
-
-
-<div class="container">
+<div class="container animated fadeInUp">
 	<div class="panel panel-default">
 		<div id="login-wrapper">
 			<div class="panel panel-primary">
 				<div class="panel-body">
-						<h1>
-							<strong>트레이너 신청</strong>
-						</h1>
-						<hr>
+					<h1>
+						<strong>트레이너 신청</strong>
+					</h1>
+					<hr>
+					<br>
 					<div class="trainerRequestBody">
 						<form id="trainerReqestForm" enctype="multipart/form-data" action="<c:url value = "/trainer/request"/>" method="post">
 							<input type="hidden" name="memberNo" value="${loginUserinfo.memberNo }">
-							<div class="">
+							<div class="trainer-profile-img">
 								<hr>
 								<h3><strong>프로필 사진 등록</strong></h3>
 								<hr>
@@ -95,41 +100,47 @@ function sample4_execDaumPostcode() {
 								<div id="trainerProfileImgRegMsg" class="error">프로필 사진을 반드시 첨부하세요.</div>
 							</div>
 							<br>
-							<div class="tr-in-header-info">
+							<div class="form-group" style="overflow: auto;">
 								<hr>
 								<h3><strong>트레이너 정보</strong></h3>
 								<hr>
-								<table>
-									<tr>
-										<td>이름</td>
-										<td>${loginUserinfo.memberName }</td>
-									</tr>
-									<tr>
-										<td>연락처</td>
-										<td>${loginUserinfo.memberPhone }</td>
-									</tr>
-									<tr>
-										<td>소속 센터 주소</td>
-										<td><input type="text" id="sample4_postcode" name="trainerZip" placeholder="우편번호"> 
-										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br> 
-										<input type="text" id="sample4_roadAddress" placeholder="도로명주소"> 
-										<input type="text" id="sample4_jibunAddress" name="trainerAddress" placeholder="지번주소"> 
-										<span id="guide" style="color: #999; display: none"></span> 
-										<input type="text" id="sample4_detailAddress" name="trainerCentername" placeholder="센터명"> 
-										<input type="text" id="sample4_extraAddress" placeholder="참고항목">
-	
-										<div id="addressRegMsg" class="error">소속 센터 주소를 반드시 입력하세요.</div>
-										<div id="centernameRegMsg" class="error">소속 센터명을 반드시 입력하세요.</div>
-										<div id="centernameValidRegMsg" class="error">등록된 센터명을 입력하세요.</div></td>
-									</tr>
-								</table>
+									<div class="col-sm-12">
+										<label for="nameLabel" class="col-sm-2 control-label">이름</label>
+										<div class="col-sm-7">
+											<input id="nameLabel" type="text" readonly="readonly" class="trainer-profile-form-control" name="memberName" value="${loginUserinfo.memberName}" />
+										</div>
+									</div>
+									<br>
+									<div class="col-sm-12">
+										<label class="col-sm-2 control-label" for="phoneLabel">연락처</label>
+										<div class="col-sm-7">
+											<input id="phoneLabel" type="text" readonly="readonly" class="trainer-profile-form-control" name="memberPhone" value="${loginUserinfo.memberPhone }" />
+										</div>
+									</div>
+									<br>
+									<div class="col-sm-12" >
+										<label class="col-sm-2 control-label" for="centerLabel">소속 센터 주소</label>
+										<div class="col-sm-9">
+											<input type="text" id="sample4_postcode" name="trainerZip" placeholder="우편번호" class="center-form-control"> 
+											<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br> 
+											<input type="text" id="sample4_roadAddress" placeholder="도로명주소" class=" center-form-control"> 
+											<input type="text" id="sample4_jibunAddress" name="trainerAddress" placeholder="지번주소" class=" center-form-control"> 
+											<span id="guide" style="color: #999; display: none"></span> 
+											<input type="text" id="sample4_detailAddress" name="trainerCentername" placeholder="센터명" class=" center-form-control"> 
+											<input type="text" id="sample4_extraAddress" placeholder="참고항목" class=" center-form-control">
+		
+											<div id="addressRegMsg" class="error">소속 센터 주소를 반드시 입력하세요.</div>
+											<div id="centernameRegMsg" class="error">소속 센터명을 반드시 입력하세요.</div>
+											<div id="centernameValidRegMsg" class="error">등록된 센터명을 입력하세요.</div>
+										</div>
+									</div>
 							</div>
 							<br>
 							<div class="tr-in-header-award-title">
 								<hr>
 								<h3><strong>수상경력 및 이력</strong>&nbsp;&nbsp;<i class="fa fa-plus-square" id="award-plus-btn"></i></h3> 
 								<hr>
-								<div class="tr-in-header-award-list" style="padding: 10px;">
+								<div class="tr-in-header-award-list" style="padding: 10px; overflow: auto; align-items: center;" >
 									<ul class="tr-in-header-award-unit" style="list-style: none;">
 										<li class="tr-in-header-award-rego">
 											<div>
@@ -203,7 +214,7 @@ function sample4_execDaumPostcode() {
 		}
 		
 		// 주소 유효성 검사
-		if($("#sample4_roadAddress").val() == ""){
+		if($(".sample4_jibunAddress").val() == ""){
 			$("#addressRegMsg").css("display","block");
 			submitResult = false;
 		}
@@ -212,13 +223,13 @@ function sample4_execDaumPostcode() {
 		var centerNameArr = ['테스트1','테스트2'];
 		
 		// 센터명 유효성 검사
-		if($("#sample4_detailAddress").val()==""){
+		if($(".sample4_detailAddress").val()==""){
 			$("#centernameRegMsg").css("display","block");
 			submitResult=false;	
 		}  
 		
 		//centerNameArr 배열에 센터명이 포함되어 있는지 확인
-		if((centerNameArr.includes($("#sample4_detailAddress").val()))==false){
+		if((centerNameArr.includes($(".sample4_detailAddress").val()))==false){
 			$("#centernameValidRegMsg").css("display","block");
 			submitResult=false;	
 		}
