@@ -48,7 +48,9 @@
 	</update>
 	
 	<update id="updateReplyNoticeService"> 
-		update notice_service set notice_service_reply = #{noticeServiceReply} where notice_service_no = #{noticeServiceNo}
+		update notice_service set notice_service_reply = #{noticeServiceReply}, 
+									notice_service_status = 3		
+		where notice_service_no = #{noticeServiceNo} 
 	</update>
 	
 	<update id="updateNoticeServiceHits">
