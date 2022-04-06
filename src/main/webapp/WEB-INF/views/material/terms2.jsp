@@ -145,7 +145,7 @@
 			처리업무를 위탁하고 있습니다<span class="s1">.</span>
 		</p>
 		<ul class="ul1">
-			<li class="li1">수탁 업체<span class="s1"> : </span>델피콤<span
+			<li class="li1">수탁 업체<span class="s1"> : </span>아윌콤<span
 				class="s1"><br> </span>위탁 내용<span class="s1"> : 050
 			</span>전화번호 연결 서비스<span class="s1"><br> </span>위탁 기간<span
 				class="s1"> : </span>위탁계약 종료 시 또는 회원탈퇴 시<span class="s1"><br>
@@ -208,7 +208,7 @@
 			회사는 다음의 개인정보 항목을 처리하고 있습니다<span class="s1">. </span>
 		</p>
 		<p class="p1">
-			<span class="s1">1. </span>운동닥터개인사용자회원가입및관리
+			<span class="s1">1. </span>오늘의짐개인사용자회원가입및관리
 		</p>
 		<ul class="ul1">
 			<li class="li1">필수항목<span class="s1">: </span>성명<span
@@ -365,11 +365,11 @@
 			<li class="li1">개인정보 보호책임자</li>
 			<ul class="ul1">
 				<li class="li7"><span class="s4">성명</span>: <span
-					class="s4">김성환</span></li>
+					class="s4">김성훈</span></li>
 				<li class="li7"><span class="s4">직위</span>: <span
 					class="s4">대표자</span></li>
 				<li class="li11"><span class="s8">메일</span><span class="s6">:&nbsp;<a
-						href="mailto:aweseong@wetrain.co.kr"><span class="s9">aweseong@wetrain.co.kr</span></a></span></li>
+						href="hellsjava.co.kr"><span class="s9">hellsjava@itwill.co.kr</span></a></span></li>
 				<li class="li11"><span class="s11">서비스</span> <span
 					class="s11">대표</span> <span class="s11">메일</span><span
 					class="s10"> : </span><span class="s12">help@wetrain.co.kr</span></li>
@@ -397,7 +397,7 @@
 				<li class="li7"><span class="s4">대표번호</span>:
 					0507-0270-7000</li>
 				<li class="li11"><span class="s8">메일</span><span class="s6">:&nbsp;<a
-						href="mailto:help@wetrain.co.kr"><span class="s9">help@wetrain.co.kr</span></a></span></li>
+						href="hellsjava:help@wetrain.co.kr"><span class="s9">help@itwil.co.kr</span></a></span></li>
 			</ul>
 		</ul>
 		<p class="p10">
