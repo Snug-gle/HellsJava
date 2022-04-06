@@ -132,7 +132,8 @@ public class AdminController {
 		int totalBoard = memberService.getMemberListCount(searchMap);
 		int pageSize = 5;
 		int blockSize = 10;
-		
+		int number = totalBoard - (pageNum - 1) * pageSize;
+
 		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
 
 		Map<String, Object> returnMap = new HashMap<String, Object>();
@@ -143,6 +144,8 @@ public class AdminController {
 		returnMap.put("endRow", pager.getEndRow());
 		
 		model.addAttribute("memberList", memberService.getMemberList(returnMap));
+		model.addAttribute("pager",pager);
+		model.addAttribute("number",number);
 		
 		return "/admin/admin_userList";
 	}
