@@ -41,6 +41,11 @@ public class TrainerServiceImpl implements TrainerService {
 	public Trainer getTrainer(int memberNo) {
 		return trainerDAO.selectTrainer(memberNo);
 	}
+	
+	@Override
+	public Trainer getTrainerTrainerNo(int trainerNo) {
+		return trainerDAO.selectTrainerTrainerNo(trainerNo);
+	}
 
 	@Override
 	public List<Trainer> getTrainerList(Map<String, Object> map) {

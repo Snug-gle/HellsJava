@@ -346,7 +346,7 @@
 									</tr>
 									<tr>
 										<td>결제금액</td>
-										<td><span id="payOnce" name="payoncePrice"></span></td>
+										<td><span id="payOnce"></span></td>
 									</tr>
 									<tr>
 										<td>결제 비밀번호</td>
@@ -354,6 +354,7 @@
 									</tr>
 								</table>
 										<p id="accountValidMsg">${message}</p>
+										<input id = "payoPrice" type="hidden" name ="payoPrice" value=""/>
 							</form>
 						</div>
 					</div>
@@ -459,6 +460,8 @@ geocoder.addressSearch('${trainer.trainerAddress}', function(result, status) {
 // 1회 PT 가격 1회 pt 결제 모달창에 띄우기
 var oncePrice = $(".oncePrice").html();
 $("#payOnce").text(oncePrice);
+$('input[name=payoPrice]').attr('value',oncePrice);
+
 
 
 </script>

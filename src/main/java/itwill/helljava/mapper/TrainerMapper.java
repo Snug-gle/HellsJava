@@ -18,6 +18,9 @@ public interface TrainerMapper {
 	
 	// 포스팅에 띄울 친구 (member, Trainer join)
 	Trainer selectTrainer(int memberNo);
+	
+	// 트레이너 번호로 트레이너 조회
+	Trainer selectTrainerTrainerNo(int trainerNo);
 
 	// 관리자용 트레이너 조회 리스트 (검색 기능 아이디, 이름 포함)
 	List<Trainer> selectTrainerList(Map<String, Object> map);
