@@ -4,18 +4,27 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 
 
-<div class="main-banner-image">
-	<img class="main-banner-image_01" src="<spring:url value="/img/vac-4.jpg"/>">
-</div>
+	<div class="main-banner-image">
+		<div id="imgcontainer">
+			<div class="itemsImg">
+				<div class="imgItem active"><img class="main-banner-image_01" src="<spring:url value="/img/vac-1.jpg"/>"></div>
+				<div class="imgItem"><img class="main-banner-image_02" src="<spring:url value="/img/vac-2.jpg"/>"></div>
+				<div class="imgItem"><img class="main-banner-image_03" src="<spring:url value="/img/vac-3.jpg"/>"></div>
+				<div class="imgItem"><img class="main-banner-image_04" src="<spring:url value="/img/vac-4.jpg"/>"></div>
+			</div>
+			
+		</div>
+	</div>
 
-<div class="main-banner-image-contorller">
-	<button type="button" class="fa fa-chevron-left main-contorller image-contorller-left"></button>
-	<button type="button" class="fa fa-circle main-contorller image-contorller-circle"></button>
-	<button type="button" class="fa fa-circle main-contorller image-contorller-circle"></button>
-	<button type="button" class="fa fa-circle main-contorller image-contorller-circle"></button>
-	<button type="button" class="fa fa-circle main-contorller image-contorller-circle"></button>
-	<button type="button" class="fa fa-chevron-right main-contorller image-contorller-right"></button>
-</div>
+	<div class="main-banner-image-contorller">
+		<button type="button" class="fa fa-chevron-left main-contorller image-contorller-left prev"></button>
+		<button type="button" class="fa fa-circle main-contorller image-contorller-circle step active-step" value="0" onclick="cicleclick(this)"></button>
+		<button type="button" class="fa fa-circle main-contorller image-contorller-circle step" value="1" onclick="cicleclick(this)"></button>
+		<button type="button" class="fa fa-circle main-contorller image-contorller-circle step" value="2" onclick="cicleclick(this)"></button>
+		<button type="button" class="fa fa-circle main-contorller image-contorller-circle step" value="3" onclick="cicleclick(this)"></button>
+		<button type="button" class="fa fa-chevron-right main-contorller image-contorller-right next"></button>
+	</div>
+
 <form action="<spring:url value="/content/search"/>" method="post">
 	<div class="main-search-area">
 		<select name="searchKeyword" class="btn btn-primary dropdown-toggle">
@@ -178,3 +187,65 @@
 		</div>
 	</div>
 </section>
+
+<script type="text/javascript">
+
+	let curPos = 0; // 현재 보이는 요소의 인덱스 번호
+	
+	function prev(){
+	    if(curPos > 0){
+	        $("button").removeAttr("disabled") // 모든 버튼 사용할 수 있게!
+	        // toggleClass : 클래스가 있으면 제거, 없으면 생성!
+	        $($(".imgItem")[curPos]).toggleClass("active")
+	        $($(".step")[curPos]).toggleClass("active-step")
+	        $(".imgItem").hide();
+	        curPos -= 1 *1;
+	        $($(".imgItem")[curPos]).toggleClass("active")
+	        $($(".step")[curPos]).toggleClass("active-step")
+	        $(".active").fadeIn(800); // 새로운 액티브 요소만 스르륵 나타난다
+	    };
+	    if(curPos == 0){
+	        $(".prev")[0].setAttribute("disabled",'true')
+	    };
+	};
+	function next(){
+	    if(curPos < 3){
+	        $("button").removeAttr("disabled")
+	        $($(".imgItem")[curPos]).toggleClass("active")
+	        $($(".step")[curPos]).toggleClass("active-step")
+	        $(".imgItem").hide();
+	     	curPos += 1;
+	        $($(".imgItem")[curPos]).toggleClass("active")
+	        $($(".step")[curPos]).toggleClass("active-step")
+	        $(".active").fadeIn(800); 
+	    };
+	    if(curPos == 3){
+	        $(".next")[0].setAttribute("disabled",'true')
+	    };
+	};
+	function init(){
+	    $(".imgItem").hide()
+	    $(".active").show()
+	    $(".prev").click(prev)
+	    $(".next").click(next)
+	    $(".step").click(cicleclick(this))
+	};
+	$(document).ready(function(){
+	
+	    init();
+	});
+	
+	function cicleclick(ths){
+		let curPos2 = 0;
+		curPos2 = $(ths).val();
+		$("button").removeAttr("disabled")
+        $($(".imgItem")[curPos]).toggleClass("active")
+        $($(".step")[curPos]).toggleClass("active-step")
+        $(".imgItem").hide();
+		curPos = curPos2;
+		curPos = curPos * 1;//스트링 변환을 막기위한 곱셈
+        $($(".imgItem")[curPos2]).toggleClass("active")
+        $($(".step")[curPos2]).toggleClass("active-step")
+        $(".active").fadeIn(800); 
+	}
+</script>
