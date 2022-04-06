@@ -140,23 +140,14 @@ function sample4_execDaumPostcode() {
 								<hr>
 								<h3><strong>수상경력 및 이력</strong>&nbsp;&nbsp;<i class="fa fa-plus-square" id="award-plus-btn"></i></h3> 
 								<hr>
-								<div class="tr-in-header-award-list" style="padding: 10px; overflow: auto; align-items: center;" >
+								<div class="tr-in-header-award-list">
 									<ul class="tr-in-header-award-unit" style="list-style: none;">
 										<li class="tr-in-header-award-rego">
-											<div>
-												<div style="float: left; margin: 5px;">
-												<img alt="" src="" class="award-load-img"> 
-												</div>
-												<div style="float: left; margin: 5px;">
-													<input type="text" id="award_content" name="aContent" placeholder="수상 경력 및 이력">
-												</div>
-												<div style="margin: 5px;">
-													<input type="file" id="award_image" name="aImage" placeholder="사진 첨부" accept="image/*"> 
-												</div>
-												<p id="awardContentRegMsg" class="error">수상 경력 설명을 반드시 입력하세요.</p>
-												<p id="awardImageRegMsg" class="error">수상 경력 사진을 반드시 첨부하세요.</p>
-											</div>
-										</li>
+										<img alt="" src="" class="award-load-img"> 
+										<input type="file" id="award_image" name="aImage" placeholder="사진 첨부" accept="image/*"> 
+										<input type="text" id="award_content" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control">
+										<p id="awardContentRegMsg" class="error">수상 경력 설명을 반드시 입력하세요.</p>
+										<p id="awardImageRegMsg" class="error">수상 경력 사진을 반드시 첨부하세요.</p></li>
 									</ul>
 								</div>
 							</div>
@@ -177,20 +168,23 @@ function sample4_execDaumPostcode() {
 										</div>
 										<br>
 										<br>
-											<div class="form-group">
-												<label class="col-sm-2 control-label">결제 비밀번호</label>
-												<div class="col-sm-3">
-													<input type="password" id="account_pw" name="accountPw" class="form-control">
-													<p id="accountPwRegMsg" class="error">결제 비밀번호를 필히 입력하시오.</p>
-													<p id="accountErrorMsg">${message}</p>
-												</div>
-											</div>
+									</div>
+										<div>
+										<label class="col-sm-2 control-label">결제 비밀번호</label>
+										<div class="col-sm-3">
+											<input type="password" id="account_pw" name="accountPw"
+												class="form-control">
+											<p id="accountPwRegMsg" class="error">결제 비밀번호를 필히 입력하시오.</p>
+											<p id="accountErrorMsg">${message}</p>
+										</div>
 									</div>
 								</div>
 							</div>
 						</form>
 					</div>
 				</div>
+				
+				<br>
 				<div class="tr-in-footer" style="text-align: center; margin: 10px auto;">
 					<button id="submitBtn" type="submit" class="btn btn-primary">확인</button>
 					<button type="reset" class="btn btn-primary">다시쓰기</button>
