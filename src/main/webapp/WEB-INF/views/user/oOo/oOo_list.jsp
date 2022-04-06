@@ -3,117 +3,95 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<html>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<div class="container">
-	<div class="notice-list-print">
-		<div style="text-align: right;">
-			<button type="button" class="btn btn-primary"
-				onclick="location.href='<c:url value="/oOo/write"/>';">1:1 문의 작성</button>
-		</div>
-		<div class="notice-list-title">
-			<h1 class="panel-title">1:1 문의 목록</h1>
-		</div>
-		<div class="panel-body">
-			<c:choose>
-				<c:when test="${empty(oOoList) }">
-					<div align="center">
-						<h3>문의 내역이 없습니다.</h3>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<c:set var="cnt" value="1" />
-					<c:forEach var="oOo" items="${oOoList}" >
-						<div class="panel-group accordion" id="accordion">
-							<!-- 문의글 -->
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<div class="panel-title" style="font-size: 20px;">
-										<!-- 글번호 -->
-										<c:set var="index1" value="${index1+1 }"  />
-										<a data-toggle="collapse" data-parent="#accordion" href="#"
-											class="collapsed" aria-expanded="false"><strong>${index1 }</strong></a>
-										<!-- 제목 -->
-										<a data-toggle="collapse" data-parent="#accordion" href="#"
-											class="collapsed" aria-expanded="false">
-											${oOo.noticeServiceTitle}</a>
-										<!-- 날짜 -->
-										<a data-toggle="collapse" data-parent="#accordion" href="#"
-											class="collapsed" aria-expanded="false">
-											${fn:substring({oOo.noticeServiceDate},1,12)} </a>
-										<!-- 글내용 보기 -->
-										<a data-toggle="collapse" data-parent="#accordion"
-											href="#${index1 }" class="collapsed" aria-expanded="false">
-											상세보기</a>
-										<!-- 조회수 -->
-										<a data-toggle="collapse" data-parent="#accordion" href="#"
-											class="collapsed" aria-expanded="false">
-											${ptOnce.ptOnceStatus }</a>
-									</div>
-									<!-- 글 상세내용 -->
-									<div id="${index1 }" class="panel-collapse collapse"
-										aria-expanded="false" style="height: 0px;">
-										<div class="panel-body">${oOo.noticeServiceContent}</div>
-									</div>
-								</div>
-								<!-- 답글 -->
+<div class="container animated fadeInUp">
+	<div class="my-page-box">
+		<div class="notice-list-print">
+			<div class="pageheader" style="font-size: 20px;">
+				<div style="text-align: center;">
+					<h1>1:1 문의 내역</h1>
+				</div>
+			</div>
+			
+			<div class="panel-body">
+				<c:choose>
+					<c:when test="${empty(oOoList) }">
+						<div align="center">
+							<h3>문의 내역이 없습니다.</h3>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<c:set var="cnt" value="1" />
+						<c:forEach var="oOo" items="${oOoList}" >
+							<div class="panel-group accordion" id="accordion">
+								<!-- 문의글 -->
 								<div class="panel panel-default">
-									<div class="panel-heading">
+		                            <div class="">
+		                               <c:set var="index1" value="${index1+1 }" />
+		                               <table class="table table-hover personalTable">
+		                                    <tbody>
+		                                        <tr>
+		                                            <td style="width: 100px; text-align: center;">${index1 }</td>
+		                                            <td style="width: auto;"><a data-toggle="collapse" data-parent="#accordion" href="#${index1 }"
+													class="collapsed" aria-expanded="false">
+													${oOo.noticeServiceTitle}</a></td>
+		                                            <td style="width: 100px;">${fn:substring({oOo.noticeServiceDate},1,12)}</td>
+		                                        </tr>
+		                                    </tbody>
+		                                </table>
+		                            </div>
+		                            <!-- 글상세 -->
+		                            <div id="${index1 }" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+										<div class="personalContent">${oOo.noticeServiceContent}</div>
+									</div>
+									<!-- 답글 -->
+									<div class="panel panel-default">
 										<c:choose>
 											<c:when test="${empty(oOo.noticeServiceReply)}">
-
-												<h3>답변 드릴 예정입니다.</h3>
-
+												<div class="personalContent">
+													<h3>답변 드릴 예정입니다.</h3>
+												</div>
 											</c:when>
 											<c:otherwise>
-												<div class="panel-title">
-
-													<!-- 답글 -->
-													<a data-toggle="collapse" data-parent="#accordion" href="#"
-														class="collapsed" aria-expanded="false"> ┗답글</a>
-													<!-- 제목 -->
-													<a data-toggle="collapse" data-parent="#accordion" href="#"
-														class="collapsed" aria-expanded="false">
-														${oOo.noticeServiceTitle}</a>
-													<!-- 날짜 -->
-													<a data-toggle="collapse" data-parent="#accordion" href="#"
-														class="collapsed" aria-expanded="false">
-														${fn:substring(oOo.noticeServiceDate,0,11)}</a>
-													<!-- 글내용 보기 -->
-													<a data-toggle="collapse" data-parent="#accordion"
-														href="#${oOo.noticeServiceNo}" class="collapsed"
-														aria-expanded="false"> 상세보기</a>
-													<!-- 조회수 -->
-													<a data-toggle="collapse" data-parent="#accordion" href="#"
-														class="collapsed" aria-expanded="false">
-														${ptOnce.ptOnceStatus }</a>
+												<div class="">
+													<table class="table table-hover">
+														<tbody>
+															<tr>
+																<td style="width: 100px; text-align: center;">ㄴ답글</td>
+																<td style="width: auto;"><a data-toggle="collapse" data-parent="#accordion" href="#${oOo.noticeServiceNo}"
+															class="collapsed" aria-expanded="false">
+															${oOo.noticeServiceTitle}</a></td>
+																<td style="width: 100px;"></td>
+															</tr>
+														</tbody>
+													</table>
 												</div>
 											</c:otherwise>
 										</c:choose>
-										<!-- 답글 상세내용 -->
-										<div id="${oOo.noticeServiceNo}"
-											class="panel-collapse collapse" aria-expanded="false"
-											style="height: 0px;">
-											<div class="panel-body">${oOo.noticeServiceReply}</div>
+										<!-- 답글상세 -->
+										<div id="${oOo.noticeServiceNo}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+											<div class="personalContent">${oOo.noticeServiceReply}</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
-			<!-- 버튼 -->
-			<button type="button"
-				onclick="location.href='<c:url value="/mypage"/>';">마이페이지로 이동</button>
-	
-			<%-- 페이지 번호 출력 --%>
-			<div class="panel panel-default">
-				<div class="panel-body" id="pageNumDiv"></div>
+						</c:forEach>
+					</c:otherwise>	
+				</c:choose>	
+				<!-- 마이페이지 이동 버튼 -->
+				<div style="text-align: right; margin: 10px;">
+					<button type="button" class="btn btn-primary"
+				onclick="location.href='<c:url value="/oOo/write"/>';">1:1 문의 작성</button>
+					<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/mypage"/>';">마이페이지로 이동</button>
+				</div>							
+				<%-- 페이지 번호 출력 --%>
+				<div class="panel panel-default">
+					<div class="panel-body" id="pageNumDiv"></div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</div>				
+							
 
 <script type="text/javascript">
 	var page = 1; //현재 요청 페이지 번호를 저장하기 위한 전역 변수
@@ -123,7 +101,7 @@
 	//[처음], [이전] 이동 설정
 	if (${pager.startPage} > ${pager.blockSize}) {
 		html += "<a href='<c:url value="/oOo/list"/>?pageNum=1'>[처음]</a>";
-		html += "<a href='<c:url value="/oOo/list"/>?pageNum=${pager.prevPage}'>[<]</a>";
+		html += "<a href='<c:url value="/oOo/list"/>?pageNum=${pager.prevPage}'>[c]</a>";
 	} else {
 		html += "[처음][<]";
 	}
@@ -138,20 +116,12 @@
 	//[다음],[마지막] 이동 설정
 	if (${pager.endPage} != ${pager.totalPage}) {
 		html += "<a href='<c:url value="/oOo/list"/>?pageNum=${pager.nextPage}'>[>]</a>";
-		html += "<a href='<c:url value="/oOo/list"/>?pageNum=${pager.totalPage}''>'>[마지막]</a>";
+		html += "<a href='<c:url value="/oOo/list"/>?pageNum=${pager.totalPage}'>[마지막]</a>";
 	} else {
 		html += "[>][마지막]";
 	}
 	//페이징 처리 결과 출력
 	$("#pageNumDiv").html(html);
 </script>
-
-
-</html>
-
-
-
-
-
 
 
