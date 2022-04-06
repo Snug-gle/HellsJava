@@ -37,9 +37,6 @@ public class PtOnceController {
 	private PtOnceService ptOnceService;
 	
 	@Autowired
-	private TrainerService trainerService;
-	
-	@Autowired
 	private AccountSevice accountSevice;
 	
 	@Autowired
@@ -97,8 +94,14 @@ public class PtOnceController {
 		return "/"; // 어디로 보내지? 1회 pT 신청리스트로 보내고 싶다 혹시 하면 주석 제거 할것
 	}
 	
+	//계좌 비밀번호가 틀릴 때 예외 핸들러 메서드
 	@ExceptionHandler(value = AccountPwAuthException.class)
-	public String exception() {
-		return "";
+	public String exception(HttpSession session, AccountPwAuthException exception, Model model) {
+		
+		// 비밀번호 틀리면 에러메시지 넘겨주자
+		model.addAttribute("message", exception.getMessage());
+		String trainerNo = (String) session.getAttribute("trainerNo");
+		
+		return "redirect:/posting/detail/"+trainerNo; // 해당 포스팅 페이지로 다시 이동
 	}
 }

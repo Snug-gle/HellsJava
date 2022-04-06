@@ -212,7 +212,10 @@ public class PostingController {
 
 	// 트레이너 리스트나 메인에서 트레이너 배너 눌럿을 때 포스팅 디테일 페이지 GET 요청
 	@RequestMapping(value = "/posting/detail/{trainerNo}", method = RequestMethod.GET)
-	public String postingDetail(@PathVariable(value = "trainerNo") int trainerNo, Model model) {
+	public String postingDetail(@PathVariable(value = "trainerNo") int trainerNo, Model model, HttpSession session) {
+		
+		// 재요청을 위해 세션에 트레이너 번호 담아두기
+		session.setAttribute("trainerNo", trainerNo);
 		
 		// 트레이너 번호로 트레이너 가져오기
 		Trainer trainer = trainerService.getTrainer(trainerNo);

@@ -370,7 +370,7 @@
 	</div>
 </div>
 
-<!-- 1회 PT 문의 모달창 -->
+<!-- PT 문의 모달창 -->
 <div class="modal fade" id="pt-ask" role="dialog">
 	<div class="modal-dialog" id="modal-dialog">
 		<div class="modal-content">
@@ -383,10 +383,10 @@
 				<div id="login-wrapper">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<h3 class="panel-title">1회 PT 문의</h3>
+							<h3 class="panel-title">PT 문의</h3>
 						</div>
 						<div class="panel-body">
-							<form action="" method="post" style="text-align: -webkit-center;">
+							<form action="/pt/request/${trainer.trainerNo}" method="post" style="text-align: -webkit-center;">
 								<div class="ptOnce-form-group">
 									<label for="name" id="ask-label">이름</label> 
 									<input type="text" readonly="readonly" class="form-control" id="memberName"name="memberName" value="${loginUserinfo.memberName }">
@@ -394,12 +394,12 @@
 								<br>
 								<div class="ptOnce-form-group">
 									<label for="phone" id="ask-label">연락처</label> 
-									<input type="text" readonly="readonly" class="form-control" id="memberName"name="memberName" value="${loginUserinfo.memberPhone }">
+									<input type="text" readonly="readonly" class="form-control" id="memberPhone"name="memberPhone" value="${loginUserinfo.memberPhone }">
 								</div>
 								<br>
 								<div class="ptOnce-form-group">
 									<label for="ask" id="ask-label">문의내용</label> 
-									<textarea id="nestable-output" class="form-control" style="resize: none;"></textarea>
+									<textarea id="nestable-output" name="ptServiceContent" class="form-control" style="resize: none;"></textarea>
 								</div>
 							</form>
 						</div>
