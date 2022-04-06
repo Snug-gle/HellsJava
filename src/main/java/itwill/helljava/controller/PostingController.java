@@ -81,6 +81,7 @@ public class PostingController {
 
 		Iterator<String> fileNames = request.getFileNames();
 
+		// 얜 한번 돌텐데?
 		while (fileNames.hasNext()) {
 
 			// 파일 네임 가져오기
@@ -90,40 +91,47 @@ public class PostingController {
 
 			int count = 1; // for문 도는 거 카운트
 			for (MultipartFile multipartFile : postingFiles) {
-				if (count == 1)
-					posting.setPostingSelfIntroductionImg1(fileName);
-				else if (count == 2)
-					posting.setPostingSelfIntroductionImg2(fileName);
-				else if (count == 3)
-					posting.setPostingSelfIntroductionImg3(fileName);
-				else if (count == 4)
-					posting.setPostingSelfIntroductionImg4(fileName);
+
+				if (multipartFile.getSize() != 0) {// 파일이 있을 경우만
+										
+					String uploadDirectory = context.getServletContext()
+							.getRealPath("/resources/assets/postingSelfIntroductionImages");
+					
+					String originalFilename = multipartFile.getOriginalFilename();
+
+					if (count == 1)
+						posting.setPostingSelfIntroductionImg1(originalFilename);
+					else if (count == 2)
+						posting.setPostingSelfIntroductionImg2(originalFilename);
+					else if (count == 3)
+						posting.setPostingSelfIntroductionImg3(originalFilename);
+					else if (count == 4)
+						posting.setPostingSelfIntroductionImg4(originalFilename);
+
+					File file = new File(uploadDirectory, originalFilename);
+
+					String uploadFilename = originalFilename;
+
+					// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
+					int i = 0;
+					while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
+						i++;
+						int index = originalFilename.lastIndexOf(".");
+						uploadFilename = originalFilename.substring(0, index) + "_" + i
+								+ originalFilename.substring(index);
+						file = new File(uploadDirectory, uploadFilename);
+					}
+
+					multipartFile.transferTo(file); // 파일 이동
+					count++;
+				}
 			}
-			String uploadDirectory = context.getServletContext()
-					.getRealPath("/resources/assets/postingSelfIntroductionImages");
-
-			String originalFilename = multipartFile.getOriginalFilename();
-
-			File file = new File(uploadDirectory, originalFilename);
-
-			String uploadFilename = originalFilename;
-
-			// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
-			int i = 0;
-			while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
-				i++;
-				int index = originalFilename.lastIndexOf(".");
-				uploadFilename = originalFilename.substring(0, index) + "_" + i + originalFilename.substring(index);
-				file = new File(uploadDirectory, uploadFilename);
-			}
-
-			multipartFile.transferTo(file); // 파일 이동
 
 		}
 		posting.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
 
 		// 포스팅 추가 서비스 메서드 호출 (자기소개, 프로그램 소개는 이미 들가있음)
-		postingService.addPosting(posting);
+		//postingService.addPosting(posting);
 
 		// ===============================PT 가격 추가===============================
 
@@ -154,7 +162,7 @@ public class PostingController {
 
 		String dayOff = request.getParameter("dayoff");
 		String dayOffText = request.getParameter("dayOffText");
-
+		
 		int dayCount = 0;
 		for (String workday : workdays) {
 
@@ -180,7 +188,8 @@ public class PostingController {
 			scheduleService.addSchedule(schedule);
 		}
 
-		return "/";
+		return "/user/trainer/trainer_mypage";
+		// 일단 트레이너 마이페이지로 가지만 포스팅 디테일 추가하면 경로 바꾸고 주석 지우기
 		// 포스팅 추가하면 포스팅 디테일 페이지로 이동 얘도 수정필요 리다이렉트 요청 ㄱㄱ
 	}
 

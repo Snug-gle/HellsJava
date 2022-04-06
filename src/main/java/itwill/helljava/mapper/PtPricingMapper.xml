@@ -5,12 +5,11 @@
 		<selectKey resultType="int" keyProperty="ptPricingNo" order="BEFORE">
 			select seq_pt_pricing.nextval from dual
 		</selectKey>
-		insert into ptPricing values(
+		insert into pt_pricing values(
 		#{ptPricingNo},
 		#{trainerNo},
 		#{ptPricingRound},
-		#{ptPricingPrice},
-		#{ptPricingStatus})
+		#{ptPricingPrice})
 	</insert>
 	
 	<update id="updatePtPricing">
@@ -20,16 +19,13 @@
 				pt_pricing_round=#{ptPricingRound},
 			</if>
 			<if test="ptPricingPrice!=null and ptPricingPrice!=''">
-				pt_pricing_price=#{ptPricingPrice},
-			</if>
-			<if test="ptPricingStatus!=null and ptPricingStatus!=''">
-				pt_pricing_status=#{ptPricingStatus}
+				pt_pricing_price=#{ptPricingPrice}
 			</if>
 		</set>
 		where trainer_no=#{trainerNo}
 	</update>
 	
 	<select id="selectPtPricingList" resultType="PtPricing">
-		select * from pt_pricing where trainer_no=#{trainer_no} order by pt_pricing_round
+		select * from pt_pricing where trainer_no=#{trainerNo} order by pt_pricing_round
 	</select>
 </mapper>
