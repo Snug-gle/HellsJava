@@ -44,11 +44,12 @@
 						</div>
 						<!-- 페이징 처리 출력하는 부분-->
 						<div id="pageNumDiv"></div>
-						<form id="searchForm" method="get">
+						<form id="searchForm">
 							<div class="main-search-area">
-								<select id="nameIdSearch" name="nameIdSearch"
+								<select id="searchKeyword" name="nameSearch"
 									class="btn btn-primary dropdown-toggle searchBtnBox">
-									<option value="member_name" selected="selected">&nbsp;이름&nbsp;</option>
+									<option value="notice_service_title" selected="selected">&nbsp;제목&nbsp;</option>
+									<option value="notice_service_content">&nbsp;내용&nbsp;</option>
 									<option value="member_id">&nbsp;아이디&nbsp;</option>
 								</select> <input class="main-search" type="text" name="searchValue"
 									id="searchValue">
@@ -90,7 +91,7 @@
 			$(".admin-list-body-listBody-btn3").hide();
 			$(".admin-list-body-listBody-btn4").show();
 			$(".admin-list-body-listBody-btn5").show(); */
-			$(this).parent().prev().children().next().contents().unwrap().wrap( '<textarea class="admin-list-review rr" rows="" cols=""></textarea>' );
+			$(this).parent().prev().children().next().contents().unwrap().wrap( '<textarea name="replyText" class="admin-list-review rr" rows="" cols=""></textarea>' );
 			$(this).hide();
 			$(this).next().show();
 			$(this).next().next().show();
@@ -133,17 +134,26 @@
 			
 		}); */
 		
+		
+		var idid=0;
 		var page=1; //현재 요청 페이지 번호를 저장하기 위한 전역 변수
-		boardDisplay(page);
+		boardDisplay(page, idid);
 
+		idid=idid*1;
+		alert(idid);
 		/* 게시글 목록을 검색하여 JSON 텍스트로 응답하는 웹프로그램을 AJAX로 요청하여 처리하는 함수 */
-		function boardDisplay(pageNum) {
+		function boardDisplay(pageNum, idid) {
 				page=pageNum;
+				var url1 ="questionSearch?pageNum="+pageNum+"&searchKeyword="+$("#searchKeyword").val()+"&searchValue="+$("#searchValue").val();
+				var url2 = "question_list?pageNum="+pageNum;
 				$.ajax({
 					type: "get",
-					url: "question_list?pageNum="+pageNum,
+					url: (idid == 1) ? url1 : url2 ,
 					dataType: "json",
 					success: function(json) {		
+						if(idid == 1){
+							idid=0;
+						}
 						var str1;
 						if(json.restAdminQAList.length==0){
 							str1 += "<table class='admin-list-body-list-table' >";
@@ -199,9 +209,9 @@
 							str += "<td></td>";
 							str += "<td>"+obj["memberId"]+"</td>";
 							str += "<td>"+obj["noticeServiceDate"]+"</td>";
-							if(obj["noticeServiceStatus"]==2){
+							if(obj["noticeServiceReply"]==null || obj["noticeServiceReply"] == ''){
 								str += "<td>미답변</td>";
-							} else if(obj["noticeServiceStatus"]==3){
+							} else {
 								str += "<td>답변</td>";
 							}
 							str += "</tr>";
@@ -216,9 +226,9 @@
 								str += "</li>";
 								str += "</ul>";
 							
-								str += "<form action=''>";
+								str += "<form action='${pageContext.request.contextPath}/question/reply/"+obj["noticeServiceNo"]+"' method='post'>";
 								str += "<ul class='admin-list-body-listBody-review alblb'>";
-								str += "<li> <textarea class='admin-list-review' rows='' cols=''></textarea> </li>";
+								str += "<li> <textarea name='replyText' class='admin-list-review' rows='' cols=''></textarea> </li>";
 								str += "<li class='alblb'>";
 								str += "<button type='submit' class='btn btn-primary'>작성</button> ";
 								str += "<button type='reset' class='btn btn-primary'>초기화</button> ";
@@ -227,7 +237,7 @@
 								str += "</ul>";
 								str += "</form>";
 							} else {
-								str += "<form action=''>";
+								str += "<form action='${pageContext.request.contextPath}/question/reply/"+obj["noticeServiceNo"]+"'  method='post'>";
 								str += "<ul class='admin-list-body-listBody-review-bf'>";
 								str += "<li>";
 								str += "<h4>A</h4>";
@@ -295,4 +305,18 @@
 				
 				$("#pageNumDiv").html(html);
 			}
+			
+			//------------------------------------------
+			$("#searchBtn").click(function() {
+				
+				idid = 1;
+				
+				/* var searchKeyword = $("#searchKeyword").val();
+				
+				var searchValue = $("#searchValue").val();
+				
+				location.href="${pageContext.request.contextPath}/admin/questionSearch?searchKeyword="+searchKeyword+"&searchValue="+searchValue; */
+
+				boardDisplay(page,idid);
+			})			
 	</script>

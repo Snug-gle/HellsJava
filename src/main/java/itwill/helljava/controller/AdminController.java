@@ -3,6 +3,8 @@ package itwill.helljava.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import itwill.helljava.Enum.NoticeServiceSortationEnum;
 import itwill.helljava.dto.Member;
+import itwill.helljava.dto.NoticeService;
 import itwill.helljava.service.AwardService;
 import itwill.helljava.service.MemberService;
 import itwill.helljava.service.NoticeServiceService;
@@ -70,6 +73,42 @@ public class AdminController {
 		return returnMap;
 	}
 	
+	// 1:1 문의 리스트 검색 메서드(Map 형태로 반환)
+		@RequestMapping(value = "/admin/questionSearch",method = RequestMethod.GET)
+		@ResponseBody
+		public Map<String, Object> restQASearchList(@RequestParam(defaultValue = "1") int pageNum
+				,@RequestParam String searchKeyword, @RequestParam String searchValue){
+			
+			Map<String, Object> searchMap = new HashMap<String, Object>();
+			
+			// 검색 값 넣고.
+			searchMap.put("searchKeyword", searchKeyword);
+			searchMap.put("searchValue", searchValue);
+			searchMap.put("notice_service_sortation", NoticeServiceSortationEnum.일대일문의.getValue());
+			
+			int totalBoard = noticeServiceService.getNoticeServiceCount(searchMap);
+			int pageSize = 5; //한 페이지에 출력될 게시글의 갯수 저장
+			int blockSize = 10; //한 페이지 블럭에 출력될 페이지 번호의 갯수 저장
+			
+			//페이징 처리 관련 값을 제공하는 Pager 클래스로 객체를 생성하여 저장
+			Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+			
+			//Service 클래스의 메소드 호출을 위한 Map 객체 생성
+			Map<String,	Object> pagerMap = new HashMap<String, Object>();
+			
+			pagerMap.put("searchKeyword", searchKeyword);
+			pagerMap.put("searchValue", searchValue);
+			pagerMap.put("startRow", pager.getStartRow());
+			pagerMap.put("endRow", pager.getEndRow());
+			pagerMap.put("notice_service_sortation", NoticeServiceSortationEnum.일대일문의.getValue());
+			
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			returnMap.put("restAdminQAList", noticeServiceService.getNoticeServiceList(pagerMap));
+			returnMap.put("pager", pager);
+			
+			return returnMap;
+		}
+	
 	// 회원 리스트 요청 get 방식
 	@RequestMapping(value = "/admin/userList", method = RequestMethod.GET)
 	public String memberList(@RequestParam(defaultValue ="1") int pageNum, Model model) {
@@ -118,11 +157,11 @@ public class AdminController {
 	public String memberSearch(@RequestParam(defaultValue ="1") int pageNum, @RequestParam String searchKeyword, @RequestParam String searchValue, Model model) {
 		
 		
-		Map<String, Object> searchMap = new HashMap<String, Object>();
 		
-		// 검색 값 넣고.
+		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("searchKeyword", searchKeyword);
 		searchMap.put("searchValue", searchValue);
+
 		
 		int totalBoard = memberService.getMemberListCount(searchMap);
 		int pageSize = 5;
@@ -185,6 +224,20 @@ public class AdminController {
 		returnMap.put("awardList", awardService.getAwardList(trainerNo));
 		
 		return returnMap;
+	}
+	
+	// 답글 추가 메서드 post 방식 요청
+	@RequestMapping(value = "/question/reply/{noticeServiceNo}",method = RequestMethod.POST)
+	public String replyAdd(@PathVariable("noticeServiceNo") int noticeServiceNo, HttpServletRequest request) {
+		
+		NoticeService noticeService = new NoticeService();
+		noticeService.setNoticeServiceReply(request.getParameter("replyText"));
+		noticeService.setNoticeServiceNo(noticeServiceNo);
+		
+		noticeServiceService.modifyReplyNoticeService(noticeService);
+		
+		
+		return "redirect:/admin/questionList";
 	}
 	
 }
