@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import itwill.helljava.Enum.NoticeServiceSortationEnum;
 import itwill.helljava.dto.Member;
+import itwill.helljava.service.AwardService;
 import itwill.helljava.service.MemberService;
 import itwill.helljava.service.NoticeServiceService;
 import itwill.helljava.service.TrainerService;
@@ -30,6 +31,9 @@ public class AdminController {
 
 	@Autowired
 	private TrainerService trainerService;
+	
+	@Autowired
+	private AwardService awardService;
 	
 	@RequestMapping(value = "/admin/questionList", method = RequestMethod.GET)
 	  public String questionList() { 
@@ -168,6 +172,18 @@ public class AdminController {
 		model.addAttribute("number",number);
 		
 		return "/admin/admin_trainerList";
+	}
+	
+	// 트레이너 리스트 모달 창 ajax get 요청 awardList map으로 반환
+	@RequestMapping(value="",method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> modalRequest(@RequestParam int trainerNo , Model model){
+		
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		returnMap.put("awardList", awardService.getAwardList(trainerNo));
+		
+		return returnMap;
 	}
 	
 }
