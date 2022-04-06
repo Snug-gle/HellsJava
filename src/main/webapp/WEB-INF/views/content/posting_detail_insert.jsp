@@ -95,7 +95,7 @@
 								<option value="06" selected="selected">06</option>
 								<c:forEach var="i" begin="7" end="23">
 								   <c:if test="${i>0 && i<10}">
-										<option value="<c:out value="0${i}"/>"><c:out value="0${i}" /></option>
+										<option value="0${i}"><c:out value="0${i}" /></option>
 									</c:if>
 									<c:if test="${i>=10}">
 								  		<option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
@@ -112,7 +112,7 @@
 								<option value="06" selected="selected">06</option>
 								<c:forEach var="i" begin="7" end="23">
 								  <c:if test="${i>0 && i<10}">
-										<option value="<c:out value="0${i}"/>"><c:out value="0${i}" /></option>
+										<option value="0${i}"><c:out value="0${i}" /></option>
 									</c:if>
 									<c:if test="${i>=10}">
 								  		<option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
@@ -201,12 +201,12 @@
 		}
 		
 		//스케쥴 
-		/* var check = 0;
+		var check = 0;
 		for(var i = 1; i<=3; i++) {
 			if($(".cb"+i).is(":checked")==true){
 				check +=1; //체크시 카운트 +1
-				var hour1 = $(".cb"+i).next().next().val();
-				var hour2 = $(".cb"+i).next().next().next().next().val();
+				var hour1 = $(".cb"+i).next().next().next().val();
+				var hour2 = $(".cb"+i).next().next().next().next().next().val();
 				if(hour1>=hour2){ //스케쥴 시간이 동일하거나 시작시간이 끝나는 시간보다 낮은 경우
 					alert("시간을 다시 확인해 주세요");
 					alert(hour1);
@@ -214,7 +214,7 @@
 					submitResult=false;
 				}
 			}
-		} */
+		}
 		
 		//스케쥴 체크 유무 (최소 1개)
 		if(check == 0){ //카운트가 0일경우
