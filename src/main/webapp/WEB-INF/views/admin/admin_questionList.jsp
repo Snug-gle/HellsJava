@@ -42,6 +42,8 @@
 								<div class="admin-list-body-list" id="showData"></div>
 							</div>
 						</div>
+						<!-- 페이징 처리 출력하는 부분-->
+						<div id="pageNumDiv"></div>
 						<form id="searchForm" method="get">
 							<div class="main-search-area">
 								<select id="nameIdSearch" name="nameIdSearch"
@@ -59,6 +61,7 @@
 		</section>
 		</section>
 	</div>
+	
 </div>
 
 	<script type="text/javascript">

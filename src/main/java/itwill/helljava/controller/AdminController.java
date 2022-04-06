@@ -41,9 +41,10 @@ public class AdminController {
 	  }
 	 
 	
-	// 1:1 문의 리스트 출력 메서드
+	// 1:1 문의 리스트 출력 메서드(Map 형태로 반환)
 	@RequestMapping(value = "/admin/question_list",method = RequestMethod.GET)
-	public String restQAList(@RequestParam(defaultValue = "1") int pageNum, Model model){
+	@ResponseBody
+	public Map<String, Object> restQAList(@RequestParam(defaultValue = "1") int pageNum){
 		
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		
@@ -62,11 +63,11 @@ public class AdminController {
 		pagerMap.put("endRow", pager.getEndRow());
 		pagerMap.put("notice_service_sortation", NoticeServiceSortationEnum.일대일문의.getValue());
 		
-
-		model.addAttribute("restAdminQAList", noticeServiceService.getNoticeServiceList(pagerMap));
-		model.addAttribute("pager", pager);
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("restAdminQAList", noticeServiceService.getNoticeServiceList(pagerMap));
+		returnMap.put("pager", pager);
 		
-		return "";
+		return returnMap;
 	}
 	
 	// 회원 리스트 요청 get 방식
@@ -175,7 +176,7 @@ public class AdminController {
 	}
 	
 	// 트레이너 리스트 모달 창 ajax get 요청 awardList map으로 반환
-	@RequestMapping(value="",method = RequestMethod.GET)
+	@RequestMapping(value="/modal/request",method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> modalRequest(@RequestParam int trainerNo , Model model){
 		
