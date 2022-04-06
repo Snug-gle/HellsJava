@@ -218,7 +218,7 @@ public class PostingController {
 		session.setAttribute("trainerNo", trainerNo);
 		
 		// 트레이너 번호로 트레이너 가져오기
-		Trainer trainer = trainerService.getTrainer(trainerNo);
+		Trainer trainer = trainerService.getTrainerTrainerNo(trainerNo);
 		
 		model.addAttribute("trainer", trainer); // 트레이너 객체 보내기
 		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
