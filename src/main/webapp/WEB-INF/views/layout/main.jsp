@@ -7,7 +7,7 @@
 	<div class="main-banner-image">
 		<div id="imgcontainer">
 			<div class="itemsImg">
-				<div class="imgItem active"><img class="main-banner-image_01" src="<spring:url value="/img/vac-1.jpg"/>"></div>
+				<div class="imgItem activeMainImg"><img class="main-banner-image_01" src="<spring:url value="/img/vac-1.jpg"/>"></div>
 				<div class="imgItem"><img class="main-banner-image_02" src="<spring:url value="/img/vac-2.jpg"/>"></div>
 				<div class="imgItem"><img class="main-banner-image_03" src="<spring:url value="/img/vac-3.jpg"/>"></div>
 				<div class="imgItem"><img class="main-banner-image_04" src="<spring:url value="/img/vac-4.jpg"/>"></div>
@@ -196,13 +196,13 @@
 	    if(curPos > 0){
 	        $("button").removeAttr("disabled") // 모든 버튼 사용할 수 있게!
 	        // toggleClass : 클래스가 있으면 제거, 없으면 생성!
-	        $($(".imgItem")[curPos]).toggleClass("active")
+	        $($(".imgItem")[curPos]).toggleClass("activeMainImg")
 	        $($(".step")[curPos]).toggleClass("active-step")
 	        $(".imgItem").hide();
 	        curPos -= 1 *1;
-	        $($(".imgItem")[curPos]).toggleClass("active")
+	        $($(".imgItem")[curPos]).toggleClass("activeMainImg")
 	        $($(".step")[curPos]).toggleClass("active-step")
-	        $(".active").fadeIn(800); // 새로운 액티브 요소만 스르륵 나타난다
+	        $(".activeMainImg").fadeIn(800); // 새로운 액티브 요소만 스르륵 나타난다
 	    };
 	    if(curPos == 0){
 	        $(".prev")[0].setAttribute("disabled",'true')
@@ -211,13 +211,13 @@
 	function next(){
 	    if(curPos < 3){
 	        $("button").removeAttr("disabled")
-	        $($(".imgItem")[curPos]).toggleClass("active")
+	        $($(".imgItem")[curPos]).toggleClass("activeMainImg")
 	        $($(".step")[curPos]).toggleClass("active-step")
 	        $(".imgItem").hide();
 	     	curPos += 1;
-	        $($(".imgItem")[curPos]).toggleClass("active")
+	        $($(".imgItem")[curPos]).toggleClass("activeMainImg")
 	        $($(".step")[curPos]).toggleClass("active-step")
-	        $(".active").fadeIn(800); 
+	        $(".activeMainImg").fadeIn(800); 
 	    };
 	    if(curPos == 3){
 	        $(".next")[0].setAttribute("disabled",'true')
@@ -225,7 +225,7 @@
 	};
 	function init(){
 	    $(".imgItem").hide()
-	    $(".active").show()
+	    $(".activeMainImg").show()
 	    $(".prev").click(prev)
 	    $(".next").click(next)
 	    $(".step").click(cicleclick(this))
@@ -239,13 +239,13 @@
 		let curPos2 = 0;
 		curPos2 = $(ths).val();
 		$("button").removeAttr("disabled")
-        $($(".imgItem")[curPos]).toggleClass("active")
+        $($(".imgItem")[curPos]).toggleClass("activeMainImg")
         $($(".step")[curPos]).toggleClass("active-step")
         $(".imgItem").hide();
 		curPos = curPos2;
 		curPos = curPos * 1;//스트링 변환을 막기위한 곱셈
-        $($(".imgItem")[curPos2]).toggleClass("active")
+        $($(".imgItem")[curPos2]).toggleClass("activeMainImg")
         $($(".step")[curPos2]).toggleClass("active-step")
-        $(".active").fadeIn(800); 
+        $(".activeMainImg").fadeIn(800); 
 	}
 </script>
