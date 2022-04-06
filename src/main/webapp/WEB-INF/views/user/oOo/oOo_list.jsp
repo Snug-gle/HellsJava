@@ -30,7 +30,7 @@
 								<div class="panel-heading">
 									<div class="panel-title" style="font-size: 20px;">
 										<!-- 글번호 -->
-										<c:set var="index1" value="${index1+1 }" />
+										<c:set var="index1" value="${index1+1 }"  />
 										<a data-toggle="collapse" data-parent="#accordion" href="#"
 											class="collapsed" aria-expanded="false"><strong>${index1 }</strong></a>
 										<!-- 제목 -->
@@ -125,7 +125,7 @@
 		html += "<a href='<c:url value="/oOo/list"/>?pageNum=1'>[처음]</a>";
 		html += "<a href='<c:url value="/oOo/list"/>?pageNum=${pager.prevPage}'>[<]</a>";
 	} else {
-		html += "[<][>]";
+		html += "[처음][<]";
 	}
 	//페이지 번호 설정
 	for (var i = ${pager.startPage}; i <= ${pager.endPage}; i++) {
