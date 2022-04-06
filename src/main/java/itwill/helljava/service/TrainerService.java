@@ -18,6 +18,8 @@ public interface TrainerService {
 	
 	Trainer getTrainer(int memberNo);
 
+	Trainer getTrainerTrainerNo(int trainerNo);
+	
 	List<Trainer> getTrainerList(Map<String, Object> map);
 
 	// 메인페이지 검색 용 리스트 - > 이름, 동, 센터명 검색

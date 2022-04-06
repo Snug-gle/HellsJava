@@ -57,24 +57,7 @@ public class AccountServiceImpl implements AccountSevice {
 			throw new AccountPwAuthException("해당 계좌의 비밀번호가 일치하지 않습니다.");
 		}
 
-		// 결제 액션 실행! 단일 책임 원칙
-		payAction(account);
-
 	}
 
-	// 결제 액션 메서드
-	public void payAction(Account account) {
-
-		// 계좌 번호 인증 성공했으면 결제를 해야지
-		// 필요한 것. pay객체 : pay_price(결제 금액), pay_type(결제 유형)
-		Pay pay = new Pay();
-		pay.setMemberNo(account.getMemberNo());
-		pay.setPayPrice(15000);
-		pay.setPayType(PayTypeEnum.트레이너신청.getValue());
-
-		// 결제 객체 태워보냄
-		payDAO.insertPay(pay);
-
-	}
 
 }

@@ -95,10 +95,10 @@ public class PostingController {
 			for (MultipartFile multipartFile : postingFiles) {
 
 				if (multipartFile.getSize() != 0) {// 파일이 있을 경우만
-										
+
 					String uploadDirectory = context.getServletContext()
 							.getRealPath("/resources/assets/postingSelfIntroductionImages");
-					
+
 					String originalFilename = multipartFile.getOriginalFilename();
 
 					if (count == 1)
@@ -164,7 +164,7 @@ public class PostingController {
 
 		String dayOff = request.getParameter("dayoff");
 		String dayOffText = request.getParameter("dayOffText");
-		
+
 		int dayCount = 0;
 		for (String workday : workdays) {
 
@@ -197,16 +197,32 @@ public class PostingController {
 
 	// 트레이너가 마이페이지에서 포스팅 디테일 페이지 GET 요청
 	@RequestMapping(value = "/myposting/detail/{memberNo}", method = RequestMethod.GET)
-	public String postingDetail(@PathVariable(value = "memberNo") int memberNo, Model model) {
+	public String trPostingDetail(@PathVariable(value = "memberNo") int memberNo, Model model) {
 
 		Trainer trainer = trainerService.getTrainer(memberNo);
-		
-		model.addAttribute("trainer",trainer); // 트레이너 객체 보내기
-		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
-		model.addAttribute("ptPricing",ptPricingService.getPtPricingList(trainer.getTrainerNo()));
-		model.addAttribute("schedule",scheduleService.getScheduleList(trainer.getTrainerNo()));
-		model.addAttribute("posting",postingService.getPosting(trainer.getTrainerNo()));
 
+		model.addAttribute("trainer", trainer); // 트레이너 객체 보내기
+		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
+		model.addAttribute("ptPricing", ptPricingService.getPtPricingList(trainer.getTrainerNo()));
+		model.addAttribute("schedule", scheduleService.getScheduleList(trainer.getTrainerNo()));
+		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
+
+		return "/content/posting_detail";
+	}
+
+	// 트레이너 리스트나 메인에서 트레이너 배너 눌럿을 때 포스팅 디테일 페이지 GET 요청
+	@RequestMapping(value = "/posting/detail/{trainerNo}", method = RequestMethod.GET)
+	public String postingDetail(@PathVariable(value = "trainerNo") int trainerNo, Model model) {
+		
+		// 트레이너 번호로 트레이너 가져오기
+		Trainer trainer = trainerService.getTrainer(trainerNo);
+		
+		model.addAttribute("trainer", trainer); // 트레이너 객체 보내기
+		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
+		model.addAttribute("ptPricing", ptPricingService.getPtPricingList(trainer.getTrainerNo()));
+		model.addAttribute("schedule", scheduleService.getScheduleList(trainer.getTrainerNo()));
+		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
+		
 		return "/content/posting_detail";
 	}
 }
