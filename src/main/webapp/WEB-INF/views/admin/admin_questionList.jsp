@@ -188,12 +188,22 @@
 						$(list).each(function(ind, obj){
 							str += "<tr class='admin-list-body-listTitle'  id='admin-list-body-listTitle"+ind+"'>";
 							str += "<td>"+obj["noticeServiceNo"]+"</td>";
-							str += "<td>"+obj["noticeServiceCategory"]+"</td>";
+							if(obj["noticeServiceCategory"]==1){
+								str += "<td>결제</td>";
+							} else if(obj["noticeServiceCategory"]==2){
+								str += "<td>트레이너</td>";
+							} else {
+								str += "<td>기타</td>";
+							}
 							str += "<td>"+obj["noticeServiceTitle"]+"</td>";
 							str += "<td></td>";
 							str += "<td>"+obj["memberId"]+"</td>";
 							str += "<td>"+obj["noticeServiceDate"]+"</td>";
-							str += "<td>"+obj["noticeServiceStatus"]+"</td>";
+							if(obj["noticeServiceStatus"]==2){
+								str += "<td>미답변</td>";
+							} else if(obj["noticeServiceStatus"]==3){
+								str += "<td>답변</td>";
+							}
 							str += "</tr>";
 							str += "<tr class='admin-list-body-listBody'>";
 							str += "<td colspan='7'>";
