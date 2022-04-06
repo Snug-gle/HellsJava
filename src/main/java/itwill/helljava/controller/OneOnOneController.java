@@ -62,8 +62,9 @@ public class OneOnOneController {
 	public String register(@ModelAttribute NoticeService noticeService, HttpSession session) { 
 		
 		noticeService.setMemberNo(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
+		noticeService.setNoticeServiceSortation(NoticeServiceSortationEnum.일대일문의.getValue());
 		noticeServiceService.addNoticeService(noticeService);
-		return "/board/oOo_list";
+		return "redirect:/oOo/list";
 	}
 	
 	// 글번호를 받아 1:1 문의 삭제 요청

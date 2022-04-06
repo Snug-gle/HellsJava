@@ -9,14 +9,14 @@
 			<h3 class="panel-title">1:1 문의 작성</h3>
 		</div>
 		<div class="panel-body">
-			<form id="registerForm" method="post" name="oOoForm" action="<c:url value='/'/>"
+			<form id="registerForm" method="post" name="oOoForm" action="<c:url value='/oOo/write'/>"
 				class="form-horizontal" role="form">
 				
 				<div class="form-group">
 					<label class="col-sm-2 control-label">제목</label>
 					<div class="col-sm-3">
 						<input type="text" class="form-control"
-							name="" value="${accountNumber}"
+							name="noticeServiceTitle" value="${noticeServiceTitle}"
 							placeholder="제목을 입력해주세요" />
 					</div>
 				</div>
@@ -24,7 +24,7 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">카테고리</label>
 					<div class="col-sm-3">
-							<select id="selbox" name="" class="form-control">
+							<select id="selbox" name="noticeServiceCategory" class="form-control">
 							<option selected="selected" style="text-align: center;">====선택====</option>
 							<option value="0">결제관련</option>
 							<option value="1">트레이너 관련</option>
@@ -37,7 +37,7 @@
 					<label class="col-sm-2 control-label">내용</label>
 					<div class="col-sm-4">
 						<textarea class="form-control"
-							name="" 
+							name="noticeServiceContent" 
 							placeholder="내용을 입력해주세요" ></textarea>
 						
 					</div>
