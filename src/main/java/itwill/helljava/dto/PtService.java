@@ -8,7 +8,7 @@ public class PtService {
 	private String ptServiceTitle;
 	private String ptServiceContent;
 	private String ptServiceReply;
-	private int ptServiceStars;
+	private double ptServiceStars;
 	private int ptServiceGood;
 	private String ptServiceDate;
 	private int ptServiceStatus;
@@ -85,11 +85,11 @@ public class PtService {
 		this.ptServiceReply = ptServiceReply;
 	}
 
-	public int getPtServiceStars() {
+	public double getPtServiceStars() {
 		return ptServiceStars;
 	}
 
-	public void setPtServiceStars(int ptServiceStars) {
+	public void setPtServiceStars(double ptServiceStars) {
 		this.ptServiceStars = ptServiceStars;
 	}
 

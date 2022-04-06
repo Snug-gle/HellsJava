@@ -15,7 +15,7 @@
 	<update id="updatePtPricing">
 		update ptPricing
 		<set>
-			<if test="ptPricingRound!=null and ptPricingRound!=''">
+			<if test="ptPricingRound &gt;= 0">
 				pt_pricing_round=#{ptPricingRound},
 			</if>
 			<if test="ptPricingPrice!=null and ptPricingPrice!=''">

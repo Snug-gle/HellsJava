@@ -4,90 +4,83 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<div class="container">
+<div class="container animated fadeInUp">
 	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title" style="font-size: 30px; padding-left: 40px;"><strong>내 정보 수정</strong></h3>
-		</div>
-		<div class="panel-body">
-			<form id="modifyForm" method="post" action="<c:url value="/member/modify"/>"
-				name="noticeForm" class="form-horizontal" role="form">
-				<div class="form-group">
-					<label class="col-sm-2 control-label">아이디</label>
-					<div class="col-sm-3">
-						<input type="text" readonly="readonly" class="form-control"
-							name="memberId" value="${loginUserinfo.memberId}" />
-					</div>
-					<button type="button" class="btn btn-primary"
-						onclick="location.href='<c:url value="/user/login/password_search"/>';">비밀번호수정</button>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label">이름</label>
-					<div class="col-sm-3">
-						<input type="text" readonly="readonly" class="form-control"
-							name="memberName" value="${loginUserinfo.memberName}" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="phoneLabel">연락처</label>
-					<div >
-						<select id="member_phone1" name="member_phone1"
-							class="btn btn-primary dropdown-toggle">
-							<option value="010" selected="selected">&nbsp;010&nbsp;</option>
-							<option value="011">&nbsp;011&nbsp;</option>
-							<option value="016">&nbsp;016&nbsp;</option>
-							<option value="017">&nbsp;017&nbsp;</option>
-							<option value="018">&nbsp;018&nbsp;</option>
-							<option value="019">&nbsp;019&nbsp;</option>
-						</select> <input type="text" name="member_phone2"
-							class="phone-form-control" id="member_phone2" maxlength="4">
-						<input type="text" name="member_phone3" class="phone-form-control"
-							id="member_phone3" maxlength="4">
-						<div style="padding-left: 200px; ">
-						<p id="phoneMsg" class="error">연락처를 입력해 주세요.</p>
-						<div id="phoneRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해
-							주세요.</div>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label">이메일</label>
-					<div class="col-sm-3">
-						<c:set var="email"
-							value="${fn:split(loginUserinfo.memberEmail,'@')}" />
-						<input type="text" class="email-form-control" name="email1"
-							value="${email[0]}" placeholder="이메일을 입력해주세요." />
-						<p>@</p>
-						<div>
-							<select id="selbox" name="email2" class="email-form-control">
-
-								<option selected="selected" value="1">==선택==</option>
-								<option
-									<c:if test="${email[1] eq 'google.com'}">selected="selected"</c:if>
-									value="google.com">google.com</option>
-								<option
-									<c:if test="${email[1] eq 'naver.com'}">selected="selected"</c:if>
-									value="naver.com">naver.com</option>
-								<option
-									<c:if test="${email[1] eq 'daum.net'}">selected="selected"</c:if>
-									value="daum.net">daum.net</option>
-								<option value="direct">==직접입력==</option>
-							</select> <input type="text" id="selboxDirect" name="selboxDirect"
-								class="form-control" />
-
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-primary">수정</button>
-						<button type="button" class="btn btn-primary"
-							onclick="location.href='${pageContext.request.contextPath}/mypage';">목록</button>
+		<div id="login-wrapper">
+			<div class="panel panel-primary">
+				<div class="panel-body">
+					<h1>
+						<strong>내 정보 수정</strong>
+					</h1>
+					<hr>
+					<br>
+					<div class="memberModifyBody">
+						<form id="modifyForm" method="post" action="<c:url value="/member/modify"/>" name="noticeForm" class="form-horizontal" role="form">
+							<hr>
+							<div class="form-group">
+								<label for="idLabel" class="col-sm-1 control-label">아이디</label>
+								<div class="col-sm-4">
+								<input id="idLabel" type="text" readonly="readonly" class="form-control modifyFromIdInput " name="memberId" value="${loginUserinfo.memberId}" />
+								</div>
+								<div class="col-sm-2">
+								<button id="idLabel" type="button" class="btn btn-primary" onclick="location.href='<c:url value="/user/login/password_search"/>';">비밀번호수정</button>
+								</div>
+							</div>
+							<hr>
+							<div class="form-group">
+								<label for="nameLabel" class="col-sm-1 control-label">이름</label>
+								<div class="col-sm-4">	
+									<input id="nameLabel" type="text" readonly="readonly" class="form-control" name="memberName" value="${loginUserinfo.memberName}" />
+								</div>
+							</div>
+							<hr>
+							<div class="form-group">
+								<label class="col-sm-1 control-label" for="phoneLabel">연락처</label>
+								<div class="col-sm-7">
+									<select id="member_phone1" name="member_phone1"
+										class="btn btn-primary dropdown-toggle">
+										<option value="010" selected="selected">&nbsp;010&nbsp;</option>
+										<option value="011">&nbsp;011&nbsp;</option>
+										<option value="016">&nbsp;016&nbsp;</option>
+										<option value="017">&nbsp;017&nbsp;</option>
+										<option value="018">&nbsp;018&nbsp;</option>
+										<option value="019">&nbsp;019&nbsp;</option>
+									</select> <input type="text" name="member_phone2"
+										class="phone-form-control" id="member_phone2" maxlength="4">
+									<input type="text" name="member_phone3" class="phone-form-control"
+										id="member_phone3" maxlength="4">
+								</div>
+								<p id="phoneMsg" class="error">연락처를 입력해 주세요.</p>
+								<div id="phoneRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해
+									주세요.</div>
+							</div>
+							<hr>
+							<div class="form-group">
+								<label for="emailLabel"class="col-sm-1 control-label">이메일</label>
+								<div class="col-sm-10">
+									<c:set var="email" value="${fn:split(loginUserinfo.memberEmail,'@')}" />
+									<input id="emailLabel" type="text" class="email-form-control col-sm-4" name="email1" value="${email[0]}" placeholder="이메일을 입력해주세요.">
+										&nbsp;@&nbsp;
+									<select id="emailLabel" name="email2" class="email-form-control selbox" style="width: 160px;">
+										<option selected="selected" value="1">==선택==</option>
+										<option <c:if test="${email[1] eq 'google.com'}">selected="selected"</c:if> value="google.com">google.com</option>
+										<option <c:if test="${email[1] eq 'naver.com'}">selected="selected"</c:if> value="naver.com">naver.com</option>
+										<option <c:if test="${email[1] eq 'daum.net'}">selected="selected"</c:if> value="daum.net">daum.net</option>
+										<option value="direct">==직접입력==</option>
+									</select> 
+									<input type="text" id="emailLabel" name="selboxDirect" class="selboxDirect form-control" />
+								</div>
+							</div>
+							<hr>
+							<br>
+							<div class="form-group" style="text-align: center;">
+								<button type="submit" class="btn btn-primary">수정</button>
+								<button type="button" class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/mypage';">목록</button>
+							</div>
+						</form>
 					</div>
 				</div>
-			</form>
-
+			</div>
 		</div>
 	</div>
 </div>
@@ -125,16 +118,16 @@ $("#modifyForm").submit(function() {
 	
 	//이메일 직접 입력 요청 처리 함수
 	$(function() {
-		$("#selboxDirect").hide();
+		$(".selboxDirect").hide();
 
-		$("#selbox").change(function() {
+		$(".selbox").change(function() {
 			//직접입력을 누를 때 나타남
 
-			if ($("#selbox").val() == "direct") {
-				$("#selboxDirect").show();
+			if ($(".selbox").val() == "direct") {
+				$(".selboxDirect").show();
 			} else {
 
-				$("#selboxDirect").hide();
+				$(".selboxDirect").hide();
 			}
 		})
 	});
