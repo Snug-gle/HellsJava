@@ -180,6 +180,7 @@ public class AdminController {
 		model.addAttribute("memberList", memberService.getMemberList(returnMap));
 		model.addAttribute("pager",pager);
 		model.addAttribute("number",number);
+		model.addAttribute("searchValue",searchValue);
 		
 		return "/admin/admin_userList";
 	}

@@ -94,7 +94,7 @@
 									<option value="member_name" selected="selected">&nbsp;이름&nbsp;</option>
 									<option value="member_id">&nbsp;아이디&nbsp;</option>
 								</select>
-								<input class="main-search" type="text" name="searchValue" id="searchValue">
+								<input class="main-search" type="text" name="searchValue" id="searchValue" value="${searchValue }">
 								<button type="button" id="searchBtn" class="btn btn-primary searchBtnBox">검색</button>
 							</div>
 						</form>
@@ -150,7 +150,7 @@
 	//페이지 번호 설정
 	for (var i = ${pager.startPage}; i <= ${pager.endPage}; i++) {
 		if (${pager.pageNum} != i) {
-			html += "<a href='<c:url value="/admin/userList"/>?pageNum="+i+"'> [" + i + "] </a>";
+			html += "<a href='<c:url value="/admin/userSearch"/>?pageNum="+i+"&searchKeyword="+$("#nameIdSearch").val()+"&searchValue="+$("#searchValue").val()+"'> [" + i + "] </a>";
 		} else {
 			html += "[" + i + "]";
 		}
