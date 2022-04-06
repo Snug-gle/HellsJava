@@ -3,86 +3,81 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<html>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<div class="container">
-	<div class="notice-list-print">
-		<div class="notice-list-title">
-			<h1 class="panel-title">1회 PT 신청 내역 목록(회원)</h1>
-		</div>
-		<div class="panel-body">
-			<c:choose>
-				<c:when test="${empty(ptonceList) }">
-					<div align="center">
-						<h3>신청 내역이 없습니다.</h3>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<c:set var="cnt" value="1" />
-					<c:forEach var="ptOnce" items="${ptonceList}" >
-						<div class="panel-group accordion" id="accordion">
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<div class="panel-title">
-										<!-- 글번호 -->
-										<c:set var="index" value="${index+1 }" />
-										<a data-toggle="collapse" data-parent="#accordion" href="#"
-											class="collapsed" aria-expanded="false"><strong>${index }</strong></a>
-										<!-- 제목 -->
-										<a data-toggle="collapse" data-parent="#accordion" href="#"
-											class="collapsed" aria-expanded="false">
-											${fn:substring(ptOnce.ptOnceApplicationDate,0,11) }</a>
-										<!-- 트레이너 이름 -->
-										<a data-toggle="collapse" data-parent="#accordion" href="#"
-											class="collapsed" aria-expanded="false"> 트레이너 이름 들어가야함</a>
-										<!-- 확인 상태 -->
-										<c:choose>
-											<c:when test="${ptOnce.ptOnceStatus eq '0' }">
-												<a data-toggle="collapse" data-parent="#accordion" href="#"
-													class="collapsed" aria-expanded="false">미확인</a>
-											</c:when>
-											<c:when test="${ptOnce.ptOnceStatus eq '1' }">
-												<a data-toggle="collapse" data-parent="#accordion" href="#"
-													class="collapsed" aria-expanded="false">확인</a>
-											</c:when>
-											<c:otherwise>
-												<a data-toggle="collapse" data-parent="#accordion" href="#"
-													class="collapsed" aria-expanded="false">완료</a>
-											</c:otherwise>
-										</c:choose>
-										<!-- 상세보기 -->
-										<a data-toggle="collapse" data-parent="#accordion"
-											href="#${ptOnce.ptOnceNo}" class="collapsed" aria-expanded="false">
-											상세보기</a>
-										<!-- 리뷰쓰기 -->
-										<a data-toggle="collapse" data-parent="#accordion"
-											href="<c:url value='review/write'/>" class="collapsed"
-											aria-expanded="false"> 리뷰쓰기</a>
-									</div>
-									<!-- 상세내용 -->
-									<div id="${ptOnce.ptOnceNo }" class="panel-collapse collapse"
-										aria-expanded="false" style="height: 0px;">
-										<!-- 성별, 연령, 운동경험, 운동목적 , 특이사항  -->
-									
-								<div class="panel-body">성별 : ${ptOnce.ptOnceGender}</div>
-								<div class="panel-body">연령 : ${ptOnce.ptOnceAge}</div>
-								<div class="panel-body">운동경험 : ${ptOnce.ptOnceExperience}</div>
-								<div class="panel-body">운동목적 :${ptOnce.ptOncePurpose}<br></div>
-								<div class="panel-body">특이사항 :${ptOnce.ptOnceSignificant }</div>
-								<div class="panel-body">(확인용) 회원번호 :${ptOnce.ptOnceNo }</div>
+<div class="container animated fadeInUp">
+	<div class="my-page-box">	
+		<div class="notice-list-print">
+			<div class="pageheader" style="font-size: 20px;">
+				<div style="text-align: center;">
+					<h1>1회 PT 신청 내역 목록(회원)</h1>
+				</div>
+			</div>
+			<div class="panel-body">
+				<c:choose>
+					<c:when test="${empty(ptonceList) }">
+						<div align="center">
+							<h3>신청 내역이 없습니다.</h3>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<c:set var="cnt" value="1" />
+						<c:forEach var="ptOnce" items="${ptonceList}" >
+							<div class="panel-group accordion" id="accordion">
+							<!-- 신청글 -->
+								<div class="panel panel-default">
+									<div class="">
+		                               <c:set var="index" value="${index+1 }" />
+		                               <table class="table table-hover personalTable">
+		                                    <tbody>
+		                                        <tr>
+		                                            <td style="width: 70px; vertical-align: middle; text-align: center;">${index }</td>
+		                                            <td style="width: auto; vertical-align: middle;"></td>
+		                                            <td style="width: 100px; vertical-align: middle;">${fn:substring(ptOnce.ptOnceApplicationDate,0,11) }</td>
+		                                        	<td style="width: 140px; text-align: right; vertical-align: middle;">ㅇㅇㅇ트레이너</td>
+		                                        	<!-- 확인 상태 -->
+		                                        	<td style="width: 65px; text-align: center; vertical-align: middle;">
+			                                        	<c:choose>
+			                                        		<c:when test="${ptOnce.ptOnceStatus eq '0' }">미확인</c:when>
+		                                        			<c:when test="${ptOnce.ptOnceStatus eq '1' }">확인</c:when>
+		                                        			<c:otherwise>완료</c:otherwise>
+		                                        		</c:choose>
+		                                        	</td>
+		                                        	<td style="width: 76px;"><a data-toggle="collapse" data-parent="#accordion"
+														href="#${ptOnce.ptOnceNo}" class="collapsed btn btn-default ptOnceBtn" aria-expanded="false">
+														상세보기</a></td>
+													<td style="width: 76px;">
+														<a data-toggle="collapse" data-parent="#accordion"
+														href="<c:url value='review/write'/>" class="collapsed btn btn-primary ptOnceBtn"
+														aria-expanded="false"> 리뷰쓰기</a>
+													</td>
+		                                        </tr>
+		                                    </tbody>
+		                                </table>
+		                            </div>
+									<div id="${ptOnce.ptOnceNo }" class="panel-collapse collapse personalContent"
+											aria-expanded="false" style="height: 0px;">
+									<!-- 성별, 연령, 운동경험, 운동목적 , 특이사항  -->
+										<div class="panel-body">성별 : ${ptOnce.ptOnceGender}</div>
+										<div class="panel-body">연령 : ${ptOnce.ptOnceAge}</div>
+										<div class="panel-body">운동경험 : ${ptOnce.ptOnceExperience}</div>
+										<div class="panel-body">운동목적 :${ptOnce.ptOncePurpose}<br></div>
+										<div class="panel-body">특이사항 :${ptOnce.ptOnceSignificant }</div>
+										<div class="panel-body">(확인용) 회원번호 :${ptOnce.ptOnceNo }</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
-			<button type="button"
-				onclick="location.href='<c:url value="/mypage"/>';">마이페이지로
-				이동</button>
-			<%-- 페이지 번호 출력 --%>
-			<div class="panel panel-default">
-				<div class="panel-body" id="pageNumDiv"></div>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+				<!-- 작성버튼, 마이페이지 이동 버튼 -->
+				<div style="text-align: right; margin: 10px;">
+					<button type="button" class="btn btn-primary"
+				onclick="location.href='<c:url value="/oOo/write"/>';">1:1 문의 작성</button>
+					<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/mypage"/>';">마이페이지로 이동</button>
+				</div>							
+				<%-- 페이지 번호 출력 --%>
+				<div class="panel panel-default">
+					<div class="panel-body" id="pageNumDiv"></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -116,13 +111,3 @@
 	//페이징 처리 결과 출력
 	$("#pageNumDiv").html(html);
 </script>
-
-
-</html>
-
-
-
-
-
-
-
