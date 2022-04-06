@@ -10,7 +10,7 @@
 		#{trainerNo, jdbcType=INTEGER},
 		#{postingSelfIntroduction, jdbcType=VARCHAR},
 		#{postingSelfIntroductionImg1, jdbcType=VARCHAR},
-		#{postingSelf_IntroductionImg2, jdbcType=VARCHAR},
+		#{postingSelfIntroductionImg2, jdbcType=VARCHAR},
 		#{postingSelfIntroductionImg3, jdbcType=VARCHAR},
 		#{postingSelfIntroductionImg4, jdbcType=VARCHAR},
 		#{postingProgramIntroduction, jdbcType=VARCHAR}
@@ -43,6 +43,6 @@
 	</update>
 	
 	<select id="selectPosting" resultType="Posting">
-		select * from posting where posting_no = #{posting_no}
+		select * from posting where posting_no = #{postingNo}
 	</select>
 </mapper>

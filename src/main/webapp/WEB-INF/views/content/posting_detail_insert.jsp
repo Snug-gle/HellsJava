@@ -51,14 +51,14 @@
 		<div class="pd-insert-body-myprofile">
 			<div class="pd-insert-body-myprofile-top">
 				<h3>자기 소개</h3>
-				<textarea class="profile-text" id="profile-text" rows="" cols=""></textarea>
+				<textarea name="postingSelfIntroduction" class="profile-text" id="profile-text" rows="" cols=""></textarea>
 			</div>
 			<div class="pd-insert-body-myprofile-body">
 				<h5>자기 소개 이미지 첨부 요망</h5>
-				<input type="file" id="postingSelfIntroductionImg1" name="Img1" accept="image/*">
-				<input type="file" id="postingSelfIntroductionImg2" name="Img2" accept="image/*">
-				<input type="file" id="postingSelfIntroductionImg3" name="Img3" accept="image/*">
-				<input type="file" id="postingSelfIntroductionImg4" name="Img4" accept="image/*">	
+				<input type="file" id="postingSelfIntroductionImg1" name="Img" accept="image/*">
+				<input type="file" id="postingSelfIntroductionImg2" name="Img" accept="image/*">
+				<input type="file" id="postingSelfIntroductionImg3" name="Img" accept="image/*">
+				<input type="file" id="postingSelfIntroductionImg4" name="Img" accept="image/*">	
 			</div>
 		</div>
 		<div class="pd-insert-body-profile">
@@ -127,9 +127,8 @@
 						</li>
 					</c:forEach>
 					<li>
-						<input type="checkbox" class="cb4">
+						<input type="checkbox" class="cb4" value="4" name="dayoff">
 						<label>휴무일</label>	
-						<input type="hidden" name="dayoff" value="4">
 						<input id="cb4-text" type="text" name="dayOffText">
 					</li>	
 				</ul>
@@ -147,7 +146,7 @@
 				<ul class="pt-price-unit">
 					<li>
 						<input class="p-pt" id="p-pt0" name="round" type="number" min="1" placeholder="PT 회차수">
-						<input class="p-pr" id="p-pr0" name = "roundPrice"type="number" min="1000" placeholder="회당 가격">
+						<input class="p-pr" id="p-pr0" name ="roundPrice"type="number" min="1000" placeholder="회당 가격">
 						<p>총 가격= <span id="totPrice"></span></p>
 					</li>
 				</ul>
@@ -269,8 +268,8 @@
 		
 		html2 = "<li>";
 		html2 += "<i class='fa fa-minus-square' id='price-remove-btn'></i>";
-		html2 += "<input class='p-pt' id='p-pt"+onp+"' type='number' min='1' placeholder='PT 회차수'>";
-		html2 += "<input class='p-pr' id='p-pr"+onp+"' type='number' min='1000' placeholder='회당 가격'>";
+		html2 += "<input class='p-pt' id='p-pt"+onp+"' name='round' type='number' min='1' placeholder='PT 회차수'>";
+		html2 += "<input class='p-pr' id='p-pr"+onp+"' name='roundPrice' type='number' min='1000' placeholder='회당 가격'>";
 		html2 += "<p>총 가격=<span id='totPrice'></span></p>";
 		html2 += "</li>";
 		
