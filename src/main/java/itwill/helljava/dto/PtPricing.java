@@ -4,7 +4,7 @@ public class PtPricing {
 	
 	private int ptPricingNo;
 	private int trainerNo;
-	private String ptPricingRound;
+	private int ptPricingRound;
 	private int ptPricingPrice;
 	
 	public PtPricing() {
@@ -27,11 +27,11 @@ public class PtPricing {
 		this.trainerNo = trainerNo;
 	}
 
-	public String getPtPricingRound() {
+	public int getPtPricingRound() {
 		return ptPricingRound;
 	}
 
-	public void setPtPricingRound(String ptPricingRound) {
+	public void setPtPricingRound(int ptPricingRound) {
 		this.ptPricingRound = ptPricingRound;
 	}
 

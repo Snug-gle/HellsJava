@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import itwill.helljava.dto.Member;
 import itwill.helljava.dto.PtOnce;
+import itwill.helljava.service.AccountSevice;
 import itwill.helljava.service.PtOnceService;
+import itwill.helljava.service.TrainerService;
 import itwill.helljava.util.Pager;
 
 
@@ -26,6 +29,12 @@ public class PtOnceController {
 	
 	@Autowired
 	private PtOnceService ptOnceService;
+	
+	@Autowired
+	private TrainerService trainerService;
+	
+	@Autowired
+	private AccountSevice accountSevice;
 	
 	//list : 페이징 처리 시도
 	@RequestMapping(value = "/list" , method = RequestMethod.GET)
@@ -51,5 +60,17 @@ public class PtOnceController {
 		return "board/ptonce_list2";
 	}
 		
+	// 포스팅 페이지에서 1회 pt 신청 post 방식 요청 트레이너 번호 넘김
+	@RequestMapping(value = "/request/{trainerNo}", method = RequestMethod.POST)
+	public String addPtOnce(@PathVariable int trainerNo,@ModelAttribute PtOnce ptOnce ,
+			@RequestParam Map<String, Object> map, HttpSession session) {
+		
+		map.get("accountPw");
+		
+		ptOnce.setTrainerNo(trainerNo);
+		ptOnce.setMemberNo(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
+		ptOnceService.addPtOnce(ptOnce);
+		return "";
+	}
 	
 }

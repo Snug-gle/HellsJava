@@ -26,7 +26,7 @@
 	    <div class="trainer-my-container">
 	        <div class="trainer-my-item">1회 PT 신청 목록</div>
 	        <div class="trainer-my-item">PT 문의 목록</div>
-	        <div class="trainer-my-item" onclick="location.href='<c:url value="/posting/write"/>';">포스팅 관리</div>
+	        <div class="trainer-my-item" onclick="location.href='<c:url value="/myposting/detail/${loginUserinfo.memberNo }"/>';">포스팅 관리</div>
 	    </div>
 	    
 	    
