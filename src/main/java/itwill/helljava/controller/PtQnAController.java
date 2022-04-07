@@ -27,7 +27,7 @@ public class PtQnAController {
 	@Autowired
 	private PtServiceService ptServiceService;
 
-	// 그냥 내 pt 문의 리스트 get 요청
+	//  PT 문의 리스트 최초 화면 요청 처리 메소드 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String searchAllList(Model model, @RequestParam(defaultValue = "1") int pageNum,
 			HttpSession session) {
@@ -35,13 +35,12 @@ public class PtQnAController {
 		// 회원번호 세션으로 받음
 		int memberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
 
-		// 페이징 처리 위한 정보 저장
+		// 전체 리스트를 위한 페이징 정보 저장
 		Map<String, Object> countMap = new HashMap<String, Object>();
 
-		// 카운트
 		countMap.put("pt_service_sortation", PtServiceSortationEnum.피티문의.getValue());
 		countMap.put("member_no", memberNo);
-		countMap.put("pt_service_status", 234); // 전체일 경우 넘겨봤자임
+		countMap.put("pt_service_status", 234); // 임의의값
 		
 		int totalBroad = ptServiceService.getPtServiceCount(countMap);
 		int pageSize = 3;
@@ -52,7 +51,7 @@ public class PtQnAController {
 		pagerMap.put("startRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
 		pagerMap.put("pt_service_sortation", PtServiceSortationEnum.피티문의.getValue());
-		pagerMap.put("pt_service_status", 345); // 전체 다 나와라
+		pagerMap.put("pt_service_status", 345); // 임의의값
 		pagerMap.put("member_no", memberNo);
 
 		model.addAttribute("pager", pager);
