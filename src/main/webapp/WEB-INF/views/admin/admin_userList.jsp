@@ -142,8 +142,8 @@
 	//[처음], [이전] 이동 설정
 	if (${pager.startPage} > ${pager.blockSize}) {
 				
-		html += "<a href='<c:url value="/admin/userList"/>?pageNum=1'>[처음]</a>";
-		html += "<a href='<c:url value="/admin/userList"/>?pageNum=${pager.prevPage}'>[<]</a>";
+		html += "<a href='<c:url value="/admin/userSearch"/>?pageNum=1&searchKeyword="+$("#nameIdSearch").val()+"&searchValue="+$("#searchValue").val()+"'>[처음]</a>";
+		html += "<a href='<c:url value="/admin/userSearch"/>?pageNum=${pager.prevPage}&searchKeyword="+$("#nameIdSearch").val()+"&searchValue="+$("#searchValue").val()+"'>[<]</a>";
 	} else {
 		html += "[처음][<]";
 	}
@@ -157,8 +157,8 @@
 	}
 	//[다음],[마지막] 이동 설정
 	if (${pager.endPage} != ${pager.totalPage}) {
-		html += "<a href='<c:url value="/admin/userList"/>?pageNum=${pager.nextPage}'>[>]</a>";
-		html += "<a href='<c:url value="/admin/userList"/>?pageNum=${pager.totalPage}'>[마지막]</a>";
+		html += "<a href='<c:url value="/admin/userSearch"/>?pageNum=${pager.nextPage}&searchKeyword="+$("#nameIdSearch").val()+"&searchValue="+$("#searchValue").val()+"'>[>]</a>";
+		html += "<a href='<c:url value="/admin/userSearch"/>?pageNum=${pager.totalPage}&searchKeyword="+$("#nameIdSearch").val()+"&searchValue="+$("#searchValue").val()+"'>[마지막]</a>";
 	} else {
 		html += "[>][마지막]";
 	}

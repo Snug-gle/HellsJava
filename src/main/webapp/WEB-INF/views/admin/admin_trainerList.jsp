@@ -71,6 +71,12 @@
 							</table>
 						</div>
 					</div>
+					
+					<%-- 페이지 번호 출력 --%>
+					<div class="panel panel-default">
+						<div class="panel-body" id="pageNumDiv"></div>
+					</div>
+					
 						<form id="searchForm" method="post" action="">
 							<div class="main-search-area">
 								<select id="nameIdSearch" name="nameIdSearch" class="btn btn-primary dropdown-toggle searchBtnBox">
@@ -253,8 +259,8 @@
 	//[처음], [이전] 이동 설정
 	if (${pager.startPage} > ${pager.blockSize}) {
 				
-		html += "<a href='<c:url value="/admin/trainerList"/>?pageNum=1'>[처음]</a>";
-		html += "<a href='<c:url value="/admin/trainerList"/>?pageNum=${pager.prevPage}'>[<]</a>";
+		html += "<a href='<c:url value="/admin/trainerSearch"/>?pageNum=1&searchKeyword="+$("#nameIdSearch").val()+"&searchValue="+$("#searchValue").val()+"&memberStatus="+${memberStatus}+"'>[처음]</a>";
+		html += "<a href='<c:url value="/admin/trainerSearch"/>?pageNum=${pager.prevPage}&searchKeyword="+$("#nameIdSearch").val()+"&searchValue="+$("#searchValue").val()+"&memberStatus="+${memberStatus}+"'>[<]</a>";
 	} else {
 		html += "[처음][<]";
 	}
@@ -268,8 +274,8 @@
 	}
 	//[다음],[마지막] 이동 설정
 	if (${pager.endPage} != ${pager.totalPage}) {
-		html += "<a href='<c:url value="/admin/trainerList"/>?pageNum=${pager.nextPage}'>[>]</a>";
-		html += "<a href='<c:url value="/admin/trainerList"/>?pageNum=${pager.totalPage}'>[마지막]</a>";
+		html += "<a href='<c:url value="/admin/trainerSearch"/>?pageNum=${pager.nextPage}&searchKeyword="+$("#nameIdSearch").val()+"&searchValue="+$("#searchValue").val()+"&memberStatus="+${memberStatus}+"'>[>]</a>";
+		html += "<a href='<c:url value="/admin/trainerSearch"/>?pageNum=${pager.totalPage}&searchKeyword="+$("#nameIdSearch").val()+"&searchValue="+$("#searchValue").val()+"&memberStatus="+${memberStatus}+"'>[마지막]</a>";
 	} else {
 		html += "[>][마지막]";
 	}
