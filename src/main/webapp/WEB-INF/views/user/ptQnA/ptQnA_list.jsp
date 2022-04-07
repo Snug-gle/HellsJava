@@ -23,7 +23,7 @@
 		<div class="panel-body">
 			<c:choose>
 				<c:when test="${empty(ptQnaList) }">
-					<div align="center">
+					<div align="center" class="boardEmptyWriting">
 						<h3>확인 내역이 없습니다.</h3>
 					</div>
 				</c:when>

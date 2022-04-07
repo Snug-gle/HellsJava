@@ -15,7 +15,7 @@
 			<div class="panel-body">
 				<c:choose>
 					<c:when test="${empty(oOoList) }">
-						<div align="center">
+						<div align="center" class="boardEmptyWriting">
 							<h3>문의 내역이 없습니다.</h3>
 						</div>
 					</c:when>
