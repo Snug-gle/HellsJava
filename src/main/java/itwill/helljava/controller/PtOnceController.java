@@ -146,8 +146,13 @@ public class PtOnceController {
 		model.addAttribute("ptOnceList" ,ptOnceService.getPtOnceTrainerList(pagerMap));
 		model.addAttribute("pager",pager);
 		model.addAttribute("status",ptOnceStatus);
-		return "/user/trainer/trainer_ptonce_list";
+		return "/user/trainer/trainer_ptonce _list";
 	}
 	//PT 완료 후 status 수정하는 메소드
+	@RequestMapping(value = "ptonce/trainer/modify/{num}/{status}", method = RequestMethod.GET)
+	public String modifyStatus(@PathVariable int num , int status ){
+		ptOnceService.modifyPtOnceStatus(status);
+		return "/user/trainer/trainer_ptonce_list";
+	}
 	
 }
