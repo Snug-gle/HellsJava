@@ -43,14 +43,24 @@
 	</update>
 	
 	<select id="selectPtServiceCount" resultType="int">
-			select count(*) from pt_service where 
-			pt_service_sortation = #{pt_service_sortation} and
+			select count(*) from pt_service 
+			<trim prefix="where" prefixOverrides="and">
+				<if test="pt_service_status &gt;=0 and pt_service_status &lt;=3">
+					pt_service_status = #{pt_service_status}
+				</if>
+				and pt_service_sortation = #{pt_service_sortation} and
+			</trim>
 			member_no = #{member_no}
 	</select>
 
 	<select id="selectPtServiceTrainerCount" resultType="int">
-			select count(*) from pt_service where 
-			pt_service_sortation = #{pt_service_sortation} and
+			select count(*) from pt_service
+			<trim prefix="where" prefixOverrides="and">
+				<if test="pt_service_status &gt;=0 and pt_service_status &lt;=3">
+					pt_service_status = #{pt_service_status}
+				</if>
+				and pt_service_sortation = #{pt_service_sortation} and
+			</trim>
 			trainer_no = #{trainer_no}
 	</select>
 	
@@ -66,7 +76,7 @@
 		from pt_service p left join trainer t on p.trainer_no = t.trainer_no 
 						left join member m on t.member_no = m.member_no
 			<trim prefix="where" prefixOverrides="and">
-				<if test="pt_service_status != null and pt_service_status != ''">
+				<if test="pt_service_status &gt;=0 and pt_service_status &lt;=3">
 					p.pt_service_status = #{pt_service_status}
 				</if>
 				and p.pt_service_sortation = #{pt_service_sortation} and p.member_no = #{member_no} 
@@ -83,7 +93,7 @@
 		(select *
 		from pt_service p left join member m on p.member_no = m.member_no
 			<trim prefix="where" prefixOverrides="and">
-				<if test="pt_service_status != null and pt_service_status != ''">
+				<if test="pt_service_status &gt;=0 and pt_service_status &lt;=3">
 					p.pt_service_status = #{pt_service_status}
 				</if>
 				and p.pt_service_sortation = #{pt_service_sortation} and p.trainer_no = #{trainer_no} 

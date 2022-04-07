@@ -23,68 +23,84 @@ import itwill.helljava.util.Pager;
 @Controller
 @RequestMapping("/ptqna")
 public class PtQnAController {
-	
+
 	@Autowired
 	private PtServiceService ptServiceService;
-	
-	//미확인 리스트 페이지 요청 처리 메소드
-	@RequestMapping(value = "/list/miss", method = RequestMethod.GET)
-	public String searchMissList(Model model , HttpSession session ,@RequestParam(defaultValue = "1" )int pageNum) {
+
+	// 그냥 내 pt 문의 리스트 get 요청
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String searchAllList(Model model, @RequestParam(defaultValue = "1") int pageNum,
+			HttpSession session) {
 		
-		//페이징 처리 위한 정보 저장
+		// 회원번호 세션으로 받음
+		int memberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
+
+		// 페이징 처리 위한 정보 저장
 		Map<String, Object> countMap = new HashMap<String, Object>();
+
+		// 카운트
 		countMap.put("pt_service_sortation", PtServiceSortationEnum.피티문의.getValue());
-		countMap.put("member_no", ((Member)session.getAttribute("loginUserinfo")).getMemberNo());
+		countMap.put("member_no", memberNo);
+		countMap.put("pt_service_status", 234); // 전체일 경우 넘겨봤자임
 		
-		int totalBroad =  ptServiceService.getPtServiceCount(countMap);
+		int totalBroad = ptServiceService.getPtServiceCount(countMap);
+		int pageSize = 3;
+		int blockSize = 5;
+		Pager pager = new Pager(pageNum, totalBroad, pageSize, blockSize);
+		
+		Map<String, Object> pagerMap = new HashMap<String, Object>();
+		pagerMap.put("startRow", pager.getStartRow());
+		pagerMap.put("endRow", pager.getEndRow());
+		pagerMap.put("pt_service_sortation", PtServiceSortationEnum.피티문의.getValue());
+		pagerMap.put("pt_service_status", 345); // 전체 다 나와라
+		pagerMap.put("member_no", memberNo);
+
+		model.addAttribute("pager", pager);
+		model.addAttribute("ptQnaList", ptServiceService.getPtServiceList(pagerMap));
+		
+		return "/user/ptQnA/ptQnA_list";
+	}
+
+	// 확인, 미확인 여부 리스트 페이지 요청 처리 메소드
+	@RequestMapping(value = "/list/status", method = RequestMethod.GET)
+	public String searchMissList(Model model, @RequestParam(defaultValue = "1") int pageNum,
+			@RequestParam String confirmStatus, HttpSession session) {
+		
+		// 회원번호 세션으로 받음
+		int memberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
+
+		// 페이징 처리 위한 정보 저장
+		Map<String, Object> countMap = new HashMap<String, Object>();
+
+		// 카운트
+		countMap.put("pt_service_sortation", PtServiceSortationEnum.피티문의.getValue());
+		countMap.put("member_no", memberNo);
+		countMap.put("pt_service_status", Integer.parseInt(confirmStatus)); // 전체일 경우 9니까 넘겨봤자임
+
+		int totalBroad = ptServiceService.getPtServiceCount(countMap);
 		int pageSize = 3;
 		int blockSize = 5;
 		Pager pager = new Pager(pageNum, totalBroad, pageSize, blockSize);
 
-		//미확인 리스트
-		Map<String, Object> missMap = new HashMap<String, Object>();
-		missMap.put("startRow", pager.getStartRow());
-		missMap.put("endRow", pager.getEndRow());
-		missMap.put("pt_service_sortation",PtServiceSortationEnum.피티문의.getValue());
-		missMap.put("pt_service_status", PtServiceStatusEnum.미확인문의.getValue());	
-		missMap.put("member_no", ((Member)session.getAttribute("loginUserinfo")).getMemberNo());
+		//
+		Map<String, Object> pagerMap = new HashMap<String, Object>();
+		pagerMap.put("startRow", pager.getStartRow());
+		pagerMap.put("endRow", pager.getEndRow());
+		pagerMap.put("pt_service_sortation", PtServiceSortationEnum.피티문의.getValue());
+		pagerMap.put("pt_service_status", Integer.parseInt(confirmStatus));
+		pagerMap.put("member_no", memberNo);
+
+		model.addAttribute("pager", pager);
+		model.addAttribute("ptQnaList", ptServiceService.getPtServiceList(pagerMap));
+		model.addAttribute("status",confirmStatus);
 		
-		model.addAttribute("pager",pager);	
-		model.addAttribute("missList",ptServiceService.getPtServiceList(missMap));
-		return "/user/ptQnA/ptQnA_list_miss";
+		return "/user/ptQnA/ptQnA_list";
 	}
-	
-	//확인 리스트 페이지 요청 처리 메소드
-	@RequestMapping(value = "/list/confirm", method = RequestMethod.GET)
-	public String searchConfirmList(Model model , HttpSession session ,@RequestParam(defaultValue = "1" )int pageNum) {
-		
-		//페이징 처리 위한 정보 저장
-		Map<String, Object> countMap = new HashMap<String, Object>();
-		countMap.put("pt_service_sortation", PtServiceSortationEnum.피티문의.getValue());
-		countMap.put("member_no", ((Member)session.getAttribute("loginUserinfo")).getMemberNo());
-		
-		int totalBroad =  ptServiceService.getPtServiceCount(countMap);
-		int pageSize = 3;
-		int blockSize = 5;
-		Pager pager = new Pager(pageNum, totalBroad, pageSize, blockSize);
-		
-		//확인 리스트
-		Map<String, Object> confirmMap = new HashMap<String, Object>();
-		confirmMap.put("startRow", pager.getStartRow());
-		confirmMap.put("endRow", pager.getEndRow());
-		confirmMap.put("pt_service_sortation",PtServiceSortationEnum.피티문의.getValue());
-		confirmMap.put("pt_service_status", PtServiceStatusEnum.확인문의.getValue());	
-		confirmMap.put("member_no", ((Member)session.getAttribute("loginUserinfo")).getMemberNo());
-		
-		model.addAttribute("pager",pager);
-		model.addAttribute("confirmList",ptServiceService.getPtServiceList(confirmMap));
-		return "/user/ptQnA/ptQnA_list_confirm";
-	}
-	
-	//PT 문의 수정 요청 처리 메소드
+
+	// PT 문의 수정 요청 처리 메소드
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String modify(@ModelAttribute PtService ptService) {
-		
+
 		ptServiceService.modifyPtService(ptService);
 		return "redirect:/ptqna/list/miss";
 	}
