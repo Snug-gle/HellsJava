@@ -11,12 +11,13 @@
 					<h1>1:1 문의 내역</h1>
 				</div>
 			</div>
-			
 			<div class="panel-body">
 				<c:choose>
 					<c:when test="${empty(oOoList) }">
-						<div align="center" class="boardEmptyWriting">
-							<h3>문의 내역이 없습니다.</h3>
+						<div class="panel panel-default">
+							<div align="center" class="boardEmptyWriting">
+								<h3>문의 내역이 없습니다.</h3>
+							</div>
 						</div>
 					</c:when>
 					<c:otherwise>

@@ -19,12 +19,13 @@
 					</h1>
 				</div>
 			</div>
-		<br>
 		<div class="panel-body">
 			<c:choose>
 				<c:when test="${empty(ptQnaList) }">
-					<div align="center" class="boardEmptyWriting">
-						<h3>확인 내역이 없습니다.</h3>
+					<div class="panel panel-default">
+						<div align="center" class="boardEmptyWriting">
+							<h3>확인 내역이 없습니다.</h3>
+						</div>
 					</div>
 				</c:when>
 				<c:otherwise>
