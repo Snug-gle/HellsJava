@@ -2,163 +2,182 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
-
-
-<div class="pd-insert-centent" >
-	<div class="pd-insert-header">
-		<div class="pd-insert-header-title">
-			<h2>트레이너 포스팅 작성</h2>
-			<hr>
-		</div>
-		<div class="pd-insert-header-info">
-			<table>
-				<tr>
-					<td>이름</td>
-					<td>${trainer.memberName}</td>
-				</tr>
-				<tr>
-					<td>연락처</td>
-					<td>${trainer.memberPhone}</td>
-				</tr>
-				<tr>
-					<td>소속 센터 주소</td>
-					<td>${trainer.trainerCentername }</td>
-				</tr>
-			</table>
-			<br>
-		</div>
-		<div class="pd-insert-header-award-title">
-			<h3>수상경력 및 이력</h3>
-			<hr>
-		</div>
-		<div class="pd-insert-header-award-content">
-			<div class="pd-insert-header-award-body">
-				<table>
-					<c:forEach var="taward" items="${trainerAwards}">
-					<tr>
-						<td> <img alt="tawardImage" src="<spring:url value="/awardImages/${taward.awardImage}"/>"></td>
-						<td>${taward.awardContent}</td>
-					</tr>	
-					</c:forEach>
-				</table>
+<style type="text/css">
+ul {
+	list-style: none;
+	padding-left: 0px;		
+}
+</style>
+<div class="container animated fadeInUp">
+	<div class="panel panel-default">
+		<div id="login-wrapper">
+			<div class="panel panel-primary">
+				<div class="panel-body">
+					<h1>
+						<strong>트레이너 포스팅 작성</strong>
+					</h1>
+					<hr>
+					<br>
+					<div class="noticeBody">
+						<div class="pd-insert-header-info" style="overflow: auto;">
+							<hr>
+							<h3><strong>트레이너 정보</strong></h3>
+							<hr>
+							<div class="col-sm-12" style="vertical-align: middle;">
+								<label for="nameLabel" class="col-sm-2 control-label" >이름</label>
+								<div class="col-sm-7">
+									<input id="nameLabel" type="text" readonly="readonly" class="trainer-profile-form-control" name="memberName" value="${loginUserinfo.memberName}" />
+								</div>
+							</div>
+							<br>
+							<div class="col-sm-12">
+								<label class="col-sm-2 control-label" for="phoneLabel">연락처</label>
+								<div class="col-sm-7">
+									<input id="phoneLabel" type="text" readonly="readonly" class="trainer-profile-form-control" name="memberPhone" value="${loginUserinfo.memberPhone }" />
+								</div>
+							</div>
+							<br>
+							<div class="col-sm-12">
+								<label class="col-sm-2 control-label" for="centerLabel">소속센터명</label>
+								<div class="col-sm-7">
+									<input id="centerLabel" type="text" readonly="readonly" class="trainer-profile-form-control" name="trainerCentername" value="${trainer.trainerCentername }" />
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="pd-insert-header-award-title">
+							<hr>
+							<h3><strong>수상경력 및 이력</strong></h3>
+							<hr>
+							<div class="pd-insert-header-award-content">
+								<div class="pd-insert-header-award-body">
+									<table>
+										<c:forEach var="taward" items="${trainerAwards}">
+										<tr>
+											<td> <img alt="tawardImage" src="<spring:url value="/awardImages/${taward.awardImage}"/>"></td>
+											<td>${taward.awardContent}</td>
+										</tr>	
+										</c:forEach>
+									</table>
+								</div>
+							</div>
+						</div>
+						<form enctype="multipart/form-data" id="postingForm" action='<c:url value="/posting/write"/>'  method="post">
+							<br>
+							<div class="pd-insert-body-myprofile">
+								<hr>
+								<h3><strong>자기소개</strong></h3>
+								<hr>
+								<textarea name="postingSelfIntroduction" class="noticeFormContent" id="profile-text" style="height: 500px;"></textarea>
+						
+								<div class="pd-insert-body-myprofile-body">
+									<h5><i class="fa fa-file-image-o"></i>자기 소개 이미지 첨부 요망</h5>
+									<input type="file" id="postingSelfIntroductionImg1" name="Img" accept="image/*">
+									<input type="file" id="postingSelfIntroductionImg2" name="Img" accept="image/*">
+									<input type="file" id="postingSelfIntroductionImg3" name="Img" accept="image/*">
+									<input type="file" id="postingSelfIntroductionImg4" name="Img" accept="image/*">	
+								</div>
+							</div>
+							<br>
+							<div class="pd-insert-body-profile">
+								<hr>
+									<h3><strong>프로그램 소개</strong></h3>
+								<hr>
+								<textarea id="programProfile-text" name="postingProgramIntroduction" class="noticeFormContent" style="height: 500px;"></textarea>
+							</div>
+							<br>
+							<div class="pd-insert-body-pt-schedule">	
+								<hr>
+									<h3><strong>PT 스케줄</strong></h3>
+								<hr>
+								<div>
+									<ul>
+										<c:forEach var="j" begin="1" end="3">
+											<li>
+												<input name = "workdayCheck" type="checkbox" class="cb${j}" value="${j}">
+												<c:if test="${j eq 1}">
+													<label style="width: 60px;">평일</label>
+													<input type="hidden" name="weekday" value="1">
+												</c:if>
+												<c:if test="${j eq 2}">
+													<label style="width: 60px;">토요일</label>
+													<input type="hidden" name="saturday" value="2">
+												</c:if>
+												<c:if test="${j eq 3}">
+													<label style="width: 60px;">일요일</label>
+													<input type="hidden" name="sunday" value="3">
+												</c:if>
+												
+												<select id="pt-hour1" name = "hour1" class="time-form-control">
+													<option value="06" selected="selected">06</option>
+													<c:forEach var="i" begin="7" end="23">
+													   <c:if test="${i>0 && i<10}">
+															<option value="0${i}"><c:out value="0${i}" /></option>
+														</c:if>
+														<c:if test="${i>=10}">
+													  		<option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
+														</c:if>
+													</c:forEach>
+												</select>
+												
+												<select id="minute1" name="minute1" class="time-form-control">
+													<option value="00" selected="selected">00</option>
+													<option value="30">30</option>
+												</select>
+												~
+												<select id="pt-hour2" name="hour2" class="time-form-control">
+													<option value="06" selected="selected">06</option>
+													<c:forEach var="i" begin="7" end="23">
+													  <c:if test="${i>0 && i<10}">
+															<option value="0${i}"><c:out value="0${i}" /></option>
+														</c:if>
+														<c:if test="${i>=10}">
+													  		<option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
+														</c:if>
+													</c:forEach>
+												</select>
+												
+												<select id="minute2" name="minute2" class="time-form-control">
+													<option value="00" selected="selected">00</option>
+													<option value="30">30</option>
+												</select>
+											</li>
+										</c:forEach>
+										<li>
+											<input type="checkbox" class="cb4" value="4" name="dayoff">
+											<label style="width: 60px;">휴무일</label>	
+											<input id="cb4-text" type="text" name="dayOffText" class="posting-form-control">
+										</li>	
+									</ul>
+								</div>
+							</div>
+							<br>
+							<div class="pd-insert-body-pt-price">
+								<hr>
+									<h3><strong>PT 이용가격</strong>&nbsp;&nbsp;<i class="fa fa-plus-square" id="price-plus-btn"></i></h3>
+								<hr>
+								<div class="pd-insert-body-pt-price-body">
+									<ul class="pt-price-unit">
+										<li>
+											<input readonly="readonly" class="p-pt posting-form-control" id="p-pt0" name="round" type="number" min="1" value = "1" placeholder="1회">
+											<input class="p-pr posting-form-control" id="p-pr0" name ="roundPrice" type="number" min="1000" placeholder="1회 PT 가격">
+											<span>&nbsp;&nbsp;&nbsp;총 가격= <span id="totPrice"></span>원</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						
+						</form>
+						</div>
+						<br>
+						<div class="pd-insert-footer btnGroup">
+							<button type="submit" class="btn btn-primary">확인</button>
+							<button type="reset" class="btn btn-default">다시쓰기</button>
+						</div>
+				</div>
 			</div>
-			<hr>
 		</div>
 	</div>
-	<form enctype="multipart/form-data" id="postingForm" action='<c:url value="/posting/write"/>'  method="post">
-	<div class="pd-insert-body">
-		
-		<div class="pd-insert-body-myprofile">
-			<div class="pd-insert-body-myprofile-top">
-				<h3>자기 소개</h3>
-				<textarea name="postingSelfIntroduction" class="profile-text" id="profile-text" rows="" cols=""></textarea>
-			</div>
-			<div class="pd-insert-body-myprofile-body">
-				<h5>자기 소개 이미지 첨부 요망</h5>
-				<input type="file" id="postingSelfIntroductionImg1" name="Img" accept="image/*">
-				<input type="file" id="postingSelfIntroductionImg2" name="Img" accept="image/*">
-				<input type="file" id="postingSelfIntroductionImg3" name="Img" accept="image/*">
-				<input type="file" id="postingSelfIntroductionImg4" name="Img" accept="image/*">	
-			</div>
-		</div>
-		<div class="pd-insert-body-profile">
-			<br>
-			<hr>
-			<h3>프로그램 소개</h3>
-			<textarea id="programProfile-text" rows="40" cols="100" id="postingProgramIntroduction" name="postingProgramIntroduction"></textarea>
-		</div>
-		<div class="pd-insert-body-pt-schedule">
-			<br>
-			<div class="pd-insert-body-pt-schedule-top">
-				<h3>PT 스케줄</h3>
-				<hr>
-			</div>
-			<div class="pd-insert-body-pt-schedule-body">
-				<ul>
-					<c:forEach var="j" begin="1" end="3">
-						<li>
-							<input name = "workdayCheck" type="checkbox" class="cb${j}" value="${j}">
-							<c:if test="${j eq 1}">
-								<label>평일</label>
-								<input type="hidden" name="weekday" value="1">
-							</c:if>
-							<c:if test="${j eq 2}">
-								<label>토요일</label>
-								<input type="hidden" name="saturday" value="2">
-							</c:if>
-							<c:if test="${j eq 3}">
-								<label>일요일</label>
-								<input type="hidden" name="sunday" value="3">
-							</c:if>
-							
-							<select id="pt-hour1" name = "hour1">
-								<option value="06" selected="selected">06</option>
-								<c:forEach var="i" begin="7" end="23">
-								   <c:if test="${i>0 && i<10}">
-										<option value="0${i}"><c:out value="0${i}" /></option>
-									</c:if>
-									<c:if test="${i>=10}">
-								  		<option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
-									</c:if>
-								</c:forEach>
-							</select>
-							
-							<select id="minute1" name="minute1">
-								<option value="00" selected="selected">00</option>
-								<option value="30">30</option>
-							</select>
-							~
-							<select id="pt-hour2" name="hour2">
-								<option value="06" selected="selected">06</option>
-								<c:forEach var="i" begin="7" end="23">
-								  <c:if test="${i>0 && i<10}">
-										<option value="0${i}"><c:out value="0${i}" /></option>
-									</c:if>
-									<c:if test="${i>=10}">
-								  		<option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
-									</c:if>
-								</c:forEach>
-							</select>
-							
-							<select id="minute2" name="minute2">
-								<option value="00" selected="selected">00</option>
-								<option value="30">30</option>
-							</select>
-						</li>
-					</c:forEach>
-					<li>
-						<input type="checkbox" class="cb4" value="4" name="dayoff">
-						<label>휴무일</label>	
-						<input id="cb4-text" type="text" name="dayOffText">
-					</li>	
-				</ul>
-			</div>
-		</div>
-
-		<div class="pd-insert-body-pt-price">
-			<br>
-			<div class="pd-insert-body-pt-price-top">
-				<h3>PT 이용가격</h3>
-				<i class="fa fa-plus-square" id="price-plus-btn"></i>
-				<hr>
-			</div>
-			<div class="pd-insert-body-pt-price-body">
-				<ul class="pt-price-unit">
-					<li>
-						<input readonly="readonly" class="p-pt" id="p-pt0" name="round" type="number" min="1" value = "1" placeholder="1회">
-						<input class="p-pr" id="p-pr0" name ="roundPrice" type="number" min="1000" placeholder="1회 PT 가격">
-						<p>총 가격= <span id="totPrice"></span></p>
-					</li>
-				</ul>
-			</div>
-		</div>
-	
-	</div>
-	<div class="pd-insert-footer">
-		<button type="submit">확인</button>
-		<button type="reset">다시쓰기</button>
-	</div>
-	</form>
 </div>
 
 
@@ -268,10 +287,10 @@
 		onp += 1; //카운트로 식별자 구분
 		
 		html2 = "<li>";
-		html2 += "<i class='fa fa-minus-square' id='price-remove-btn'></i>";
-		html2 += "<input class='p-pt' id='p-pt"+onp+"' name='round' type='number' min='1' placeholder='PT 회차수'>";
-		html2 += "<input class='p-pr' id='p-pr"+onp+"' name='roundPrice' type='number' min='1000' placeholder='회당 가격'>";
-		html2 += "<p>총 가격=<span id='totPrice'></span></p>";
+		html2 += "<i class='fa fa-minus-square' id='price-remove-btn'></i>&nbsp;";
+		html2 += "<input class='p-pt posting-form-control' id='p-pt"+onp+"' name='round' type='number' min='1' placeholder='PT 회차수'>";
+		html2 += "<input class='p-pr posting-form-control' id='p-pr"+onp+"' name='roundPrice' type='number' min='1000' placeholder='회당 가격'>";
+		html2 += "<span>&nbsp;&nbsp;&nbsp;총 가격=<span id='totPrice'></span>원</span>";
 		html2 += "</li>";
 		
 	    $(".pt-price-unit").append(html2);

@@ -123,12 +123,13 @@ function sample4_execDaumPostcode() {
 								<hr>
 								<div class="tr-in-header-award-list">
 									<ul class="tr-in-header-award-unit" style="list-style: none;">
-										<li class="tr-in-header-award-rego">
-										<img alt="" src="" class="award-load-img"> 
-										<input type="file" id="award_image" name="aImage" placeholder="사진 첨부" accept="image/*"> 
-										<input type="text" id="award_content" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control">
-										<p id="awardContentRegMsg" class="error">수상 경력 설명을 반드시 입력하세요.</p>
-										<p id="awardImageRegMsg" class="error">수상 경력 사진을 반드시 첨부하세요.</p></li>
+										<li class="tr-in-header-award-rego" >
+											<img alt="" src="" class="award-load-img">
+											<input type="text" id="award_content" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;">
+											<input type="file" id="award_image" name="aImage" placeholder="사진 첨부" accept="image/*" style="display: inline-block;">
+											<p id="awardContentRegMsg" class="error">수상 경력 설명을 반드시 입력하세요.</p>
+											<p id="awardImageRegMsg" class="error">수상 경력 사진을 반드시 첨부하세요.</p>
+										</li>
 									</ul>
 								</div>
 							</div>
@@ -155,7 +156,7 @@ function sample4_execDaumPostcode() {
 										<div class="col-sm-3">
 											<input type="password" id="account_pw" name="accountPw"
 												class="form-control">
-											<p id="accountPwRegMsg" class="error">결제 비밀번호를 필히 입력하시오.</p>
+											<p id="accountPwRegMsg" class="error">결제 비밀번호를 반드시 입력하세요.</p>
 											<p id="accountErrorMsg">${message}</p>
 										</div>
 									</div>
@@ -189,7 +190,7 @@ function sample4_execDaumPostcode() {
 		}
 		
 		// 주소 유효성 검사
-		if($(".sample4_jibunAddress").val() == ""){
+		if($("#sample4_jibunAddress").val() == ""){
 			$("#addressRegMsg").css("display","block");
 			submitResult = false;
 		}
@@ -198,13 +199,13 @@ function sample4_execDaumPostcode() {
 		var centerNameArr = ['테스트1','테스트2'];
 		
 		// 센터명 유효성 검사
-		if($(".sample4_detailAddress").val()==""){
+		if($("#sample4_detailAddress").val()==""){
 			$("#centernameRegMsg").css("display","block");
 			submitResult=false;	
 		}  
 		
 		//centerNameArr 배열에 센터명이 포함되어 있는지 확인
-		if((centerNameArr.includes($(".sample4_detailAddress").val()))==false){
+		if((centerNameArr.includes($("#sample4_detailAddress").val()))==false){
 			$("#centernameValidRegMsg").css("display","block");
 			submitResult=false;	
 		}
@@ -232,12 +233,12 @@ function sample4_execDaumPostcode() {
 	
 	//동적 태그 생성을 위한 변수 선언
 	var html2 = "<li class='tr-in-header-award-rego'>";
-	html2 += "<i class='fa fa-minus-square' id='award-remove-btn'></i>";
+	html2 += "<i class='fa fa-minus-square' id='award-remove-btn'></i>&nbsp;";
 	html2 += "<img alt='' src='' class='award-load-img'>";
-	html2 += "<input type='file' id='award_image' name='aImage' accept='image/*'> ";
-	html2 += "<input type='text' id='award_content' name='aContent' placeholder='수상 경력 및 이력'>";
-	html2 += "<p id='awardContentRegMsg' class='error'>수상 경력 설명을 필히 입력하세요.</p>";
-	html2 += "<p id='awardImageRegMsg' class='error'>수상 경력 사진을 필히 첨부하세요.</p>";
+	html2 += "<input type='text' id='award_content' name='aContent' placeholder='수상 경력 및 이력' style='display: inline-block;' class='trainer-profile-form-control'>";
+	html2 += "<input type='file' id='award_image' name='aImage' accept='image/*' style='display: inline-block;'> ";
+	html2 += "<p id='awardContentRegMsg' class='error'>수상 경력 설명을 반드시 입력하세요.</p>";
+	html2 += "<p id='awardImageRegMsg' class='error'>수상 경력 사진을 반드시 첨부하세요.</p>";
 	html2 += "</li>";
 	
 	

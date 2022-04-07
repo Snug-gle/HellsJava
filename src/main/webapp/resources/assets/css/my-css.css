@@ -432,3 +432,21 @@
 	padding: 20px 30px;
 }
 
+.posting-form-control {
+	border: 2px solid #e8ebed;
+    border-radius: 2px;
+    box-shadow: none;
+    height: 34px;
+    padding: 8px 12px 9px 12px;
+	width: 226px;
+}
+
+.time-form-control {
+	font-size: medium;
+	border: 2px solid #e8ebed;
+    border-radius: 2px;
+    box-shadow: none;
+    height: 34px;
+	width: 50px;
+	
+}
