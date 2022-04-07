@@ -29,12 +29,12 @@
 		                               <table class="table table-hover personalTable">
 		                                    <tbody>
 		                                        <tr>
-		                                            <td style="width: 70px; vertical-align: middle; text-align: center;">${index }</td>
-		                                            <td style="width: auto; vertical-align: middle;"></td>
-		                                            <td style="width: 100px; vertical-align: middle;">${fn:substring(ptOnce.ptOnceApplicationDate,0,11) }</td>
-		                                        	<td style="width: 140px; text-align: right; vertical-align: middle;">ㅇㅇㅇ트레이너</td>
+		                                            <td class="accordionBoard" style="width: 70px;"><strong>${index }</strong></td>
+		                                            <td class="accordionBoard" style="width: auto;"></td>
+		                                            <td class="accordionBoard" style="width: 100px;">${fn:substring(ptOnce.ptOnceApplicationDate,0,11) }</td>
+		                                        	<td class="accordionBoard" style="width: 140px;">ㅇㅇㅇ트레이너</td>
 		                                        	<!-- 확인 상태 -->
-		                                        	<td style="width: 65px; text-align: center; vertical-align: middle;">
+		                                        	<td class="accordionBoard" style="width: 65px;">
 			                                        	<c:choose>
 			                                        		<c:when test="${ptOnce.ptOnceStatus eq '0' }">미확인</c:when>
 		                                        			<c:when test="${ptOnce.ptOnceStatus eq '1' }">확인</c:when>
