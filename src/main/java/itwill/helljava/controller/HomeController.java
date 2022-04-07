@@ -1,18 +1,16 @@
 package itwill.helljava.controller;
 
+import javax.servlet.http.HttpSession;
 
-
-import javax.servlet.http.HttpServletRequest;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import itwill.helljava.Enum.AccountEnum;
 import itwill.helljava.dto.Member;
-
-
-
+import itwill.helljava.service.AccountSevice;
 
 //Tiles : 템플릿 페이지를 이용한 사이트 구현 기능을 제공하는 프로그램
 //1.Tiles 관련 라이브러리를 빌드 처리 - pom.xml
@@ -21,25 +19,33 @@ import itwill.helljava.dto.Member;
 
 @Controller
 public class HomeController {
-	@RequestMapping(value="/", method = RequestMethod.GET )
-	public String tiles() {
+
+	@Autowired
+	private AccountSevice accountSevice;
+
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String tiles(HttpSession session, Model model) {
+
+		if (session.getAttribute("loginUserinfo") != null) {
+			session.setAttribute("memberAccount",
+					accountSevice.getMemberAccount((((Member) session.getAttribute("loginUserinfo")).getMemberNo())));
+		
+
+			model.addAttribute("bankName", AccountEnum.of(accountSevice.getMemberAccount((((Member) session.getAttribute("loginUserinfo")).getMemberNo())).getAccountBank()));
+		}
+
 		return "main";
 	}
-	
-	
+
 	@RequestMapping(value = "/terms1", method = RequestMethod.GET)
-		
+
 	public String terms1() {
 		return "/material/terms1";
 	}
-	
-	@RequestMapping(value = "/terms2" , method = RequestMethod.GET)
+
+	@RequestMapping(value = "/terms2", method = RequestMethod.GET)
 	public String terms2() {
 		return "/material/terms2";
 	}
-	
 
-	
-	
-	
 }

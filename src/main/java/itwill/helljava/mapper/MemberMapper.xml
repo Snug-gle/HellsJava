@@ -33,7 +33,17 @@
 	</update>
 
 	<update id="updateMemberCash">
-		update member set member_cash = member_cash - #{cash} 
+		update member 
+		<set>
+			<choose>
+				<when test="cashType == 1 or cashType == 2">
+					member_cash = member_cash - #{cash} 
+				</when>
+				<when test="cashType == 3">
+					member_cash = member_cash + #{cash}
+				</when>
+			</choose>
+		</set>
 		where member_no = #{memberNo}
 	</update>
 	
