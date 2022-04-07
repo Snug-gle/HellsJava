@@ -9,57 +9,19 @@
     border-top: 0;
     padding: 0;
 }
-
-.trainer-sidemenu {
-	margin-left: 2%;
-	margin-right: 2%;
-}
-#ask-label {
-	width: 20%;
-	float: left;
-}
-
-.ptOnce-form-group {
-	border-bottom: 1px solid #444444;
-    padding: 5px;
-	margin-bottom: 0px;
-}
-
-.ptOnceDiv {
-	vertical-align: middle;
-	margin-bottom: 0px; 
-}
-
-.admin-list-body-list-table th, td {
-    border-bottom: 0;
-    padding: 10px;
-}
-
-.ptOnceSignificantForm {
-	resize: none; 
-	width: 420px; 
-	/*height: 300px;*/
-	margin-bottom: 40px;
-}
-
-.ptServiceContentForm {
-	resize: none; 
-	width: 420px; 
-}
-
 </style>
 <div class="posting-box">
 	<div class="panel-body">
 		<div class="tab-wrapper tab-primary">
 			<ul class="nav nav-tabs">
-				<li class="active"  style="width: 50%; text-align: center;"><a href="#trainer-posting" data-toggle="tab">트레이너</a></li>
-				<li style="width: 50%; text-align: center;"><a href="#review-posting" data-toggle="tab">후기</a></li>
+				<li class="active tabTitle"><a href="#trainer-posting" data-toggle="tab">트레이너</a></li>
+				<li class="tabTitle"><a href="#review-posting" data-toggle="tab">후기</a></li>
 			</ul>
 			
 			<div class="tab-content">
 				<div class="tab-pane active" id="trainer-posting">
 					<div  style="text-align: center;">
-					<ul class="nav nav-tabs" style="margin-bottom: 20px; display: inline-block; width: 100%;">
+					<ul class="nav nav-tabs tabSideMenu">
 						<li class="trainer-sidemenu"><a href="#posting-detail-frofile">소개</a></li>
 						<li class="trainer-sidemenu"><a href="#posting-detail-award">자격사항</a></li>
 						<li class="trainer-sidemenu"><a href="#posting-detail-schedule">스케줄</a></li>
@@ -70,7 +32,7 @@
 					</div>
 					<div class="posting-detail-frofile-top posting-detail-content-panel pdm">
 						<div class="trainer-profile">
-							<div class="panel-body profile-wrapper">
+							<div class="panel-body profile-wrapper" style="background-color: #fff; margin-bottom: 30px;">
 								<div class="col-md-3">
 									<div class="profile-pic text-center">
 										<img src="<spring:url value="/profileImages/${trainer.trainerProfileImg}"/>"
@@ -95,7 +57,7 @@
 							<div class="col-md-12" id="posting-detail-frofile">
 								<div class="panel panel-primary">
 									<div class="panel-heading">
-										<h3 class="panel-title">트레이너 소개</h3>
+										<h2 class="h2BoldWhite">트레이너 소개</h2>
 									</div>
 									<div class="frofile-content-body posting-detail-content-panel">
 									<div class="frofile-content-body-imglist">
@@ -121,7 +83,7 @@
 							<div class="col-md-12" id="posting-detail-award">
 								<div class="panel panel-primary">
 									<div class="panel-heading">
-										<h3 class="panel-title">자격 사항</h3>
+										<h2 class="h2BoldWhite">자격 사항</h2>
 									</div>
 									<div class="frofile-content-body posting-detail-content-panel">
 										<c:forEach var="awarditem" items="${award}">
@@ -143,7 +105,7 @@
 							<div class="col-md-12" id="posting-detail-schedule">
 								<div class="panel panel-primary">
 									<div class="panel-heading">
-										<h3 class="panel-title">PT 스케줄</h3>
+										<h2 class="h2BoldWhite">PT 스케줄</h2>
 									</div>
 									<div class="frofile-content-body posting-detail-content-panel">
 										<div class="frofile-schedule-content-body">
@@ -180,7 +142,7 @@
 							<div class="col-md-12" id="posting-detail-program">
 								<div class="panel panel-primary">
 									<div class="panel-heading">
-										<h3 class="panel-title">프로그램 소개</h3>
+										<h2 class="h2BoldWhite">프로그램 소개</h2>
 									</div>
 									<div class="frofile-content-body posting-detail-content-panel">
 										<div class="frofile-program-content-body">
@@ -194,7 +156,7 @@
 							<div class="col-md-12" id="posting-detail-price">
 								<div class="panel panel-primary">
 									<div class="panel-heading">
-										<h3 class="panel-title">PT 이용가격</h3>
+										<h2 class="h2BoldWhite">PT 이용가격</h2>
 									</div>
 									<div class="frofile-content-body posting-detail-content-panel">
 										<div class="posting-price-content-body">
@@ -226,7 +188,7 @@
 							<div class="col-md-12" id="posting-detail-shop">
 								<div class="panel panel-primary">
 									<div class="panel-heading">
-										<h3 class="panel-title">센터 위치</h3>
+										<h2 class="h2BoldWhite">센터 위치</h2>
 									</div>
 									<div class="frofile-content-body posting-detail-content-panel">
 										<div class="posting-shop-content-body">
@@ -243,49 +205,50 @@
 				
 				<!-- 후기 -->
 				<div class="tab-pane" id="review-posting">
-					<div class="search-review-panel panel-unit">
-						<div class="search-review-panel-top">
-							<h4>제목</h4>
-							<div class="search-review-panel-score">
+					<div class="panel panel-solid-primary review-posting-box">
+						<div class="panel-heading">
+							<div style="float: left; ">
+								<h3 class="panel-title" style="vertical-align: middle;">제목</h3>
+							</div>
+							<div class="reviewRight">
 								<i class="fa fa-heart"></i> <label>566</label>
 							</div>
-							<hr>
+						<hr>
 						</div>
-						<div class="search-review-panel-profile">
-							<img alt="" src="">
-							<table>
-								<tr>
-									<td>이름</td>
-									<td>날짜</td>
-									<td><i class="fa fa-star"></i> <i
-										class="fa fa-star-half-o"></i> <i class="fa fa-star-o"></i></td>
-								</tr>
-								<tr>
-									<td>1회 체험</td>
-								</tr>
-							</table>
-							<br>
-						</div>
-						<div class="search-review-panel-text">
-							<p>아수라 발발타 아아아아아아아아앙내가 미쳐간다으림나디ㅏ펌닝ㄹㅈ디맨ㅇ래맨ㅇ러ㅐ</p>
-						</div>
-						<div class="search-review-panel-re">
-							<div class="search-review-panel-re-text">
-								<textarea class="review-review review-textInsert1" rows=""
-									cols=""></textarea>
+						<div class="reviewColor">
+							<div class="reviewNameDate" style="float: left;">
+								ㅇㅇㅇ회원님 2020.02.02
 							</div>
-							<div class="search-review-panel-re-btn">
-								<button type="button" class="review-btn1">댓글달기</button>
+							<div style=" text-align: right;">
+								<i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i>
 							</div>
 						</div>
-
+						<div class="panel-body">
+ 							<p>내용</p>
+ 							<p>내용</p>
+ 							<p>내용</p>
+ 							<p>내용</p>
+						</div>
+							<div class="reviewColor reviewRight">
+								<button type="button" class="btn btn-primary collapsed" data-toggle="collapse" data-target="#ptServiceReply" aria-expanded="false">
+	                                    댓글달기</button>
+							</div>
+						<div class="panel-body collapse" id="ptServiceReply" aria-expanded="false">
+							<textarea id="ptServiceReply" name="ptServiceReply" class="form-control"></textarea>
+							<div class="reviewColor reviewRight">
+								<button type="button" class="btn btn-primary review-btn1">입력</button>
+							</div>
+						</div>
 					</div>
 				</div>
+						<hr>
+						
+				</div>
+				
 				<!-- 후기 끝 -->
 			</div>
 		</div>
 	</div>
-</div>
 
 <!-- 1회 PT 신청 모달창 -->
 <div class="modal fade" id="pt-application" role="dialog">
@@ -302,12 +265,11 @@
 				<div class="modal-body">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
-								<h3 class="panel-title">1회 PT 신청</h3>
+								<h2 class="h2BoldWhite">1회 PT 신청</h2>
 							</div>
 							<div class="panel-body">
 								<div class="form-group">
-										<h3 style="text-align: left; margin-top: 30px;"><strong>회원 정보</strong></h3>
-										
+										<h3 class="ptOnceMemberInfoTitle">회원 정보</h3>
 									<hr>
 									<table>
 										<tr>
@@ -398,7 +360,7 @@
 				<div class="modal-body">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<h3 class="panel-title">PT 문의</h3>
+							<h2 class="h2BoldWhite">PT 문의</h2>
 						</div>
 						<div class="panel-body">
 						<hr>

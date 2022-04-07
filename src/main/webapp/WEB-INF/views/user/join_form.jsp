@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <section class="container animated fadeInUp">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
@@ -53,7 +54,7 @@
 								<label for="phoneLabel">연락처</label>
 								<div class="formDiv">
 									<select id="member_phone1" name="member_phone1"
-										class="btn btn-primary dropdown-toggle">
+										class="btn btn-primary dropdown-toggle phoneSelect">
 										<option value="010" selected="selected">&nbsp;010&nbsp;</option>
 										<option value="011">&nbsp;011&nbsp;</option>
 										<option value="016">&nbsp;016&nbsp;</option>
@@ -61,9 +62,9 @@
 										<option value="018">&nbsp;018&nbsp;</option>
 										<option value="019">&nbsp;019&nbsp;</option>
 									</select> <input type="text" name="member_phone2"
-										class="phone-form-control" id="member_phone2" maxlength="4">
+										class="phone-form-control joinPhone" id="member_phone2" maxlength="4">
 									<input type="text" name="member_phone3"
-										class="phone-form-control" id="member_phone3" maxlength="4">
+										class="phone-form-control joinPhone" id="member_phone3" maxlength="4">
 									<p id="phoneMsg" class="error">연락처를 입력해 주세요.</p>
 									<div id="phoneRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해
 										주세요.</div>
@@ -71,25 +72,27 @@
 							</div>
 	
 							<div class="form-group">
-								<label for="emailLabel">Email</label> <input type="text"
-									class="form-control" id="memberEmail" name="email1"
-									placeholder="이메일을 입력해 주세요">
-								<p>@</p>
-								<select id="selbox" name="email2" class="form-control">
-									<option selected="selected" value="1">==선택==</option>
-									<option value="google.com">google.com</option>
-									<option value="naver.com">naver.com</option>
-									<option value="daum.net">daum.net</option>
-									<option value="direct">==직접입력==</option>
-								</select> <input type="text" id="selboxDirect" name="selboxDirect"
-									class="form-control" />
-								<p id="emailMsg" class="error">이메일을 입력해 주세요.</p>
-								<p id="emailMsg2" class="error">이메일주소를 입력해 주세요.</p>
-								<p id="emailRegMsg" class="error">이메일 아이디 형식에 알맞게 작성해 주세요.</p>
-								<p id="emailRegMsg2" class="error">이메일 주소 형식에 알맞게 작성해 주세요.</p>
-	
+								<label for="emailLabel">이메일</label> 
+								<div class="email-group">
+									<input type="text" class="email-form-control col-sm-5" id="memberEmail" name="email1" placeholder="이메일을 입력해 주세요">
+									&nbsp;@&nbsp;
+									<select id="selbox" name="email2" class="email-form-control" style="width: 275px;">
+										<option selected="selected" value="1">==선택==</option>
+										<option value="google.com">google.com</option>
+										<option value="naver.com">naver.com</option>
+										<option value="daum.net">daum.net</option>
+										<option value="direct">==직접입력==</option>
+									</select> 
+									<input type="text" id="selboxDirect" name="selboxDirect" class="email-form-control col-sm-6" style="margin-left: 244px;">
+									<p id="emailMsg" class="error">이메일을 입력해 주세요.</p>
+									<p id="emailMsg2" class="error">이메일주소를 입력해 주세요.</p>
+									<p id="emailRegMsg" class="error">이메일 아이디 형식에 알맞게 작성해 주세요.</p>
+									<p id="emailRegMsg2" class="error">이메일 주소 형식에 알맞게 작성해 주세요.</p>
+								</div>
 							</div>
-							<button type="submit" class="btn btn-primary btn-block">회원가입</button>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary btn-block">회원가입</button>
+							</div>
 						</form>
 						<p style="color: red;"></p>
 					</div>
