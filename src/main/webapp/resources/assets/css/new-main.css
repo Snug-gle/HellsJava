@@ -68,7 +68,7 @@
 
 .modal-dialog{
 	padding: 30px;
-    height: -webkit-fill-available;
+    /*height: -webkit-fill-available;*/
     margin: auto;
     background: white;
     text-align: center;
