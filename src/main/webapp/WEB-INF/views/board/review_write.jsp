@@ -16,7 +16,7 @@
 					<label class="col-sm-2 control-label">제목</label>
 					<div class="col-sm-3">
 						<input type="text" class="form-control" id="reviewTitle"
-							name="ptServiceTitle" value="${accountNumber}"
+							name="ptServiceTitle" value="${review.ptServiceTitle }"
 							placeholder="제목을 입력해주세요" />
 						<p id="titleMsg" class="error">제목을 입력해 주세요.</p>
 					</div>
@@ -26,7 +26,7 @@
 					<label class="col-sm-2 control-label">트레이너</label>
 					<div class="col-sm-3">
 						<input type="text" class="form-control"
-							name="" value="${accountNumber}"
+							name="" value="${trainerName}"
 							readonly="readonly" />
 					</div>
 				</div>
@@ -49,7 +49,13 @@
 						<span class="star">
 							 ★★★★★
 							 <span>★★★★★</span>
-							 <input class="fuck" type="range" oninput="drawStar(this)" value="0.5" step="0.5" min="0.5" max="5" name="ptServiceStars">
+							 <c:if test="${empty(review) }">
+							 	<input class="fuck" type="range" oninput="drawStar(this)" value="0.5" step="0.5" min="0.5" max="5" name="ptServiceStars">
+							 </c:if>
+							 <c:if test="${review.ptServiceStars != null }">
+							 	<input id="pa" type="range" oninput="drawStar(this)" value="${review.ptServiceStars}" step="0.5" min="0.5" max="5" name="ptServiceStars">
+							 </c:if>
+							 
 						</span>
 					</div>
 				</div>
@@ -59,7 +65,7 @@
 					<div class="col-sm-4">
 						<textarea class="form-control" id="reviewContent"
 							name="ptServiceContent" 
-							placeholder="내용을 입력해주세요" ></textarea>
+							placeholder="내용을 입력해주세요" >${review.ptServiceContent}</textarea>
 						<p id="contentMsg" class="error">내용을 입력해 주세요.</p>
 						
 					</div>
@@ -79,7 +85,13 @@
 
 <script type="text/javascript">
 	
-	//별 반개 단위
+	$(function() { //리뷰수정=> 페이지 로딩 즉시 star값에 맞게 별이 채워져야해서 만듬
+		var val = ($("#pa").val() * 10 * 2);
+		val += "%";
+		$(".star span").css("width", val);
+	});
+	
+	//별 반개 단위 조작
 	function drawStar(ths) {
 		var val = ($(ths).val() * 10 * 2);
 			val += "%";
