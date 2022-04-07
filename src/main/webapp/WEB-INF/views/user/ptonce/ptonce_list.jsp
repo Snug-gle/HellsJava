@@ -42,27 +42,27 @@
 		                                        			<c:otherwise>완료</c:otherwise>
 		                                        		</c:choose>
 		                                        	</td>
-		                                        	<td style="width: 76px;"><a data-toggle="collapse" data-parent="#accordion"
-														href="#${ptOnce.ptOnceNo}" class="collapsed btn btn-default ptOnceBtn" aria-expanded="false">
+		                                        	<td style="width: 76px;">
+		                                        	<a data-toggle="collapse" data-parent="#accordion" href="#${ptOnce.ptOnceNo}" class="collapsed btn btn-default ptOnceBtn" aria-expanded="false">
 														상세보기</a></td>
 													<td style="width: 76px;">
-														<a data-toggle="collapse" data-parent="#accordion"
-														href="<c:url value='review/write'/>" class="collapsed btn btn-primary ptOnceBtn"
-														aria-expanded="false"> 리뷰쓰기</a>
+														<a data-toggle="collapse" data-parent="#accordion" href="" class="collapsed btn btn-primary ptOnceBtn" aria-expanded="false">리뷰쓰기</a>
 													</td>
 		                                        </tr>
 		                                    </tbody>
 		                                </table>
 		                            </div>
-									<div id="${ptOnce.ptOnceNo }" class="panel-collapse collapse personalContent"
+									<div id="${ptOnce.ptOnceNo}" class="panel-collapse collapse"
 											aria-expanded="false" style="height: 0px;">
+									<hr>
 									<!-- 성별, 연령, 운동경험, 운동목적 , 특이사항  -->
-										<div class="panel-body">성별 : ${ptOnce.ptOnceGender}</div>
-										<div class="panel-body">연령 : ${ptOnce.ptOnceAge}</div>
-										<div class="panel-body">운동경험 : ${ptOnce.ptOnceExperience}</div>
-										<div class="panel-body">운동목적 :${ptOnce.ptOncePurpose}<br></div>
-										<div class="panel-body">특이사항 :${ptOnce.ptOnceSignificant }</div>
-										<div class="panel-body">(확인용) 회원번호 :${ptOnce.ptOnceNo }</div>
+										<div class="ptOncePersonalContent">
+											<div class="">성별 : ${ptOnce.ptOnceGender}</div>
+											<div class="">연령 : ${ptOnce.ptOnceAge}</div>
+											<div class="">운동경험 : ${ptOnce.ptOnceExperience}</div>
+											<div class="">운동목적 :${ptOnce.ptOncePurpose}<br></div>
+											<div class="">특이사항 :${ptOnce.ptOnceSignificant }</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -71,8 +71,6 @@
 				</c:choose>
 				<!-- 작성버튼, 마이페이지 이동 버튼 -->
 				<div style="text-align: right; margin: 10px;">
-					<button type="button" class="btn btn-primary"
-				onclick="location.href='<c:url value="/oOo/write"/>';">1:1 문의 작성</button>
 					<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/mypage"/>';">마이페이지로 이동</button>
 				</div>							
 				<%-- 페이지 번호 출력 --%>
