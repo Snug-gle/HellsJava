@@ -2,21 +2,24 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<html>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<div class="container">
-	<div class="notice-list-print">
-		<div class="notice-list-title">
-			<h1 class="panel-title">PT 문의 내역 리스트</h1>
-		</div>
+
+<div class="container animated fadeInUp">
+	<div class="my-page-box">
+		<div class="notice-list-print">
+			<div class="pageheader" style="font-size: 20px;">
+				<div style="text-align: center;">
+					<h1>PT 문의 내역
+					<div class="reviewRight" style="float: right;">
+						<select id="category" name="category" class="btn btn-primary dropdown-toggle">
+							<option <c:if test="${status==9 }">selected="selected"</c:if> value="9" >전체</option>
+							<option <c:if test="${status==2 }">selected="selected"</c:if> value="2">미확인</option>
+							<option <c:if test="${status==3 }">selected="selected"</c:if> value="3">확인</option>
+						</select>
+					</div>
+					</h1>
+				</div>
+			</div>
 		<br>
-		<div >
-		<select id="category" name="category">
-			<option <c:if test="${status==9 }">selected="selected"</c:if> value="9" >전체</option>
-			<option <c:if test="${status==2 }">selected="selected"</c:if> value="2">미확인</option>
-			<option <c:if test="${status==3 }">selected="selected"</c:if> value="3">확인</option>
-		</select>
-		</div>
 		<div class="panel-body">
 			<c:choose>
 				<c:when test="${empty(ptQnaList) }">
@@ -30,35 +33,39 @@
 						<div class="panel-group accordion" id="accordion">
 							<!-- 문의글 -->
 							<div class="panel panel-default">
-								<div class="panel-heading">
-									<div class="panel-title" style="font-size: 20px;">
-										<!-- 글번호 -->
-										<c:set var="index1" value="${index1+1 }" />
-										<a data-toggle="collapse" data-parent="#accordion" href="#"
-											class="collapsed" aria-expanded="false"><strong>${index1 }</strong></a>
-										<!-- 제목 -->
-										<a data-toggle="collapse" data-parent="#accordion" href="#"
-											class="collapsed" aria-expanded="false">
-											${ptQna.ptServiceTitle}</a>
-										<!-- 날짜 -->
-										<a data-toggle="collapse" data-parent="#accordion" href="#"
-											class="collapsed" aria-expanded="false">
-											${fn:substring({ptQna.ptServiceDate},1,12)} </a>
-										<!-- 글내용 보기 -->
-										<a data-toggle="collapse" data-parent="#accordion"
-											href="#${index1 }" class="collapsed" aria-expanded="false">
-											상세보기</a>
-										<!-- 확인여부 -->
-										<a data-toggle="collapse" data-parent="#accordion" href="#"
-											class="collapsed" aria-expanded="false">
-											확인</a>
+								<div class="">
+									<table class="table table-hover personalTable">
+										<tbody>
+											<tr>
+												<c:set var="index1" value="${index1+1 }" />
+												<td class="accordionBoard" style="width: 70px;"><strong>${index1 }</strong></td>
+												<td class="accordionBoard" style="width: auto;"></td>
+												<td class="accordionBoard" style="width: 100px;">${fn:substring({ptQna.ptServiceDate},1,12)}</td>
+												<td class="accordionBoard" style="width: 140px;">ㅇㅇㅇ트레이너</td>
+												<!-- 확인여부 -->
+												<td class="accordionBoard" style="width: 65px;">
+		                                        	<c:choose>
+		                                        		<c:when test="${ptQna.ptServiceStatus eq '2' }">미확인</c:when>
+	                                        			<c:when test="${ptQna.ptServiceStatus eq '3' }">확인</c:when>
+	                                        			<c:otherwise>완료</c:otherwise>
+	                                        		</c:choose>
+	                                        	</td>
+												<td style="width: 76px;"><a data-toggle="collapse" data-parent="#accordion"
+													href="#${index1 }" class="collapsed btn btn-default ptOnceBtn" aria-expanded="false">
+													상세보기</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- 글 상세내용 -->
+								<div id="${index1 }" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+									<div class="personalContent">${ptQna.ptServiceContent}
+										<div class="reviewRight">
+											<button type="button" class="btn btn-primary" onclick="">수정</button>
+										</div>
 									</div>
-									<!-- 글 상세내용 -->
-									<div id="${index1 }" class="panel-collapse collapse"
-										aria-expanded="false" style="height: 0px;">
-										<div class="panel-body">${ptQna.ptServiceContent}</div>
-										
-									</div>
+									
 								</div>
 							</div>
 						</div>
@@ -66,14 +73,15 @@
 				</c:otherwise>
 			</c:choose>
 			<!-- 버튼 -->
-			<button type="button"
-				onclick="location.href='<c:url value="/mypage"/>';">마이페이지로
-				이동</button>
-
+			<div style="text-align: right; margin: 10px;">
+				<%--<button type="button" class="btn btn-primary" onclick="">PT 문의 작성</button>--%>
+				<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/mypage"/>';">마이페이지로 이동</button>
+			</div>	
 			<%-- 페이지 번호 출력 --%>
 			<div class="panel panel-default">
 				<div class="panel-body" id="pageNumDiv"></div>
 			</div>
+		</div>
 		</div>
 	</div>
 </div>
