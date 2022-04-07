@@ -215,7 +215,7 @@
     border: 2px solid #e8ebed;
     border-radius: 2px;
     box-shadow: none;
-    height: 37px;
+    height: 50px;
     padding: 8px 12px 9px 12px;
 }
 
@@ -305,4 +305,97 @@
     height: 37px;
     padding: 8px 12px 9px 12px;
 	width: 300px; 
+}
+
+.email-group {
+	float: left; 
+	overflow: auto;  
+	padding-left: 4px; 
+	margin-bottom: 20px;
+}
+
+.phoneSelect {
+	width: 150px; 
+	margin-bottom: 0px; 
+	height: 37px;
+}
+
+.joinPhone {
+	width: 180px;
+	height: 36px;
+}
+
+.ptOnce-form-group {
+	border-bottom: 1px solid #444444;
+    padding: 5px;
+	margin-bottom: 0px;
+}
+
+.ptOnceDiv {
+	vertical-align: middle;
+	margin-bottom: 0px; 
+}
+
+.admin-list-body-list-table th, td {
+    border-bottom: 0;
+    padding: 10px;
+}
+
+.ptOnceSignificantForm {
+	resize: none; 
+	width: 420px; 
+	/*height: 300px;*/
+	margin-bottom: 40px;
+}
+
+.ptServiceContentForm {
+	resize: none; 
+	width: 420px; 
+}
+
+.review-posting-box{ 
+	width: 47%;
+	margin: 20px 3px 0px 3px;	
+}
+
+#ptServiceReply {
+	resize: none;
+}
+
+.reviewColor {
+	background: #556b8d; 
+	color: #fff; border: 
+	none; padding: 0px 7px;
+}
+
+.reviewRight {
+	text-align: right;
+}
+
+.h2BoldWhite {
+	color: #fff; 
+	font-weight: bold;
+}
+
+.tabTitle {
+	width: 50%; 
+	text-align: center;
+}
+
+.tabSideMenu {
+	margin-bottom: 20px; 
+	display: inline-block; 
+	width: 100%; 
+	background-color: #fff;
+}
+
+.ptOnceMemberInfoTitle {
+	text-align: left; 
+	margin-top: 30px; 
+	font-weight: bold;
+}
+
+.trainer-sidemenu {
+	margin-left: 2%;
+	margin-right: 2%;
 }
