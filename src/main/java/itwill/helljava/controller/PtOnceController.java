@@ -30,7 +30,6 @@ import itwill.helljava.util.Pager;
 
 
 @Controller
-@RequestMapping("/ptonce")
 public class PtOnceController {
 	
 	@Autowired
@@ -42,8 +41,11 @@ public class PtOnceController {
 	@Autowired
 	private PayService payService;
 	
-	//list : 페이징 처리 시도
-	@RequestMapping(value = "/list" , method = RequestMethod.GET)
+	@Autowired
+	private TrainerService trainerService;
+	
+	//1회 피티 신청 리스트 최초 화면 요청 처리 메소드(회원)
+	@RequestMapping(value = "/ptonce/list" , method = RequestMethod.GET)
 	public String searchPtOnceList(HttpSession session, Model model, @RequestParam(defaultValue="1")int pageNum){
 			
 		int totalBoard = ptOnceService.getPtOnceCount(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
@@ -60,14 +62,9 @@ public class PtOnceController {
 				
 		return "/user/ptonce/ptonce_list";
 	}
-	
-	@RequestMapping("/board")
-	public String showList() {
-		return "board/ptonce_list2";
-	}
 		
 	// 포스팅 페이지에서 1회 pt 신청 post 방식 요청 (트레이너 번호 넘김)
-	@RequestMapping(value = "/request/{trainerNo}", method = RequestMethod.POST)
+	@RequestMapping(value = "/ptonce/request/{trainerNo}", method = RequestMethod.POST)
 	public String addPtOnce(@PathVariable int trainerNo,@ModelAttribute PtOnce ptOnce ,
 			@RequestParam Map<String, Object> map, HttpSession session, @ModelAttribute Account account) throws AccountPwAuthException {
 		
@@ -105,4 +102,52 @@ public class PtOnceController {
 		
 		return "redirect:/posting/detail/"+trainerNo; // 해당 포스팅 페이지로 다시 이동
 	}
+	
+	//1회 피티 신청 리스트 최초 화면 요청 처리 메소드 (트레이너용) 
+	@RequestMapping(value= "ptonce/trainer/list" , method = RequestMethod.GET)
+	public String searchAllList(Model model ,HttpSession session , @RequestParam(defaultValue = "1") int pageNum) {
+		
+		// 전체 리스트를 위한 페이징 정보 저장
+		int totalBoard = ptOnceService.getPtOnceTrainerCount(trainerService.getTrainer(((Member)session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo());
+		int pageSize =5;
+		int blockSize =10;
+		
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+		
+		Map<String,	Object> pagerMap = new HashMap<String, Object>();
+		pagerMap.put("pt_once_status",231);//임의의 값
+		pagerMap.put("trainer_no", trainerService.getTrainer(((Member)session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo());
+		pagerMap.put("startRow", pager.getStartRow());
+		pagerMap.put("endRow", pager.getEndRow());
+		
+		model.addAttribute("ptOnceList", ptOnceService.getPtOnceTrainerList(pagerMap));
+		model.addAttribute("pager",pager);
+		return "/user/trainer/trainer_ptonce_list";
+	}
+	
+	//1회 피티 신청 리스트 [미확인:0], [확인:1], [완료:2]
+	@RequestMapping(value = "ptonce/trainer/list/status" , method = RequestMethod.GET)
+	public String searchList(@RequestParam String ptOnceStatus, HttpSession session , 
+			@RequestParam(defaultValue = "1") int pageNum , Model model ) {
+		
+		// 상태별 리스트 페이징 정보 저장
+		int totalBoard = ptOnceService.getPtOnceTrainerCount(trainerService.getTrainer(((Member)session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo());
+		int pageSize =5;
+		int blockSize =10;
+		
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+		
+		Map<String, Object> pagerMap = new HashMap<String, Object>();
+		pagerMap.put("pt_once_status", Integer.parseInt(ptOnceStatus));
+		pagerMap.put("trainer_no", trainerService.getTrainer(((Member)session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo());
+		pagerMap.put("startRow", pager.getStartRow());
+		pagerMap.put("endRow", pager.getEndRow());
+		
+		model.addAttribute("ptOnceList" ,ptOnceService.getPtOnceTrainerList(pagerMap));
+		model.addAttribute("pager",pager);
+		model.addAttribute("status",ptOnceStatus);
+		return "/user/trainer/trainer_ptonce_list";
+	}
+	//PT 완료 후 status 수정하는 메소드
+	
 }
