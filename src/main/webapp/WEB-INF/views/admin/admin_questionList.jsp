@@ -151,9 +151,7 @@
 					url: (idid == 1) ? url1 : url2 ,
 					dataType: "json",
 					success: function(json) {		
-						if(idid == 1){
-							idid=0;
-						}
+						
 						var str1;
 						if(json.restAdminQAList.length==0){
 							str1 += "<table class='admin-list-body-list-table' >";
@@ -267,8 +265,11 @@
 						$("#restAdminQAListDiv").html(template(json.restAdminQAList)); */
 						
 						//페이지 번호를 출력하는 함수 호출
-						pagerDisplay(json.pager);
-						
+						if(idid == 1){
+							pagerDisplay2(json.pager);
+						} else {
+							pagerDisplay(json.pager);
+						}
 					},
 					error: function(xhr) {
 						alert("에러코드 = "+xhr.status);
@@ -305,6 +306,37 @@
 				
 				$("#pageNumDiv").html(html);
 			}
+			
+			function pagerDisplay2(pager) {
+				var html="";
+				
+				if(pager.startPage>pager.blockSize) {
+					html+="<a href='javascript:boardDisplay(1"+idid+");'>[처음]</a>";
+					html+="<a href='javascript:boardDisplay("+pager.prevPage+","+idid+");'>[이전]</a>";
+				} else {
+					html+="[처음][이전]";
+				}
+				
+				for(i=pager.startPage;i<=pager.endPage;i++) {
+					if(pager.pageNum!=i) {
+						html+="<a href='javascript:boardDisplay("+i+","+idid+");'>["+i+"]</a>";
+					} else {
+						html+="["+i+"]";
+					}
+				}
+				
+				if(pager.endPage!=pager.totalPage) {
+					html+="<a href='javascript:boardDisplay("+pager.nextPage+","+idid+");'>[다음]</a>";
+					html+="<a href='javascript:boardDisplay("+pager.totalPage+","+idid+");'>[마지막]</a>";
+				} else {
+					html+="[다음][마지막]";
+				}
+				
+				$("#pageNumDiv").html(html);
+			}
+			
+			
+			
 			
 			//------------------------------------------
 			$("#searchBtn").click(function() {
