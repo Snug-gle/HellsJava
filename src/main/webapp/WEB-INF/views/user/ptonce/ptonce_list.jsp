@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <div class="container animated fadeInUp">
 	<div class="my-page-box">	
 		<div class="notice-list-print">
@@ -14,8 +13,10 @@
 			<div class="panel-body">
 				<c:choose>
 					<c:when test="${empty(ptonceList) }">
-						<div align="center">
-							<h3>신청 내역이 없습니다.</h3>
+						<div class="panel panel-default">
+							<div align="center" class="boardEmptyWriting">
+								<h3>신청 내역이 없습니다.</h3>
+							</div>
 						</div>
 					</c:when>
 					<c:otherwise>
