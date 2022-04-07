@@ -59,25 +59,6 @@ function sample4_execDaumPostcode() {
     }).open();
 }
 </script>
-<style type="text/css">
-.center-form-control {
-	border: 2px solid #e8ebed;
-    border-radius: 2px;
-    box-shadow: none;
-    height: 37px;
-    padding: 8px 12px 9px 12px;
-	width: 250px; 
-}
-
-.trainer-profile-form-control {
-	border: 2px solid #e8ebed;
-    border-radius: 2px;
-    box-shadow: none;
-    height: 37px;
-    padding: 8px 12px 9px 12px;
-	width: 300px; 
-}
-</style>
 <div class="container animated fadeInUp">
 	<div class="panel panel-default">
 		<div id="login-wrapper">

@@ -19,16 +19,34 @@
 	float: left;
 }
 
-.form-control {
-	width: 80%;
-}
-
 .ptOnce-form-group {
 	border-bottom: 1px solid #444444;
     padding: 5px;
 	margin-bottom: 0px;
 }
+
+.ptOnceDiv {
+	vertical-align: middle;
+	margin-bottom: 0px; 
 }
+
+.admin-list-body-list-table th, td {
+    border-bottom: 0;
+    padding: 10px;
+}
+
+.ptOnceSignificantForm {
+	resize: none; 
+	width: 420px; 
+	/*height: 300px;*/
+	margin-bottom: 40px;
+}
+
+.ptServiceContentForm {
+	resize: none; 
+	width: 420px; 
+}
+
 </style>
 <div class="posting-box">
 	<div class="panel-body">
@@ -282,27 +300,26 @@
 			<form id="onemodalForm" role="form" action='<c:url value="/ptonce/request/${trainer.trainerNo}"/>' method="post"
 				style="text-align: -webkit-center;">
 				<div class="modal-body">
-					<div id="login-wrapper">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h3 class="panel-title">1회 PT 신청</h3>
 							</div>
 							<div class="panel-body">
-								
+								<div class="form-group">
+										<h3 style="text-align: left; margin-top: 30px;"><strong>회원 정보</strong></h3>
+										
+									<hr>
 									<table>
 										<tr>
-											<td>회원정보</td>
-										</tr>
-										<tr>
-											<td>성별</td>
-											<td><input name="ptOnceGender" type="radio"
-												class="iradio_flat-grey checked" value="1" checked="checked"> <label>남자</label>
+											<td style="width: 150px"><strong>성별</strong></td>
+											<td style="width: 280px"><input name="ptOnceGender" type="radio"
+												class="iradio_flat-grey checked" value="1" checked="checked"> <label>남자</label>&nbsp;&nbsp;
 												<input name="ptOnceGender" type="radio"
 												class="iradio_flat-grey checked" value="2"> <label>여자</label>
 											</td>
 										</tr>
 										<tr>
-											<td>연령대</td>
+											<td><strong>연령대</strong></td>
 											<td><select class="btn btn-primary dropdown-toggle" name="ptOnceAge">
 													<option value="1">&nbsp;10대&nbsp;</option>
 													<option value="2" selected="selected">&nbsp;20대&nbsp;</option>
@@ -313,7 +330,7 @@
 											</select></td>
 										</tr>
 										<tr>
-											<td>운동 목적</td>
+											<td><strong>운동 목적</strong></td>
 											<td><select class="btn btn-primary dropdown-toggle" name="ptOncePurpose">
 													<option value="1">다이어트</option>
 													<option value="2" selected="selected">체력증진</option>
@@ -322,7 +339,7 @@
 											</select></td>
 										</tr>
 										<tr>
-											<td>운동 경험 여부</td>
+											<td><strong>운동 경험 여부</strong></td>
 											<td><select class="btn btn-primary dropdown-toggle" name="ptOnceExperience">
 													<option value="1">1달 미만</option>
 													<option value="2" selected="selected">3개월</option>
@@ -332,27 +349,21 @@
 										</tr>
 	
 										<tr>
-											<td>특이사항</td>
-											<td>
-												<div class="panel-body">
-													<textarea id="nestable-output" name="ptOnceSignificant" class="form-control"
-														style="resize: none;"></textarea>
-												</div>
-											</td>
+											<td><strong>특이사항</strong></td>
 										</tr>
 									</table>
+									<textarea id="nestable-output" name="ptOnceSignificant" class="form-control ptOnceSignificantForm" placeholder="1회 PT를 신청하면서 트레이너님께 궁금한 점이나 특이사항이 있으시다면 이곳에 적어주세요."></textarea>
+									<h3 style="text-align: left;"><strong>결제 정보</strong></h3>
+									<hr>
 									<table>
 										<tr>
-											<td>결제정보</td>
+											<td style="width: 150px"><strong>결제금액</strong></td>
+											<td style="width: 280px"><span id="payOnce"></span></td>
 										</tr>
 										<tr>
-											<td>결제금액</td>
-											<td><span id="payOnce"></span></td>
-										</tr>
-										<tr>
-											<td>결제 비밀번호</td>
+											<td><strong>결제 비밀번호</strong></td>
 											<td>
-												<input type="password" name="accountPw" id="accountPw">
+												<input type="password" name="accountPw" id="accountPw" class="form-control" placeholder="결제 비밀번호를 입력해 주세요.">
 												<p id="passwordMsg" class="error">비밀번호를 입력해 주세요.</p>
 											</td>
 										</tr>
@@ -361,13 +372,13 @@
 									<input id = "payoPrice" type="hidden" name ="payoPrice" value=""/>
 							</div>
 						</div>
+					<div class="modal-footer">
+						<div>
+							<button type="submit" class="btn btn-primary btn-block">결제</button>
+							<button type="button" data-dismiss="modal" class="btn btn-default btn-block">닫기</button>
+						</div>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<div>
-						<button type="submit" class="btn btn-primary">결제</button>
-						<button type="button" data-dismiss="modal" class="btn btn-primary">닫기</button>
-					</div>
 				</div>
 			</form>
 		</div>
@@ -385,37 +396,43 @@
 			</div>
 			<form id="ptmodalForm" action="/pt/request/${trainer.trainerNo}" method="post" style="text-align: -webkit-center;">
 				<div class="modal-body">
-					<div id="login-wrapper">
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<h3 class="panel-title">PT 문의</h3>
-							</div>
-							<div class="panel-body">
-								
-									<div class="ptOnce-form-group">
-										<label for="name" id="ask-label">이름</label> 
-										<input type="text" readonly="readonly" class="form-control" id="memberName"name="memberName" value="${loginUserinfo.memberName }">
-									</div>
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">PT 문의</h3>
+						</div>
+						<div class="panel-body">
+						<hr>
+							<table>
+								<tr style="margin-top: 30px;">
 									<br>
-									<div class="ptOnce-form-group">
-										<label for="phone" id="ask-label">연락처</label> 
-										<input type="text" readonly="readonly" class="form-control" id="memberPhone"name="memberPhone" value="${loginUserinfo.memberPhone }">
-									</div>
-									<br>
-									<div class="ptOnce-form-group">
-										<label for="ask" id="ask-label">문의내용</label> 
-										<textarea id="nestable-output" name="ptServiceContent" class="form-control" style="resize: none;"></textarea>
-										<p id="nestable-outputMsg" class="error">문의내용을 입력해 주세요.</p>
-									</div>
-								
-							</div>
+									<td style="width: 150px;"><strong>이름</strong></td>
+									<td style="width: 280px"><input type="text"
+										readonly="readonly" class="form-control" id="memberName"
+										name="memberName" value="${loginUserinfo.memberName }">
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 150px"><strong>연락처</strong></td>
+									<td style="width: 280px"><input
+										type="text" readonly="readonly" class="form-control"
+										id="memberPhone" name="memberPhone"
+										value="${loginUserinfo.memberPhone }">
+									</td>
+								</tr>
+								<tr>
+									<td style="width: 150px"><strong>문의내용</strong></td>
+								</tr>
+							</table>
+							<textarea id="nestable-output" name="ptServiceContent" class="form-control ptServiceContentForm" placeholder="문의사항을 적어주세요."></textarea>
+							<p id="nestable-outputMsg" class="error">문의내용을 입력해 주세요.</p>
+							<br>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<div>
-						<button type="submit">확인</button>
-						<button type="button" data-dismiss="modal">닫기</button>
+						<button type="submit" class="btn btn-primary btn-block">확인</button>
+						<button type="button" data-dismiss="modal" class="btn btn-default btn-block">닫기</button>
 					</div>
 				</div>
 			</form>

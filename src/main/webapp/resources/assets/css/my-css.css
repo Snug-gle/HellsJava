@@ -289,3 +289,20 @@
 	margin-bottom: 0px;
 }
 
+.center-form-control {
+	border: 2px solid #e8ebed;
+    border-radius: 2px;
+    box-shadow: none;
+    height: 37px;
+    padding: 8px 12px 9px 12px;
+	width: 250px; 
+}
+
+.trainer-profile-form-control {
+	border: 2px solid #e8ebed;
+    border-radius: 2px;
+    box-shadow: none;
+    height: 37px;
+    padding: 8px 12px 9px 12px;
+	width: 300px; 
+}
