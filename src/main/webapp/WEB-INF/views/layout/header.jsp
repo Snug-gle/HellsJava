@@ -100,7 +100,7 @@
 									                            </div>
 									                              <div class="form-group">
 									                                <label for="exampleInputPassword1">결제 비밀번호</label>
-									                                <input type="password" class="form-control" id="accountPw" name="accountPw" placeholder="결제 비밀번호를 입력해 주세요">
+									                                <input type="password" class="form-control" id="accountPw1" name="accountPw" placeholder="결제 비밀번호를 입력해 주세요">
 									                            	<p>${message}</p>
 									                            </div>
 									                            <div>
