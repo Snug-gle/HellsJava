@@ -61,16 +61,17 @@
 	
 	<select id="selectTrainerListCount" resultType="int">
 		select count(*) from
-			<if test="searchKeyword != null and searchValue !=''">
-				(select * from member m right join trainer t 
-			            on m.member_no = t.member_no where ${searchKeyword} like '%'||#{searchValue}||'%')
-			</if>
-			<if test="searchValue == null or searchValue == ''">
-				 member m right join trainer t 
-			            on m.member_no = t.member_no
-			</if>
-			where m.member_status = #{memberStatus} 
-			order by m.member_no desc
+			<choose>
+				<when test="searchKeyword != null and searchValue !=''">
+					(select * from member m right join trainer t 
+				            on m.member_no = t.member_no where ${searchKeyword} like '%'||#{searchValue}||'%' and m.member_status = #{memberStatus} order by t.member_no desc)
+				</when>
+				<when test="searchValue == null or searchValue == ''">
+					 member m right join trainer t 
+				            on m.member_no = t.member_no where m.member_status = #{memberStatus} order by t.member_no desc
+				</when>
+			</choose>
+			
 	</select>
 	
 	<select id="selectMainPageTrainerListCount" resultType="int">

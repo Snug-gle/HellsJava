@@ -394,7 +394,7 @@
 					<a href="<c:url value="/"/>" class="modal-header-logo"><i class="icon-layers"></i>오늘의 짐</a>
 				</div>
 			</div>
-			<form id="ptmodalForm" action="/pt/request/${trainer.trainerNo}" method="post" style="text-align: -webkit-center;">
+			<form id="ptmodalForm" action="<c:url value='/pt/request/${trainer.trainerNo}'/>" method="post" style="text-align: -webkit-center;">
 				<div class="modal-body">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
@@ -423,8 +423,8 @@
 									<td style="width: 150px"><strong>문의내용</strong></td>
 								</tr>
 							</table>
-							<textarea id="nestable-output" name="ptServiceContent" class="form-control ptServiceContentForm" placeholder="문의사항을 적어주세요."></textarea>
-							<p id="nestable-outputMsg" class="error">문의내용을 입력해 주세요.</p>
+							<textarea id="nestable-output1" name="ptServiceContent" class="form-control ptServiceContentForm" placeholder="문의사항을 적어주세요."></textarea>
+							<p id="nestable-outputMsg1" class="error">문의내용을 입력해 주세요.</p>
 							<br>
 						</div>
 					</div>
@@ -511,13 +511,13 @@ $('input[name=payoPrice]').attr('value',oncePrice);
 		var submitResult = true;
 		
 		$(".error").css("display", "none");
-		$("#nestable-output").val($("#nestable-output").val().trim());
+		$("#nestable-output1").val($("#nestable-output1").val().trim());
 		
 	
 		//아이디 유효성 검사
 		//정규식 영문자로 시작하는 영문자 또는 숫자 6~20자 
-		if ($("#nestable-output").val() == "") {
-			$("#nestable-outputMsg").css("display", "block");
+		if ($("#nestable-output1").val() == "") {
+			$("#nestable-outputMsg1").css("display", "block");
 			submitResult = false;
 		}
 	

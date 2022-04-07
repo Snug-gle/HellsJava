@@ -12,6 +12,15 @@ public class Trainer {
 	private String memberName;
 	private String memberPhone;
 	private String memberEmail;
+	private String memberStatus;
+
+	public String getMemberStatus() {
+		return memberStatus;
+	}
+
+	public void setMemberStatus(String memberStatus) {
+		this.memberStatus = memberStatus;
+	}
 
 	private String postingSelfIntroduction;
 	private String postingProgramIntroduction;
