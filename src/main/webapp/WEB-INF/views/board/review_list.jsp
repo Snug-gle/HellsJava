@@ -5,6 +5,10 @@
 
 	<div class="reviewcontent">
 		<c:forEach var="reviewList" items="${reviewrList }" >
+			<form id="reviemUpdateForm">
+				<input type="hidden" id="ptServiceNo" name="ptServiceNo" value="${reviewList.ptServiceNo}">
+				<input type="hidden" id="ptServiceStatus" name="ptServiceStatus" value="">
+			</form>
 			<div class="reviewbody">
 				<div class="reviewbody-top">
 					<div><h3>${reviewList.memberName }</h3></div>
@@ -24,7 +28,7 @@
 				<div class="reviewbody-bottom">
 					<button class="reviewMobtn">수정</button>
 					<button class="reviewMoOkbtn">확인</button>
-					<button class="reviewDebtn">삭제</button>
+					<button class="reviewDebtn" >삭제</button>
 				</div>
 			</div>
 		</c:forEach>
@@ -51,5 +55,14 @@
 		$(this).prev().show();
 		$(this).next().show();
 	});
-
+	onclick="<c:url value='/review/list/reviewUpdate?pt_service_no= &pt_service_status='/>"
+	
+	
+	$(".reviewDebtn").click(function() {
+		$("#reviemUpdateForm").attr("action","<c:url value='/review/list/reviewUpdate'/>");
+		$("#ptServiceStatus").val('0');
+		$("#reviemUpdateForm").submit();
+	})
+			
 </script>
+	
