@@ -5,7 +5,7 @@
 		<selectKey resultType="int" keyProperty="ptOnceNo" order="BEFORE">
 			select seq_pt_once.nextval from dual
 		</selectKey>
-		insert into ptOnce values(
+		insert into pt_once values(
 		#{ptOnceNo},
 		#{ptOnceGender},
 		#{ptOnceAge},

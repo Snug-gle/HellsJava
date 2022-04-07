@@ -91,7 +91,7 @@ public class PtOnceController {
 		
 		payService.addPay(pay);
 		
-		return "/"; // 어디로 보내지? 1회 pT 신청리스트로 보내고 싶다 혹시 하면 주석 제거 할것
+		return "main"; // 어디로 보내지? 1회 pT 신청리스트로 보내고 싶다 혹시 하면 주석 제거 할것
 	}
 
 	
