@@ -9,20 +9,13 @@
 			<div class="pageheader" style="font-size: 20px;">
 				<div style="text-align: center;">
 					<h1>PT 문의 내역
-						<c:choose>
-							<c:when test="${empty(ptQnaList) }">
-								&nbsp;
-							</c:when>
-							<c:otherwise>
-								<div class="reviewRight" style="float: right;">
-									<select id="category" name="category" class="btn btn-primary dropdown-toggle">
-										<option <c:if test="${status==9 }">selected="selected"</c:if> value="9" >전체</option>
-										<option <c:if test="${status==2 }">selected="selected"</c:if> value="2">미확인</option>
-										<option <c:if test="${status==3 }">selected="selected"</c:if> value="3">확인</option>
-									</select>
-								</div>
-							</c:otherwise>
-						</c:choose>
+						<div class="reviewRight" style="float: right;">
+							<select id="category" name="category" class="btn btn-primary dropdown-toggle">
+								<option <c:if test="${status==9 }">selected="selected"</c:if> value="9" >전체</option>
+								<option <c:if test="${status==2 }">selected="selected"</c:if> value="2">미확인</option>
+								<option <c:if test="${status==3 }">selected="selected"</c:if> value="3">확인</option>
+							</select>
+						</div>
 					</h1>
 				</div>
 			</div>
