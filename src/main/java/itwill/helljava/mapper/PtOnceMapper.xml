@@ -49,7 +49,7 @@
 					from pt_once p left join member m on p.member_no = m.member_no
 					<trim prefix="where" prefixOverrides="and">
 						<if test="pt_once_status != null and pt_once_status != ''">
-							p.pt_ptonce_status = #{pt_ptonce_status}
+							p.pt_once_status = #{pt_once_status}
 						</if>
 					and p.trainer_no = #{trainer_no}
 				</trim>
