@@ -480,6 +480,8 @@ geocoder.addressSearch('${trainer.trainerAddress}', function(result, status) {
 });    
 
 
+
+
 //---------------------------------------------------------------
 // 1회 PT 가격 1회 pt 결제 모달창에 띄우기
 var oncePrice = $(".oncePrice").html();
