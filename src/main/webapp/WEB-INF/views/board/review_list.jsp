@@ -9,13 +9,13 @@
 			<form class="reviemUpdateForm${reviewList.ptServiceNo}">
 				<input type="hidden" id="ptServiceNo${reviewList.ptServiceNo}" name="ptServiceNo" value="${reviewList.ptServiceNo}">
 				<input type="hidden" id="ptServiceStatus${reviewList.ptServiceNo}" name="ptServiceStatus" value="1">
-				<input type="hidden" id="ptServiceMemberName${reviewList.ptServiceNo}" name="trainername" value="${reviewList.memberName }">
 			</form>
 			<div class="reviewbody">
 				<div class="reviewbody-top">
 					<div><h3 class="tr-name${reviewList.ptServiceNo}">${reviewList.memberName }</h3></div>
 					<div><h3>${reviewList.ptServiceTitle }</h3></div>
-					<div>확인용 글번호<h3>${reviewList.ptServiceNo}</h3></div>
+					<div>확인용 번호<h3>${reviewList.memberNo}</h3></div>
+					<div>확인용 번호2<h3>${reviewList.trainerNo}</h3></div>
 					<div>
 						<strong>별점</strong>
 						<span>${reviewList.ptServiceStars }</span>

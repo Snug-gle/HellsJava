@@ -21,7 +21,9 @@ import itwill.helljava.Enum.PtServiceStatusEnum;
 import itwill.helljava.dto.Member;
 import itwill.helljava.dto.NoticeService;
 import itwill.helljava.dto.PtService;
+import itwill.helljava.dto.Trainer;
 import itwill.helljava.service.PtServiceService;
+import itwill.helljava.service.TrainerService;
 import itwill.helljava.util.Pager;
 
 @Controller
@@ -30,6 +32,9 @@ public class ReviewController {
 
 	@Autowired
 	private PtServiceService ptServiceService;
+	
+	@Autowired
+	private TrainerService trainerService;
 	
 	//내가 쓴 리뷰 보기 목록 리스트
 	@RequestMapping(value = "/list",method = RequestMethod.GET)
@@ -92,10 +97,12 @@ public class ReviewController {
 		}
 		if(req.getParameter("ptServiceNo") !=null) {
 			int ptServiceNo = Integer.parseInt(req.getParameter("ptServiceNo"));
-			String name = req.getParameter("trainername");
-			PtService ptdelete = ptServiceService.getPtService(ptServiceNo);
+			PtService ptdelete = ptServiceService.getPtService(ptServiceNo);//글 넘버로 글 정보 받아오기
+			Trainer trainer = trainerService.getTrainerTrainerNo(ptdelete.getTrainerNo()); //글정보에 있는 트레이너 번호로 이름 가져오기
+			
+
 			model.addAttribute("review", ptdelete);
-			model.addAttribute("trainerName", name);
+			model.addAttribute("trainer", trainer);
 		}
 	
 		return "board/review_write";
@@ -103,28 +110,30 @@ public class ReviewController {
 	
 	//리뷰 작성 후 저장 요청 처리 메소드
 	@RequestMapping(value =  "/write", method = RequestMethod.POST)
-	public String reviewWrite(@ModelAttribute PtService ptService ,Model model) {
+	public String reviewWrite(@ModelAttribute PtService ptService , HttpSession session, Model model) {
 		
-		ptServiceService.addPtService(ptService);
-		//평점 옵션
-		Map ratingOptions = new HashMap();
-		ratingOptions.put(0, "☆☆☆☆☆");
-		ratingOptions.put(1, "★☆☆☆☆");
-		ratingOptions.put(2, "★★☆☆☆");
-		ratingOptions.put(3, "★★★☆☆");
-		ratingOptions.put(4, "★★★★☆");
-		ratingOptions.put(5, "★★★★★");
+		int memberNo = ((Member) (session.getAttribute("loginUserinfo"))).getMemberNo();//이거슨 로그인한놈의 회원번호여
 		
-		model.addAttribute("ratingOptions", ratingOptions);
-	
+		  ptService.setMemberNo(memberNo); ptService.setPtServiceStatus(1);
+		  ptService.setPtServiceSortation(1);
+		  
+		  //테스트 코드
+		  ptService.setPtServiceNo(138);//수동으로 부여
+		  ptService.setTrainerNo(1);//수동으로 부여
 		
-		return "board/review_list";
+		  ptServiceService.addPtService(ptService);
+
+		return "redirect:/review/list";
 	}
 	
 	//리뷰 수정 후 저장 요청 처리 메소드
 	@RequestMapping("/modify")
-	public String reviewModify(Model model) {
-		return "board/review_list";
+	public String reviewModify(@ModelAttribute PtService ptService) {
+		
+		ptService.setPtServiceStatus(9);//쿼리 if문 회피용 값 수동 부여
+		ptServiceService.modifyPtService(ptService);
+
+		return "redirect:/review/list";
 	}
 	
 }
