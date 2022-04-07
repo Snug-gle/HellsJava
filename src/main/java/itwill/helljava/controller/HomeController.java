@@ -26,14 +26,20 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String tiles(HttpSession session, Model model) {
 
+		// 로그인 정보가 있을 때
 		if (session.getAttribute("loginUserinfo") != null) {
 			session.setAttribute("memberAccount",
 					accountSevice.getMemberAccount((((Member) session.getAttribute("loginUserinfo")).getMemberNo())));
-		
 
-			model.addAttribute("bankName", AccountEnum.of(accountSevice.getMemberAccount((((Member) session.getAttribute("loginUserinfo")).getMemberNo())).getAccountBank()));
+			// 계좌가 등록되어 있을 경우만
+			if (accountSevice
+					.getMemberAccount((((Member) session.getAttribute("loginUserinfo")).getMemberNo())) != null) {
+				model.addAttribute("bankName",
+						AccountEnum.of(accountSevice
+								.getMemberAccount((((Member) session.getAttribute("loginUserinfo")).getMemberNo()))
+								.getAccountBank()));
+			}
 		}
-
 		return "main";
 	}
 
