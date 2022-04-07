@@ -83,24 +83,30 @@
 									                        </h3>  
 									                    </div>
 									                    <div class="panel-body">
-									                        <form role="form" action="" method="post">
+									                        <form id='cashForm' role="form" action='<c:url value="/cash/refill"/>' method="post">
+									                       		<input type="hidden" name="memberNo" value="${loginUserinfo.memberNo }">
 									                            <div class="form-group">
 									                                <label for="bankName">은행명</label>
-									                                <span class="text">은행명출력</span>
+									                                <span class="text">${bankName}</span>
 									                            </div>
 									                            <div class="form-group">
 									                                <label for="accountNumber">계좌번호</label>
-									                                <span class="text">계좌번호출력</span>
+									                                <span class="text">${memberAccount.accountNumber }</span>
 									                                
 									                            </div>
 									                             <div class="form-group">
 									                                <label for="exampleInputPassword1">충전 금액</label>
-									                                <input type="text" class="form-control" id="" name="" placeholder="충전금액을 입력해 주세요">
+									                                <input type="text" class="form-control" id="refillCash" name="refillCash" placeholder="충전금액을 입력해 주세요">
 									                            </div>
 									                              <div class="form-group">
 									                                <label for="exampleInputPassword1">결제 비밀번호</label>
 									                                <input type="password" class="form-control" id="accountPw" name="accountPw" placeholder="결제 비밀번호를 입력해 주세요">
+									                            	<p>${message}</p>
 									                            </div>
+									                            <div>
+																	<button type="submit" class="btn btn-primary btn-block">충전</button>
+                           											<button type="button" class="btn btn-default btn-block" data-dismiss="modal">닫기</button>
+																</div>
 									                        </form>
 									
 															</div>
@@ -108,11 +114,8 @@
 									                </div>
 													</div>
 													<div class="modal-footer">
-														<div>
-															<button type="submit" class="btn btn-primary btn-block">충전</button>
-                           									<button type="button" class="btn btn-default btn-block" data-dismiss="modal">닫기</button>
-														</div>
 														
+												
 													</div>
 												</div>
 											</div>

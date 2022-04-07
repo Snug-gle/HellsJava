@@ -174,6 +174,7 @@ public class TrainerController {
 
 		// 회원번호는 이미 map에 들가잇음. 캐쉬 차감
 		map.put("cash", 15000);
+		map.put("cashType", PayTypeEnum.트레이너신청.getValue());
 		memberService.modifyMemberCash(map);
 
 		// 이제 계좌 정보를 가져와서 비밀번호를 비교하고 결제 완료할 것임
