@@ -35,7 +35,7 @@
 		        	<p><i class="icon-note myPageIcon"></i></p></a>
 		        </div>
 		        <div class="flex-item">
-		        	<a href="${pageContext.request.contextPath}/pt/request/list" style="color: #fff">PT 문의 내역
+		        	<a href="${pageContext.request.contextPath}/ptqna/list" style="color: #fff">PT 문의 내역
 		        	<p><i class="icon-note myPageIcon"></i></p></a>
 		        </div>
 		        
