@@ -243,12 +243,13 @@ public class AdminController {
 		returnMap.put("endRow", pager.getEndRow());
 		returnMap.put("memberStatus", Integer.parseInt(memberStatus));
 			
-		model.addAttribute("memberList", trainerService.getTrainerList(returnMap));
+		model.addAttribute("trainerList", trainerService.getTrainerList(returnMap));
 		model.addAttribute("pager",pager);
 		model.addAttribute("number",number);
 		model.addAttribute("searchValue",searchValue);
+		model.addAttribute("memberStatus", memberStatus);
 			
-		return "/admin/admin_userList";
+		return "/admin/admin_trainerList";
 	}
 
 	// 트레이너 리스트 모달 창 ajax get 요청 awardList로 반환

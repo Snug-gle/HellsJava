@@ -87,18 +87,20 @@
 			select * from     
 			(select rownum rn,board.* from (select * from
 			
-		<trim>
-			<if test="searchKeyword != null and searchValue !=''" >
+		<choose>
+			<when test="searchKeyword != null and searchValue !=''" >
 				(select * from member m right join trainer t 
-			            on m.member_no = t.member_no where ${searchKeyword} like '%'||#{searchValue}||'%')
-			</if>
-			<if test="searchValue == null or searchValue == ''">
+			            on m.member_no = t.member_no where ${searchKeyword} like '%'||#{searchValue}||'%'
+			             and m.member_status = #{memberStatus}
+							order by m.member_no desc)
+			</when>
+			<when test="searchValue == null or searchValue == ''">
 				 member m right join trainer t 
-			            on m.member_no = t.member_no
-			</if>
-		</trim>
-			where m.member_status = #{memberStatus}
-			order by m.member_no desc) board)
+			            on m.member_no = t.member_no where m.member_status = #{memberStatus}
+							order by m.member_no desc
+			</when>
+		</choose>
+				) board)
 				where rn between #{startRow} and #{endRow}
 			
 	</select>
