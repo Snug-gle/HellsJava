@@ -9,9 +9,18 @@
 			<h3 class="panel-title">리뷰 작성 및 수정</h3>
 		</div>
 		<div class="panel-body">
-			<form id="registerForm" method="post" name="reviewForm" action="<c:url value='/'/>"
+			<c:if test="${review.ptServiceNo != null }">
+				<form id="registerForm" method="post" name="reviewForm" action="<c:url value='/review/modify'/>"
 				class="form-horizontal" role="form">
-				
+			</c:if>
+			<c:if test="${review.ptServiceNo == null }">
+				<form id="registerForm" method="post" name="reviewForm" action="<c:url value='/review/write'/>"
+				class="form-horizontal" role="form">
+			</c:if>
+			
+				<c:if test="${review.ptServiceNo != null }">
+					<input type="hidden" name="ptServiceNo" value="${review.ptServiceNo }">
+				</c:if>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">제목</label>
 					<div class="col-sm-3">
@@ -26,7 +35,7 @@
 					<label class="col-sm-2 control-label">트레이너</label>
 					<div class="col-sm-3">
 						<input type="text" class="form-control"
-							name="" value="${trainerName}"
+							name="" value="${trainer.memberName}"
 							readonly="readonly" />
 					</div>
 				</div>
