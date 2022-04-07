@@ -42,6 +42,7 @@ public class ReviewController {
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		
 		searchMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
+		searchMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
 		searchMap.put("member_no", ((Member) session.getAttribute("loginUserinfo")).getMemberNo());
 		
 		int totalBoard = ptServiceService.getPtServiceCount(searchMap);
@@ -72,10 +73,6 @@ public class ReviewController {
 		int pt_service_no = Integer.parseInt(req.getParameter("ptServiceNo"));
 		int pt_service_status =Integer.parseInt(req.getParameter("ptServiceStatus"));
 		
-		System.out.println(" pt_service_no = "  + pt_service_no);
-		System.out.println(" pt_service_status = " + pt_service_status);
-		
-		
 		PtService ptdelete = ptServiceService.getPtService(pt_service_no);
 		
 		ptdelete.setPtServiceNo(pt_service_no);
@@ -85,17 +82,20 @@ public class ReviewController {
 		
 		return "redirect:/review/list";
 	}
-	
-	
-	
-	
-	
-	//리뷰 작성 페이지 요청 처리 메소드
+
+	//리뷰 작성 및 수정 페이지 요청 처리 메소드
 	@RequestMapping(value = "/write" , method = RequestMethod.GET)
-	public String reviewWrite(HttpSession session) {
+	public String reviewWrite(HttpServletRequest req, HttpSession session, Model model) {
 		
 		if (session.getAttribute("loginUserinfo") != null) {
 			
+		}
+		if(req.getParameter("ptServiceNo") !=null) {
+			int ptServiceNo = Integer.parseInt(req.getParameter("ptServiceNo"));
+			String name = req.getParameter("trainername");
+			PtService ptdelete = ptServiceService.getPtService(ptServiceNo);
+			model.addAttribute("review", ptdelete);
+			model.addAttribute("trainerName", name);
 		}
 	
 		return "board/review_write";
