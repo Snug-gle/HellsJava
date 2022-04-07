@@ -48,7 +48,7 @@
 									<div class="panel panel-default">
 										<c:choose>
 											<c:when test="${empty(oOo.noticeServiceReply)}">
-												<div class="personalContent">
+												<div style="padding: 15px 105px;">
 													<h3>답변 드릴 예정입니다.</h3>
 												</div>
 											</c:when>
@@ -57,7 +57,7 @@
 													<table class="table table-hover">
 														<tbody>
 															<tr>
-																<td style="width: 100px; text-align: center;">ㄴ답글</td>
+																<td style="width: 100px; text-align: center;"><i class="fa fa-check-square-o"></i>답글</td>
 																<td style="width: auto;"><a data-toggle="collapse" data-parent="#accordion" href="#${oOo.noticeServiceNo}"
 															class="collapsed" aria-expanded="false">
 															${oOo.noticeServiceTitle}</a></td>
