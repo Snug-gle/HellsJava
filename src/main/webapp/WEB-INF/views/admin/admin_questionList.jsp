@@ -19,9 +19,9 @@
 						<i class="icon-users"></i>트레이너 목록</a>
 							<ul class="nav-sub" data-index="0" style="display: none;">
 								<li class=""><a
-									href="<c:url value="/admin/trainerList"/>" title="Buttons">
+									href="<c:url value="/admin/trainerList/3"/>" title="Buttons">
 										트레이너목록</a></li>
-								<li><a href="" title="Sliders &amp; Progress">트레이너 신청 목록</a></li>
+								<li><a href="<c:url value="/admin/trainerList/2"/>" title="Sliders &amp; Progress">트레이너 신청 목록</a></li>
 							</ul>
 					</li>
 					<li class="nav-dropdown"><a
@@ -140,7 +140,7 @@
 		boardDisplay(page, idid);
 
 		idid=idid*1;
-		alert(idid);
+
 		/* 게시글 목록을 검색하여 JSON 텍스트로 응답하는 웹프로그램을 AJAX로 요청하여 처리하는 함수 */
 		function boardDisplay(pageNum, idid) {
 				page=pageNum;

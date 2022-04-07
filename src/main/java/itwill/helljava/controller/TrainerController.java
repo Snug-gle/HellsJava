@@ -200,6 +200,10 @@ public class TrainerController {
 		return "user/trainer/trainer_mypage";
 	}
 
+	
+	
+	
+	
 	@ExceptionHandler(value = AccountPwAuthException.class)
 	public String exceptionHandler(AccountPwAuthException exception, Model model) {
 
@@ -209,4 +213,6 @@ public class TrainerController {
 		return "/user/trainer/trainer_request";
 	}
 
+	
+	
 }

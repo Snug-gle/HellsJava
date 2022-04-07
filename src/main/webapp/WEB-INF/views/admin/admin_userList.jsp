@@ -132,7 +132,7 @@
 		
 		location.href="${pageContext.request.contextPath}/admin/userSearch?searchKeyword="+searchKeyword+"&searchValue="+searchValue;
 
-	})
+	});
 	
 	//-----------------Paging----------------------------------
 	var page = 1; //현재 요청 페이지 번호를 저장하기 위한 전역 변수
