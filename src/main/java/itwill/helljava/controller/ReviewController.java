@@ -3,6 +3,7 @@ package itwill.helljava.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,9 +66,16 @@ public class ReviewController {
 	}
 	
 	// //내가 쓴 리뷰 보기 목록 리스트 =>삭제
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String memberStatusModify(@RequestParam int pt_service_no, @RequestParam int pt_service_status) {
-	
+	@RequestMapping(value = "list/reviewUpdate", method = RequestMethod.GET)
+	public String memberStatusModify(HttpServletRequest req) {
+		
+		int pt_service_no = Integer.parseInt(req.getParameter("ptServiceNo"));
+		int pt_service_status =Integer.parseInt(req.getParameter("ptServiceStatus"));
+		
+		System.out.println(" pt_service_no = "  + pt_service_no);
+		System.out.println(" pt_service_status = " + pt_service_status);
+		
+		
 		PtService ptdelete = ptServiceService.getPtService(pt_service_no);
 		
 		ptdelete.setPtServiceNo(pt_service_no);
@@ -75,7 +83,7 @@ public class ReviewController {
 		
 		ptServiceService.modifyPtService(ptdelete);
 		
-		return "redirect:/review/List";
+		return "redirect:/review/list";
 	}
 	
 	

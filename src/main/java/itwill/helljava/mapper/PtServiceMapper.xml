@@ -32,7 +32,10 @@
 				pt_service_reply = #{ptServiceReply},
 			</if>
 			<if test="ptServiceStars != null and ptServiceStars != ''">
-				pt_service_stars = #{ptServiceStars}
+				pt_service_stars = #{ptServiceStars},
+			</if>
+			<if test="ptServiceStatus &gt;=0  and ptServiceStatus &lt;=3 ">
+				pt_service_status = #{ptServiceStatus}
 			</if>
 		</set>
 		where pt_service_no = #{ptServiceNo}
