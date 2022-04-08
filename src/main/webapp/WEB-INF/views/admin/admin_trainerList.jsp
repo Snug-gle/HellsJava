@@ -100,14 +100,13 @@
 <c:forEach var="trainer" items="${trainerList }" varStatus="status">
 	<div class="modal fade" id="trainer_view${status.index}" role="dialog" >
 		<div class="modal-dialog" id="modal-dialog" style="text-align: left;">
-			<div class="modal-content">
+			<div class="modal-content" style="margin-top: 10%;">
 				<div class="modal-header">
 					<div class="logo-location">
 						<a href="<c:url value="/"/>" class="modal-header-logo"><i class="icon-layers"></i>오늘의 짐</a>
 					</div>
 				</div>
 				<div class="modal-body">
-					<div id="login-wrapper">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h3 class="panel-title">트레이너 상세</h3>
@@ -119,7 +118,7 @@
 									<hr>
 									<div class="row">
 										<div class="trainerDetailView">
-											<img alt="" src="<spring:url value='/profileImages/${trainer.trainerProfileImg}'/>">
+											<img style="width: 97px; vertical-align: middle;" alt="" src="<spring:url value='/profileImages/${trainer.trainerProfileImg}'/>">
 										</div>
 										<div class="ad-t-v-header-info trainerDetailView">
 										<input type="hidden" id="trainerMemberNo" name="trainerMemberNo" value="${trainer.memberNo}">
@@ -176,7 +175,6 @@
 									</div>
 								</div>
 							</div>
-						</div>
 					</div>
 				</div>
 		</div>
