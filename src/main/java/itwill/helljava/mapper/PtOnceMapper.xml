@@ -18,12 +18,23 @@
 		#{ptOnceStatus})
 	</insert>
 	
+	<update id="updatePtOnceStatus">
+		update pt_once set pt_once_status = #{pt_once_status} where pt_once_no=#{pt_once_no}
+	</update>
+	
+	
 	<select id="selectPtOnceCount" resultType="int">
 		select count(*) from pt_once where member_no=#{member_no}
 	</select>
 	
 	<select id="selectPtOnceTrainerCount" resultType="int">
-		select count(*) from pt_once where trainer_no=#{trainer_no}
+		select count(*) from pt_once 
+			<trim prefix="where" prefixOverrides="and">
+				<if test="pt_once_status &gt;= 0 and pt_once_status &lt;= 2">
+					pt_once_status = #{pt_once_status}
+				</if>
+				and trainer_no=#{trainer_no}
+			</trim>
 	</select>
 	
 	<select id="selectPtOnce" resultType="PtOnce">
