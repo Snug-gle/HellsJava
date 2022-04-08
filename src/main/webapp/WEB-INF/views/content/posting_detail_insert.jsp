@@ -2,12 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
-<style type="text/css">
-ul {
-	list-style: none;
-	padding-left: 0px;		
-}
-</style>
 <div class="container animated fadeInUp">
 	<div class="panel panel-default">
 		<div id="login-wrapper">
