@@ -125,8 +125,8 @@ function sample4_execDaumPostcode() {
 									<ul class="tr-in-header-award-unit" style="list-style: none;">
 										<li class="tr-in-header-award-rego" >
 											<img alt="" src="" class="award-load-img">
+											<input type="file" id="award_image" name="aImage" placeholder="사진 첨부" accept="image/*" style="display: inline-block;"><br>
 											<input type="text" id="award_content" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;">
-											<input type="file" id="award_image" name="aImage" placeholder="사진 첨부" accept="image/*" style="display: inline-block;">
 											<p id="awardContentRegMsg" class="error">수상 경력 설명을 반드시 입력하세요.</p>
 											<p id="awardImageRegMsg" class="error">수상 경력 사진을 반드시 첨부하세요.</p>
 										</li>
@@ -149,25 +149,27 @@ function sample4_execDaumPostcode() {
 											</div>
 										<div style="padding: 50px;">
 										<label class="col-sm-2 control-label">결제 비밀번호</label>
-										<div class="col-sm-3">
+										<div class="col-sm-4">
 											<input type="password" id="account_pw" name="accountPw"
 												class="form-control" placeholder="">
 											<p id="accountPwRegMsg" class="error">결제 비밀번호를 반드시 입력하세요.</p>
 											<p id="accountErrorMsg">${message}</p>
+											<br>
 										</div>
 										</div>
 									</div>
 									</div>
 								</div>
 							</div>
+						<br>
+						<br>
+						<div class="tr-in-footer btnGroup">
+							<button id="submitBtn" type="submit" class="btn btn-primary">확인</button>
+							<button type="reset" class="btn btn-primary">다시쓰기</button>
+							<br>
+						</div>
 						</form>
-				<hr>
 					</div>
-				</div>
-				<div class="tr-in-footer btnGroup">
-					<button id="submitBtn" type="submit" class="btn btn-primary">확인</button>
-					<button type="reset" class="btn btn-primary">다시쓰기</button>
-					<br>
 				</div>
 			</div>
 		</div>
@@ -233,8 +235,8 @@ function sample4_execDaumPostcode() {
 	var html2 = "<li class='tr-in-header-award-rego'>";
 	html2 += "<i class='fa fa-minus-square' id='award-remove-btn'></i>&nbsp;";
 	html2 += "<img alt='' src='' class='award-load-img'>&nbsp;";
-	html2 += "<input type='text' id='award_content' name='aContent' placeholder='수상 경력 및 이력' style='display: inline-block;' class='trainer-profile-form-control'>";
-	html2 += "<input type='file' id='award_image' name='aImage' accept='image/*' style='display: inline-block;'> ";
+	html2 += "<input type='file' id='award_image' name='aImage' accept='image/*' style='display: inline-block;'><br>";
+	html2 += "<input type='text' id='award_content' style='margin-left: 17px;' name='aContent' placeholder='수상 경력 및 이력' style='display: inline-block;' class='trainer-profile-form-control'>";
 	html2 += "<p id='awardContentRegMsg' class='error'>수상 경력 설명을 반드시 입력하세요.</p>";
 	html2 += "<p id='awardImageRegMsg' class='error'>수상 경력 사진을 반드시 첨부하세요.</p>";
 	html2 += "</li>";

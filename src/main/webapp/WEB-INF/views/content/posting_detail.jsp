@@ -83,17 +83,14 @@
 							<div class="col-md-12" id="posting-detail-award">
 								<div class="panel panel-primary">
 									<div class="panel-heading">
-										<h2 class="h2BoldWhite">자격 사항</h2>
+										<h2 class="h2BoldWhite">수상경력 및 이력</h2>
 									</div>
 									<div class="frofile-content-body posting-detail-content-panel">
+										<hr>
 										<c:forEach var="awarditem" items="${award}">
-											<div class="frofile-award-content-body">
-												<div class="frofile-award-content-body-img">
-													<img alt="" src="<spring:url value="/awardImages/${awarditem.awardImage}"/>"> 
-												</div>
-												<div class="frofile-award-content-body-title">
-													<h4>${awarditem.awardContent}</h4>
-												</div>
+											<div class="frofile-award-content-body" >
+													<img style="display: inline-block; width: 60px; height: 60px;" alt="" src="<spring:url value="/awardImages/${awarditem.awardImage}"/>"> 
+													<label class="posting-label">${awarditem.awardContent}</label>
 												<hr>
 											</div>
 										</c:forEach>
