@@ -34,6 +34,7 @@ import itwill.helljava.service.AccountSevice;
 import itwill.helljava.service.AwardService;
 import itwill.helljava.service.MemberService;
 import itwill.helljava.service.PayService;
+import itwill.helljava.service.PostingService;
 import itwill.helljava.service.TrainerService;
 
 @Controller
@@ -57,6 +58,10 @@ public class TrainerController {
 
 	@Autowired
 	private PayService payService;
+	
+	@Autowired
+	private PostingService postingService;
+	
 
 	// 트레이너 신청 화면을 요청
 	@RequestMapping(value = "/trainer/request", method = RequestMethod.GET)
@@ -195,15 +200,14 @@ public class TrainerController {
 
 	// 트레이너 마이페이지 Get 요청
 	@RequestMapping(value = "/trainer/mypage", method = RequestMethod.GET)
-	public String trainerPage() {
+	public String trainerPage(Model model, HttpSession session) {
+		int trainerNo = trainerService.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo())
+				.getTrainerNo();
 
+		model.addAttribute("posting", postingService.getPosting(trainerNo));
 		return "user/trainer/trainer_mypage";
 	}
 
-	
-	
-	
-	
 	@ExceptionHandler(value = AccountPwAuthException.class)
 	public String exceptionHandler(AccountPwAuthException exception, Model model) {
 
@@ -213,6 +217,4 @@ public class TrainerController {
 		return "/user/trainer/trainer_request";
 	}
 
-	
-	
 }

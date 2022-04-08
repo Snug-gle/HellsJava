@@ -48,6 +48,10 @@
 											신청</button>
 										<button type="button" data-toggle="modal"
 											data-target="#pt-ask" class="btn btn-primary">문의</button>
+										<c:if test="${loginUserinfo.memberNo == trainer.memberNo }">
+											<button class="btn btn-primary" type="button" 
+											onclick="location.href='${pageContext.request.contextPath}/posting/modify'">포스팅 수정</button>
+										</c:if>
 									</div>
 
 								</div>
