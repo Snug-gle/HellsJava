@@ -53,7 +53,7 @@
 									<table>
 										<c:forEach var="taward" items="${trainerAwards}">
 										<tr>
-											<td> <img alt="tawardImage" src="<spring:url value="/awardImages/${taward.awardImage}"/>"></td>
+											<td><img alt="tawardImage" src="<spring:url value='/awardImages/${taward.awardImage}'/>"></td>
 											<td>${taward.awardContent}</td>
 										</tr>	
 										</c:forEach>
@@ -189,7 +189,7 @@
 										<c:set var="an" value="5"/>
 										<c:forEach var="dayoffList" items="${scheduleInfo}" varStatus="status" >
 											<c:if test="${dayoffList.scheduleWorkday == 4}">
-												<c:set var="an" value="${status.index} }"/>
+												<c:set var="an" value="${status.index}"/>
 											</c:if>
 										</c:forEach>
 										<c:choose>
@@ -243,7 +243,7 @@
 														</c:when>
 														<c:otherwise>
 															<li>
-																<i class='fa fa-minus-square' id='price-remove-btn'></i>&nbsp;";
+																<i class='fa fa-minus-square' id='price-remove-btn'></i>&nbsp;
 																<input class='p-pt posting-form-control' id='p-pt${status.index}' name='round' type='number' min='1' value="${ptPricingInfo.ptPricingRound}" placeholder='PT 회차수'>
 																<input class='p-pr posting-form-control' id='p-pr${status.index}' name='roundPrice' type='number' min='1000' value="${ptPricingInfo.ptPricingPrice}" placeholder='회당 가격'>
 																<span>&nbsp;&nbsp;&nbsp;총 가격=<span id='totPrice'></span>원</span>
