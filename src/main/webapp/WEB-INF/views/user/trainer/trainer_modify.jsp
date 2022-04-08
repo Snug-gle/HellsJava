@@ -79,7 +79,7 @@ function sample4_execDaumPostcode() {
 								<hr>
 								<h3><strong>프로필 사진</strong></h3>
 								<hr>
-								<img alt="" src="" class="trainer-Profile-img"> 
+								<img alt="" src="<spring:url value="/img/${trainerInfo.trainerProfileImg}"/>" class="trainer-Profile-img"> 
 								<input id="trainer_profile_image" type="file" readonly="readonly" name="profileImage" placeholder="프로필 사진 첨부" accept="image/*" value="${trainerInfo.trainerProfileImg}">
 								<div id="trainerProfileImgRegMsg" class="error">프로필 사진을 반드시 첨부하세요.</div>
 							</div>
@@ -132,16 +132,16 @@ function sample4_execDaumPostcode() {
 											 <c:when test="${empty(awardInfo)}">
 											 	<li class="tr-in-header-award-rego" >
 													<img alt="" src="" class="award-load-img">
-													<input type="file" id="award_image0" name="aImage" onchange="setImageFromFile(this)" onload="setImageFromFile(this)" placeholder="사진 첨부" accept="image/*" style="display: inline-block;" value="${awardInfo.awardImage}"><br>
-													<input type="text" id="award_content0" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;" value="${awardInfo.awardContent}">
+													<input type="file" id="award_image0" name="aImage" onchange="setImageFromFile(this)" onload="setImageFromFile(this)" placeholder="사진 첨부" accept="image/*" style="display: inline-block;" value=""><br>
+													<input type="text" id="award_content0" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;" value="">
 												</li>
 											 </c:when>
 											 <c:otherwise>
 												 <c:forEach var="awardList" items="${awardInfo}" varStatus="status">
 													<li class="tr-in-header-award-rego" >
-														<img alt="" src="" class="award-load-img">
-														<input type="file" id="award_image${status.index}" name="aImage" onchange="setImageFromFile(this)" onload="setImageFromFile(this)" placeholder="사진 첨부" accept="image/*" style="display: inline-block;" value="${awardInfo.awardImage}"><br>
-														<input type="text" id="award_content${status.index}" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;" value="${awardInfo.awardContent}">
+														<img alt="" src="<spring:url value="/img/${awardList.awardImage}"/>" class="award-load-img">
+														<input type="file" id="award_image${status.index}" name="aImage" onchange="setImageFromFile(this)" onload="setImageFromFile(this)" placeholder="사진 첨부" accept="image/*" style="display: inline-block;" value="${awardList.awardImage}"><br>
+														<input type="text" id="award_content${status.index}" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;" value="${awardList.awardContent}">
 														<input type="hidden" value="${i =status.index}">
 													</li>
 												</c:forEach>
@@ -198,9 +198,9 @@ function sample4_execDaumPostcode() {
 <script>                                
 	
 	if($("#onp").val()==null){
-		var onp = 0;		
+		var onp = 0*1;		
 	} else {
-		var onp = $("#onp").val();
+		var onp = $("#onp").val()*1;
 	}
 	
 	var html2;
@@ -208,11 +208,12 @@ function sample4_execDaumPostcode() {
 	$(document).on("click", "#award-plus-btn", function() {
 		onp += 1; //카운트로 식별자 구분
 		onp = onp *1;
+
 		html2 = "<li class='tr-in-header-award-rego'>";
 		html2 += "<i class='fa fa-minus-square' id='award-remove-btn'></i>&nbsp;";
 		html2 += "<img alt='' src='' class='award-load-img'>&nbsp;";
-		html2 += "<input type='file' id='award_image"+onp+"' onchange='setImageFromFile(this)' name='aImage' accept='image/*' style='display: inline-block;'><br>";
-		html2 += "<input type='text' id='award_content"+onp+"' style='margin-left: 17px;' name='aContent' placeholder='수상 경력 및 이력' style='display: inline-block;' class='trainer-profile-form-control'>";
+		html2 += "<input type='file' id='award_image"+onp+"' onchange='setImageFromFile(this)' name='aImage' accept='image/*' required style='display: inline-block;'><br>";
+		html2 += "<input type='text' id='award_content"+onp+"' style='margin-left: 17px;' name='aContent' required placeholder='수상 경력 및 이력' style='display: inline-block;' class='trainer-profile-form-control'>";
 		html2 += "</li>";
 		
 	    $(".tr-in-header-award-unit").append(html2);

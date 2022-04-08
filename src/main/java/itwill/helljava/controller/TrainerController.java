@@ -71,7 +71,13 @@ public class TrainerController {
 	
 	// 트레이너 수정 화면을 요청
 	@RequestMapping(value = "/trainer/modify", method = RequestMethod.GET)
-	public String trainerModify() {
+	public String trainerModify(HttpSession session, Model model) {
+		
+		int MemberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
+
+		model.addAttribute("trainerInfo", trainerService.getTrainer(MemberNo));
+		model.addAttribute("awardInfo", awardService.getAwardList(trainerService.getTrainer(MemberNo).getTrainerNo()));
+		
 		return "/user/trainer/trainer_modify";
 	}
 	
