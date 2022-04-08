@@ -77,7 +77,7 @@ function sample4_execDaumPostcode() {
 								<h3><strong>프로필 사진 등록</strong></h3>
 								<hr>
 								<img alt="" src="" class="trainer-Profile-img"> 
-								<input id="trainer_profile_image" type="file" readonly="readonly" name="profileImage" placeholder="프로필 사진 첨부" accept="image/*">
+								<input id="trainer_profile_image" type="file" readonly="readonly" name="profileImage" placeholder="프로필 사진 첨부" required accept="image/*">
 								<div id="trainerProfileImgRegMsg" class="error">프로필 사진을 반드시 첨부하세요.</div>
 							</div>
 							<br>
@@ -125,7 +125,7 @@ function sample4_execDaumPostcode() {
 									<ul class="tr-in-header-award-unit" style="list-style: none;">
 										<li class="tr-in-header-award-rego" >
 											<img alt="" src="" class="award-load-img">
-											<input type="file" id="award_image0" name="aImage" onchange='setImageFromFile(this)' placeholder="사진 첨부" accept="image/*" style="display: inline-block;"><br>
+											<input type="file" id="award_image0" name="aImage" onchange='setImageFromFile(this)' required placeholder="사진 첨부" accept="image/*" style="display: inline-block;"><br>
 											<input type="text" id="award_content0" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;">
 										</li>
 									</ul>
@@ -237,7 +237,7 @@ function sample4_execDaumPostcode() {
 		return submitResult;
 	});                                
 	
-	var onp = 0;		
+	var onp = 0*1;		
 	var html2;
 	//동적 태그 생성(수상경력 추가시)
 	$(document).on("click", "#award-plus-btn", function() {
@@ -246,7 +246,7 @@ function sample4_execDaumPostcode() {
 		html2 = "<li class='tr-in-header-award-rego'>";
 		html2 += "<i class='fa fa-minus-square' id='award-remove-btn'></i>&nbsp;";
 		html2 += "<img alt='' src='' class='award-load-img'>&nbsp;";
-		html2 += "<input type='file' id='award_image"+onp+"' onchange='setImageFromFile(this)' name='aImage' accept='image/*' style='display: inline-block;'><br>";
+		html2 += "<input type='file' id='award_image"+onp+"' onchange='setImageFromFile(this)' required name='aImage' accept='image/*' style='display: inline-block;'><br>";
 		html2 += "<input type='text' id='award_content"+onp+"' style='margin-left: 17px;' name='aContent' placeholder='수상 경력 및 이력' style='display: inline-block;' class='trainer-profile-form-control'>";
 		html2 += "</li>";
 		
