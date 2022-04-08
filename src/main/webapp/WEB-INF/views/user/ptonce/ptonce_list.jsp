@@ -20,20 +20,20 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<c:set var="cnt" value="1" />
-						<c:forEach var="ptOnce" items="${ptonceList}" >
+						<c:set var="su" value="${number }" />
+						<c:forEach var="ptOnce" items="${ptonceList}" varStatus="status" >
+						<c:set var="number2" value="${su-status.index }"/>
 							<div class="panel-group accordion" id="accordion">
 							<!-- 신청글 -->
 								<div class="panel panel-default">
 									<div class="">
-		                               <c:set var="index" value="${index+1 }" />
-		                               <table class="table table-hover personalTable">
+		                                  <table class="table table-hover personalTable">
 		                                    <tbody>
 		                                        <tr>
-		                                            <td class="accordionBoard" style="width: 70px;"><strong>${index }</strong></td>
+		                                            <td class="accordionBoard" style="width: 70px;"><strong>${number2 }</strong></td>
 		                                            <td class="accordionBoard" style="width: auto;"></td>
 		                                            <td class="accordionBoard" style="width: 100px;">${fn:substring(ptOnce.ptOnceApplicationDate,0,11) }</td>
-		                                        	<td class="accordionBoard" style="width: 140px;">${ptOnce.memberName}</td>
+		                                        	<td class="accordionBoard" style="width: 180px; text-align: justify;">${ptOnce.memberName}&nbsp;트레이너</td>
 		                                        	<!-- 확인 상태 -->
 		                                        	<td class="accordionBoard" style="width: 65px;">
 			                                        	<c:choose>
@@ -43,7 +43,7 @@
 		                                        		</c:choose>
 		                                        	</td>
 		                                        	<td style="width: 76px;">
-		                                        	<butoon data-toggle="collapse" data-parent="#accordion" href="#${ptOnce.ptOnceNo}" class="collapsed btn btn-default ptOnceBtn" aria-expanded="false">
+		                                        	<butoon data-toggle="collapse" data-parent="#accordion" href="#${number2 }" class="collapsed btn btn-default ptOnceBtn" aria-expanded="false">
 														상세보기</butoon></td>
 													<td style="width: 76px;">
 														<button data-toggle="collapse" data-parent="#accordion" class="collapsed btn btn-primary ptOnceBtn" aria-expanded="false"
@@ -53,7 +53,7 @@
 		                                    </tbody>
 		                                </table>
 		                            </div>
-									<div id="${ptOnce.ptOnceNo}" class="panel-collapse collapse"
+									<div id="${number2 }" class="panel-collapse collapse"
 											aria-expanded="false" style="height: 0px;">
 									<hr>
 									<!-- 성별, 연령, 운동경험, 운동목적 , 특이사항  -->
