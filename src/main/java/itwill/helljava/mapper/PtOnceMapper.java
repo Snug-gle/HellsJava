@@ -9,15 +9,11 @@ public interface PtOnceMapper {
 	
 	int insertPtOnce(PtOnce ptOnce);
 
-	// 회원번호, 글 상태 받아오기 
-	// 글 상태 변경(확인, 미확인, 완료) 
-	int updatePtOnceStatus(Map<String, Object> map);
-	
 	// 회원 전용 1회 PT 신청 리스트 갯수
 	int selectPtOnceCount(int member_no);
 
 	// 트레이너 전용 1회 PT 신청 리스트 갯수
-	int selectPtOnceTrainerCount(Map<String, Object> map);
+	int selectPtOnceTrainerCount(int trainer_no);
 	
 	// 1회 PT 신청 상세글 
 	PtOnce selectPtOnce(int pt_once_no);
