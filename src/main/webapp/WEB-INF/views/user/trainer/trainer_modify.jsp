@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+<%@	taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 function sample4_execDaumPostcode() {
@@ -70,14 +73,14 @@ function sample4_execDaumPostcode() {
 					<hr>
 					<br>
 					<div class="trainerRequestBody">
-						<form id="trainerReqestForm" enctype="multipart/form-data" action="<c:url value = "/trainer/request"/>" method="post">
+						<form id="trainerReqestForm" enctype="multipart/form-data" action="" method="post">
 							<input type="hidden" name="memberNo" value="${loginUserinfo.memberNo }">
 							<div class="trainer-profile-img">
 								<hr>
-								<h3><strong>프로필 사진 등록</strong></h3>
+								<h3><strong>프로필 사진</strong></h3>
 								<hr>
 								<img alt="" src="" class="trainer-Profile-img"> 
-								<input id="trainer_profile_image" type="file" readonly="readonly" name="profileImage" placeholder="프로필 사진 첨부" accept="image/*">
+								<input id="trainer_profile_image" type="file" readonly="readonly" name="profileImage" placeholder="프로필 사진 첨부" accept="image/*" value="${trainerInfo.trainerProfileImg}">
 								<div id="trainerProfileImgRegMsg" class="error">프로필 사진을 반드시 첨부하세요.</div>
 							</div>
 							<br>
@@ -85,36 +88,36 @@ function sample4_execDaumPostcode() {
 								<hr>
 								<h3><strong>트레이너 정보</strong></h3>
 								<hr>
-									<div class="col-sm-12">
-										<label for="nameLabel" class="col-sm-2 control-label">이름</label>
-										<div class="col-sm-7">
-											<input id="nameLabel" type="text" readonly="readonly" class="trainer-profile-form-control" name="memberName" value="${loginUserinfo.memberName}" />
-										</div>
+								<div class="col-sm-12">
+									<label for="nameLabel" class="col-sm-2 control-label">이름</label>
+									<div class="col-sm-7">
+										<input id="nameLabel" type="text" readonly="readonly" class="trainer-profile-form-control" name="memberName" value="${loginUserinfo.memberName}" />
 									</div>
-									<br>
-									<div class="col-sm-12">
-										<label class="col-sm-2 control-label" for="phoneLabel">연락처</label>
-										<div class="col-sm-7">
-											<input id="phoneLabel" type="text" readonly="readonly" class="trainer-profile-form-control" name="memberPhone" value="${loginUserinfo.memberPhone }" />
-										</div>
+								</div>
+								<br>
+								<div class="col-sm-12">
+									<label class="col-sm-2 control-label" for="phoneLabel">연락처</label>
+									<div class="col-sm-7">
+										<input id="phoneLabel" type="text" readonly="readonly" class="trainer-profile-form-control" name="memberPhone" value="${loginUserinfo.memberPhone }" />
 									</div>
-									<br>
-									<div class="col-sm-12" >
-										<label class="col-sm-2 control-label" for="centerLabel">소속 센터 주소</label>
-										<div class="col-sm-9">
-											<input type="text" id="sample4_postcode" name="trainerZip" placeholder="우편번호" class="center-form-control"> 
-											<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br> 
-											<input type="text" id="sample4_roadAddress" placeholder="도로명주소" class=" center-form-control"> 
-											<input type="text" id="sample4_jibunAddress" name="trainerAddress" placeholder="지번주소" class=" center-form-control"> 
-											<span id="guide" style="color: #999; display: none"></span> 
-											<input type="text" id="sample4_detailAddress" name="trainerCentername" placeholder="센터명" class=" center-form-control"> 
-											<input type="text" id="sample4_extraAddress" placeholder="참고항목" class=" center-form-control">
-		
-											<div id="addressRegMsg" class="error">소속 센터 주소를 반드시 입력하세요.</div>
-											<div id="centernameRegMsg" class="error">소속 센터명을 반드시 입력하세요.</div>
-											<div id="centernameValidRegMsg" class="error">등록된 센터명을 입력하세요.</div>
-										</div>
+								</div>
+								<br>
+								<div class="col-sm-12" >
+									<label class="col-sm-2 control-label" for="centerLabel">소속 센터 주소</label>
+									<div class="col-sm-9">
+										<input type="text" id="sample4_postcode" name="trainerZip" placeholder="우편번호" class="center-form-control" value="${trainerInfo.trainerZip}"> 
+										<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br> 
+										<input type="text" id="sample4_roadAddress" placeholder="도로명주소" class=" center-form-control" value=""> 
+										<input type="text" id="sample4_jibunAddress" name="trainerAddress" placeholder="지번주소" class=" center-form-control" value="${trainerInfo.trainerAddress}"> 
+										<span id="guide" style="color: #999; display: none"></span> 
+										<input type="text" id="sample4_detailAddress" name="trainerCentername" placeholder="센터명" class=" center-form-control" value="${trainerInfo.trainerCentername}"> 
+										<input type="text" id="sample4_extraAddress" placeholder="참고항목" class=" center-form-control" value="">
+	
+										<div id="addressRegMsg" class="error">소속 센터 주소를 반드시 입력하세요.</div>
+										<div id="centernameRegMsg" class="error">소속 센터명을 반드시 입력하세요.</div>
+										<div id="centernameValidRegMsg" class="error">등록된 센터명을 입력하세요.</div>
 									</div>
+								</div>
 							</div>
 							<br>
 							<div class="tr-in-header-award-title">
@@ -123,12 +126,29 @@ function sample4_execDaumPostcode() {
 								<hr>
 								<div class="tr-in-header-award-list">
 									<ul class="tr-in-header-award-unit" style="list-style: none;">
-										<li class="tr-in-header-award-rego" >
-											<img alt="" src="" class="award-load-img">
-											<input type="file" id="award_image0" name="aImage" onchange='setImageFromFile(this)' placeholder="사진 첨부" accept="image/*" style="display: inline-block;"><br>
-											<input type="text" id="award_content0" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;">
-										</li>
+										<c:set var="i" value="0" />
+										
+										<c:choose>
+											 <c:when test="${empty(awardInfo)}">
+											 	<li class="tr-in-header-award-rego" >
+													<img alt="" src="" class="award-load-img">
+													<input type="file" id="award_image0" name="aImage" onchange="setImageFromFile(this)" onload="setImageFromFile(this)" placeholder="사진 첨부" accept="image/*" style="display: inline-block;" value="${awardInfo.awardImage}"><br>
+													<input type="text" id="award_content0" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;" value="${awardInfo.awardContent}">
+												</li>
+											 </c:when>
+											 <c:otherwise>
+												 <c:forEach var="awardList" items="${awardInfo}" varStatus="status">
+													<li class="tr-in-header-award-rego" >
+														<img alt="" src="" class="award-load-img">
+														<input type="file" id="award_image${status.index}" name="aImage" onchange="setImageFromFile(this)" onload="setImageFromFile(this)" placeholder="사진 첨부" accept="image/*" style="display: inline-block;" value="${awardInfo.awardImage}"><br>
+														<input type="text" id="award_content${status.index}" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;" value="${awardInfo.awardContent}">
+														<input type="hidden" value="${i =status.index}">
+													</li>
+												</c:forEach>
+											 </c:otherwise>
+										</c:choose>
 									</ul>
+									<input id="onp" type="hidden" value="${i}">
 									<p id="awardContentRegMsg" class="error">수상 경력 설명을 반드시 입력하세요.</p>
 									<p id="awardImageRegMsg" class="error">수상 경력 사진을 반드시 첨부하세요.</p>
 								</div>
@@ -151,7 +171,7 @@ function sample4_execDaumPostcode() {
 										<label class="col-sm-2 control-label">결제 비밀번호</label>
 										<div class="col-sm-4">
 											<input type="password" id="account_pw" name="accountPw"
-												class="form-control" placeholder="">
+												class="form-control" placeholder="" >
 											<p id="accountPwRegMsg" class="error">결제 비밀번호를 반드시 입력하세요.</p>
 											<p id="accountErrorMsg">${message}</p>
 											<br>
@@ -175,69 +195,14 @@ function sample4_execDaumPostcode() {
 		</div>
 	</div>
 </div>
-<script>
-
-	$("#trainerReqestForm").submit(function(){
-		var submitResult = true;
-		
-		$(".error").css("display","none");
-		
-		//센터명 트림
-		$("#sample4_detailAddress").val($("#sample4_detailAddress").val().trim());
-		
-		// 결제 비밀번호 유효성 검사
-		if($("#account_pw").val() == ""){
-			$("#accountPwRegMsg").css("display","block");
-			submitResult = false;
-		}
-		
-		//수상 경력 및 이력 유효성 검사
-		for(var i=0; i<=onp; i++){
-			if($("#award_image"+i).val()==""){
-				submitResult=false;
-				$("#awardImageRegMsg").css("display","block");
-				$("#award_image"+i).focus();
-			}
-			
-			$("#award_content"+i).val($("#award_content"+i).val().trim());
-			if($("#award_content"+i).val()==""){
-				submitResult=false;
-				$("#awardContentRegMsg").css("display","block");
-				$("#award_content"+i).focus();
-			}
-		}
-		
-		// 등록 센터명 배열
-		var centerNameArr = ['테스트1','테스트2'];
-		
-		//centerNameArr 배열에 센터명이 포함되어 있는지 확인
-		if((centerNameArr.includes($("#sample4_detailAddress").val()))==false){
-			$("#centernameValidRegMsg").css("display","block");
-			submitResult=false;	
-		}
-		
-		// 센터명 유효성 검사
-		if($("#sample4_detailAddress").val()==""){
-			$("#centernameRegMsg").css("display","block");
-			submitResult=false;	
-		}
-		
-		// 주소 유효성 검사
-		if($("#sample4_jibunAddress").val() == ""){
-			$("#addressRegMsg").css("display","block");
-			submitResult = false;
-		}
-		
-		//프로필 이미지 유효성 검사
-		if($("#trainer_profile_image").val() == ""){
-			$("#trainerProfileImgRegMsg").css("display","block");
-			submitResult = false;
-		}
-		
-		return submitResult;
-	});                                
+<script>                                
 	
-	var onp = 0;		
+	if($("#onp").val()==null){
+		var onp = 0;		
+	} else {
+		var onp = $("#onp").val();
+	}
+	
 	var html2;
 	//동적 태그 생성(수상경력 추가시)
 	$(document).on("click", "#award-plus-btn", function() {
@@ -259,13 +224,13 @@ function sample4_execDaumPostcode() {
 		onp -= 1;
 	    $(this).parent().remove();
 	});
-	     
+         
 	//프로필 이미지 미리보기
 	$(document).on("change", "#trainer_profile_image", function() {
 	    setImageFromFile(this);
-	
+
 	});
-	
+
 	function setImageFromFile(input) {
 	    if (input.files && input.files[0]) {
 	        var reader = new FileReader();
@@ -274,6 +239,70 @@ function sample4_execDaumPostcode() {
 	        }
 	        reader.readAsDataURL(input.files[0]);
 	    }
-	}
+	};
+	
+	$("#trainerReqestForm").submit(function(){
+		var submitResult = false;
+		
+		$(".error").css("display","none");
+		
+		//센터명 트림
+		$("#sample4_detailAddress").val($("#sample4_detailAddress").val().trim());
+		
+		// 결제 비밀번호 유효성 검사
+		if($("#account_pw").val() == ""){
+			$("#accountPwRegMsg").css("display","block");
+			submitResult = false;
+		};
+		
+		
+		//수상 경력 및 이력 유효성 검사
+		for(var i=0; i<=onp; i++){
+			
+			if($("#award_image"+i).val()==""){
+				submitResult=false;
+				$("#awardImageRegMsg").css("display","block");
+				$("#award_image"+i).focus();
+			};
+			
+			$("#award_content"+i).val($("#award_content"+i).val().trim());
+			
+			if($("#award_content"+i).val()==""){
+				submitResult=false;
+				$("#awardContentRegMsg").css("display","block");
+				$("#award_content"+i).focus();
+			};
+			
+		};
+		
+		// 등록 센터명 배열
+		var centerNameArr = ['테스트1','테스트2'];
+		
+		//centerNameArr 배열에 센터명이 포함되어 있는지 확인
+		if((centerNameArr.includes($("#sample4_detailAddress").val()))==false){
+			$("#centernameValidRegMsg").css("display","block");
+			submitResult=false;	
+		};
+		
+		// 센터명 유효성 검사
+		if($("#sample4_detailAddress").val()==""){
+			$("#centernameRegMsg").css("display","block");
+			submitResult=false;	
+		};
+		
+		// 주소 유효성 검사
+		if($("#sample4_jibunAddress").val() == ""){
+			$("#addressRegMsg").css("display","block");
+			submitResult = false;
+		};
+		
+		//프로필 이미지 유효성 검사
+		if($("#trainer_profile_image").val() == ""){
+			$("#trainerProfileImgRegMsg").css("display","block");
+			submitResult = false;
+		};
+
+		return submitResult;
+	});
 	
 </script>
