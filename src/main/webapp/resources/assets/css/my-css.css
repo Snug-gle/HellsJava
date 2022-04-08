@@ -455,3 +455,15 @@ ul {
 	list-style: none;
 	padding-left: 0px;		
 }
+
+.ptPersonalContent{
+	padding: 15px 30px;
+}
+
+.trainer-ptonce-content-label {
+	text-align: right;
+	float: left;
+	width: 80px;
+	margin: auto 30px;
+	
+}

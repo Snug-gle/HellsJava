@@ -8,26 +8,25 @@
 		<div class="notice-list-print">
 			<div class="pageheader" style="font-size: 20px;">
 				<div style="text-align: center;">
-					<h1>1회 피티 신청 내역 목록</h1>
+					<h1>1회 PT 신청 내역 목록
+						<div class="reviewRight" style="float: right;">
+							<select id="category" name="category" class="btn btn-primary dropdown-toggle">
+								<option <c:if test="${status==9 }">selected="selected"</c:if> value="9">전체</option>
+								<option <c:if test="${status==0 }">selected="selected"</c:if> value="0">미확인</option>
+								<option <c:if test="${status==1 }">selected="selected"</c:if> value="1">확인</option>
+								<option <c:if test="${status==2 }">selected="selected"</c:if> value="2">완료</option>
+							</select>
+						</div>	
+					</h1>
 				</div>
-			</div>
-			<div>
-				<select id="category" name="category">
-					<option <c:if test="${status==9 }">selected="selected"</c:if>
-						value="9">전체</option>
-					<option <c:if test="${status==0 }">selected="selected"</c:if>
-						value="0">미확인</option>
-					<option <c:if test="${status==1 }">selected="selected"</c:if>
-						value="1">확인</option>
-					<option <c:if test="${status==2 }">selected="selected"</c:if>
-						value="2">완료</option>
-				</select>
 			</div>
 			<div class="panel-body">
 				<c:choose>
 					<c:when test="${empty(ptOnceList) }">
-						<div align="center">
-							<h3>검색된 내역이 없습니다.</h3>
+						<div class="panel panel-default">
+							<div align="center" class="boardEmptyWriting">
+								<h3>검색된 내역이 없습니다.</h3>
+							</div>
 						</div>
 					</c:when>
 					<c:otherwise>
@@ -42,106 +41,117 @@
 											<tbody>
 												<tr>
 													<!-- 번호 -->
-													<td style="width: 100px; text-align: center;">${number2 }</td>
+													<td class="accordionBoard" style="width: 70px;"><strong>${number2 }</strong></td>
+													<td class="accordionBoard" style="width: auto;"></td>
 													<!-- 날짜 -->
-													<td style="width: 100px;">${fn:substring({ptOnce.ptOnceApplicationDate},1,12)}</td>
-													<!-- 회원이름,연락처 -->
-													<td style="width: 300px;">${ptOnce.memberName }&nbsp;&nbsp;&nbsp;${ptOnce.memberPhone}
-													</td>
+													<td class="accordionBoard" style="width: 100px;">${fn:substring({ptOnce.ptOnceApplicationDate},1,12)}</td>
+													<!-- 회원이름 -->
+													<td class="accordionBoard" style="width: 80px;">${ptOnce.memberName }</td>
+													<!-- 연락처 -->
+													<td class="accordionBoard" style="width: 150px;">${ptOnce.memberPhone}</td>
 													<!-- 상태 -->
-													<c:if test="${ptOnce.ptOnceStatus eq '0'}"><td style="width: 100px;">미확인</td></c:if>
-													<c:if test="${ptOnce.ptOnceStatus eq '1'}"><td style="width: 100px;">확인</td></c:if>
-													<c:if test="${ptOnce.ptOnceStatus eq '2'}"><td style="width: 100px;">완료</td></c:if>
+													<c:if test="${ptOnce.ptOnceStatus eq '0'}"><td style="width: 70px;">미확인</td></c:if>
+													<c:if test="${ptOnce.ptOnceStatus eq '1'}"><td style="width: 70px;">확인</td></c:if>
+													<c:if test="${ptOnce.ptOnceStatus eq '2'}"><td style="width: 70px;">완료</td></c:if>
 													<!-- 상세보기 -->
-													<td style="width: auto;"><a data-toggle="collapse"
+													<td style="width: 76px;"><a data-toggle="collapse"
 														data-parent="#accordion" href="#${ptOnce.ptOnceNo }"
-														class="collapsed" aria-expanded="false"> 상세보기</a></td>
+														class="collapsed btn btn-default ptOnceBtn" aria-expanded="false"> 상세보기</a></td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 									<!-- 글 상세내용 (성별, 나이, 경험, 목적, 특이사항)-->
-									<div id="${ptOnce.ptOnceNo }" class="panel-collapse collapse"
-										aria-expanded="false" style="height: 100px;">
-										<!-- 성별 -->
-										<c:if test="${ptOnce.ptOnceGender eq '1' }">
-											<div class="personalContent">남자</div>
-										</c:if>
-										<c:if test="${ptOnce.ptOnceGender eq '2' }">
-											<div class="personalContent">여자</div>
-										</c:if>
-										<!-- 연령대 -->
-										<c:if test="${ptOnce.ptOnceAge eq '1' }">
-											<div class="personalContent">10대</div>
-										</c:if>
-										<c:if test="${ptOnce.ptOnceAge eq '2' }">
-											<div class="personalContent">20대</div>
-										</c:if>
-										<c:if test="${ptOnce.ptOnceAge eq '3' }">
-											<div class="personalContent">30대</div>
-										</c:if>
-										<c:if test="${ptOnce.ptOnceAge eq '4' }">
-											<div class="personalContent">40대</div>
-										</c:if>
-										<c:if test="${ptOnce.ptOnceAge eq '5' }">
-											<div class="personalContent">50대</div>
-										</c:if>
-										<!-- 운동 경험 -->
-										<c:if test="${ptOnce.ptOncePurpose eq '1' }">
-											<div class="personalContent">1달 미만</div>
-										</c:if>
-										<c:if test="${ptOnce.ptOncePurpose eq '2' }">
-											<div class="personalContent">3개월</div>
-										</c:if>
-										<c:if test="${ptOnce.ptOncePurpose eq '3' }">
-											<div class="personalContent">6개월</div>
-										</c:if>
-										<c:if test="${ptOnce.ptOncePurpose eq '4' }">
-											<div class="personalContent">1년이상</div>
-										</c:if>
-										<!-- 운동 목적 -->
-										<c:if test="${ptOnce.ptOnceExperience eq '1' }">
-											<div class="personalContent">다이어트</div>
-										</c:if>
-										<c:if test="${ptOnce.ptOnceExperience eq '2' }">
-											<div class="personalContent">체력 증진</div>
-										</c:if>
-										<c:if test="${ptOnce.ptOnceExperience eq '3' }">
-											<div class="personalContent">취미활동</div>
-										</c:if>
-										<c:if test="${ptOnce.ptOnceExperience eq '4' }">
-											<div class="personalContent">기타</div>
-										</c:if>
-										<!-- 특이 사항 -->
-										<div class="personalContent">${ptOnce.ptOnceSignificant}</div>
+									<div id="${ptOnce.ptOnceNo }" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+										<hr>
+											<!-- 성별 -->
+											<div class="ptPersonalContent"><label class="trainer-ptonce-content-label">성별</label>
+												<c:if test="${ptOnce.ptOnceGender eq '1' }">
+													<div style="display: inline-block;">남자</div>
+												</c:if>
+												<c:if test="${ptOnce.ptOnceGender eq '2' }">
+													<div style="display: inline-block;">여자</div>
+												</c:if>
+											</div>
+											<!-- 연령대 -->
+											<div class="ptPersonalContent"><label class="trainer-ptonce-content-label">연령대</label>
+												<c:if test="${ptOnce.ptOnceAge eq '1' }">
+													<div style="display: inline-block;">10대</div>
+												</c:if>
+												<c:if test="${ptOnce.ptOnceAge eq '2' }">
+													<div style="display: inline-block;">20대</div>
+												</c:if>
+												<c:if test="${ptOnce.ptOnceAge eq '3' }">
+													<div style="display: inline-block;">30대</div>
+												</c:if>
+												<c:if test="${ptOnce.ptOnceAge eq '4' }">
+													<div style="display: inline-block;">40대</div>
+												</c:if>
+												<c:if test="${ptOnce.ptOnceAge eq '5' }">
+													<div style="display: inline-block;">50대</div>
+												</c:if>
+											</div>
+											<!-- 운동 경험 -->
+											<div class="ptPersonalContent"><label class="trainer-ptonce-content-label">운동경험</label>
+												<c:if test="${ptOnce.ptOncePurpose eq '1' }">
+													<div style="display: inline-block;">1달 미만</div>
+												</c:if>
+												<c:if test="${ptOnce.ptOncePurpose eq '2' }">
+													<div style="display: inline-block;">3개월</div>
+												</c:if>
+												<c:if test="${ptOnce.ptOncePurpose eq '3' }">
+													<div style="display: inline-block;">6개월</div>
+												</c:if>
+												<c:if test="${ptOnce.ptOncePurpose eq '4' }">
+													<div style="display: inline-block;">1년이상</div>
+												</c:if>
+											</div>
+											<!-- 운동 목적 -->
+											<div class="ptPersonalContent"><label class="trainer-ptonce-content-label">운동목적</label>
+												<c:if test="${ptOnce.ptOnceExperience eq '1' }">
+													<div style="display: inline-block;">다이어트</div>
+												</c:if>
+												<c:if test="${ptOnce.ptOnceExperience eq '2' }">
+													<div style="display: inline-block;">체력 증진</div>
+												</c:if>
+												<c:if test="${ptOnce.ptOnceExperience eq '3' }">
+													<div style="display: inline-block;">취미활동</div>
+												</c:if>
+												<c:if test="${ptOnce.ptOnceExperience eq '4' }">
+													<div style="display: inline-block;">기타</div>
+												</c:if>
+											</div>
+											<!-- 특이 사항 -->
+											<div class="ptPersonalContent"><label class="trainer-ptonce-content-label">특이사항</label>
+												<div style="display: inline-block;">${ptOnce.ptOnceSignificant}</div>
+											</div>
+											<br>
 											<div class="btnGroup">
-										<!-- 버튼 -->
-										<c:choose>
-											<c:when test="${ptOnce.ptOnceStatus eq '0' }">
-										
-										<!-- 미확인 상태일시  -->
-											 <button class="btn btn-primary" type="button" style="align-content: center;"
-												onclick="location.href='<c:url value="/ptonce/trainer/modify"/>/${ptOnce.ptOnceNo }/1';">확인</button>										
-											</c:when>
-											<c:when test="${ptOnce.ptOnceStatus eq '1' }">
-												<button class="btn btn-primary"  type="button"
-												onclick="location.href='<c:url value="/ptonce/trainer/modify"/>/${ptOnce.ptOnceNo }/2';">완료</button> 
-											</c:when>
-										<c:otherwise></c:otherwise>
-										</c:choose>
+												<!-- 버튼 -->
+												<c:choose>
+													<c:when test="${ptOnce.ptOnceStatus eq '0' }">
+												
+												<!-- 미확인 상태일시  -->
+													 <button class="btn btn-primary" type="button"
+														onclick="location.href='<c:url value="/ptonce/trainer/modify"/>/${ptOnce.ptOnceNo }/1';">확인</button>										
+													</c:when>
+													<c:when test="${ptOnce.ptOnceStatus eq '1' }">
+														<button class="btn btn-primary"  type="button"
+														onclick="location.href='<c:url value="/ptonce/trainer/modify"/>/${ptOnce.ptOnceNo }/2';">완료</button> 
+													</c:when>
+												<c:otherwise></c:otherwise>
+												</c:choose>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
-					<div class="btnGroup">
-				<!-- 버튼 -->
-				<button type="button"
-					onclick="location.href='<c:url value="/mypage"/>';">마이페이지로
-					이동</button>
-					</div>
+				<div style="text-align: right; margin: 10px;">
+					<!-- 버튼 -->
+					<button type="button" class="btn btn-primary" onclick="location.href='<c:url value="/mypage"/>';">마이페이지로 이동</button>
+				</div>
 
 				<%-- 페이지 번호 출력 --%>
 				<div class="panel panel-default">
