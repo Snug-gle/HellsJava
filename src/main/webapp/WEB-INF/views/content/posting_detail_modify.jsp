@@ -185,11 +185,30 @@
 												</select>
 											</li>
 										</c:forEach>
-										<li>
-											<input type="checkbox" class="cb4" value="4" name="dayoff">
-											<label style="width: 60px;">휴무일</label>
-											<input id="cb4-text" type="text" name="dayOffText" class="posting-form-control" value="${scheduleInfo.scheduleDayoff}">
-										</li>	
+										
+										<c:set var="an" value="5"/>
+										<c:forEach var="dayoffList" items="${scheduleInfo}" varStatus="status" >
+											<c:if test="${dayoffList.scheduleWorkday == 4}">
+												<c:set var="an" value="${status.index} }"/>
+											</c:if>
+										</c:forEach>
+										<c:choose>
+											<c:when test="${an < 4}">
+												<li>
+													<input type="checkbox" class="cb4" value="4" name="dayoff" checked="checked">
+													<label style="width: 60px;">휴무일</label>
+													<input id="cb4-text" type="text" name="dayOffText" class="posting-form-control" value="${scheduleInfo[an].scheduleDayoff}">
+												</li>
+											</c:when>
+											<c:otherwise>
+												<li>
+													<input type="checkbox" class="cb4" value="4" name="dayoff">
+													<label style="width: 60px;">휴무일</label>
+													<input id="cb4-text" type="text" name="dayOffText" class="posting-form-control" value="">
+												</li>
+											</c:otherwise>
+										</c:choose>
+
 									</ul>
 									<p id="scheduleMsg" class="error">최소 1개의 일정을 선택해주세요</p>
 									<p id="scheduleHounMsg" class="error">시간을 다시 확인해주세요</p>		
