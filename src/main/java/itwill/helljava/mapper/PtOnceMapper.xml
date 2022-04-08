@@ -56,7 +56,8 @@
 		select 
 			* from 
 				(select rownum rn,ps.* from
-					(select p.pt_once_no, p.pt_once_application_date, m.member_name, m.member_phone, p.pt_once_status, p.pt_once_significant
+					(select p.pt_once_no, p.pt_once_application_date, m.member_name, m.member_phone, p.pt_once_status, p.pt_once_significant,
+					p.pt_once_gender  ,p.pt_once_age  ,p.pt_once_experience  ,p.pt_once_purpose 
 					from pt_once p left join member m on p.member_no = m.member_no
 					<trim prefix="where" prefixOverrides="and">
 						<if test="pt_once_status &gt;= 0 and pt_once_status &lt;= 2">
