@@ -67,28 +67,41 @@ public class PostingController {
 
 		return "/content/posting_detail_insert";
 	}
-	
+
 	// 포스팅 수정 페이지 요청
 	@RequestMapping(value = "/posting/modify", method = RequestMethod.GET)
 	public String trainerRequestUpdate(HttpSession session, Model model) {
 
+		int modifyMemberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
+
 		// 모델에다가 트레이너 객체 넘김
-		model.addAttribute("trainer",
-				trainerService.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()));
-		model.addAttribute("trainerAwards", awardService.getAwardList(trainerService
-				.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo()));
+		model.addAttribute("trainer", trainerService.getTrainer(modifyMemberNo));
+		model.addAttribute("trainerAwards",
+				awardService.getAwardList(trainerService.getTrainer(modifyMemberNo).getTrainerNo()));
 
-		//포스팅 :postingInfo
-		//스케쥴 : scheduleInfo
-		//pt가격관련 : ptPricingInfo
+		model.addAttribute("postingInfo",
+				postingService.getPosting(trainerService.getTrainer(modifyMemberNo).getTrainerNo())); // 포스팅
+		model.addAttribute("scheduleInfo",
+				scheduleService.getScheduleList(trainerService.getTrainer(modifyMemberNo).getTrainerNo())); // 스케쥴 리스트
+		model.addAttribute("ptPricingInfo",
+				ptPricingService.getPtPricingList(trainerService.getTrainer(modifyMemberNo).getTrainerNo())); // pt 가격
+																												// 관련
 
-		
-		
-		
-		
 		return "/content/posting_detail_modify";
 	}
-	
+
+	// 포스팅 수정 POST 방식 요청 스케줄과 포스팅 수정
+
+	@RequestMapping(value = "/posting/modify", method = RequestMethod.POST)
+	public String trainerPostingUpdate(@ModelAttribute Posting posting, HttpSession session,
+			MultipartHttpServletRequest request) {
+		
+		// 포스팅 수정한 트레이너의 회원 번호
+		int memberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
+
+		return "redirect:/myposting/detail/" + memberNo; // 다시 포스팅 디테일로 재요청 시켜야지 머.
+	}
+
 	// 포스트 작성 페이지 post 요청 스케쥴과 포스팅 추가하는 핸들러 메서드
 	@RequestMapping(value = "/posting/write", method = RequestMethod.POST)
 	public String trainerRequestAdd(@ModelAttribute Posting posting, HttpSession httpSession,
@@ -234,19 +247,19 @@ public class PostingController {
 	// 트레이너 리스트나 메인에서 트레이너 배너 눌럿을 때 포스팅 디테일 페이지 GET 요청
 	@RequestMapping(value = "/posting/detail/{trainerNo}", method = RequestMethod.GET)
 	public String postingDetail(@PathVariable(value = "trainerNo") int trainerNo, Model model, HttpSession session) {
-		
+
 		// 재요청을 위해 세션에 트레이너 번호 담아두기
 		session.setAttribute("trainerNo", trainerNo);
-		
+
 		// 트레이너 번호로 트레이너 가져오기
 		Trainer trainer = trainerService.getTrainerTrainerNo(trainerNo);
-		
+
 		model.addAttribute("trainer", trainer); // 트레이너 객체 보내기
 		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
 		model.addAttribute("ptPricing", ptPricingService.getPtPricingList(trainer.getTrainerNo()));
 		model.addAttribute("schedule", scheduleService.getScheduleList(trainer.getTrainerNo()));
 		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
-		
+
 		return "/content/posting_detail";
 	}
 }
