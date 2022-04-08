@@ -113,7 +113,7 @@
 								<h3 class="panel-title">트레이너 상세</h3>
 							</div>
 							<div class="panel-body">
-								<form action="">
+								
 									<hr>
 										<h3><strong>트레이너 정보</strong></h3>
 									<hr>
@@ -168,11 +168,10 @@
 											</select>
 										</div>
 									</div> 
-									</form>
+									
 								</div>
 								<div class="modal-footer">
 									<div>
-										<button type="submit" class="btn btn-primary btn-block">확인</button>
 										<button type="button" data-dismiss="modal" class="btn btn-default btn-block">닫기</button>
 									</div>
 								</div>
