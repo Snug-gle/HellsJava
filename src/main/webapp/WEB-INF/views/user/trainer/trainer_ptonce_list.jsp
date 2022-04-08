@@ -31,18 +31,18 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<c:set var ="su" value="${number}"/>
-						<c:forEach var="ptOnce" items="${ptOnceList}" varStatus="status">
-							 <c:set var ="number2" value="${su-status.index}"/>
+						<c:set var="cnt" value="1" />
+						<c:forEach var="ptOnce" items="${ptOnceList}">
 							<div class="panel-group accordion" id="accordion">
 								<!-- 문의글 -->
 								<div class="panel panel-default">
 									<div class="">
+										<c:set var="index1" value="${index1+1 }" />
 										<table class="table table-hover personalTable">
 											<tbody>
 												<tr>
 													<!-- 번호 -->
-													<td style="width: 100px; text-align: center;">${number2 }</td>
+													<td style="width: 100px; text-align: center;">${index1 }</td>
 													<!-- 날짜 -->
 													<td style="width: 100px;">${fn:substring({ptOnce.ptOnceApplicationDate},1,12)}</td>
 													<!-- 회원이름,연락처 -->
@@ -112,20 +112,19 @@
 										</c:if>
 										<!-- 특이 사항 -->
 										<div class="personalContent">${ptOnce.ptOnceSignificant}</div>
-										
-										<!-- 버튼 -->
 										<c:choose>
-											<c:when test="${ptOnce.ptOnceStatus eq '0' }">
-										
+										<c:when test="${ptOnce.ptOnceStatus eq '0' }">
+										<!-- 버튼 -->
 										<!-- 미확인 상태일시  -->
-											 <button class="btn btn-primary" type="button" style="align-content: center;"
-												onclick="location.href='<c:url value="/ptonce/trainer/modify"/>/${ptOnce.ptOnceNo }/1';">확인</button>										
-											</c:when>
-											<c:when test="${ptOnce.ptOnceStatus eq '1' }">
-												<button class="btn btn-primary"  type="button"
-												onclick="location.href='<c:url value="/ptonce/trainer/modify"/>/${ptOnce.ptOnceNo }/2';">완료</button> 
-											</c:when>
-										<c:otherwise></c:otherwise>
+										 <button class="btn btn-primary" type="button" style="align-content: center;"
+											onclick="location.href='<c:url value="/ptonce/trainer/modify"/>/${ptOnce.ptOnceNo }/1';">확인</button>										
+										</c:when>
+										<c:when test="${ptOnce.ptOnceStatus eq '1' }">
+										<button class="btn btn-primary" type="button">완료</button> 
+										</c:when>
+										<c:otherwise>
+										
+										</c:otherwise>
 										</c:choose>
 									</div>
 								</div>
@@ -177,7 +176,6 @@
 	//페이징 처리 결과 출력
 	$("#pageNumDiv").html(html);
 
-	// 카테고리 변경 시 get 요청
 	$("#category").change(function () {
 		var ptOnceStatus = $(this).val();
 		location.href="${pageContext.request.contextPath}/ptonce/trainer/list/status?ptOnceStatus="+ptOnceStatus;

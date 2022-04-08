@@ -147,27 +147,29 @@ function sample4_execDaumPostcode() {
 											<div class="ad-t-v-header-award-footer-text">
 												<h3><strong>결제금액</strong> : 15000 원</h3>
 											</div>
-										<div style="padding: 50px;">
+										</div>
+										<br>
+										<br>
+									</div>
+										<div>
 										<label class="col-sm-2 control-label">결제 비밀번호</label>
 										<div class="col-sm-3">
 											<input type="password" id="account_pw" name="accountPw"
-												class="form-control" placeholder="">
+												class="form-control">
 											<p id="accountPwRegMsg" class="error">결제 비밀번호를 반드시 입력하세요.</p>
 											<p id="accountErrorMsg">${message}</p>
 										</div>
-										</div>
-									</div>
 									</div>
 								</div>
 							</div>
 						</form>
-				<hr>
 					</div>
 				</div>
-				<div class="tr-in-footer btnGroup">
+				
+				<br>
+				<div class="tr-in-footer" style="text-align: center; margin: 10px auto;">
 					<button id="submitBtn" type="submit" class="btn btn-primary">확인</button>
 					<button type="reset" class="btn btn-primary">다시쓰기</button>
-					<br>
 				</div>
 			</div>
 		</div>
@@ -232,7 +234,7 @@ function sample4_execDaumPostcode() {
 	//동적 태그 생성을 위한 변수 선언
 	var html2 = "<li class='tr-in-header-award-rego'>";
 	html2 += "<i class='fa fa-minus-square' id='award-remove-btn'></i>&nbsp;";
-	html2 += "<img alt='' src='' class='award-load-img'>&nbsp;";
+	html2 += "<img alt='' src='' class='award-load-img'>";
 	html2 += "<input type='text' id='award_content' name='aContent' placeholder='수상 경력 및 이력' style='display: inline-block;' class='trainer-profile-form-control'>";
 	html2 += "<input type='file' id='award_image' name='aImage' accept='image/*' style='display: inline-block;'> ";
 	html2 += "<p id='awardContentRegMsg' class='error'>수상 경력 설명을 반드시 입력하세요.</p>";
