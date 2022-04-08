@@ -101,7 +101,7 @@ public class PtQnAController {
 	public String modify(@ModelAttribute PtService ptService) {
 
 		ptServiceService.modifyPtService(ptService);
-		return "redirect:/ptqna/list/miss";
+		return "redirect:/ptqna/list";
 	}
 
 }
