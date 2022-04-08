@@ -42,10 +42,12 @@ public class PtQnAController {
 		countMap.put("member_no", memberNo);
 		countMap.put("pt_service_status", 234); // 임의의값
 		
-		int totalBroad = ptServiceService.getPtServiceCount(countMap);
+		int totalBoard = ptServiceService.getPtServiceCount(countMap);
 		int pageSize = 3;
 		int blockSize = 5;
-		Pager pager = new Pager(pageNum, totalBroad, pageSize, blockSize);
+		int number = totalBoard - (pageNum - 1) * pageSize;
+
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
 		
 		Map<String, Object> pagerMap = new HashMap<String, Object>();
 		pagerMap.put("startRow", pager.getStartRow());
@@ -56,6 +58,7 @@ public class PtQnAController {
 
 		model.addAttribute("pager", pager);
 		model.addAttribute("ptQnaList", ptServiceService.getPtServiceList(pagerMap));
+		model.addAttribute("number", number);
 		
 		return "/user/ptQnA/ptQnA_list";
 	}
@@ -76,10 +79,12 @@ public class PtQnAController {
 		countMap.put("member_no", memberNo);
 		countMap.put("pt_service_status", Integer.parseInt(confirmStatus)); // 전체일 경우 9니까 넘겨봤자임
 
-		int totalBroad = ptServiceService.getPtServiceCount(countMap);
+		int totalBoard = ptServiceService.getPtServiceCount(countMap);
 		int pageSize = 3;
 		int blockSize = 5;
-		Pager pager = new Pager(pageNum, totalBroad, pageSize, blockSize);
+		int number = totalBoard - (pageNum - 1) * pageSize;
+
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
 
 		//
 		Map<String, Object> pagerMap = new HashMap<String, Object>();
@@ -92,7 +97,8 @@ public class PtQnAController {
 		model.addAttribute("pager", pager);
 		model.addAttribute("ptQnaList", ptServiceService.getPtServiceList(pagerMap));
 		model.addAttribute("status",confirmStatus);
-		
+		model.addAttribute("number", number);
+
 		return "/user/ptQnA/ptQnA_list";
 	}
 

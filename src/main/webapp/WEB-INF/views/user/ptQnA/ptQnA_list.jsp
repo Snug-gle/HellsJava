@@ -34,8 +34,9 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<c:set var="cnt" value="1" />
-						<c:forEach var="ptQna" items="${ptQnaList }">
+						<c:set var ="su" value="${number}"/>
+						<c:forEach var="ptQna" items="${ptQnaList }" varStatus="status">
+						 <c:set var ="number2" value="${su-status.index}"/>
 							<div class="panel-group accordion" id="accordion">
 								<!-- 문의글 -->
 								<div class="panel panel-default">
@@ -43,11 +44,10 @@
 										<table class="table table-hover personalTable">
 											<tbody>
 												<tr>
-													<c:set var="index1" value="${index1+1 }" />
-													<td class="accordionBoard" style="width: 70px;"><strong>${index1 }</strong></td>
+													<td class="accordionBoard" style="width: 70px;"><strong>${number2 }</strong></td>
 													<td class="accordionBoard" style="width: auto;"></td>
 													<td class="accordionBoard" style="width: 100px;">${fn:substring({ptQna.ptServiceDate},1,12)}</td>
-													<td class="accordionBoard" style="width: 140px;">ㅇㅇㅇ트레이너</td>
+													<td class="accordionBoard" style="width: 140px;">${ptQna.memberName }</td>
 													<!-- 확인여부 -->
 													<td class="accordionBoard" style="width: 65px;"><c:choose>
 															<c:when test="${ptQna.ptServiceStatus eq '2' }">미확인</c:when>
@@ -55,7 +55,7 @@
 															<c:otherwise>완료</c:otherwise>
 														</c:choose></td>
 													<td style="width: 76px;"><a data-toggle="collapse"
-														data-parent="#accordion" href="#${index1 }"
+														data-parent="#accordion" href="#${number2 }"
 														class="collapsed btn btn-default ptOnceBtn"
 														aria-expanded="false"> 상세보기</a></td>
 												</tr>
@@ -63,7 +63,7 @@
 										</table>
 									</div>
 									<!-- 글 상세내용 -->
-									<div id="${index1 }" class="panel-collapse collapse"
+									<div id="${number2 }" class="panel-collapse collapse"
 										aria-expanded="false" style="height: 0px;">
 										<hr>
 										<div class="personalContent">${ptQna.ptServiceContent}
