@@ -9,9 +9,11 @@ public interface PtOnceService {
 	
 	void addPtOnce(PtOnce ptOnce);
 
+	void modifyPtOnceStatus(Map<String, Object> map);
+	
 	int getPtOnceCount(int member_no);
 
-	int getPtOnceTrainerCount(int trainer_no);
+	int getPtOnceTrainerCount(Map<String, Object> map);
 	
 	PtOnce getPtOnce(int pt_once_no);
 	

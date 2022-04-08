@@ -30,7 +30,7 @@
 	    <br>
 	    <div class="flex-container">
 	        <div class="flex-item">
-	        	<a href="" style="color: #fff">1회 PT 신청 목록
+	        	<a href="${pageContext.request.contextPath}/ptonce/trainer/list" style="color: #fff">1회 PT 신청 목록
 	        	<p><i class="icon-note myPageIcon"></i></p></a>
 	        </div>
 	        <div class="flex-item">
