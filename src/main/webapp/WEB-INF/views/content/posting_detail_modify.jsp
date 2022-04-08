@@ -2,12 +2,11 @@
     pageEncoding="UTF-8"%>
     
 <%@	page import="org.springframework.util.StringUtils"%>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+  
 <div class="container animated fadeInUp">
 	<div class="panel panel-default">
 		<div id="login-wrapper">
@@ -68,14 +67,14 @@
 								<hr>
 								<h3><strong>자기소개</strong></h3>
 								<hr>
-								<textarea name="postingSelfIntroduction" class="noticeFormContent" id="profile-text" style="height: 500px;"></textarea>
+								<textarea name="postingSelfIntroduction" class="noticeFormContent" id="profile-text" style="height: 500px;">${postingInfo.postingSelfIntroduction }</textarea>
 								<p id="profileMsg" class="error">자기소개를 입력해주세요.</p>
 								<div class="pd-insert-body-myprofile-body">
 									<h5><i class="fa fa-file-image-o"></i>자기 소개 이미지 첨부 요망</h5>
-									<input type="file" id="postingSelfIntroductionImg1" name="Img" accept="image/*">
-									<input type="file" id="postingSelfIntroductionImg2" name="Img" accept="image/*">
-									<input type="file" id="postingSelfIntroductionImg3" name="Img" accept="image/*">
-									<input type="file" id="postingSelfIntroductionImg4" name="Img" accept="image/*">
+									<input type="file" id="postingSelfIntroductionImg1" name="Img" accept="image/*" value="${postingInfo.postingSelfIntroductionImg1 }">
+									<input type="file" id="postingSelfIntroductionImg2" name="Img" accept="image/*" value="${postingInfo.postingSelfIntroductionImg2 }">
+									<input type="file" id="postingSelfIntroductionImg3" name="Img" accept="image/*" value="${postingInfo.postingSelfIntroductionImg3 }">
+									<input type="file" id="postingSelfIntroductionImg4" name="Img" accept="image/*" value="${postingInfo.postingSelfIntroductionImg4 }">	
 									<p id="profileImgMsg" class="error">최소 1개의 이미지를 첨부해주세요.</p>
 								</div>
 							</div>
@@ -84,19 +83,28 @@
 								<hr>
 									<h3><strong>프로그램 소개</strong></h3>
 								<hr>
-								<textarea id="programProfile-text" name="postingProgramIntroduction" class="noticeFormContent" style="height: 500px;"></textarea>
+								<textarea id="programProfile-text" name="postingProgramIntroduction" class="noticeFormContent" style="height: 500px;">${postingInfo.postingProgramIntroduction }</textarea>
 								<p id="programMsg" class="error">프로그램 소개를 입력해주세요.</p>
 							</div>
 							<br>
 							<div class="pd-insert-body-pt-schedule">	
 								<hr>
 									<h3><strong>PT 스케줄</strong></h3>
-								<hr>
+								<hr>${scheduleInfo.scheduleWorkday }
 								<div>
 									<ul>
 										<c:forEach var="j" begin="1" end="3">
 											<li>
-												<input id="schedulehour${j}" name = "workdayCheck" type="checkbox" class="cb${j}" value="${j}">
+											
+												<c:choose>
+													 <c:when test="${scheduleInfo.scheduleWorkday == j }">
+													 	<input name = "workdayCheck" type="checkbox" class="cb${j}" value="${j}" checked="checked">
+													 </c:when>
+													 <c:otherwise>
+														 <input name = "workdayCheck" type="checkbox" class="cb${j}" value="${j}">
+													 </c:otherwise>
+												</c:choose>
+												
 												<c:if test="${j eq 1}">
 													<label style="width: 60px;">평일</label>
 													<input type="hidden" name="weekday" value="1">
@@ -110,38 +118,78 @@
 													<input type="hidden" name="sunday" value="3">
 												</c:if>
 												
-												<select id="pt-hour1${j}" name = "hour1" class="time-form-control">
+												<%-- fn라이브러리를 이용하여 substring를 사용하기 위해 선언 --%>
+												<c:set var="scheduleHours" value="${scheduleInfo.scheduleHours}"/> 
+
+												<select id="pt-hour1" name = "hour1" class="time-form-control">
 													<c:forEach var="a" begin="6" end="23">
+													
 														<%-- fmt라이브러리를 이용하여 01,02와 같이 표현하기 위해 넘버 포맷을 변경.   --%>
 														<fmt:formatNumber var="i" value='${a }' pattern='00'/>
-														<option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
+														
+														<c:choose>
+															<c:when test="${fn:substring(scheduleHours,0,2) == i}">
+															  	<option value="${i}" selected="selected"><c:out value="${i}" /></option>
+															</c:when>
+															<c:otherwise>
+															  	<option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
+															</c:otherwise>
+														</c:choose>
+														
 													</c:forEach>
 												</select>
 												
-												<select id="minute1${j}" name="minute1" class="time-form-control">
-													<option value="00" selected="selected">00</option>
-													<option value="30">30</option>
+												<select id="minute1" name="minute1" class="time-form-control">
+													<c:choose>
+														<c:when test="${fn:substring(scheduleHours,3,5) != 30}">
+														  	<option value="00" selected="selected">00</option>
+															<option value="30" >30</option>
+														</c:when>
+														<c:otherwise>
+														  	<option value="00" >00</option>
+															<option value="30" selected="selected">30</option>
+														</c:otherwise>
+													</c:choose>
+												
+													
 												</select>
 												~
-												<select id="pt-hour2${j}" name="hour2" class="time-form-control">
+												<select id="pt-hour2" name="hour2" class="time-form-control">
 													<c:forEach var="a" begin="7" end="23">
-														<%-- fmt라이브러리를 이용하여 01,02와 같이 표현하기 위해 넘버 포맷을 변경.   --%>
+													 <%-- fmt라이브러리를 이용하여 01,02와 같이 표현하기 위해 넘버 포맷을 변경.   --%>
 														<fmt:formatNumber var="i" value='${a }' pattern='00'/>
-														<option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
+														
+														<c:choose>
+															<c:when test="${fn:substring(scheduleHours,6,8) == i}">
+															  	<option value="${i}" selected="selected"><c:out value="${i}" /></option>
+															</c:when>
+															<c:otherwise>
+															  	<option value="<c:out value="${i}"/>"><c:out value="${i}" /></option>
+															</c:otherwise>
+														</c:choose>
+														
 													</c:forEach>
 												</select>
 												
-												<select id="minute2${j}" name="minute2" class="time-form-control">
-													<option value="00" selected="selected">00</option>
-													<option value="30">30</option>
+												<select id="minute2" name="minute2" class="time-form-control">
+													<c:choose>
+														<c:when test="${fn:substring(scheduleHours,9,11) != 30}">
+														  	<option value="00" selected="selected">00</option>
+															<option value="30" >30</option>
+														</c:when>
+														<c:otherwise>
+														  	<option value="00" >00</option>
+															<option value="30" selected="selected">30</option>
+														</c:otherwise>
+													</c:choose>
 												</select>
 											</li>
 										</c:forEach>
 										<li>
 											<input type="checkbox" class="cb4" value="4" name="dayoff">
-											<label style="width: 60px;">휴무일</label>	
-											<input id="cb4-text" type="text" name="dayOffText" class="posting-form-control">
-										</li>
+											<label style="width: 60px;">휴무일</label>
+											<input id="cb4-text" type="text" name="dayOffText" class="posting-form-control" value="${scheduleInfo.scheduleDayoff}">
+										</li>	
 									</ul>
 									<p id="scheduleMsg" class="error">최소 1개의 일정을 선택해주세요</p>
 									<p id="scheduleHounMsg" class="error">시간을 다시 확인해주세요</p>		
@@ -155,11 +203,39 @@
 								<hr>
 								<div class="pd-insert-body-pt-price-body">
 									<ul class="pt-price-unit">
-										<li>
-											<input readonly="readonly" class="p-pt posting-form-control" id="p-pt0" name="round" type="number" min="1" value = "1" placeholder="1회">
-											<input class="p-pr posting-form-control" id="p-pr0" name ="roundPrice" type="number" min="1000" placeholder="1회 PT 가격">
-											<span>&nbsp;&nbsp;&nbsp;총 가격= <span id="totPrice"></span>원</span>
-										</li>
+										<c:choose>
+											<c:when test="${empty(ptPricingInfo)}">
+												<li>
+													<input readonly="readonly" class="p-pt posting-form-control" id="p-pt0" name="round" type="number" min="1" value = "1" placeholder="1회">
+													<input class="p-pr posting-form-control" id="p-pr0" name ="roundPrice" type="number" min="1000" placeholder="1회 PT 가격">
+													<span>&nbsp;&nbsp;&nbsp;총 가격= <span id="totPrice"></span>원</span>
+												</li>
+											</c:when>
+											<c:otherwise>
+												<c:set var="i" value="0" />
+												<c:forEach var="ptPricingInfo" items="${ptPricingInfo}" varStatus="status">
+													<c:choose>
+														<c:when test="${status.index == 0}">
+															<li>
+																<input readonly="readonly" class="p-pt posting-form-control" id="p-pt0" name="round" type="number" min="1" value = "1" placeholder="1회">
+																<input class="p-pr posting-form-control" id="p-pr0" name ="roundPrice" type="number" min="1000" value="${ptPricingInfo.ptPricingPrice}" placeholder="1회 PT 가격">
+																<span>&nbsp;&nbsp;&nbsp;총 가격= <span id="totPrice"></span>원</span>
+															</li>
+														</c:when>
+														<c:otherwise>
+															<li>
+																<i class='fa fa-minus-square' id='price-remove-btn'></i>&nbsp;";
+																<input class='p-pt posting-form-control' id='p-pt${status.index}' name='round' type='number' min='1' value="${ptPricingInfo.ptPricingRound}" placeholder='PT 회차수'>
+																<input class='p-pr posting-form-control' id='p-pr${status.index}' name='roundPrice' type='number' min='1000' value="${ptPricingInfo.ptPricingPrice}" placeholder='회당 가격'>
+																<span>&nbsp;&nbsp;&nbsp;총 가격=<span id='totPrice'></span>원</span>
+																<input type="hidden" value="${i =status.index}">
+															</li>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+												<input id="onp" type="hidden" value="${i}">
+											</c:otherwise>
+										</c:choose>
 									</ul>
 									<p id="priceRoundMsg" class="error">회차수를 입력해주세요</p>	
 									<p id="priceMsg" class="error">가격을 입력해주세요</p>	
@@ -277,8 +353,14 @@
 		var total= $(this).val()*$(this).prev().val();
 	    $(this).next().children().text(total);
 	});
-
-	var onp = 0;
+	
+	
+	if($("#onp").val()==null){
+		var onp = 0;		
+	} else {
+		var onp = $("#onp").val();
+	}
+	
 	var html2;
 	//동적 태그 생성(회차 추가시)
 	$(document).on("click", "#price-plus-btn", function() {

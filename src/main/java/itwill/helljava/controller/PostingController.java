@@ -67,7 +67,28 @@ public class PostingController {
 
 		return "/content/posting_detail_insert";
 	}
+	
+	// 포스팅 수정 페이지 요청
+	@RequestMapping(value = "/posting/modify", method = RequestMethod.GET)
+	public String trainerRequestUpdate(HttpSession session, Model model) {
 
+		// 모델에다가 트레이너 객체 넘김
+		model.addAttribute("trainer",
+				trainerService.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()));
+		model.addAttribute("trainerAwards", awardService.getAwardList(trainerService
+				.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo()));
+
+		//포스팅 :postingInfo
+		//스케쥴 : scheduleInfo
+		//pt가격관련 : ptPricingInfo
+
+		
+		
+		
+		
+		return "/content/posting_detail_modify";
+	}
+	
 	// 포스트 작성 페이지 post 요청 스케쥴과 포스팅 추가하는 핸들러 메서드
 	@RequestMapping(value = "/posting/write", method = RequestMethod.POST)
 	public String trainerRequestAdd(@ModelAttribute Posting posting, HttpSession httpSession,
