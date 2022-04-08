@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -193,11 +194,27 @@ public class PtQnAController {
 		return "/user/trainer/trainer_ptQnA_list";
 	}
 
-	// PT 문의 수정 요청 처리 메소드
-	@RequestMapping(value = "trainer/modify", method = RequestMethod.POST)
-	public String modify2(@ModelAttribute PtService ptService) {
+	// PT 완료 후 status 수정하는 메소드
+		@RequestMapping(value = "/trainer/modify/{ptServiceNo}/{status}", method = RequestMethod.GET)
+		public String modifyStatus(@PathVariable(value = "ptServiceNo") int ptServiceNo,
+				@PathVariable(value = "status") int status, HttpSession session) {
+			
+			PtService ptService = ptServiceService.getPtService(ptServiceNo);
+			
+			ptService.setPtServiceStatus(status);
+			ptServiceService.modifyPtService(ptService);
+			
 
-		ptServiceService.modifyPtService(ptService);
-		return "redirect:/ptqna/trainer/list";
-	}
+			return "redirect:/ptqna/trainer/list";
+		}
+	
+		/*
+		 * // PT 문의 수정 요청 처리 메소드
+		 * 
+		 * @RequestMapping(value = "/trainer/modify", method = RequestMethod.POST)
+		 * public String modify2(@ModelAttribute PtService ptService) {
+		 * 
+		 * ptServiceService.modifyPtService(ptService); return
+		 * "redirect:/ptqna/trainer/list"; }
+		 */
 }

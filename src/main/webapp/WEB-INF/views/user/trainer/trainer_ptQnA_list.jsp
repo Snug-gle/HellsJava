@@ -53,7 +53,7 @@
 													<td class="accordionBoard" style="width: 65px;"><c:choose>
 															<c:when test="${ptQna.ptServiceStatus eq '2' }">미확인</c:when>
 															<c:when test="${ptQna.ptServiceStatus eq '3' }">확인</c:when>
-															<c:otherwise>완료</c:otherwise>
+															<c:otherwise></c:otherwise>
 														</c:choose></td>
 													<td style="width: 76px;"><a data-toggle="collapse"
 														data-parent="#accordion" href="#${number2 }"
@@ -67,61 +67,20 @@
 									<div id="${number2 }" class="panel-collapse collapse"
 										aria-expanded="false" style="height: 0px;">
 										<div class="personalContent">${ptQna.ptServiceContent}
-											<!-- 모달 버튼 -->
-											<!-- 답글 있으면 수정 못하게 해야겠지? -->
 											<div class="reviewRight">
-												<button class="btn btn-primary" type="button"
-													data-toggle="modal" data-target="#formModal">수정</button>
+												<!-- 버튼 -->
+												<c:choose>
+													<c:when test="${ptQna.ptServiceStatus eq '2' }">
+												
+												<!-- 미확인 상태일시  -->
+													 <button class="btn btn-primary" type="button"
+														onclick="location.href='<c:url value="/ptqna/trainer/modify"/>/${ptQna.ptServiceNo  }/3';">확인</button>										
+													</c:when>
+													
+												<c:otherwise></c:otherwise>
+												</c:choose>
 											</div>
-											<!-- 수정페이지 모달 -->
-											<div class="modal fade" id="formModal" role="dialog">
-												<div class="modal-dialog" id="modal-dialog"
-													style="text-align: left;">
-													<div class="modal-content">
-														<div class="modal-header">
-															<div class="logo-location">
-																<a href="<c:url value="/"/>" class="modal-header-logo"><i
-																	class="icon-layers"></i>오늘의 짐</a>
-															</div>
-														</div>
-														<div class="modal-body">
-															<div id="login-wrapper">
-																<div class="panel panel-primary">
-																	<div class="panel-heading">
-																		<h3 class="panel-title">PT 문의 수정</h3>
-																	</div>
-																	<form action="<c:url value='/ptqna/trainer/modify'/>"
-																		method="post" class="form-horizontal" role="form">
-																		<div class="form-group">
-																			<label for="inputTitle"
-																				class="col-sm-2 control-label">제목</label>
-																			<div class="col-sm-10">
-																				<input type="hidden" name="ptServiceNo"
-																					class="form-control" value="${ptQna.ptServiceNo }">
-																				<input type="text" name="ptServiceTitle"
-																					class="form-control" value="${ptQna.ptServiceTitle }">
-																			</div>
-																		</div>
-																		<div class="form-group">
-																			<label for="inputTitle"
-																				class="col-sm-2 control-label">내용</label>
-																			<div class="col-sm-10">
-																				<textarea name="ptServiceContent"
-																					class="form-control">${ptQna.ptServiceContent}</textarea>
-																			</div>
-																		</div>
-																		<div class="reviewRight">
-																			<button type="submit" class="btn btn-primary">수정</button>
-																			<button type="button" class="btn btn-primary"
-																				onclick="location.href='<c:url value="/ptqna/list"/>';">목록</button>
-																		</div>
-																	</form>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
+								
 										</div>
 									</div>
 								</div>
