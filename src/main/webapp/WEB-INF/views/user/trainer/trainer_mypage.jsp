@@ -38,8 +38,12 @@
 	        	<p><i class="icon-note myPageIcon"></i></p></a>
 	        </div>
 		    <div class="flex-item">
-	        	<a href="${pageContext.request.contextPath}/myposting/detail/${loginUserinfo.memberNo }" style="color: #fff">포스팅 관리
-	        	<p><i class=" icon-user-follow myPageIcon"></i></p></a>
+	        	<c:if test="${empty posting }">
+	        		<a href="${pageContext.request.contextPath}/posting/write" style="color: #fff">포스팅 작성
+	        		<p><i class=" icon-user-follow myPageIcon"></i></p></a>
+	        	</c:if>
+	        		<a href="${pageContext.request.contextPath}/myposting/detail/${loginUserinfo.memberNo }" style="color: #fff">포스팅 관리
+	        		<p><i class=" icon-user-follow myPageIcon"></i></p></a>
 	        </div>   
 	        <%--<div class="trainer-my-item" onclick="location.href='<c:url value="/myposting/detail/${loginUserinfo.memberNo }"/>';">포스팅 관리</div>--%>
 	    </div>

@@ -68,7 +68,7 @@
 								<h3><strong>자기소개</strong></h3>
 								<hr>
 								<textarea name="postingSelfIntroduction" class="noticeFormContent" id="profile-text" style="height: 500px;">${postingInfo.postingSelfIntroduction }</textarea>
-								<p id="profileMsg" class="error">자기소개를 입력해주세요.</p>
+								<p id="profileMsg" class="error"></p>
 								<div class="pd-insert-body-myprofile-body">
 									<h5><i class="fa fa-file-image-o"></i>자기 소개 이미지 첨부 요망</h5>
 									<input type="file" id="postingSelfIntroductionImg1" name="Img" accept="image/*" value="${postingInfo.postingSelfIntroductionImg1 }">
