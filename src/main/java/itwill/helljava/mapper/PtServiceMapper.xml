@@ -12,7 +12,7 @@
 		#{ptServiceTitle, jdbcType=VARCHAR},
 		#{ptServiceContent},
 		#{ptServiceReply, jdbcType=VARCHAR},
-		#{ptServiceStars, jdbcType=INTEGER},
+		#{ptServiceStars, jdbcType=DOUBLE},
 		#{ptServiceGood, jdbcType=INTEGER},
 		sysdate,
 		#{ptServiceStatus},

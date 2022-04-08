@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 	<div class="reviewcontent">
 		
@@ -14,11 +15,34 @@
 				<div class="reviewbody-top">
 					<div><h3 class="tr-name${reviewList.ptServiceNo}">${reviewList.memberName }</h3></div>
 					<div><h3>${reviewList.ptServiceTitle }</h3></div>
-					<div>확인용 번호<h3>${reviewList.memberNo}</h3></div>
-					<div>확인용 번호2<h3>${reviewList.trainerNo}</h3></div>
 					<div>
 						<strong>별점</strong>
-						<span>${reviewList.ptServiceStars }</span>
+						<div>
+							<fmt:parseNumber var="star" value="${reviewList.ptServiceStars }" integerOnly="true" />
+							<c:set var="starhalf"  value="${(reviewList.ptServiceStars /0.5)%2 }" />
+							 
+							 <c:forEach begin="1" step="1" end="${star}" >
+							 	<i class="fa fa-star"></i>
+							 </c:forEach>
+							 <c:if test="${starhalf == 1}">
+								<i class="fa fa-star-half-o"></i>
+								
+								<c:forEach begin="1" step="1" end="${(5-starhalf)-star}" >
+								 	<i class="fa fa-star-o"></i>
+								 </c:forEach>							 
+							 </c:if>
+							 <c:if test="${starhalf != 1}">
+								<c:forEach begin="1" step="1" end="${5-star}" >
+								 	<i class="fa fa-star-o"></i>
+								 </c:forEach>							 
+							 </c:if>
+
+						 </div>
+						 
+						 
+						 
+						 
+						<span class="listPtStars">${reviewList.ptServiceStars }</span>
 						<span>${reviewList.ptServiceDate }</span>
 					</div>
 					<hr>
@@ -34,7 +58,7 @@
 				</c:if>
 				<div class="reviewbody-bottom">
 					<c:if test="${reviewList.ptServiceReply == null}">
-						<button class="reviewMobtn">수정</button>
+						<button class="reviewMobtn">수정</button> 
 						<button class="reviewDebtn" >삭제</button>
 					</c:if>
 					<c:if test="${reviewList.ptServiceReply != null}">
@@ -47,7 +71,7 @@
 
 	
 <script type="text/javascript">
-
+	
 	//삭제
 	$(".reviewDebtn").click(function() {
 		var id = $(this).parent().parent().prev().children().val(); // #ptServiceNo
