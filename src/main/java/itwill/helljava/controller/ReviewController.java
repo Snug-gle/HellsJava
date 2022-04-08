@@ -27,113 +27,119 @@ import itwill.helljava.service.TrainerService;
 import itwill.helljava.util.Pager;
 
 @Controller
-@RequestMapping("/review" )
+@RequestMapping("/review")
 public class ReviewController {
 
 	@Autowired
 	private PtServiceService ptServiceService;
-	
+
 	@Autowired
 	private TrainerService trainerService;
-	
-	//내가 쓴 리뷰 보기 목록 리스트
-	@RequestMapping(value = "/list",method = RequestMethod.GET)
-	public String searchList(@RequestParam(defaultValue = "1") int pageNum, HttpSession session, Model model){
-		
+
+	// 내가 쓴 리뷰 보기 목록 리스트
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String searchList(@RequestParam(defaultValue = "1") int pageNum, HttpSession session, Model model) {
+
 		if (session.getAttribute("loginUserinfo") != null) {
-			
+
 		}
 
 		Map<String, Object> searchMap = new HashMap<String, Object>();
-		
+
 		searchMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
 		searchMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
 		searchMap.put("member_no", ((Member) session.getAttribute("loginUserinfo")).getMemberNo());
-		
+
 		int totalBoard = ptServiceService.getPtServiceCount(searchMap);
-		int pageSize = 5; //한 페이지에 출력될 게시글의 갯수 저장
-		int blockSize = 10; //한 페이지 블럭에 출력될 페이지 번호의 갯수 저장
-		
-		//페이징 처리 관련 값을 제공하는 Pager 클래스로 객체를 생성하여 저장
+		int pageSize = 5; // 한 페이지에 출력될 게시글의 갯수 저장
+		int blockSize = 10; // 한 페이지 블럭에 출력될 페이지 번호의 갯수 저장
+
+		// 페이징 처리 관련 값을 제공하는 Pager 클래스로 객체를 생성하여 저장
 		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
-		
-		//Service 클래스의 메소드 호출을 위한 Map 객체 생성
-		Map<String,	Object> returnMap = new HashMap<String, Object>();
+
+		// Service 클래스의 메소드 호출을 위한 Map 객체 생성
+		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("startRow", pager.getStartRow());
 		returnMap.put("endRow", pager.getEndRow());
 		returnMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
 		returnMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
 		returnMap.put("member_no", ((Member) session.getAttribute("loginUserinfo")).getMemberNo());
-		
-		model.addAttribute("reviewrList",ptServiceService.getPtServiceList(returnMap));
-		model.addAttribute("pager",pager);
 
-		return "board/review_list";
+		model.addAttribute("reviewrList", ptServiceService.getPtServiceList(returnMap));
+		model.addAttribute("pager", pager);
+
+		return "/board/review_list";
 	}
-	
+
 	// //내가 쓴 리뷰 보기 목록 리스트 =>삭제
 	@RequestMapping(value = "list/reviewUpdate", method = RequestMethod.GET)
 	public String memberStatusModify(HttpServletRequest req) {
-		
+
 		int pt_service_no = Integer.parseInt(req.getParameter("ptServiceNo"));
-		int pt_service_status =Integer.parseInt(req.getParameter("ptServiceStatus"));
-		
+		int pt_service_status = Integer.parseInt(req.getParameter("ptServiceStatus"));
+
 		PtService ptdelete = ptServiceService.getPtService(pt_service_no);
-		
+
 		ptdelete.setPtServiceNo(pt_service_no);
 		ptdelete.setPtServiceStatus(pt_service_status);
-		
+
 		ptServiceService.modifyPtService(ptdelete);
-		
+
 		return "redirect:/review/list";
 	}
 
-	//리뷰 작성 및 수정 페이지 요청 처리 메소드
-	@RequestMapping(value = "/write" , method = RequestMethod.GET)
-	public String reviewWrite(HttpServletRequest req, HttpSession session, Model model) {
+	// 회원 1회 pt 신청 리스트에서 리뷰 작성 버튼을 눌렀을 때
+	// 및 수정 페이지 요청 처리 메소드
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
+	public String reviewWrite(HttpServletRequest req, HttpSession session, Model model,
+			@RequestParam(defaultValue = "1") int trainerNo) {
 		
-		if (session.getAttribute("loginUserinfo") != null) {
-			
-		}
-		if(req.getParameter("ptServiceNo") !=null) {
+		
+		// 이미 작성된 리뷰가 있을 때
+		if (req.getParameter("ptServiceNo") != null) {
+
 			int ptServiceNo = Integer.parseInt(req.getParameter("ptServiceNo"));
-			PtService ptdelete = ptServiceService.getPtService(ptServiceNo);//글 넘버로 글 정보 받아오기
-			Trainer trainer = trainerService.getTrainerTrainerNo(ptdelete.getTrainerNo()); //글정보에 있는 트레이너 번호로 이름 가져오기
-			
+			PtService ptdelete = ptServiceService.getPtService(ptServiceNo);// 글 넘버로 글 정보 받아오기
+			Trainer trainer = trainerService.getTrainerTrainerNo(ptdelete.getTrainerNo()); // 글정보에 있는 트레이너 번호로 이름 가져오기
 
 			model.addAttribute("review", ptdelete);
 			model.addAttribute("trainer", trainer);
 		}
-	
-		return "board/review_write";
+
+		// 작성된 리뷰가 없을 때
+		else {
+			model.addAttribute("trainer", trainerService.getTrainerTrainerNo(trainerNo));
+		}
+
+		return "/board/review_write";
 	}
-	
-	//리뷰 작성 후 저장 요청 처리 메소드
-	@RequestMapping(value =  "/write", method = RequestMethod.POST)
-	public String reviewWrite(@ModelAttribute PtService ptService , HttpSession session, Model model) {
+
+	// 리뷰 작성 후 저장 요청 처리 메소드
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	public String reviewWrite(@ModelAttribute PtService ptService, HttpSession session, Model model
+			,HttpServletRequest request) {
+
+		int memberNo = ((Member) (session.getAttribute("loginUserinfo"))).getMemberNo();// 이거슨 로그인한놈의 회원번호여
+
+		ptService.setMemberNo(memberNo);
+		ptService.setPtServiceStatus(PtServiceStatusEnum.일반리뷰.getValue());
+		ptService.setPtServiceSortation(PtServiceSortationEnum.리뷰.getValue());
 		
-		int memberNo = ((Member) (session.getAttribute("loginUserinfo"))).getMemberNo();//이거슨 로그인한놈의 회원번호여
+		ptService.setTrainerNo(Integer.parseInt(request.getParameter("trainerNo")));
 		
-		  ptService.setMemberNo(memberNo); ptService.setPtServiceStatus(1);
-		  ptService.setPtServiceSortation(1);
-		
-		  //테스트 코드
-		  ptService.setTrainerNo(1);//수동으로 부여
-		
-		  ptServiceService.addPtService(ptService);
+		ptServiceService.addPtService(ptService);
 
 		return "redirect:/review/list";
 	}
-	
-	//리뷰 수정 후 저장 요청 처리 메소드
+
+	// 리뷰 수정 후 저장 요청 처리 메소드
 	@RequestMapping("/modify")
 	public String reviewModify(@ModelAttribute PtService ptService) {
-		
-		
-		ptService.setPtServiceStatus(9);//쿼리 if문 회피용 값 수동 부여
+
+		ptService.setPtServiceStatus(9);// 쿼리 if문 회피용 값 수동 부여
 		ptServiceService.modifyPtService(ptService);
 
 		return "redirect:/review/list";
 	}
-	
+
 }
