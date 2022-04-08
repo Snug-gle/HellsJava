@@ -41,6 +41,9 @@ public class AdminController {
 	@Autowired
 	private AwardService awardService;
 
+//------------------------1:1문의----------------------------------------------------------------------------------------	
+
+	// 1:1 문의 리스트(최초) GET 방식 요청
 	@RequestMapping(value = "/admin/questionList", method = RequestMethod.GET)
 	public String questionList() {
 		return "/admin/admin_questionList";
@@ -110,6 +113,21 @@ public class AdminController {
 
 		return returnMap;
 	}
+
+	// 답글 추가 메서드 post 방식 요청
+	@RequestMapping(value = "/question/reply/{noticeServiceNo}", method = RequestMethod.POST)
+	public String replyAdd(@PathVariable("noticeServiceNo") int noticeServiceNo, HttpServletRequest request) {
+
+		NoticeService noticeService = new NoticeService();
+		noticeService.setNoticeServiceReply(request.getParameter("replyText"));
+		noticeService.setNoticeServiceNo(noticeServiceNo);
+
+		noticeServiceService.modifyReplyNoticeService(noticeService);
+
+		return "redirect:/admin/questionList";
+	}
+
+//------------------------회원 리스트----------------------------------------------------------------------------------------	
 
 	// 회원 리스트 요청 get 방식
 	@RequestMapping(value = "/admin/userList", method = RequestMethod.GET)
@@ -185,6 +203,8 @@ public class AdminController {
 		return "/admin/admin_userList";
 	}
 
+//------------------------트레이너 리스트----------------------------------------------------------------------------------------	
+
 	// 트레이너 목록 get 방식 요청
 	@RequestMapping(value = "/admin/trainerList/{memberStatus}", method = RequestMethod.GET)
 	public String trainerList(@PathVariable("memberStatus") int memberStatus,
@@ -218,16 +238,14 @@ public class AdminController {
 
 	// 트레이너 검색 get 방식 요청
 	@RequestMapping(value = "/admin/trainerSearch", method = RequestMethod.GET)
-	public String trainerSearch(@RequestParam(defaultValue ="1") int pageNum, @RequestParam String searchKeyword, 
+	public String trainerSearch(@RequestParam(defaultValue = "1") int pageNum, @RequestParam String searchKeyword,
 			@RequestParam String searchValue, @RequestParam String memberStatus, Model model) {
-			
 
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("searchKeyword", searchKeyword);
 		searchMap.put("searchValue", searchValue);
 		searchMap.put("memberStatus", Integer.parseInt(memberStatus));
 
-			
 		int totalBoard = trainerService.getTrainerListCount(searchMap);
 		int pageSize = 5;
 		int blockSize = 10;
@@ -236,19 +254,19 @@ public class AdminController {
 		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
 
 		Map<String, Object> returnMap = new HashMap<String, Object>();
-			
+
 		returnMap.put("searchKeyword", searchKeyword);
 		returnMap.put("searchValue", searchValue);
 		returnMap.put("startRow", pager.getStartRow());
 		returnMap.put("endRow", pager.getEndRow());
 		returnMap.put("memberStatus", Integer.parseInt(memberStatus));
-			
+
 		model.addAttribute("trainerList", trainerService.getTrainerList(returnMap));
-		model.addAttribute("pager",pager);
-		model.addAttribute("number",number);
-		model.addAttribute("searchValue",searchValue);
+		model.addAttribute("pager", pager);
+		model.addAttribute("number", number);
+		model.addAttribute("searchValue", searchValue);
 		model.addAttribute("memberStatus", memberStatus);
-			
+
 		return "/admin/admin_trainerList";
 	}
 
@@ -264,17 +282,17 @@ public class AdminController {
 		return "/admin/testaward";
 	}
 
-	// 답글 추가 메서드 post 방식 요청
-	@RequestMapping(value = "/question/reply/{noticeServiceNo}", method = RequestMethod.POST)
-	public String replyAdd(@PathVariable("noticeServiceNo") int noticeServiceNo, HttpServletRequest request) {
-
-		NoticeService noticeService = new NoticeService();
-		noticeService.setNoticeServiceReply(request.getParameter("replyText"));
-		noticeService.setNoticeServiceNo(noticeServiceNo);
-
-		noticeServiceService.modifyReplyNoticeService(noticeService);
-
-		return "redirect:/admin/questionList";
+	// 트레이너 상세에서 상태 변경 get 요청
+	@RequestMapping(value = "/admin/trainer/statusChange", method = RequestMethod.GET)
+	public String trainerStatusChange(@RequestParam int memberNo, @RequestParam int trainerStatus) {
+		
+		Member statusTrainer = new Member();
+		
+		statusTrainer.setMemberNo(memberNo);
+		statusTrainer.setMemberStatus(trainerStatus);
+		
+		memberService.modifyMember(statusTrainer);
+		
+		return "redirect:/admin/trainerList/"+trainerStatus;
 	}
-
 }
