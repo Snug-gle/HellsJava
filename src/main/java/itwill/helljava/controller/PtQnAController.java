@@ -18,6 +18,7 @@ import itwill.helljava.Enum.PtServiceStatusEnum;
 import itwill.helljava.dto.Member;
 import itwill.helljava.dto.PtService;
 import itwill.helljava.service.PtServiceService;
+import itwill.helljava.service.TrainerService;
 import itwill.helljava.util.Pager;
 
 @Controller
@@ -26,7 +27,12 @@ public class PtQnAController {
 
 	@Autowired
 	private PtServiceService ptServiceService;
+	
+	@Autowired
+	private TrainerService trainerService;
 
+/*===================================  회원==  ======================================  */
+	
 	//  PT 문의 리스트 최초 화면 요청 처리 메소드 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String searchAllList(Model model, @RequestParam(defaultValue = "1") int pageNum,
@@ -109,5 +115,77 @@ public class PtQnAController {
 		ptServiceService.modifyPtService(ptService);
 		return "redirect:/ptqna/list";
 	}
+	
+	
+	/*===================================  트레이너  ======================================  */	
 
+//  PT 문의 리스트 최초 화면 요청 처리 메소드 
+	@RequestMapping(value = "trainer/list", method = RequestMethod.GET)
+	public String searchAllList2(Model model, @RequestParam(defaultValue = "1") int pageNum,
+			HttpSession session) {
+		
+		// 트레이너 번호 세션으로 받음
+		int trainerNo = trainerService.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo();
+
+		// 전체 리스트를 위한 페이징 정보 저장
+				
+		int totalBoard = ptServiceService.getPtServiceTrainerCount(PtServiceSortationEnum.피티문의.getValue(), trainerNo);
+		int pageSize = 3;
+		int blockSize = 5;
+		int number = totalBoard - (pageNum - 1) * pageSize;
+
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+		
+		Map<String, Object> pagerMap = new HashMap<String, Object>();
+		pagerMap.put("startRow", pager.getStartRow());
+		pagerMap.put("endRow", pager.getEndRow());
+		pagerMap.put("pt_service_sortation", PtServiceSortationEnum.피티문의.getValue());
+		pagerMap.put("pt_service_status", 345); // 임의의값
+		pagerMap.put("trainer_no", trainerNo);
+
+		model.addAttribute("pager", pager);
+		model.addAttribute("ptQnaList", ptServiceService.getPtServiceTrainerList(pagerMap));
+		model.addAttribute("number", number);
+		
+		return "/user/trainer/ptQnA_list";
+	}
+
+	// 확인, 미확인 여부 리스트 페이지 요청 처리 메소드
+	@RequestMapping(value = "trainer/list/status", method = RequestMethod.GET)
+	public String searchList2(Model model, @RequestParam(defaultValue = "1") int pageNum,
+			@RequestParam String confirmStatus, HttpSession session) {
+		
+		// 트레이너 번호 세션으로 받음
+		int trainerNo = trainerService.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo();
+
+		// 페이징 처리 위한 정보 저장
+		int totalBoard = ptServiceService.getPtServiceTrainerCount(PtServiceSortationEnum.피티문의.getValue(), trainerNo);
+		int pageSize = 3;
+		int blockSize = 5;
+		int number = totalBoard - (pageNum - 1) * pageSize;
+
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+
+		Map<String, Object> pagerMap = new HashMap<String, Object>();
+		pagerMap.put("startRow", pager.getStartRow());
+		pagerMap.put("endRow", pager.getEndRow());
+		pagerMap.put("pt_service_sortation", PtServiceSortationEnum.피티문의.getValue());
+		pagerMap.put("pt_service_status", Integer.parseInt(confirmStatus));
+		pagerMap.put("trainer_no", trainerNo);
+
+		model.addAttribute("pager", pager);
+		model.addAttribute("ptQnaList", ptServiceService.getPtServiceList(pagerMap));
+		model.addAttribute("status",confirmStatus);
+		model.addAttribute("number", number);
+
+		return "/user/trainer/ptQnA_list";
+	}
+
+	// PT 문의 수정 요청 처리 메소드
+	@RequestMapping(value = "trainer/modify", method = RequestMethod.POST)
+	public String modify2(@ModelAttribute PtService ptService) {
+
+		ptServiceService.modifyPtService(ptService);
+		return "redirect:/ptqna/trainer/list";
+	}
 }
