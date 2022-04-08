@@ -119,7 +119,7 @@
 									<hr>
 									<div class="row">
 										<div class="trainerDetailView">
-											<img alt="" src="<spring:url value="/img/${trainer.trainerProfileImg}"/>">
+											<img alt="" src="<spring:url value='/profileImages/${trainer.trainerProfileImg}'/>">
 										</div>
 										<div class="ad-t-v-header-info trainerDetailView">
 											<table>
