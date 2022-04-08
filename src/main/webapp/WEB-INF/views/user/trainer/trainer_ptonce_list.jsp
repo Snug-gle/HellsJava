@@ -169,23 +169,23 @@
 	//페이징 처리 
 	//[처음], [이전] 이동 설정
 	if (${pager.startPage} > ${pager.blockSize}) {
-		html += "<a href='<c:url value="/ptqna/list/miss"/>?pageNum=1'>[처음]</a>";
-		html += "<a href='<c:url value="/ptqna/list/miss"/>?pageNum=${pager.prevPage}'>[<]</a>";
+		html += "<a href='<c:url value="/ptonce/trainer/list"/>?pageNum=1'>[처음]</a>";
+		html += "<a href='<c:url value="/ptonce/trainer/list"/>?pageNum=${pager.prevPage}'>[<]</a>";
 	} else {
 		html += "[처음][<]";
 	}
 	//페이지 번호 설정
 	for (var i = ${pager.startPage}; i <= ${pager.endPage}; i++) {
 		if (${pager.pageNum} != i) {
-			html += "<a href='<c:url value="/ptqna/list/miss"/>?pageNum="+i+"'> [" + i + "] </a>";
+			html += "<a href='<c:url value="/ptonce/trainer/list"/>?pageNum="+i+"'> [" + i + "] </a>";
 		} else {
 			html += "[" + i + "]";
 		}
 	}
 	//[다음],[마지막] 이동 설정
 	if (${pager.endPage} != ${pager.totalPage}) {
-		html += "<a href='<c:url value="/ptqna/list/miss"/>?pageNum=${pager.nextPage}'>[>]</a>";
-		html += "<a href='<c:url value="/ptqna/list/miss"/>?pageNum=${pager.totalPage}'>[마지막]</a>";
+		html += "<a href='<c:url value="/ptonce/trainer/list"/>?pageNum=${pager.nextPage}'>[>]</a>";
+		html += "<a href='<c:url value="/ptonce/trainer/list"/>?pageNum=${pager.totalPage}'>[마지막]</a>";
 	} else {
 		html += "[>][마지막]";
 	}
