@@ -34,7 +34,7 @@
 	        	<p><i class="icon-note myPageIcon"></i></p></a>
 	        </div>
 	        <div class="flex-item">
-	        	<a href="" style="color: #fff">PT 문의 목록
+	        	<a href="${pageContext.request.contextPath}/ptqna/trainer/list" style="color: #fff">PT 문의 목록
 	        	<p><i class="icon-note myPageIcon"></i></p></a>
 	        </div>
 		    <div class="flex-item">

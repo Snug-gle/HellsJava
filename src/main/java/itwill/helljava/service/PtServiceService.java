@@ -15,7 +15,7 @@ public interface PtServiceService {
 
 	int getPtServiceCount(Map<String, Object> map);
 	
-	int getPtServiceTrainerCount(int pt_service_sortation, int trainer_no);
+	int getPtServiceTrainerCount(Map<String, Object> map);
 
 	PtService getPtService(int pt_service_no);
 
