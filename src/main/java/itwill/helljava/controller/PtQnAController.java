@@ -65,7 +65,7 @@ public class PtQnAController {
 
 	// 확인, 미확인 여부 리스트 페이지 요청 처리 메소드
 	@RequestMapping(value = "/list/status", method = RequestMethod.GET)
-	public String searchMissList(Model model, @RequestParam(defaultValue = "1") int pageNum,
+	public String searchList(Model model, @RequestParam(defaultValue = "1") int pageNum,
 			@RequestParam String confirmStatus, HttpSession session) {
 		
 		// 회원번호 세션으로 받음
