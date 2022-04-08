@@ -21,34 +21,37 @@ public class PtOnceServiceImpl implements PtOnceService {
 		ptOnceDAO.insertPtOnce(ptOnce);
 	}
 
-	@Override
-	public void modifyPtOnceStatus(Map<String, Object> map) {
-		ptOnceDAO.updatePtOnceStatus(map);
-	}
 
 	@Override
 	public PtOnce getPtOnce(int pt_once_no) {
 		return ptOnceDAO.selectPtOnce(pt_once_no);
 	}
 
+
 	@Override
 	public int getPtOnceCount(int member_no) {
 		return ptOnceDAO.selectPtOnceCount(member_no);
 	}
 
+
 	@Override
-	public int getPtOnceTrainerCount(Map<String, Object> map) {
-		return ptOnceDAO.selectPtOnceTrainerCount(map);
+	public int getPtOnceTrainerCount(int trainer_no) {
+		return ptOnceDAO.selectPtOnceTrainerCount(trainer_no);
 	}
+
 
 	@Override
 	public List<PtOnce> getPtOnceList(Map<String, Object> map) {
 		return ptOnceDAO.selectPtOnceList(map);
 	}
 
+
 	@Override
 	public List<PtOnce> getPtOnceTrainerList(Map<String, Object> map) {
 		return ptOnceDAO.selectPtOnceTrainerList(map);
 	}
 
+
+	
+	
 }

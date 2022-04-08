@@ -11,7 +11,7 @@ import itwill.helljava.dto.PtOnce;
 import itwill.helljava.mapper.PtOnceMapper;
 
 @Repository
-public class PtOnceDAOImpl implements PtOnceDAO {
+public class PtOnceDAOImpl implements PtOnceDAO{
 	@Autowired
 	private SqlSession sqlSession;
 
@@ -20,34 +20,37 @@ public class PtOnceDAOImpl implements PtOnceDAO {
 		return sqlSession.getMapper(PtOnceMapper.class).insertPtOnce(ptOnce);
 	}
 
-	@Override
-	public int updatePtOnceStatus(Map<String, Object> map) {
-		return sqlSession.getMapper(PtOnceMapper.class).updatePtOnceStatus(map);
-	}
 
 	@Override
 	public PtOnce selectPtOnce(int pt_once_no) {
 		return sqlSession.getMapper(PtOnceMapper.class).selectPtOnce(pt_once_no);
 	}
 
+
 	@Override
 	public int selectPtOnceCount(int member_no) {
 		return sqlSession.getMapper(PtOnceMapper.class).selectPtOnceCount(member_no);
 	}
 
+
 	@Override
-	public int selectPtOnceTrainerCount(Map<String, Object> map) {
-		return sqlSession.getMapper(PtOnceMapper.class).selectPtOnceTrainerCount(map);
+	public int selectPtOnceTrainerCount(int trainer_no) {
+		return sqlSession.getMapper(PtOnceMapper.class).selectPtOnceTrainerCount(trainer_no);
 	}
+
 
 	@Override
 	public List<PtOnce> selectPtOnceList(Map<String, Object> map) {
 		return sqlSession.getMapper(PtOnceMapper.class).selectPtOnceList(map);
 	}
 
+
 	@Override
 	public List<PtOnce> selectPtOnceTrainerList(Map<String, Object> map) {
 		return sqlSession.getMapper(PtOnceMapper.class).selectPtOnceTrainerList(map);
 	}
 
+	
+	
+	
 }
