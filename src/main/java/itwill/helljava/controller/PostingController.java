@@ -202,7 +202,7 @@ public class PostingController {
 		}
 
 		// 휴무일 정보도 있을 시
-		if (!(dayOff == null && dayOffText == null)) {
+		if ((dayOff != null) && (!dayOffText.equals(""))) {
 			Schedule schedule = new Schedule();
 			schedule.setScheduleWorkday(ScheduleWorkdayEnum.of(Integer.parseInt(dayOff)).getValue());
 			schedule.setScheduleDayoff(dayOffText);
