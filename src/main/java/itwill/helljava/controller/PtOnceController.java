@@ -52,7 +52,7 @@ public class PtOnceController {
 		int totalBoard = ptOnceService.getPtOnceCount(((Member) session.getAttribute("loginUserinfo")).getMemberNo());
 		int pageSize = 5; // 한 페이지에 출력될 게시글의 갯수 저장
 		int blockSize = 10; // 한 페이지 블럭에 출력될 페이지 번호의 갯수 저장
-
+		
 		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
 
 		Map<String, Object> pagerMap = new HashMap<String, Object>();
