@@ -68,6 +68,13 @@ public class TrainerController {
 	public String trainerRequest() {
 		return "/user/trainer/trainer_request";
 	}
+	
+	// 트레이너 수정 화면을 요청
+	@RequestMapping(value = "/trainer/modify", method = RequestMethod.GET)
+	public String trainerModify() {
+		return "/user/trainer/trainer_modify";
+	}
+	
 
 	// 트레이너 신청 POST 요청 받아온 값
 	// 회원 번호, 프로필 사진, 우편번호, 소속센터 주소, 소속센터명, 수상 내용들, 수상 사진들,
