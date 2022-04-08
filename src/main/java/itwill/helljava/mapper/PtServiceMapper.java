@@ -18,7 +18,7 @@ public interface PtServiceMapper {
 	int selectPtServiceCount(Map<String, Object> map);
 	
 	// 트레이너 (나한테 온 문의들) 글 갯수
-	int selectPtServiceTrainerCount(int pt_service_sortation, int trainer_no);
+	int selectPtServiceTrainerCount(Map<String, Object> map);
 
 	PtService selectPtService(int pt_service_no);
 

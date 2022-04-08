@@ -90,7 +90,7 @@
 																	<div class="panel-heading">
 																		<h3 class="panel-title">PT 문의 수정</h3>
 																	</div>
-																	<form action="<c:url value='/ptqna/modify'/>"
+																	<form action="<c:url value='/ptqna/trainer/modify'/>"
 																		method="post" class="form-horizontal" role="form">
 																		<div class="form-group">
 																			<label for="inputTitle"
@@ -152,23 +152,23 @@
 	//페이징 처리 
 	//[처음], [이전] 이동 설정
 	if (${pager.startPage} > ${pager.blockSize}) {
-		html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum=1&confirmStatus="+$("#category").val()+"'>[처음]</a>";
-		html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum=${pager.prevPage}&confirmStatus="+$("#category").val()+"'>[<]</a>";
+		html += "<a href='<c:url value="/ptqna/trainer/list/status"/>?pageNum=1&confirmStatus="+$("#category").val()+"'>[처음]</a>";
+		html += "<a href='<c:url value="/ptqna/trainer/list/status"/>?pageNum=${pager.prevPage}&confirmStatus="+$("#category").val()+"'>[<]</a>";
 	} else {
 		html += "[처음][<]";
 	}
 	//페이지 번호 설정
 	for (var i = ${pager.startPage}; i <= ${pager.endPage}; i++) {
 		if (${pager.pageNum} != i) {
-			html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum="+i+"&confirmStatus="+$("#category").val()+"'> [" + i + "] </a>";
+			html += "<a href='<c:url value="/ptqna/trainer/list/status"/>?pageNum="+i+"&confirmStatus="+$("#category").val()+"'> [" + i + "] </a>";
 		} else {
 			html += "[" + i + "]";
 		}
 	}
 	//[다음],[마지막] 이동 설정
 	if (${pager.endPage} != ${pager.totalPage}) {
-		html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum=${pager.nextPage}&confirmStatus="+$("#category").val()+"'>[>]</a>";
-		html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum=${pager.totalPage}&confirmStatus="+$("#category").val()+"'>[마지막]</a>";
+		html += "<a href='<c:url value="/ptqna/trainer/list/status"/>?pageNum=${pager.nextPage}&confirmStatus="+$("#category").val()+"'>[>]</a>";
+		html += "<a href='<c:url value="/ptqna/trainer/list/status"/>?pageNum=${pager.totalPage}&confirmStatus="+$("#category").val()+"'>[마지막]</a>";
 	} else {
 		html += "[>][마지막]";
 	}
@@ -183,7 +183,7 @@
 		// 확인여부 상태 값
 		var confirmStatus = $(this).val();
 		// 값 담아서 get 요청
-		location.href = "${pageContext.request.contextPath}/ptqna/list/status?confirmStatus="+confirmStatus;
+		location.href = "${pageContext.request.contextPath}/ptqna/trainer/list/status?confirmStatus="+confirmStatus;
 	})
 	</script>
 </html>

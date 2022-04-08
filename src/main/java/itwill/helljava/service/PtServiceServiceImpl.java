@@ -39,8 +39,8 @@ public class PtServiceServiceImpl implements PtServiceService {
 	}
 
 	@Override
-	public int getPtServiceTrainerCount(int pt_service_sortation, int trainer_no) {
-		return ptServiceDAO.selectPtServiceTrainerCount(pt_service_sortation, trainer_no);
+	public int getPtServiceTrainerCount(Map<String, Object> map) {
+		return ptServiceDAO.selectPtServiceTrainerCount(map);
 	}
 
 	@Override
