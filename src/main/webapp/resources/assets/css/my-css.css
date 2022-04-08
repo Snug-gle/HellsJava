@@ -465,5 +465,24 @@ ul {
 	float: left;
 	width: 80px;
 	margin: auto 30px;
+}
+
+.pageBtn {
+	font-size: medium;
+	width: 15px;
+	height: 15px;
+	border-radius: 0px;
+}
+
+.frofile-content-body {
+	padding: 15px 30px;
 	
+}
+
+.posting-label {
+	float: left;
+	width: 80px;
+	float: right;
+	width: 510px;
+	padding: 20px;
 }
