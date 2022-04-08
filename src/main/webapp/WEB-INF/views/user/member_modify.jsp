@@ -37,18 +37,19 @@
 							<div class="form-group">
 								<label class="col-sm-1 control-label" for="phoneLabel">연락처</label>
 								<div class="col-sm-7">
+									<c:set var ="phone" value="${fn:substring(loginUserinfo.memberPhone,0,3)}"/>
 									<select id="member_phone1" name="member_phone1"
 										class="btn btn-primary dropdown-toggle">
-										<option value="010" selected="selected">&nbsp;010&nbsp;</option>
-										<option value="011">&nbsp;011&nbsp;</option>
-										<option value="016">&nbsp;016&nbsp;</option>
-										<option value="017">&nbsp;017&nbsp;</option>
-										<option value="018">&nbsp;018&nbsp;</option>
-										<option value="019">&nbsp;019&nbsp;</option>
+										<option value="010" <c:if test="${fn:substring(loginUserinfo.memberPhone,0,3) eq '010'}"> selected="selected"</c:if>>&nbsp;010&nbsp;</option>
+										<option value="011" <c:if test="${fn:substring(loginUserinfo.memberPhone,0,3) eq '011'}"> selected="selected"</c:if>>&nbsp;011&nbsp;</option>
+										<option value="016" <c:if test="${fn:substring(loginUserinfo.memberPhone,0,3) eq '016'}"> selected="selected"</c:if>>&nbsp;016&nbsp;</option>
+										<option value="017" <c:if test="${fn:substring(loginUserinfo.memberPhone,0,3) eq '017'}"> selected="selected"</c:if>>&nbsp;017&nbsp;</option>
+										<option value="018" <c:if test="${fn:substring(loginUserinfo.memberPhone,0,3) eq '018'}"> selected="selected"</c:if>>&nbsp;018&nbsp;</option>
+										<option value="019" <c:if test="${fn:substring(loginUserinfo.memberPhone,0,3) eq '019'}"> selected="selected"</c:if>>&nbsp;019&nbsp;</option>
 									</select> <input type="text" name="member_phone2"
-										class="phone-form-control" id="member_phone2" maxlength="4">
+										class="phone-form-control" id="member_phone2" maxlength="4" value="${fn:substring(loginUserinfo.memberPhone,4,8)}">
 									<input type="text" name="member_phone3" class="phone-form-control"
-										id="member_phone3" maxlength="4">
+										id="member_phone3" maxlength="4" value="${fn:substring(loginUserinfo.memberPhone,9,13)}">
 								</div>
 								<p id="phoneMsg" class="error">연락처를 입력해 주세요.</p>
 								<div id="phoneRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해
