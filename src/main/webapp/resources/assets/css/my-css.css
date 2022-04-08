@@ -486,3 +486,11 @@ ul {
 	width: 510px;
 	padding: 20px;
 }
+
+.award-label {
+	float: left;
+	width: 80px;
+	float: right;
+	width: 250px;
+	padding: 20px;
+}
