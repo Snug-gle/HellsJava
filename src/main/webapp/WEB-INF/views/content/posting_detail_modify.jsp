@@ -90,14 +90,14 @@
 							<div class="pd-insert-body-pt-schedule">	
 								<hr>
 									<h3><strong>PT 스케줄</strong></h3>
-								<hr>${scheduleInfo.scheduleWorkday }
+								<hr>
 								<div>
 									<ul>
 										<c:forEach var="j" begin="1" end="3">
 											<li>
 											
 												<c:choose>
-													 <c:when test="${scheduleInfo[j].scheduleWorkday == j }">
+													 <c:when test="${scheduleInfo[j-1].scheduleWorkday == j }">
 													 	<input name = "workdayCheck" type="checkbox" class="cb${j}" value="${j}" checked="checked">
 													 </c:when>
 													 <c:otherwise>
@@ -119,7 +119,7 @@
 												</c:if>
 												
 												<%-- fn라이브러리를 이용하여 substring를 사용하기 위해 선언 --%>
-												<c:set var="scheduleHours" value="${scheduleInfo.scheduleHours}"/> 
+												<c:set var="scheduleHours" value="${scheduleInfo[j-1].scheduleHours}"/> 
 
 												<select id="pt-hour1" name = "hour1" class="time-form-control">
 													<c:forEach var="a" begin="6" end="23">
@@ -128,7 +128,7 @@
 														<fmt:formatNumber var="i" value='${a }' pattern='00'/>
 														
 														<c:choose>
-															<c:when test="${fn:substring(scheduleHours[j],0,2) == i}">
+															<c:when test="${fn:substring(scheduleHours,0,2) == i}">
 															  	<option value="${i}" selected="selected"><c:out value="${i}" /></option>
 															</c:when>
 															<c:otherwise>
@@ -141,7 +141,7 @@
 												
 												<select id="minute1" name="minute1" class="time-form-control">
 													<c:choose>
-														<c:when test="${fn:substring(scheduleHours[j],3,5) != 30}">
+														<c:when test="${fn:substring(scheduleHours,3,5) != 30}">
 														  	<option value="00" selected="selected">00</option>
 															<option value="30" >30</option>
 														</c:when>
@@ -160,7 +160,7 @@
 														<fmt:formatNumber var="i" value='${a }' pattern='00'/>
 														
 														<c:choose>
-															<c:when test="${fn:substring(scheduleHours[j],6,8) == i}">
+															<c:when test="${fn:substring(scheduleHours,6,8) == i}">
 															  	<option value="${i}" selected="selected"><c:out value="${i}" /></option>
 															</c:when>
 															<c:otherwise>
@@ -173,7 +173,7 @@
 												
 												<select id="minute2" name="minute2" class="time-form-control">
 													<c:choose>
-														<c:when test="${fn:substring(scheduleHours[j],9,11) != 30}">
+														<c:when test="${fn:substring(scheduleHours,9,11) != 30}">
 														  	<option value="00" selected="selected">00</option>
 															<option value="30" >30</option>
 														</c:when>
