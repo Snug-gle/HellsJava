@@ -122,6 +122,7 @@
 											<img alt="" src="<spring:url value='/profileImages/${trainer.trainerProfileImg}'/>">
 										</div>
 										<div class="ad-t-v-header-info trainerDetailView">
+										<input type="hidden" id="trainerMemberNo" name="trainerMemberNo" value="${trainer.memberNo}">
 											<table>
 												<tr>
 													<td>이름</td>
@@ -161,10 +162,9 @@
 										</div>
 		
 										<div class="ad-t-v-header-award-footer-change">
-											<select class="btn btn-primary dropdown-toggle">
-												<option value="1" selected>트레이너</option>
-												<option value="2">회원</option>
-												<option value="3">탈퇴</option>
+											<select class="btn btn-primary dropdown-toggle" id="trainerStatusChange" name="trainerStatusChange">
+												<option value="2" <c:if test="${trainer.memberStatus==2 }">selected="selected"</c:if>>트레이너 예정</option>
+												<option value="3" <c:if test="${trainer.memberStatus==3 }">selected="selected"</c:if>>트레이너</option>
 											</select>
 										</div>
 									</div> 
@@ -229,6 +229,21 @@
 			}
 		});		
 	});
+	
+	//--------------트레이너 상태 변경---------------
+	
+	
+	$("#trainerStatusChange").change(function() {
+
+		alert("ㅎㅇ!");
+		var trainerMemberNo = $("#trainerMemberNo").val();
+		
+		var trainerStatus = $(this).val(); 
+
+		location.href="${pageContext.request.contextPath}/admin/trainer/statusChange?trainerStatus="+trainerStatus+"&memberNo="+trainerMemberNo;
+	})
+	
+	
 	
 	//--------------상태 (2,3 인지) name 값 가져오기-----
 	
