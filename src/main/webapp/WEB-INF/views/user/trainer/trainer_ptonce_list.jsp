@@ -49,7 +49,9 @@
 													<td style="width: 300px;">${ptOnce.memberName }&nbsp;&nbsp;&nbsp;${ptOnce.memberPhone}
 													</td>
 													<!-- 상태 -->
-													<td style="width: 100px;">${ptOnce.ptOnceStatus }</td>
+													<c:if test="${ptOnce.ptOnceStatus eq '0'}"><td style="width: 100px;">미확인</td></c:if>
+													<c:if test="${ptOnce.ptOnceStatus eq '1'}"><td style="width: 100px;">확인</td></c:if>
+													<c:if test="${ptOnce.ptOnceStatus eq '2'}"><td style="width: 100px;">완료</td></c:if>
 													<!-- 상세보기 -->
 													<td style="width: auto;"><a data-toggle="collapse"
 														data-parent="#accordion" href="#${ptOnce.ptOnceNo }"
@@ -112,7 +114,7 @@
 										</c:if>
 										<!-- 특이 사항 -->
 										<div class="personalContent">${ptOnce.ptOnceSignificant}</div>
-										
+											<div class="btnGroup">
 										<!-- 버튼 -->
 										<c:choose>
 											<c:when test="${ptOnce.ptOnceStatus eq '0' }">
@@ -127,16 +129,19 @@
 											</c:when>
 										<c:otherwise></c:otherwise>
 										</c:choose>
+										</div>
 									</div>
 								</div>
 							</div>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
+					<div class="btnGroup">
 				<!-- 버튼 -->
 				<button type="button"
 					onclick="location.href='<c:url value="/mypage"/>';">마이페이지로
 					이동</button>
+					</div>
 
 				<%-- 페이지 번호 출력 --%>
 				<div class="panel panel-default">
