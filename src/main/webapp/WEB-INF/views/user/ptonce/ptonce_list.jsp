@@ -33,7 +33,7 @@
 		                                            <td class="accordionBoard" style="width: 70px;"><strong>${index }</strong></td>
 		                                            <td class="accordionBoard" style="width: auto;"></td>
 		                                            <td class="accordionBoard" style="width: 100px;">${fn:substring(ptOnce.ptOnceApplicationDate,0,11) }</td>
-		                                        	<td class="accordionBoard" style="width: 140px;">${ptOnce.trainerNo}</td>
+		                                        	<td class="accordionBoard" style="width: 140px;">${ptOnce.memberName}</td>
 		                                        	<!-- 확인 상태 -->
 		                                        	<td class="accordionBoard" style="width: 65px;">
 			                                        	<c:choose>
@@ -44,7 +44,7 @@
 		                                        	</td>
 		                                        	<td style="width: 76px;">
 		                                        	<butoon data-toggle="collapse" data-parent="#accordion" href="#${ptOnce.ptOnceNo}" class="collapsed btn btn-default ptOnceBtn" aria-expanded="false">
-														상세보기</butoon>></td>
+														상세보기</butoon></td>
 													<td style="width: 76px;">
 														<button data-toggle="collapse" data-parent="#accordion" class="collapsed btn btn-primary ptOnceBtn" aria-expanded="false"
 														type="button" onclick="location.href='${pageContext.request.contextPath}/review/write?trainerNo=${ptOnce.trainerNo }';" >리뷰쓰기</button>
@@ -58,10 +58,42 @@
 									<hr>
 									<!-- 성별, 연령, 운동경험, 운동목적 , 특이사항  -->
 										<div class="ptOncePersonalContent">
-											<div class="">성별 : ${ptOnce.ptOnceGender}</div>
-											<div class="">연령 : ${ptOnce.ptOnceAge}</div>
-											<div class="">운동경험 : ${ptOnce.ptOnceExperience}</div>
-											<div class="">운동목적 :${ptOnce.ptOncePurpose}<br></div>
+												<div class="">
+													<c:choose>
+														<c:when test="${ptOnce.ptOnceGender eq 1}">
+															성별 : 남자	
+														</c:when>
+														<c:when test="${ptOnce.ptOnceGender eq 2}">
+															성별 : 여자	
+														</c:when>
+													</c:choose>
+												</div>
+												<div class="">
+													<c:choose>
+														<c:when test="${ptOnce.ptOnceAge eq 1}">연령 : 10대</c:when>
+														<c:when test="${ptOnce.ptOnceAge eq 2}">연령 : 20대</c:when>
+														<c:when test="${ptOnce.ptOnceAge eq 3}">연령 : 30대</c:when>
+														<c:when test="${ptOnce.ptOnceAge eq 4}">연령 : 40대</c:when>
+														<c:when test="${ptOnce.ptOnceAge eq 5}">연령 : 50대</c:when>
+														<c:otherwise>연령 : 60대</c:otherwise>
+													</c:choose>
+												</div>
+												<div class="">
+													<c:choose>
+														<c:when test="${ptOnce.ptOnceExperience eq 1}">운동경험 : 1달 미만</c:when>
+														<c:when test="${ptOnce.ptOnceExperience eq 2}">운동경험 : 3개월</c:when>
+														<c:when test="${ptOnce.ptOnceExperience eq 3}">운동경험 : 6개월</c:when>
+														<c:otherwise>1년 이상</c:otherwise>
+													</c:choose>
+												</div>
+												<div class="">
+													<c:choose>
+														<c:when test="${ptOnce.ptOncePurpose eq 1}">운동목적 : 다이어트</c:when>
+														<c:when test="${ptOnce.ptOncePurpose eq 2}">운동목적 : 체력 증진</c:when>
+														<c:when test="${ptOnce.ptOncePurpose eq 3}">운동목적 : 취미 활동</c:when>
+														<c:otherwise>기타</c:otherwise>
+													</c:choose>
+												</div>
 											<div class="">특이사항 :${ptOnce.ptOnceSignificant }</div>
 										</div>
 									</div>
