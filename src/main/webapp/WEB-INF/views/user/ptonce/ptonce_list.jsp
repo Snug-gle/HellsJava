@@ -33,7 +33,7 @@
 		                                            <td class="accordionBoard" style="width: 70px;"><strong>${index }</strong></td>
 		                                            <td class="accordionBoard" style="width: auto;"></td>
 		                                            <td class="accordionBoard" style="width: 100px;">${fn:substring(ptOnce.ptOnceApplicationDate,0,11) }</td>
-		                                        	<td class="accordionBoard" style="width: 140px;">ㅇㅇㅇ트레이너</td>
+		                                        	<td class="accordionBoard" style="width: 140px;">${ptOnce.trainerNo}</td>
 		                                        	<!-- 확인 상태 -->
 		                                        	<td class="accordionBoard" style="width: 65px;">
 			                                        	<c:choose>
@@ -43,10 +43,11 @@
 		                                        		</c:choose>
 		                                        	</td>
 		                                        	<td style="width: 76px;">
-		                                        	<a data-toggle="collapse" data-parent="#accordion" href="#${ptOnce.ptOnceNo}" class="collapsed btn btn-default ptOnceBtn" aria-expanded="false">
-														상세보기</a></td>
+		                                        	<butoon data-toggle="collapse" data-parent="#accordion" href="#${ptOnce.ptOnceNo}" class="collapsed btn btn-default ptOnceBtn" aria-expanded="false">
+														상세보기</butoon>></td>
 													<td style="width: 76px;">
-														<a data-toggle="collapse" data-parent="#accordion" href="" class="collapsed btn btn-primary ptOnceBtn" aria-expanded="false">리뷰쓰기</a>
+														<button data-toggle="collapse" data-parent="#accordion" class="collapsed btn btn-primary ptOnceBtn" aria-expanded="false"
+														type="button" onclick="location.href='${pageContext.request.contextPath}/review/write?trainerNo=${ptOnce.trainerNo }';" >리뷰쓰기</button>
 													</td>
 		                                        </tr>
 		                                    </tbody>
