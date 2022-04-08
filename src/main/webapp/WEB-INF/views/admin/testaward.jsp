@@ -5,7 +5,7 @@
 
 <c:forEach var="awardList" items="${List}" varStatus="status">
 	<div class="trainerDetailView">
-		<img class="trainer-detail-profile" alt="" src="<spring:url value="/img/${awardList.awardImage}"/>">
+		<img class="trainer-detail-profile" alt="" src="<spring:url value="/awardImages/${awardList.awardImage}"/>">
 	</div>
 	<div class="ad-t-v-header-info trainerDetailView">
 		<p>${awardList.awardContent}</p>
