@@ -116,9 +116,8 @@ public class ReviewController {
 		
 		  ptService.setMemberNo(memberNo); ptService.setPtServiceStatus(1);
 		  ptService.setPtServiceSortation(1);
-		  
+		
 		  //테스트 코드
-		  ptService.setPtServiceNo(138);//수동으로 부여
 		  ptService.setTrainerNo(1);//수동으로 부여
 		
 		  ptServiceService.addPtService(ptService);
@@ -129,6 +128,7 @@ public class ReviewController {
 	//리뷰 수정 후 저장 요청 처리 메소드
 	@RequestMapping("/modify")
 	public String reviewModify(@ModelAttribute PtService ptService) {
+		
 		
 		ptService.setPtServiceStatus(9);//쿼리 if문 회피용 값 수동 부여
 		ptServiceService.modifyPtService(ptService);
