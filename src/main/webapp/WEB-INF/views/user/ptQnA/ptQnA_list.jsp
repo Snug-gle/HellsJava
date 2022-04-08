@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<div class="container animated fadeInUp">
+<div class="container">
 	<div class="my-page-box">
 		<div class="notice-list-print">
 			<div class="pageheader" style="font-size: 20px;">
@@ -34,9 +34,9 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<c:set var ="su" value="${number}"/>
+						<c:set var="su" value="${number}" />
 						<c:forEach var="ptQna" items="${ptQnaList }" varStatus="status">
-						 <c:set var ="number2" value="${su-status.index}"/>
+							<c:set var="number2" value="${su-status.index}" />
 							<div class="panel-group accordion" id="accordion">
 								<!-- 문의글 -->
 								<div class="panel panel-default">
@@ -45,9 +45,10 @@
 											<tbody>
 												<tr>
 													<td class="accordionBoard" style="width: 70px;"><strong>${number2 }</strong></td>
-													<td class="accordionBoard" style="width: auto;"></td>
+													<td class="accordionBoard" style="width: auto;">${ptQna.ptServiceTitle }</td>
 													<td class="accordionBoard" style="width: 100px;">${fn:substring({ptQna.ptServiceDate},1,12)}</td>
-													<td class="accordionBoard" style="width: 140px;">${ptQna.memberName }</td>
+													<td class="accordionBoard"
+														style="width: 180px; text-align: justify;">${ptQna.memberName }&nbsp;트레이너</td>
 													<!-- 확인여부 -->
 													<td class="accordionBoard" style="width: 65px;"><c:choose>
 															<c:when test="${ptQna.ptServiceStatus eq '2' }">미확인</c:when>
@@ -65,16 +66,13 @@
 									<!-- 글 상세내용 -->
 									<div id="${number2 }" class="panel-collapse collapse"
 										aria-expanded="false" style="height: 0px;">
-										<hr>
 										<div class="personalContent">${ptQna.ptServiceContent}
-
-
 											<!-- 모달 버튼 -->
 											<!-- 답글 있으면 수정 못하게 해야겠지? -->
 											<div class="reviewRight">
-											<button class="btn btn-primary" type="button"
-												data-toggle="modal" data-target="#formModal">수정</button>
-												</div>
+												<button class="btn btn-primary" type="button"
+													data-toggle="modal" data-target="#formModal">수정</button>
+											</div>
 											<!-- 수정페이지 모달 -->
 											<div class="modal fade" id="formModal" role="dialog">
 												<div class="modal-dialog" id="modal-dialog"
@@ -101,20 +99,19 @@
 																				<input type="hidden" name="ptServiceNo"
 																					class="form-control" value="${ptQna.ptServiceNo }">
 																				<input type="text" name="ptServiceTitle"
-																					class="form-control" placeholder="제목을 입력해 주세요.">
+																					class="form-control" value="${ptQna.ptServiceTitle }">
 																			</div>
 																		</div>
 																		<div class="form-group">
 																			<label for="inputTitle"
 																				class="col-sm-2 control-label">내용</label>
 																			<div class="col-sm-10">
-																				<textarea name="ptServiceContent" class="form-control"
-																					placeholder="내용을 입력해 주세요."></textarea>
+																				<textarea name="ptServiceContent"
+																					class="form-control">${ptQna.ptServiceContent}</textarea>
 																			</div>
 																		</div>
 																		<div class="reviewRight">
-																			<button type="submit" class="btn btn-primary"
-																				>수정</button>
+																			<button type="submit" class="btn btn-primary">수정</button>
 																			<button type="button" class="btn btn-primary"
 																				onclick="location.href='<c:url value="/ptqna/list"/>';">목록</button>
 																		</div>
@@ -155,23 +152,23 @@
 	//페이징 처리 
 	//[처음], [이전] 이동 설정
 	if (${pager.startPage} > ${pager.blockSize}) {
-		html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum=1&confirmStatus="+$("category").val()+"'>[처음]</a>";
-		html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum=${pager.prevPage}&confirmStatus="+$("category").val()+"'>[<]</a>";
+		html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum=1&confirmStatus="+$("#category").val()+"'>[처음]</a>";
+		html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum=${pager.prevPage}&confirmStatus="+$("#category").val()+"'>[<]</a>";
 	} else {
 		html += "[처음][<]";
 	}
 	//페이지 번호 설정
 	for (var i = ${pager.startPage}; i <= ${pager.endPage}; i++) {
 		if (${pager.pageNum} != i) {
-			html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum="+i+"&confirmStatus="+$("category").val()+"'> [" + i + "] </a>";
+			html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum="+i+"&confirmStatus="+$("#category").val()+"'> [" + i + "] </a>";
 		} else {
 			html += "[" + i + "]";
 		}
 	}
 	//[다음],[마지막] 이동 설정
 	if (${pager.endPage} != ${pager.totalPage}) {
-		html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum=${pager.nextPage}&confirmStatus="+$("category").val()+"'>[>]</a>";
-		html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum=${pager.totalPage}&confirmStatus="+$("category").val()+"'>[마지막]</a>";
+		html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum=${pager.nextPage}&confirmStatus="+$("#category").val()+"'>[>]</a>";
+		html += "<a href='<c:url value="/ptqna/list/status"/>?pageNum=${pager.totalPage}&confirmStatus="+$("#category").val()+"'>[마지막]</a>";
 	} else {
 		html += "[>][마지막]";
 	}
