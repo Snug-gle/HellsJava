@@ -134,10 +134,6 @@ public class PostingController {
 		item.add(request.getFile("Img2"));
 		item.add(request.getFile("Img3"));
 		item.add(request.getFile("Img4"));
-		System.out.println("item.get(0).getOriginalFilename() 값 : "+item.get(0).getOriginalFilename());
-		System.out.println("item.get(1).getOriginalFilename() 값 : "+item.get(1).getOriginalFilename());
-		System.out.println("item.get(2).getOriginalFilename() 값 : "+item.get(2).getOriginalFilename());
-		System.out.println("item.get(3).getOriginalFilename() 값 : "+item.get(3).getOriginalFilename());
 
 		dbName.add(dbPosting.getPostingSelfIntroductionImg1());
 		dbName.add(dbPosting.getPostingSelfIntroductionImg2());
@@ -149,11 +145,16 @@ public class PostingController {
 		hiddenListNames.add(request.getParameter("currentImage3"));
 		hiddenListNames.add(request.getParameter("currentImage4"));
 
+		System.out.println("hiddenListNames 0 번째 값+ : "+hiddenListNames.get(0));
+		System.out.println("hiddenListNames 1 번째 값+ : "+hiddenListNames.get(1));
+		System.out.println("hiddenListNames 2 번째 값+ : "+hiddenListNames.get(2));
+		System.out.println("hiddenListNames 3 번째 값+ : "+hiddenListNames.get(3));
+		
 		for (int i = 0; i <= 3; i++) {
 
-			if (item.get(i) != null) { // 받아온 file이 있다?
+			if (!item.get(i).isEmpty()) { // 받아온 file이 있다?
 
-				if (dbName.get(i) != null || !(dbName.get(i).equals(""))) {// DB에도 같은 file이 있어
+				if (dbName.get(i) != null) {// DB에도 같은 file이 있어
 					
 					// (파일 [추가된]변경의 의미 -> 받아온 파일 이름과 dB에 저장된 파일 이름을 비교해서 없다?
 					if ((item.get(i).getOriginalFilename().equals(dbName.get(i))) == false) {
@@ -185,7 +186,7 @@ public class PostingController {
 						int j = 0;
 						while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
 							j++;
-							System.out.println("item.get(i).getOriginalFilename() 값 : "+item.get(i).getOriginalFilename());
+							System.out.println("item.get(i).getOriginalFilename() ["+i+"] 번째 값 : "+item.get(i).getOriginalFilename());
 							int index = item.get(i).getOriginalFilename().lastIndexOf(".");
 							
 							uploadFilename = item.get(i).getOriginalFilename().substring(0, index) + "_" + j
@@ -194,7 +195,7 @@ public class PostingController {
 						}
 						item.get(i).transferTo(file); // 받아온 파일 서버에 업로드
 					}
-				} else if(dbName.get(i) == null || dbName.get(i).equals("")) { // DB에 파일이 없을 경우 -> 파일 추가
+				} else if(dbName.get(i) == null) { // DB에 파일이 없을 경우 -> 파일 추가
 					
 					if (i == 0) {
 						posting.setPostingSelfIntroductionImg1(item.get(i).getOriginalFilename());
@@ -227,27 +228,38 @@ public class PostingController {
 					item.get(i).transferTo(file); // 받아온 파일 서버에 업로드
 				}
 				
-			} else if (item.get(i) == null) { // 받아온 파일이 없을 경우
+			} else if (item.get(i).isEmpty()) { // 받아온 파일이 없을 경우
 				
-				if (dbName.get(i)!=null || !dbName.get(i).equals("")) { // DB에는 파일이 있다 (삭제하는 경우 : DB & Server directory)
+				if (hiddenListNames.get(i) == null || hiddenListNames.get(i).equals("")) { // 파일을 진짜 삭제하고자 하는 경우
+					
+					//DB에는 파일이 있다 (삭제하는 경우 : DB & Server directory)
+					// 서버 파일 삭제 및 DB 삭제
 					
 					if (i == 0) {
 						posting.setPostingSelfIntroductionImg1(NULL_COMMENT);
 					}
 					if (i == 1) {
 						posting.setPostingSelfIntroductionImg2(NULL_COMMENT);
+						System.out.println("posting.getPostingSelfIntroductionImg2() = "+posting.getPostingSelfIntroductionImg2());
 					}
 					if (i == 2) {
 						posting.setPostingSelfIntroductionImg3(NULL_COMMENT);
+						System.out.println("posting.getPostingSelfIntroductionImg3() = "+posting.getPostingSelfIntroductionImg3());
+
 					}
 					if (i == 3) {
 						posting.setPostingSelfIntroductionImg4(NULL_COMMENT);
+						System.out.println("posting.getPostingSelfIntroductionImg4() = "+posting.getPostingSelfIntroductionImg4());
+
 					}
 					
+					
 					// 기존 업로드 된 파일 삭제
-					new File(uploadDirectory, dbName.get(i)).delete();
+					if(dbName.get(i) != null)
+						new File(uploadDirectory, dbName.get(i)).delete();
 					
 				}
+				
 			}
 		}
 
@@ -284,7 +296,6 @@ public class PostingController {
 			schedule.setScheduleHours(time);
 			schedule.setScheduleWorkday(ScheduleWorkdayEnum.of(Integer.parseInt(workday)).getValue());
 			schedule.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
-			schedule.setScheduleNo(Integer.parseInt(workDayScheduleNos[dayCount]));
 
 			scheduleService.addSchedule(schedule); // 기존 휴무일 제외 스케쥴 다시 추가
 
@@ -297,7 +308,6 @@ public class PostingController {
 			schedule.setScheduleWorkday(ScheduleWorkdayEnum.of(Integer.parseInt(dayOff)).getValue());
 			schedule.setScheduleDayoff(dayOffText);
 			schedule.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
-			schedule.setScheduleNo(Integer.parseInt(request.getParameter("dayOffScheduleNo")));
 
 			scheduleService.addSchedule(schedule); // 휴무일도 다시 추가
 		}
@@ -318,9 +328,8 @@ public class PostingController {
 			ptPricing.setPtPricingRound(Integer.parseInt(round));
 			ptPricing.setPtPricingPrice(Integer.parseInt(priceList[priceCount]));
 			ptPricing.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
-			ptPricing.setPtPricingNo(Integer.parseInt(ptPricingNumbers[priceCount]));
 
-			ptPricingService.modifyPtPricing(ptPricing);
+			ptPricingService.addPtPricing(ptPricing);
 
 			priceCount++;
 		}
