@@ -10,7 +10,7 @@ import itwill.helljava.dto.PtPricing;
 import itwill.helljava.mapper.PtPricingMapper;
 
 @Repository
-public class PtPricingDAOImpl implements PtPricingDAO{
+public class PtPricingDAOImpl implements PtPricingDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
@@ -25,9 +25,13 @@ public class PtPricingDAOImpl implements PtPricingDAO{
 	}
 
 	@Override
+	public int deleteTrainerPtPricing(int trainer_no) {
+		return sqlSession.getMapper(PtPricingMapper.class).deleteTrainerPtPricing(trainer_no);
+	}
+
+	@Override
 	public List<PtPricing> selectPtPricingList(int trainer_no) {
 		return sqlSession.getMapper(PtPricingMapper.class).selectPtPricingList(trainer_no);
 	}
-	
-	
+
 }

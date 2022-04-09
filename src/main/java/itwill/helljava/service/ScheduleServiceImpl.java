@@ -32,6 +32,12 @@ public class ScheduleServiceImpl implements ScheduleService{
 		scheduleDAO.deleteSchedule(schedule_no);
 	}
 	
+	@Transactional
+	@Override
+	public void removeTrainerSchdule(int trainer_no) {
+		scheduleDAO.deleteTrainerSchedule(trainer_no);
+	}
+	
 	@Override
 	public List<Schedule> getScheduleList(int trainer_no) {
 		return scheduleDAO.selectScheduleList(trainer_no);

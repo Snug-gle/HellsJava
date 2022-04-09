@@ -11,20 +11,26 @@ import itwill.helljava.dto.PtPricing;
 
 @Service
 public class PtPricingServiceImpl implements PtPricingService {
-	
+
 	@Autowired
 	private PtPricingDAO ptPricingDAO;
-	
+
 	@Transactional
 	@Override
 	public void addPtPricing(PtPricing ptPricing) {
 		ptPricingDAO.insertPtPricing(ptPricing);
 	}
-	
+
 	@Transactional
 	@Override
 	public void modifyPtPricing(PtPricing ptPricing) {
 		ptPricingDAO.updatePtPricing(ptPricing);
+	}
+
+	@Transactional
+	@Override
+	public void removeTrainerPtPricing(int trainer_no) {
+		ptPricingDAO.deleteTrainerPtPricing(trainer_no);
 	}
 
 	@Override

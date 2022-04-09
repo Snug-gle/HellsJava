@@ -10,5 +10,7 @@ public interface PtPricingMapper {
 
 	int updatePtPricing(PtPricing ptPricing);
 
+	int deleteTrainerPtPricing(int trainer_no);
+	
 	List<PtPricing> selectPtPricingList(int trainer_no);
 }

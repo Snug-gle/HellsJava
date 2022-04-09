@@ -27,6 +27,10 @@
 		where pt_pricing_no=#{ptPricingNo}
 	</update>
 	
+	<delete id="deleteTrainerPtPricing">
+		delete from pt_pricing where trainer_no = #{trainer_no}
+	</delete>
+	
 	<select id="selectPtPricingList" resultType="PtPricing">
 		select * from pt_pricing where trainer_no=#{trainerNo} order by pt_pricing_round
 	</select>

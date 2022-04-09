@@ -80,30 +80,30 @@
 										<li>
 											<img alt="" src="<spring:url value="/awardImages/${postingInfo.postingSelfIntroductionImg1}"/>">
 											<%-- 기존 저장된 파일 이름을 넘겨서 삭제시키기 위함. --%>
-											<input type="file" id="postingSelfIntroductionImg" name="Img1" accept="image/*" value="" onload="setImageFromFile(this)">
-											&nbsp; <button id='imgRemove-btn' type="button">삭제</button>
-											<input id="hiddenImgName" type="hidden" name="currentImage" value="${postingInfo.postingSelfIntroductionImg1 }">
+											<input type="file" id="postingSelfIntroductionImg1" name="Img1" accept="image/*" value="" onload="setImageFromFile(this)">
+											&nbsp; <button class='imgRemove-btn' type="button">삭제</button>
+											<input id="hiddenImgName1" type="hidden" name="currentImage1" value="${postingInfo.postingSelfIntroductionImg1 }">
 										</li>
 										<li>
 											<img alt="" src="<spring:url value="/awardImages/${postingInfo.postingSelfIntroductionImg2}"/>">
 											<%-- 기존 저장된 파일 이름을 넘겨서 삭제시키기 위함. --%>
-											<input type="file" id="postingSelfIntroductionImg" name="Img2" accept="image/*" value="" onload="setImageFromFile(this)">
-											&nbsp; <button id='imgRemove-btn' type="button">삭제</button>
-											<input id="hiddenImgName" type="hidden" name="currentImage" value="${postingInfo.postingSelfIntroductionImg2 }">
+											<input type="file" id="postingSelfIntroductionImg2" name="Img2" accept="image/*" value="" onload="setImageFromFile(this)">
+											&nbsp; <button class='imgRemove-btn' type="button">삭제</button>
+											<input id="hiddenImgName2" type="hidden" name="currentImage2" value="${postingInfo.postingSelfIntroductionImg2 }">
 										</li>
 										<li>
 											<img alt="" src="<spring:url value="/awardImages/${postingInfo.postingSelfIntroductionImg3}"/>">
 											<%-- 기존 저장된 파일 이름을 넘겨서 삭제시키기 위함. --%>
-											<input type="file" id="postingSelfIntroductionImg" name="Img3" accept="image/*" value="" onload="setImageFromFile(this)">
-											&nbsp; <button id='imgRemove-btn' type="button">삭제</button>
-											<input id="hiddenImgName" type="hidden" name="currentImage" value="${postingInfo.postingSelfIntroductionImg3 }">
+											<input type="file" id="postingSelfIntroductionImg3" name="Img3" accept="image/*" value="" onload="setImageFromFile(this)">
+											&nbsp; <button class='imgRemove-btn' type="button">삭제</button>
+											<input id="hiddenImgName3" type="hidden" name="currentImage3" value="${postingInfo.postingSelfIntroductionImg3 }">
 										</li>
 										<li>
 											<img alt="" src="<spring:url value="/awardImages/${postingInfo.postingSelfIntroductionImg4}"/>">
 											<%-- 기존 저장된 파일 이름을 넘겨서 삭제시키기 위함. --%>
-											<input type="file" id="postingSelfIntroductionImg" name="Img4" accept="image/*" value="" onload="setImageFromFile(this)">
-											&nbsp; <button id='imgRemove-btn' type="button">삭제</button>
-											<input id="hiddenImgName" type="hidden" name="currentImage" value="${postingInfo.postingSelfIntroductionImg4 }">
+											<input type="file" id="postingSelfIntroductionImg4" name="Img4" accept="image/*" value="" onload="setImageFromFile(this)">
+											&nbsp; <button class='imgRemove-btn' type="button">삭제</button>
+											<input id="hiddenImgName4" type="hidden" name="currentImage4" value="${postingInfo.postingSelfIntroductionImg4 }">
 										</li>
 									
 									</ul>
@@ -462,7 +462,7 @@
 	};
 	
 	//미리보기 및 히든 값 지우기
-	$(document).on("click", "#imgRemove-btn", function() {
+	$(document).on("click", ".imgRemove-btn", function() {
 		$(this).prev().prev().attr("src","");//미리보기 제거
 		$(this).next().val("");//미리보기 제거
 	   

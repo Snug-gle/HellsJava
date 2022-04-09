@@ -35,6 +35,10 @@
 		delete from schedule where schedule_no = #{scheduleNo}
 	</delete>
 	
+	<delete id="deleteTrainerSchedule">
+		delete from schedule where trainer_no = #{trainer_no}
+	</delete>
+	
 	<select id="selectScheduleList" resultType="Schedule">
 		select * from schedule where trainer_no=#{trainer_no} order by schedule_workday
 	</select>

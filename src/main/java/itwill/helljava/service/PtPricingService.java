@@ -10,5 +10,7 @@ public interface PtPricingService {
 
 	void modifyPtPricing(PtPricing ptPricing);
 
+	void removeTrainerPtPricing(int trainer_no);
+	
 	List<PtPricing> getPtPricingList(int trainer_no);
 }
