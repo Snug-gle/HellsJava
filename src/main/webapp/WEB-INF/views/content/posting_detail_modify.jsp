@@ -81,10 +81,10 @@
 								<p id="profileMsg" class="error"></p>
 								<div class="pd-insert-body-myprofile-body">
 									<h5><i class="fa fa-file-image-o">자기 소개 이미지 첨부 요망</i></h5>
-									<input type="file" id="postingSelfIntroductionImg1" name="Img" accept="image/*" value="${postingInfo.postingSelfIntroductionImg1 }">
-									<input type="file" id="postingSelfIntroductionImg2" name="Img" accept="image/*" value="${postingInfo.postingSelfIntroductionImg2 }">
-									<input type="file" id="postingSelfIntroductionImg3" name="Img" accept="image/*" value="${postingInfo.postingSelfIntroductionImg3 }">
-									<input type="file" id="postingSelfIntroductionImg4" name="Img" accept="image/*" value="${postingInfo.postingSelfIntroductionImg4 }">	
+									<input type="file" id="postingSelfIntroductionImg1" name="Img1" accept="image/*" value="${postingInfo.postingSelfIntroductionImg1 }">
+									<input type="file" id="postingSelfIntroductionImg2" name="Img2" accept="image/*" value="${postingInfo.postingSelfIntroductionImg2 }">
+									<input type="file" id="postingSelfIntroductionImg3" name="Img3" accept="image/*" value="${postingInfo.postingSelfIntroductionImg3 }">
+									<input type="file" id="postingSelfIntroductionImg4" name="Img4" accept="image/*" value="${postingInfo.postingSelfIntroductionImg4 }">	
 									 <br> 
 									 <span style="color: red;">이미지를 변경하지 않을 경우 입력하지 마세요.</span> 
 									<p id="profileImgMsg" class="error">최소 1개의 이미지를 첨부해주세요.</p>
