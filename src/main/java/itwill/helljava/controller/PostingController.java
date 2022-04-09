@@ -38,6 +38,8 @@ import itwill.helljava.service.TrainerService;
 @Controller
 public class PostingController {
 
+	private static final String NULL_COMMENT = "빈 값 넣어줘";
+	
 	@Autowired
 	private WebApplicationContext context;
 
@@ -120,176 +122,144 @@ public class PostingController {
 		 * }
 		 */
 
-		// 얘가 해당 포스팅 정보 다 가지고 있음
 		Posting dbPosting = postingService.getPosting(trainerService.getTrainer(memberNo).getTrainerNo());
-
-		String posName1 = dbPosting.getPostingSelfIntroductionImg1();
-		String posName2 = dbPosting.getPostingSelfIntroductionImg2();
-		String posName3 = dbPosting.getPostingSelfIntroductionImg3();
-		String posName4 = dbPosting.getPostingSelfIntroductionImg4();
+		List<MultipartFile> item = new ArrayList<MultipartFile>(); // 자기소개 파일들
+		List<String> dbName = new ArrayList<String>(); // DB에 있는 파일 이름들
+		List<String> hiddenListNames = new ArrayList<String>(); // hidden 속성 파일 첨부 및 삭제 영향 받은 파일 이름들
 
 		String uploadDirectory = context.getServletContext()
 				.getRealPath("/resources/assets/postingSelfIntroductionImages");
 
-		MultipartFile img1 = null;
-		MultipartFile img2 = null;
-		MultipartFile img3 = null;
-		MultipartFile img4 = null;
+		item.add(request.getFile("Img1"));
+		item.add(request.getFile("Img2"));
+		item.add(request.getFile("Img3"));
+		item.add(request.getFile("Img4"));
+		System.out.println("item.get(0).getOriginalFilename() 값 : "+item.get(0).getOriginalFilename());
+		System.out.println("item.get(1).getOriginalFilename() 값 : "+item.get(1).getOriginalFilename());
+		System.out.println("item.get(2).getOriginalFilename() 값 : "+item.get(2).getOriginalFilename());
+		System.out.println("item.get(3).getOriginalFilename() 값 : "+item.get(3).getOriginalFilename());
 
-		// 일단 파일이 있든 없든 파일 형식 받기
-		
-		if (request.getFile("Img1") != null) { // 받아온 file이 있다?
-			img1 = request.getFile("Img1"); 
+		dbName.add(dbPosting.getPostingSelfIntroductionImg1());
+		dbName.add(dbPosting.getPostingSelfIntroductionImg2());
+		dbName.add(dbPosting.getPostingSelfIntroductionImg3());
+		dbName.add(dbPosting.getPostingSelfIntroductionImg4());
 
-			if (!(img1.getOriginalFilename().equals(posName1))) { // 받아온 파일 이름과 dB에 저장된 파일 이름을 비교해서 없다?
+		hiddenListNames.add(request.getParameter("currentImage1"));
+		hiddenListNames.add(request.getParameter("currentImage2"));
+		hiddenListNames.add(request.getParameter("currentImage3"));
+		hiddenListNames.add(request.getParameter("currentImage4"));
+
+		for (int i = 0; i <= 3; i++) {
+
+			if (item.get(i) != null) { // 받아온 file이 있다?
+
+				if (dbName.get(i) != null || !(dbName.get(i).equals(""))) {// DB에도 같은 file이 있어
+					
+					// (파일 [추가된]변경의 의미 -> 받아온 파일 이름과 dB에 저장된 파일 이름을 비교해서 없다?
+					if ((item.get(i).getOriginalFilename().equals(dbName.get(i))) == false) {
+
+						// 다르면(파일이 변경되었다는 의미) db setter로 파일 이름 바로 추가
+						if (i == 0) {
+							posting.setPostingSelfIntroductionImg1(item.get(i).getOriginalFilename());
+						}
+						if (i == 1) {
+							posting.setPostingSelfIntroductionImg2(item.get(i).getOriginalFilename());
+						}
+						if (i == 2) {
+							posting.setPostingSelfIntroductionImg3(item.get(i).getOriginalFilename());
+						}
+						if (i == 3) {
+							posting.setPostingSelfIntroductionImg4(item.get(i).getOriginalFilename());
+						}
+
+						// 기존 업로드 된 파일 삭제
+						new File(uploadDirectory, dbName.get(i)).delete();
+
+						// 새로운 File 객체 생성 후 받아온 파일 이름 인자로 주입
+						File file = new File(uploadDirectory, item.get(i).getOriginalFilename());
+
+						// 서버에 업로드할 이름은 받아온 파일 이름으로 통일
+						String uploadFilename = item.get(i).getOriginalFilename();
+
+						// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
+						int j = 0;
+						while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
+							j++;
+							System.out.println("item.get(i).getOriginalFilename() 값 : "+item.get(i).getOriginalFilename());
+							int index = item.get(i).getOriginalFilename().lastIndexOf(".");
+							
+							uploadFilename = item.get(i).getOriginalFilename().substring(0, index) + "_" + j
+									+ item.get(i).getOriginalFilename().substring(index);
+							file = new File(uploadDirectory, uploadFilename);
+						}
+						item.get(i).transferTo(file); // 받아온 파일 서버에 업로드
+					}
+				} else if(dbName.get(i) == null || dbName.get(i).equals("")) { // DB에 파일이 없을 경우 -> 파일 추가
+					
+					if (i == 0) {
+						posting.setPostingSelfIntroductionImg1(item.get(i).getOriginalFilename());
+					}
+					if (i == 1) {
+						posting.setPostingSelfIntroductionImg2(item.get(i).getOriginalFilename());
+					}
+					if (i == 2) {
+						posting.setPostingSelfIntroductionImg3(item.get(i).getOriginalFilename());
+					}
+					if (i == 3) {
+						posting.setPostingSelfIntroductionImg4(item.get(i).getOriginalFilename());
+					}
+
+					// 새로운 File 객체 생성 후 받아온 파일 이름 인자로 주입
+					File file = new File(uploadDirectory, item.get(i).getOriginalFilename());
+
+					// 서버에 업로드할 이름은 받아온 파일 이름으로 통일
+					String uploadFilename = item.get(i).getOriginalFilename();
+
+					// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
+					int j = 0;
+					while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
+						j++;
+						int index = item.get(i).getOriginalFilename().lastIndexOf(".");
+						uploadFilename = item.get(i).getOriginalFilename().substring(0, index) + "_" + j
+								+ item.get(i).getOriginalFilename().substring(index);
+						file = new File(uploadDirectory, uploadFilename);
+					}
+					item.get(i).transferTo(file); // 받아온 파일 서버에 업로드
+				}
 				
-				// 다르면(파일이 변경되었다는 의미) db setter로 파일 이름 바로 추가
-				posting.setPostingSelfIntroductionImg1(img1.getOriginalFilename()); 
-
-				// 기존 업로드 된 파일 삭제
-				new File(uploadDirectory, posName1);
-
-				// 새로운 File 객체 생성 후 받아온 파일 이름 인자로 주입
-				File file = new File(uploadDirectory, img1.getOriginalFilename());
-
-				// 서버에 업로드할 이름은 받아온 파일 이름으로 통일
-				String uploadFilename = img1.getOriginalFilename();
-
-				// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
-				int i = 0;
-				while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
-					i++;
-					int index = img1.getOriginalFilename().lastIndexOf(".");
-					uploadFilename = img1.getOriginalFilename().substring(0, index) + "_" + i
-							+ img1.getOriginalFilename().substring(index);
-					file = new File(uploadDirectory, uploadFilename);
+			} else if (item.get(i) == null) { // 받아온 파일이 없을 경우
+				
+				if (dbName.get(i)!=null || !dbName.get(i).equals("")) { // DB에는 파일이 있다 (삭제하는 경우 : DB & Server directory)
+					
+					if (i == 0) {
+						posting.setPostingSelfIntroductionImg1(NULL_COMMENT);
+					}
+					if (i == 1) {
+						posting.setPostingSelfIntroductionImg2(NULL_COMMENT);
+					}
+					if (i == 2) {
+						posting.setPostingSelfIntroductionImg3(NULL_COMMENT);
+					}
+					if (i == 3) {
+						posting.setPostingSelfIntroductionImg4(NULL_COMMENT);
+					}
+					
+					// 기존 업로드 된 파일 삭제
+					new File(uploadDirectory, dbName.get(i)).delete();
+					
 				}
-
-				img1.transferTo(file); // 받아온 파일 서버에 업로드
 			}
 		}
 
-		if (request.getFile("Img2") != null) {
-			img2 = request.getFile("Img2");
-
-			if (!(img2.getOriginalFilename().equals(posName2))) {
-				posting.setPostingSelfIntroductionImg2(img2.getOriginalFilename());
-
-				File file = new File(uploadDirectory, img2.getOriginalFilename());
-
-				String uploadFilename = img2.getOriginalFilename();
-
-				// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
-				int i = 0;
-				while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
-					i++;
-					int index = img2.getOriginalFilename().lastIndexOf(".");
-					uploadFilename = img2.getOriginalFilename().substring(0, index) + "_" + i
-							+ img2.getOriginalFilename().substring(index);
-					file = new File(uploadDirectory, uploadFilename);
-				}
-
-				img2.transferTo(file); // 파일 이동
-
-			}
-		} 
-
-		if (request.getFile("Img3") != null) {
-			img3 = request.getFile("Img3");
-
-			if (!(img3.getOriginalFilename().equals(posName3))) {
-				posting.setPostingSelfIntroductionImg3(img3.getOriginalFilename());
-
-				File file = new File(uploadDirectory, img3.getOriginalFilename());
-
-				String uploadFilename = img3.getOriginalFilename();
-
-				// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
-				int i = 0;
-				while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
-					i++;
-					int index = img3.getOriginalFilename().lastIndexOf(".");
-					uploadFilename = img3.getOriginalFilename().substring(0, index) + "_" + i
-							+ img3.getOriginalFilename().substring(index);
-					file = new File(uploadDirectory, uploadFilename);
-				}
-
-				img1.transferTo(file); // 파일 이동
-
-			}
-
-		} 
-
-		if (request.getFile("Img4") != null) {
-			img4 = request.getFile("Img4"); // ==> 얘가 널 검증하고
-
-			if (!(img4.getOriginalFilename().equals(posName4))) {
-				posting.setPostingSelfIntroductionImg4(img4.getOriginalFilename());
-
-				File file = new File(uploadDirectory, img4.getOriginalFilename());
-
-				String uploadFilename = img4.getOriginalFilename();
-
-				// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
-				int i = 0;
-				while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
-					i++;
-					int index = img4.getOriginalFilename().lastIndexOf(".");
-					uploadFilename = img4.getOriginalFilename().substring(0, index) + "_" + i
-							+ img4.getOriginalFilename().substring(index);
-					file = new File(uploadDirectory, uploadFilename);
-				}
-
-				img4.transferTo(file); // 파일 이동
-			}
-
-		}
-	
-		/*
-		 * Iterator<String> fileNames = request.getFileNames();
-		 * 
-		 * // 얜 한번 돌텐데? while (fileNames.hasNext()) {
-		 * 
-		 * // 파일 네임 가져오기 String fileName = fileNames.next();
-		 * 
-		 * List<MultipartFile> postingFiles = request.getFiles(fileName);
-		 * 
-		 * int count = 1; // for문 도는 거 카운트 for (MultipartFile multipartFile :
-		 * postingFiles) {
-		 * 
-		 * if (multipartFile.getSize() != 0) {// 파일이 있을 경우만
-		 * 
-		 * String uploadDirectory = context.getServletContext()
-		 * .getRealPath("/resources/assets/postingSelfIntroductionImages");
-		 * 
-		 * String originalFilename = multipartFile.getOriginalFilename();
-		 * System.out.println("originalFilename :[" + count + "]번쟤 이름"); if (count == 1)
-		 * posting.setPostingSelfIntroductionImg1(originalFilename); else if (count ==
-		 * 2) posting.setPostingSelfIntroductionImg2(originalFilename); else if (count
-		 * == 3) posting.setPostingSelfIntroductionImg3(originalFilename); else if
-		 * (count == 4) posting.setPostingSelfIntroductionImg4(originalFilename);
-		 * 
-		 * File file = new File(uploadDirectory, originalFilename);
-		 * 
-		 * String uploadFilename = originalFilename;
-		 * 
-		 * // 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경 int i = 0; while
-		 * (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리 i++; int index =
-		 * originalFilename.lastIndexOf("."); uploadFilename =
-		 * originalFilename.substring(0, index) + "_" + i +
-		 * originalFilename.substring(index); file = new File(uploadDirectory,
-		 * uploadFilename); }
-		 * 
-		 * multipartFile.transferTo(file); // 파일 이동 count++; } }
-		 * 
-		 * }
-		 */
 		posting.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
 
 		// 포스팅 추가 서비스 메서드 호출 (자기소개, 프로그램 소개는 이미 들가있음)
 		postingService.modifyPosting(posting);
 
-// ===========================PT 스케쥴 수정================================
+// ===========================PT 스케쥴 수정(전체 삭제 후 추가하는 로직)================================
+
+		// 일단 전체 삭제 (트레이너 번호로 전체 삭제)
+		scheduleService.removeTrainerSchdule(trainerService.getTrainer(memberNo).getTrainerNo());
 
 		// 체크 박스 선택된 애들만 받아옴
 		String[] workdays = request.getParameterValues("workdayCheck");
@@ -301,6 +271,8 @@ public class PostingController {
 
 		String dayOff = request.getParameter("dayoff");
 		String dayOffText = request.getParameter("dayOffText");
+
+		scheduleService.getScheduleList(trainerService.getTrainer(memberNo).getTrainerNo());
 
 		int dayCount = 0;
 		for (String workday : workdays) {
@@ -314,7 +286,7 @@ public class PostingController {
 			schedule.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
 			schedule.setScheduleNo(Integer.parseInt(workDayScheduleNos[dayCount]));
 
-			scheduleService.modifySchedule(schedule); // 기존 휴무일 제외 스케쥴 수정
+			scheduleService.addSchedule(schedule); // 기존 휴무일 제외 스케쥴 다시 추가
 
 			dayCount++;
 		}
@@ -327,10 +299,13 @@ public class PostingController {
 			schedule.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
 			schedule.setScheduleNo(Integer.parseInt(request.getParameter("dayOffScheduleNo")));
 
-			scheduleService.modifySchedule(schedule);
+			scheduleService.addSchedule(schedule); // 휴무일도 다시 추가
 		}
 
-// ===========================PT 이용가격 수정================================
+// ===========================PT 이용가격 수정(전체 삭제 후 추가하는 로직)================================
+
+		// 일단 전체 이용가격 삭제
+		ptPricingService.removeTrainerPtPricing(trainerService.getTrainer(memberNo).getTrainerNo());
 
 		String[] roundList = request.getParameterValues("round");
 		String[] priceList = request.getParameterValues("roundPrice");

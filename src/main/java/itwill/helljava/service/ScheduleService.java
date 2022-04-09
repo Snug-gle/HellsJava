@@ -12,5 +12,7 @@ public interface ScheduleService {
 	
 	void removeSchedule(int schedule_no);
 
+	void removeTrainerSchdule(int trainer_no);
+	
 	List<Schedule> getScheduleList(int trainer_no);
 }

@@ -20,24 +20,55 @@
 	<update id="updatePosting">
 		update posting 
 		<set>
-			<if test="postingSelfIntroduction != null and postingSelfIntroduction != ''">
-				posting_self_introduction = #{postingSelfIntroduction},
-			</if>
-			<if test="postingSelfIntroductionImg1 != null and postingSelfIntroductionImg1 !=''">
-				posting_self_introduction_img1 = #{postingSelfIntroductionImg1},
-			</if>
-			<if test="postingSelfIntroductionImg2 != null and postingSelfIntroductionImg2 != ''">
-				posting_self_introduction_img2 = #{postingSelfIntroductionImg2},
-			</if>
-			<if test="postingSelfIntroductionImg3 != null and postingSelfIntroductionImg3 != ''">
-				posting_self_introduction_img3 = #{postingSelfIntroductionImg3},
-			</if>
-			<if test="postingSelfIntroductionImg4 != null and postingSelfIntroductionImg4 != ''">
-				posting_self_introduction_img4 = #{postingSelfIntroductionImg4},
-			</if>
-			<if test="postingProgramIntroduction != null and postingProgramIntroduction != ''">
-				posting_program_introduction = #{postingProgramIntroduction}
-			</if>
+			<trim suffixOverrides=",">
+				<if test="postingSelfIntroduction != null and postingSelfIntroduction != ''">
+					posting_self_introduction = #{postingSelfIntroduction},
+				</if>	
+		
+				<if test="postingSelfIntroductionImg1 != null and postingSelfIntroductionImg1 !=''">
+					<choose>
+	                    <when test="postingSelfIntroductionImg1 == '빈 값 넣어줘'">
+	                        posting_self_introduction_img1 = null,
+	                    </when>
+	                    <otherwise>
+	                        posting_self_introduction_img1 = #{postingSelfIntroductionImg1},
+	                    </otherwise>
+	                </choose>				
+                </if>
+				<if test="postingSelfIntroductionImg2 != null and postingSelfIntroductionImg2 != ''">
+					<choose>
+	                    <when test="postingSelfIntroductionImg2 == '빈 값 넣어줘'">
+	                        posting_self_introduction_img2 = null,
+	                    </when>
+	                    <otherwise>
+	                        posting_self_introduction_img2 = #{postingSelfIntroductionImg2},
+	                    </otherwise>
+	                </choose>	
+				</if>
+				<if test="postingSelfIntroductionImg3 != null and postingSelfIntroductionImg3 != ''">
+					<choose>
+	                    <when test="postingSelfIntroductionImg3 == '빈 값 넣어줘'">
+	                        posting_self_introduction_img3 = null,
+	                    </when>
+	                    <otherwise>
+	                        posting_self_introduction_img3 = #{postingSelfIntroductionImg3},
+	                    </otherwise>
+	                </choose>	
+				</if>
+				<if test="postingSelfIntroductionImg4 != null and postingSelfIntroductionImg4 != ''">
+					<choose>
+	                    <when test="postingSelfIntroductionImg4 == '빈 값 넣어줘'">
+	                        posting_self_introduction_img4 = null,
+	                    </when>
+	                    <otherwise>
+	                        posting_self_introduction_img4 = #{postingSelfIntroductionImg4},
+	                    </otherwise>
+	                </choose>	
+				</if>
+				<if test="postingProgramIntroduction != null and postingProgramIntroduction != ''">
+					posting_program_introduction = #{postingProgramIntroduction}
+				</if>
+			</trim>
 		</set>
 		where posting_no = #{postingNo}
 	</update>

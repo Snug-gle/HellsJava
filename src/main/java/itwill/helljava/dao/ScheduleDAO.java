@@ -12,5 +12,7 @@ public interface ScheduleDAO {
 	
 	int deleteSchedule(int schedule_no);
 
+	int deleteTrainerSchedule(int trainer_no);
+	
 	List<Schedule> selectScheduleList(int trainer_no);
 }
