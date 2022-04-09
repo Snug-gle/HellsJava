@@ -66,12 +66,7 @@
 						<form enctype="multipart/form-data" id="postingForm" action='<c:url value="/posting/modify"/>'  method="post">
 							<%-- 포스팅을 업데이트 명령을 내리기 위해 필요한 포스팅 넘버 --%>
 							<input type="hidden" name="postingNo" value="${postingInfo.postingNo }">
-							<%-- 기존 저장된 파일 이름을 넘겨서 삭제시키기 위함. --%>
-							<input type="hidden" name="currentImage" value="${postingInfo.postingSelfIntroductionImg1 }">
-							<input type="hidden" name="currentImage" value="${postingInfo.postingSelfIntroductionImg2 }">
-							<input type="hidden" name="currentImage" value="${postingInfo.postingSelfIntroductionImg3 }">
-							<input type="hidden" name="currentImage" value="${postingInfo.postingSelfIntroductionImg4 }">
-												
+
 							<br>
 							<div class="pd-insert-body-myprofile">
 								<hr>
@@ -81,10 +76,37 @@
 								<p id="profileMsg" class="error"></p>
 								<div class="pd-insert-body-myprofile-body">
 									<h5><i class="fa fa-file-image-o">자기 소개 이미지 첨부 요망</i></h5>
-									<input type="file" id="postingSelfIntroductionImg1" name="Img1" accept="image/*" value="${postingInfo.postingSelfIntroductionImg1 }">
-									<input type="file" id="postingSelfIntroductionImg2" name="Img2" accept="image/*" value="${postingInfo.postingSelfIntroductionImg2 }">
-									<input type="file" id="postingSelfIntroductionImg3" name="Img3" accept="image/*" value="${postingInfo.postingSelfIntroductionImg3 }">
-									<input type="file" id="postingSelfIntroductionImg4" name="Img4" accept="image/*" value="${postingInfo.postingSelfIntroductionImg4 }">	
+									<ul>
+										<li>
+											<img alt="" src="<spring:url value="/awardImages/${postingInfo.postingSelfIntroductionImg1}"/>">
+											<%-- 기존 저장된 파일 이름을 넘겨서 삭제시키기 위함. --%>
+											<input type="file" id="postingSelfIntroductionImg" name="Img1" accept="image/*" value="" onload="setImageFromFile(this)">
+											&nbsp; <button id='imgRemove-btn' type="button">삭제</button>
+											<input id="hiddenImgName" type="hidden" name="currentImage" value="${postingInfo.postingSelfIntroductionImg1 }">
+										</li>
+										<li>
+											<img alt="" src="<spring:url value="/awardImages/${postingInfo.postingSelfIntroductionImg2}"/>">
+											<%-- 기존 저장된 파일 이름을 넘겨서 삭제시키기 위함. --%>
+											<input type="file" id="postingSelfIntroductionImg" name="Img2" accept="image/*" value="" onload="setImageFromFile(this)">
+											&nbsp; <button id='imgRemove-btn' type="button">삭제</button>
+											<input id="hiddenImgName" type="hidden" name="currentImage" value="${postingInfo.postingSelfIntroductionImg2 }">
+										</li>
+										<li>
+											<img alt="" src="<spring:url value="/awardImages/${postingInfo.postingSelfIntroductionImg3}"/>">
+											<%-- 기존 저장된 파일 이름을 넘겨서 삭제시키기 위함. --%>
+											<input type="file" id="postingSelfIntroductionImg" name="Img3" accept="image/*" value="" onload="setImageFromFile(this)">
+											&nbsp; <button id='imgRemove-btn' type="button">삭제</button>
+											<input id="hiddenImgName" type="hidden" name="currentImage" value="${postingInfo.postingSelfIntroductionImg3 }">
+										</li>
+										<li>
+											<img alt="" src="<spring:url value="/awardImages/${postingInfo.postingSelfIntroductionImg4}"/>">
+											<%-- 기존 저장된 파일 이름을 넘겨서 삭제시키기 위함. --%>
+											<input type="file" id="postingSelfIntroductionImg" name="Img4" accept="image/*" value="" onload="setImageFromFile(this)">
+											&nbsp; <button id='imgRemove-btn' type="button">삭제</button>
+											<input id="hiddenImgName" type="hidden" name="currentImage" value="${postingInfo.postingSelfIntroductionImg4 }">
+										</li>
+									
+									</ul>
 									 <br> 
 									 <span style="color: red;">이미지를 변경하지 않을 경우 입력하지 마세요.</span> 
 									<p id="profileImgMsg" class="error">최소 1개의 이미지를 첨부해주세요.</p>
@@ -422,5 +444,28 @@
 	    $(this).parent().remove();
 	});
 
+	
+	//미리보기
+	$(document).on("change", "#postingSelfIntroductionImg", function() {
+	    setImageFromFile(this);
+
+	});
+	//미리보기 함수
+	function setImageFromFile(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	            $(input).prev().attr('src', e.target.result);
+	        }
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	};
+	
+	//미리보기 및 히든 값 지우기
+	$(document).on("click", "#imgRemove-btn", function() {
+		$(this).prev().prev().attr("src","");//미리보기 제거
+		$(this).next().val("");//미리보기 제거
+	   
+	});
 
 </script>
