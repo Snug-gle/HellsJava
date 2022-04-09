@@ -17,7 +17,7 @@
                 <div class="navbar-collapse collapse">
                 	<c:choose>
                 		<c:when test="${empty(loginUserinfo) }">
-		                    <ul class="nav navbar-nav pull-right" id="main-menu">
+		                    <ul class="nav navbar-nav pull-right" id="header-main-menu">
 		                        <li class=""><a href="<c:url value="/user/login/login_form"/>"><i class="icon-login"></i>&nbsp;로그인</a></li>
 		                        <li class=""><a href="<c:url value="/user/join_form"/>"><i class="icon-user"></i>&nbsp;회원가입</a></li>
 		                    </ul>
@@ -51,8 +51,10 @@
 									        	<a href="<c:url value="/trainer/mypage"/>"><span class="icon"><i class="fa fa-user"></i></span>마이페이지</a>
 									   		</c:if>
 									    </li>
+									    
+									    
 									    <li>
-									      <a href="#cache_charge" data-toggle="modal" data-target="#cache_charge" data-backdrop="static"><span class="icon"><i class="icon-wallet"></i></span><span>${loginUserinfo.memberCash }</span>캐쉬</a>
+									      <a href="#header-cache_charge" data-toggle="modal" data-target="#header-cache_charge" data-backdrop="static"><span class="icon"><i class="icon-wallet"></i></span><span>${loginUserinfo.memberCash }</span>캐쉬</a>
 									    </li>
 											
 									    <li class="divider"></li>
@@ -64,7 +66,7 @@
 									</ul>
 									
 									<!-- 결제 모달창 start -->
-									<div class="modal fade" id="cache_charge" role="dialog">
+									<div class="modal fade" id="header-cache_charge" role="dialog">
 						   					 <div class="modal-dialog" id="modal-dialog">
 												<div class="modal-content">
 						
@@ -83,7 +85,7 @@
 									                        </h3>  
 									                    </div>
 									                    <div class="panel-body">
-									                        <form id='cashForm' role="form" action='<c:url value="/cash/refill"/>' method="post">
+									                        <form id='header-cashForm' role="form" action='<c:url value="/cash/refill"/>' method="post">
 									                       		<input type="hidden" name="memberNo" value="${loginUserinfo.memberNo }">
 									                            <div class="form-group">
 									                                <label for="bankName">은행명</label>
@@ -96,11 +98,11 @@
 									                            </div>
 									                             <div class="form-group">
 									                                <label for="exampleInputPassword1">충전 금액</label>
-									                                <input type="text" class="form-control" id="refillCash" name="refillCash" placeholder="충전금액을 입력해 주세요">
+									                                <input type="text" class="form-control" id="header-refillCash" name="refillCash" placeholder="충전금액을 입력해 주세요">
 									                            </div>
 									                              <div class="form-group">
 									                                <label for="exampleInputPassword1">결제 비밀번호</label>
-									                                <input type="password" class="form-control" id="accountPw1" name="accountPw" placeholder="결제 비밀번호를 입력해 주세요">
+									                                <input type="password" class="form-control" id="header-accountPw" name="accountPw" placeholder="결제 비밀번호를 입력해 주세요">
 									                            	<p>${message}</p>
 									                            </div>
 									                            <div>

@@ -57,9 +57,12 @@ public class UserinfoController {
 
 		return "/material/mypage";
 	}
-
+	
+	
+	// 마이 페이지 요청
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String myPage() {
+
 		return "/material/mypage";
 	}
 
