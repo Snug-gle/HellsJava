@@ -13,16 +13,18 @@
 	</insert>
 	
 	<update id="updatePtPricing">
-		update ptPricing
+		update pt_pricing
 		<set>
-			<if test="ptPricingRound &gt;= 0">
-				pt_pricing_round=#{ptPricingRound},
-			</if>
-			<if test="ptPricingPrice!=null and ptPricingPrice!=''">
-				pt_pricing_price=#{ptPricingPrice}
-			</if>
+			<trim suffixOverrides=",">
+				<if test="ptPricingRound &gt;= 0">
+					pt_pricing_round=#{ptPricingRound},
+				</if>
+				<if test="ptPricingPrice &gt;=0">
+					pt_pricing_price=#{ptPricingPrice}
+				</if>
+			</trim>
 		</set>
-		where trainer_no=#{trainerNo}
+		where pt_pricing_no=#{ptPricingNo}
 	</update>
 	
 	<select id="selectPtPricingList" resultType="PtPricing">
