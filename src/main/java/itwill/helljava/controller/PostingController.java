@@ -91,13 +91,148 @@ public class PostingController {
 	}
 
 	// 포스팅 수정 POST 방식 요청 스케줄과 포스팅 수정
-
 	@RequestMapping(value = "/posting/modify", method = RequestMethod.POST)
 	public String trainerPostingUpdate(@ModelAttribute Posting posting, HttpSession session,
-			MultipartHttpServletRequest request) {
-		
+			MultipartHttpServletRequest request) throws IllegalStateException, IOException {
+
 		// 포스팅 수정한 트레이너의 회원 번호
 		int memberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
+
+// ===========================파일 수정=================================
+
+		// 파일 없을 경우 다시 포스팅 작성 페이지로 가라
+		if (request.getFileNames() == null) {
+			return "redirect:/posting/write";
+		}
+
+		// 기존 파일 이름들 배열
+		String[] currentImages = request.getParameterValues("currentImage");
+
+		// 기존 파일들을 삭제
+		for (String currenImg : currentImages) {
+
+			String savedDirectory = context.getServletContext()
+					.getRealPath("/resources/assets/postingSelfIntroductionImages");
+			String currentFillName = currenImg;
+			// 기존 파일들 삭제
+			new File(savedDirectory, currentFillName).delete();
+			
+		}
+
+		Iterator<String> fileNames = request.getFileNames();
+
+		// 얜 한번 돌텐데?
+		while (fileNames.hasNext()) {
+
+			// 파일 네임 가져오기
+			String fileName = fileNames.next();
+
+			List<MultipartFile> postingFiles = request.getFiles(fileName);
+
+			int count = 1; // for문 도는 거 카운트
+			for (MultipartFile multipartFile : postingFiles) {
+
+				if (multipartFile.getSize() != 0) {// 파일이 있을 경우만
+
+					String uploadDirectory = context.getServletContext()
+							.getRealPath("/resources/assets/postingSelfIntroductionImages");
+
+					String originalFilename = multipartFile.getOriginalFilename();
+					System.out.println("originalFilename :["+count+"]번쟤 이름");	
+					if (count == 1)
+						posting.setPostingSelfIntroductionImg1(originalFilename);
+					else if (count == 2)
+						posting.setPostingSelfIntroductionImg2(originalFilename);
+					else if (count == 3)
+						posting.setPostingSelfIntroductionImg3(originalFilename);
+					else if (count == 4)
+						posting.setPostingSelfIntroductionImg4(originalFilename);
+
+					File file = new File(uploadDirectory, originalFilename);
+
+					String uploadFilename = originalFilename;
+
+					// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
+					int i = 0;
+					while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
+						i++;
+						int index = originalFilename.lastIndexOf(".");
+						uploadFilename = originalFilename.substring(0, index) + "_" + i
+								+ originalFilename.substring(index);
+						file = new File(uploadDirectory, uploadFilename);
+					}
+
+					multipartFile.transferTo(file); // 파일 이동
+					count++;
+				}
+			}
+
+		}
+		posting.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
+
+		// 포스팅 추가 서비스 메서드 호출 (자기소개, 프로그램 소개는 이미 들가있음)
+		postingService.modifyPosting(posting);
+
+// ===========================PT 스케쥴 수정================================
+
+		// 체크 박스 선택된 애들만 받아옴
+		String[] workdays = request.getParameterValues("workdayCheck");
+		String[] hour1s = request.getParameterValues("hour1");
+		String[] minute1s = request.getParameterValues("minute1");
+		String[] hour2s = request.getParameterValues("hour2");
+		String[] minute2s = request.getParameterValues("minute2");
+		String[] workDayScheduleNos = request.getParameterValues("workDayScheduleNo");
+
+		String dayOff = request.getParameter("dayoff");
+		String dayOffText = request.getParameter("dayOffText");
+
+		int dayCount = 0;
+		for (String workday : workdays) {
+
+			Schedule schedule = new Schedule();
+			String time = hour1s[dayCount] + ":" + minute1s[dayCount] + "~" + hour2s[dayCount] + ":"
+					+ minute2s[dayCount];
+			System.out.println("time[" + dayCount + "]의 값은 : " + time);
+			schedule.setScheduleHours(time);
+			schedule.setScheduleWorkday(ScheduleWorkdayEnum.of(Integer.parseInt(workday)).getValue());
+			schedule.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
+			schedule.setScheduleNo(Integer.parseInt(workDayScheduleNos[dayCount]));
+
+			scheduleService.modifySchedule(schedule); // 기존 휴무일 제외 스케쥴 수정
+
+			dayCount++;
+		}
+
+		// 휴무일 정보도 있을 시
+		if ((dayOff != null) && (!dayOffText.equals(""))) {
+			Schedule schedule = new Schedule();
+			schedule.setScheduleWorkday(ScheduleWorkdayEnum.of(Integer.parseInt(dayOff)).getValue());
+			schedule.setScheduleDayoff(dayOffText);
+			schedule.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
+			schedule.setScheduleNo(Integer.parseInt(request.getParameter("dayOffScheduleNo")));
+
+			scheduleService.modifySchedule(schedule);
+		}
+
+// ===========================PT 이용가격 수정================================
+
+		String[] roundList = request.getParameterValues("round");
+		String[] priceList = request.getParameterValues("roundPrice");
+		String[] ptPricingNumbers = request.getParameterValues("ptPricingNumber");
+
+		int priceCount = 0;
+		for (String round : roundList) {
+
+			PtPricing ptPricing = new PtPricing();
+			ptPricing.setPtPricingRound(Integer.parseInt(round));
+			ptPricing.setPtPricingPrice(Integer.parseInt(priceList[priceCount]));
+			ptPricing.setTrainerNo(trainerService.getTrainer(memberNo).getTrainerNo());
+			ptPricing.setPtPricingNo(Integer.parseInt(ptPricingNumbers[priceCount]));
+
+			ptPricingService.modifyPtPricing(ptPricing);
+
+			priceCount++;
+		}
 
 		return "redirect:/myposting/detail/" + memberNo; // 다시 포스팅 디테일로 재요청 시켜야지 머.
 	}

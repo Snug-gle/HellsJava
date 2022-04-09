@@ -79,7 +79,7 @@ function sample4_execDaumPostcode() {
 								<hr>
 								<h3><strong>프로필 사진</strong></h3>
 								<hr>
-								<img alt="" src="<spring:url value="/img/${trainerInfo.trainerProfileImg}"/>" class="trainer-Profile-img"> 
+								<img alt="" src="<spring:url value="/profileImages/${trainerInfo.trainerProfileImg}"/>" class="trainer-Profile-img"> 
 								<input id="trainer_profile_image" type="file" readonly="readonly" name="profileImage" placeholder="프로필 사진 첨부" accept="image/*" value="${trainerInfo.trainerProfileImg}">
 								<div id="trainerProfileImgRegMsg" class="error">프로필 사진을 반드시 첨부하세요.</div>
 							</div>
@@ -139,7 +139,7 @@ function sample4_execDaumPostcode() {
 											 <c:otherwise>
 												 <c:forEach var="awardList" items="${awardInfo}" varStatus="status">
 													<li class="tr-in-header-award-rego" >
-														<img alt="" src="<spring:url value="/img/${awardList.awardImage}"/>" class="award-load-img">
+														<img alt="" src="<spring:url value="/awardImages/${awardList.awardImage}"/>" class="award-load-img">
 														<input type="file" id="award_image${status.index}" name="aImage" onchange="setImageFromFile(this)" onload="setImageFromFile(this)" placeholder="사진 첨부" accept="image/*" style="display: inline-block;" value="${awardList.awardImage}"><br>
 														<input type="text" id="award_content${status.index}" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;" value="${awardList.awardContent}">
 														<input type="hidden" value="${i =status.index}">

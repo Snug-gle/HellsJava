@@ -16,16 +16,18 @@
 	<update id="updateSchedule">
 		update schedule 
 		<set>
-			<if test="scheduleWorkday != null scheduleWorkday != ''">
-				schedule_workday=#{scheduleWorkday},	
-			</if>
-			<if test="scheduleHours != null scheduleHours != ''">
-				schedule_hours=#{scheduleHours},
-			</if>
-			<if test="scheduleDayoff != null scheduleDayoff != ''">
-				schedule_dayoff=#{scheduleDayoff} 
-			</if>
-				where trainer_no=#{trainerNo}
+			<trim suffixOverrides=",">
+				<if test="scheduleWorkday &gt;=0 and scheduleWorkday &lt;=4">
+					schedule_workday=#{scheduleWorkday},	
+				</if>
+				<if test="scheduleHours != null and scheduleHours != '' ">
+					schedule_hours=#{scheduleHours},
+				</if>
+				<if test="scheduleDayoff != null and scheduleDayoff != '' ">
+					schedule_dayoff=#{scheduleDayoff} 
+				</if>
+			</trim>
+				where schedule_no=#{scheduleNo}
 		</set> 
 	</update>
 	
