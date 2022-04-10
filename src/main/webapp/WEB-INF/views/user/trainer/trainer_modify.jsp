@@ -137,7 +137,7 @@ function sample4_execDaumPostcode() {
 															<i class='fa fa-minus-square' id='award-remove-btn'></i>&nbsp;
 														</c:if>
 														<img alt="" src="<spring:url value="/awardImages/${awardList.awardImage}"/>" class="award-load-img">
-														<input type="file" id="award_image${status.index}" name="aImage" onchange="setImageFromFile(this)" onload="setImageFromFile(this)" placeholder="사진 첨부" accept="image/*" style="display: inline-block;" value="${awardList.awardImage}"><br>
+														<input type="file" class="award-img" id="award_image${status.index}" name="aImage" onchange="setImageFromFile(this)" onload="setImageFromFile(this)" placeholder="사진 첨부"  accept="image/*" style="display: inline-block;" value="${awardList.awardImage}"><br>
 														<input type="text" id="award_content${status.index}" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;" value="${awardList.awardContent}">
 														<input type="hidden" name= "hiddenAwardImages" value="${awardList.awardImage}"> 
 														<input type="hidden" name= "hiddenAwardContents" value="${awardList.awardContent}"> 
@@ -213,7 +213,7 @@ function sample4_execDaumPostcode() {
 		html2 = "<li class='tr-in-header-award-rego'>";
 		html2 += "<i class='fa fa-minus-square' id='award-remove-btn'></i>&nbsp;";
 		html2 += "<img alt='' src='' class='award-load-img'>&nbsp;";
-		html2 += "<input type='file' id='award_image"+onp+"' onchange='setImageFromFile(this)' name='aImage' accept='image/*' required style='display: inline-block;'><br>";
+		html2 += "<input type='file' class='award-img' id='award_image"+onp+"' onchange='setImageFromFile(this)' name='aImage' accept='image/*' required style='display: inline-block;'><br>";
 		html2 += "<input type='text' id='award_content"+onp+"' style='margin-left: 17px;' name='aContent' required placeholder='수상 경력 및 이력' style='display: inline-block;' class='trainer-profile-form-control'>";
 		html2 += "<input type='hidden' name= 'inputFileCount' value='1'>";
 		html2 += "</li>";
@@ -304,7 +304,14 @@ function sample4_execDaumPostcode() {
 			$("#trainerProfileImgRegMsg").css("display","block");
 			submitResult = false;
 		}; */
+		
+		//히든 값 지우기
+		$(document).on("change", ".award-img", function() {
+			
+			$(this).next().next().val("");//히든값 제거
 
+		});
+		
 		return submitResult;
 	});
 	
