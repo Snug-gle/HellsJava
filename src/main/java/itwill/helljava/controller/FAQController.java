@@ -157,6 +157,6 @@ public class FAQController {
 	public String remove(@PathVariable int num, @ModelAttribute NoticeService noticeService) throws Exception{
 
 		noticeServiceService.removeNoticeService(num);
-		return "redirect:/faq/board";
+		return "redirect:/faq/list";
 	}
 }
