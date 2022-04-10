@@ -1,10 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<section id="contact">
+<style type="text/css">
+.bottomContent {
+	width: 100%;
+    background: #fff;
+    display: inline-block;
+    padding: 30px; 0;
+    height: auto;
+    vertical-align: middle;
+}
+</style>
+<footer class="navbar-wrapper">
+	 <div id="undefined-sticky-wrapper " class="bottomContent">
         <div class="container">
-            <hr class="main-footer-line">  
 				<div>
 					<div>
 						<ul class="nav navbar-nav pull-right" id="main-menu">
@@ -21,14 +30,13 @@
 						<!-- <span>CS CENTER :</span> -->
 					</div>
 					<br>
-					<div class="footer-content">
-						<span><i class=" icon-call-end"></i><strong>&nbsp;010-1111-1111</strong></span>
+					<br>
+					<div class="footer-content" style="font-size: small;">
+						<span><i class=" icon-call-end"></i><strong>&nbsp;010-0000-0000</strong></span>
 						<br>
 						<span>(주)헬스자바</span>
 						<br>
-						<span>사업자등록번호: [100-00-00000]<a href="">&nbsp;[사업자정보확인]</a></span>
-						<br>
-						<span>통신판매업신고 : 2022-서울강남구-0789호</span>
+						<span>사업자등록번호: [000-00-00000]<a href="">&nbsp;[사업자정보확인]</a></span>
 						<br>
 						<span>주소 : 서울특별시 강남구 역삼동 삼원타워 4층</span>
 					<div>
@@ -62,4 +70,6 @@
 			
 			            
 			        </div>
-    </section>
+			        </div>
+			        </div>
+</footer>
