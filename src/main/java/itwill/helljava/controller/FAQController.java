@@ -99,6 +99,7 @@ public class FAQController {
 		model.addAttribute("pager", pager);
 		model.addAttribute("number",number);
 		model.addAttribute("searchValue",searchValue);
+		model.addAttribute("searchKeyword",searchKeyword);
 	
 		return "/board/faq_list";
 		
