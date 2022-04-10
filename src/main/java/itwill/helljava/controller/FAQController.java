@@ -60,6 +60,33 @@ public class FAQController {
 		return "/board/faq_list";
 	}
 	
+	// FAQ 카테고리별 리스트 페이지 요청 처리 메소드
+	@RequestMapping(value = "/list/category", method = RequestMethod.GET)
+	public String searchCategoryFaqList(@RequestParam(defaultValue = "1") int pageNum, 
+			Model model, @RequestParam int noticeServiceCategory ) {
+		
+		int totalBoard = noticeServiceService.getNoticeServiceFaqCount(noticeServiceCategory);
+		int pageSize = 5;
+		int blockSize = 10;
+		int number = totalBoard - (pageNum - 1) * pageSize;
+		
+		// 페이징 처리 관련 값을 Pager 객체 생성해 저장
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+		
+		// 메소드 호출을 위해 매개변수에 전달하기 위한 Map 객체 생성
+		Map<String, Object> pagerMap = new HashMap<String, Object>();
+		pagerMap.put("startRow", pager.getStartRow());
+		pagerMap.put("endRow", pager.getEndRow());
+		pagerMap.put("notice_service_category", noticeServiceCategory);
+		
+		model.addAttribute("faqList", noticeServiceService.getNoticeServiceFaqList(pagerMap));
+		model.addAttribute("pager", pager);
+		model.addAttribute("number",number);
+		model.addAttribute("notice_service_category", noticeServiceCategory);
+		
+		return "/board/faq_list";
+	}
+	
 	// FAQ 검색 리스트 요청 처리 메소드
 	@RequestMapping(value = "/list/faqSearch", method = RequestMethod.GET)
 	public String searchFaqList(@RequestParam(defaultValue = "1") int pageNum, Model model,
