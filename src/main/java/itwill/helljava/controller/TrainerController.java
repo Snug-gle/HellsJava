@@ -318,49 +318,54 @@ public class TrainerController {
         for(int a =0; a<currentAwardNumbers.length; a++) {
             awardImgList.add(awardService.getAward(Integer.parseInt(currentAwardNumbers[a])).getAwardImage());
         }
-		
-
 
 	        // hidden 갯수 랑 DB갯수가 안맞을때(그냥 삭제했을때)
 			// hidden 갯수 < DB 레코드 갯수
-			if (hiddenAwardNumbers.length < currentAwardNumbers.length) {
+		if (hiddenAwardNumbers.length < currentAwardNumbers.length) {
 
-				// 1. 기존 파일 삭제 -> 해당 DB 삭제
-				for (int i = 0; i < awardImgList.size(); i++) {
-					
-						// hidden에는 없지만 DB 배열엔 있는 경우 db 레코드를 삭제 -> 해당 인덱스는 곧 awardNo PK
-						if (Arrays.asList(hiddenAwardImages).contains(awardImgList.get(i)) == false) {
-								
-							new File(uploadAwardImagesDirectory, awardService
-									.getAward(Integer.parseInt(currentAwardNumbers[i])).getAwardImage()).delete(); // 파일 삭제
-																										
-							awardService.removeAward(Integer.parseInt(currentAwardNumbers[i])); // 해당 DB 레코드 삭제
-						}
-					
+			// 1. 기존 파일 삭제 -> 해당 DB 삭제
+			for (int i = 0; i < awardImgList.size(); i++) {
+				
+				// hidden에는 없지만 DB 배열엔 있는 경우 db 레코드를 삭제 -> 해당 인덱스는 곧 awardNo PK
+				if (Arrays.asList(hiddenAwardImages).contains(awardImgList.get(i)) == false) {
+						
+					new File(uploadAwardImagesDirectory, awardService
+							.getAward(Integer.parseInt(currentAwardNumbers[i])).getAwardImage()).delete(); // 파일 삭제
+																							
+					awardService.removeAward(Integer.parseInt(currentAwardNumbers[i])); // 해당 DB 레코드 삭제
 				}
 			}
-		else {//히든의 크기는 같은데 (변경된 파일 삭제)
+		}else {//히든의 크기는 같은데 (변경된 파일 삭제)
+			
 			for(int hid=0; hid < currentAwardNumbers.length; hid++ ) {
 				if(hiddenAwardImages[hid].equals(awardImgList.get(hid))==false) { //히든의 값이 DB값이랑 일치하지 않으면
 					//기존 DB값과 기존 파일서버에서 삭제
 					new File(uploadAwardImagesDirectory, awardService
 							.getAward(Integer.parseInt(currentAwardNumbers[hid])).getAwardImage()).delete(); // 파일삭제
-																									
+					
 					awardService.removeAward(Integer.parseInt(currentAwardNumbers[hid])); // 해당 DB 레코드 삭제
 					
 				}
 			}
 		}
 		
+		// DB최신화
+    	List<Award> awardList3= awardService.getAwardList(trainer.getTrainerNo());
+    	String[] imgArray = new String[awardList3.size()];
+    	int i =0;
+    	for(Award award : awardList3) {
+    		imgArray[i]= award.getAwardImage();	
+    		i++;
+    	}
+    	
+		
 		for (int c=0; c<modifyAwardImages.size();c++) {
 
-		// 받아온 파일이 있다 : 추가
-        if (!modifyAwardImages.get(c).isEmpty()) {
+			// 받아온 파일이 있다 : 추가
+	        if (!modifyAwardImages.get(c).isEmpty()) {
         	
-			// inputFileCount 개수 만큼 돌림
-
 	            //DB값에 받은 파일 명이 있는지 확인.
-	            if(!awardImgList.contains(modifyAwardImages.get(c).getOriginalFilename())) {//없으면
+	            if(!Arrays.asList(imgArray).contains(modifyAwardImages.get(c).getOriginalFilename())) {//없으면
 	            	
 	            	//이제 추가만 하면됨.
 	            	Award award = new Award();
