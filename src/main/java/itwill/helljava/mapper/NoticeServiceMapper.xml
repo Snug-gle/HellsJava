@@ -87,7 +87,8 @@
         select count(*) from notice_service n left join member m 
             on n.member_no = m.member_no
             <choose>
-                <when test="notice_service_category != null and notice_service_categoery != ''">
+                <!-- <when test="notice_service_category != null and notice_service_categoery != ''"> -->
+                <when test="notice_service_category &gt;=1 and notice_service_category &lt;=3 "> 
                     where notice_service_sortation = 2 and notice_service_status = 1 and
                     notice_service_category = #{notice_service_category} 
                 </when>
@@ -139,7 +140,8 @@
         (select * from notice_service n left join member m 
             on n.member_no = m.member_no
             <choose>
-                <when test="notice_service_category != null and notice_service_category != ''">
+<!--                 <when test="notice_service_category != null and notice_service_category != ''"> -->
+                <when test="notice_service_category &gt;=1 and notice_service_category &lt;=3 ">
                     where notice_service_sortation = 2 and notice_service_status = 1 and
                     notice_service_category = #{notice_service_category} 
                 </when>

@@ -18,6 +18,18 @@
 						</div>
 					</h1>
 				</div>
+				<!-- 카테고리 검색 -->
+				<select id="category" name="category"
+					class="btn btn-primary dropdown-toggle" >
+					<option <c:if test="${category==9 }">selected="selected"</c:if>
+						value="9">전체</option>
+					<option <c:if test="${category==1 }">selected="selected"</c:if>
+						value="1">결제문의</option>
+					<option <c:if test="${category==2 }">selected="selected"</c:if>
+						value="2">트레이너문의</option>
+					<option <c:if test="${category==3 }">selected="selected"</c:if>
+						value="3">기타문의</option>
+				</select>
 			</div>
 			<div class="panel-body">
 				<c:choose>
@@ -75,10 +87,7 @@
 												</div>
 											</c:if>
 										</div>
-
-
 									</div>
-
 								</div>
 							</div>
 							<!-- 수정페이지 모달 -->
@@ -153,8 +162,10 @@
 					<div class="main-search-area">
 						<select id="search" name="searchKeyword"
 							class="btn btn-primary dropdown-toggle searchBtnBox">
-							<option value="notice_service_category" <c:if test="${searchKeyword == 'notice_service_category'}"> selected="selected"</c:if>>&nbsp;카테고리&nbsp;</option>
-							<option value="notice_service_title" <c:if test="${searchKeyword == 'notice_service_title'}"> selected="selected"</c:if>>&nbsp;글제목&nbsp;</option>
+							<option value="notice_service_category"
+								<c:if test="${searchKeyword == 'notice_service_category'}"> selected="selected"</c:if>>&nbsp;카테고리&nbsp;</option>
+							<option value="notice_service_title"
+								<c:if test="${searchKeyword == 'notice_service_title'}"> selected="selected"</c:if>>&nbsp;글제목&nbsp;</option>
 						</select> <input class="main-search" type="text" name="searchValue"
 							id="searchValue" value="${searchValue }">
 						<button type="button" id="searchBtn"
@@ -167,21 +178,7 @@
 </div>
 
 <script type="text/javascript">
-	//검색 기능 구현
-	$("#searchBtn").click(function() {
-		
-		// 검색 카테고리
-		var searchKeyword = $("#search").val();
-		
-		alert(searchKeyword);
-		
-		// 검색 값
-		var searchValue = $("#searchValue").val();
-		alert(searchValue);
-		
-		location.href="${pageContext.request.contextPath}/faq/list/faqSearch?searchKeyword="+searchKeyword+"&searchValue="+searchValue;
 
-	});
 	var page = 1; //현재 요청 페이지 번호를 저장하기 위한 전역 변수
 	var html = ""; //페이지 번호 출력하기 위한 전역 변수
 	
@@ -209,24 +206,40 @@
 		html += "[>][마지막]";
 	}
 	
-	
 	//페이징 처리 결과 출력
 	$("#pageNumDiv").html(html);
 	
+	//검색 기능 구현
+	$("#searchBtn").click(function() {
+		
+		// 검색 카테고리
+		var searchKeyword = $("#search").val();
+		
+		alert(searchKeyword);
+		
+		// 검색 값
+		var searchValue = $("#searchValue").val();
+		alert(searchValue);
+		
+		location.href="${pageContext.request.contextPath}/faq/list/faqSearch?searchKeyword="+searchKeyword+"&searchValue="+searchValue;
+
+	});
+	// 카테고리 변경 시 get 요청
+	$("#category").change(function () {
+		var noticeServiceCategory= $(this).val();
+		
+			location.href="${pageContext.request.contextPath}/faq/list/category?noticeServiceCategory="+noticeServiceCategory;
+			
+	})
 	
 	
-	/*
 	//게시글 [삭제]버튼을 클릭한 경우 호출되는 이벤트 처리 함수
 	function remove(num) {
 		if(confirm("게시글을 삭제 하시겠습니까?")) {
-			
-			});
+			location.href="<c:url value='/faq/remove/"+num+"'/>";
 		}
-	}
-	*/
-	
-	
-
+	}; 
+	/* // 글 수정시 유효성 검사 구현 해야 하지 않나?
 	$(document).ready(function() {
 		$("#updateBtn").click(function() {
 			var noticeServiceNo=$("#updateNum").val();
@@ -248,7 +261,7 @@
 			
 		});
 	});
-	
+	 */
 	</script>
 </html>
 

@@ -11,6 +11,7 @@
 					<h1>
 						공지사항
 						<div class="reviewRight" style="float: right;">
+							<!-- 공지사항 검색 -->
 							<c:if test="${loginUserinfo.memberStatus==9}">
 								<button type="button" class="btn btn-primary"
 									onclick="location.href='<c:url value="/notice/write"/>';">작성</button>
@@ -18,6 +19,8 @@
 						</div>
 					</h1>
 				</div>
+				
+				
 			</div>
 			<div class="panel-body">
 				<c:choose>
@@ -175,8 +178,8 @@
 			location.href="<c:url value='/notice/remove/"+num+"'/>";
 		}
 	};
-		
-	// 공지사항 수정 시 유효성
+	
+	// 글 수정시 유효성 검사 구현 해야 하지 않나?
 	$(document).ready(function() {
 		$("#updateBtn").click(function() {
 			var noticeServiceNo=$("#updateNum").val();
