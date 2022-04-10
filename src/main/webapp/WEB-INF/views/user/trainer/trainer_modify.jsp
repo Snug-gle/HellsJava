@@ -82,6 +82,7 @@ function sample4_execDaumPostcode() {
 								<img alt="" src="<spring:url value="/profileImages/${trainerInfo.trainerProfileImg}"/>" class="trainer-Profile-img"> 
 								<input id="trainer_profile_image" type="file" readonly="readonly" name="profileImage" placeholder="프로필 사진 첨부" accept="image/*" value="${trainerInfo.trainerProfileImg}">
 								<div id="trainerProfileImgRegMsg" class="error">프로필 사진을 반드시 첨부하세요.</div>
+								<input type="hidden" name="currentProfileImage" value="${trainerInfo.trainerProfileImg}">
 							</div>
 							<br>
 							<div class="form-group" style="overflow: auto;">
@@ -129,29 +130,24 @@ function sample4_execDaumPostcode() {
 								<div class="tr-in-header-award-list">
 									<ul class="tr-in-header-award-unit" style="list-style: none;">
 										<c:set var="i" value="0" />
-										
-										<c:choose>
-											 <c:when test="${empty(awardInfo)}">
-											 	<li class="tr-in-header-award-rego" >
-													<i class='fa fa-minus-square' id='award-remove-btn'></i>&nbsp;
-													<img alt="" src="" class="award-load-img">
-													<input type="file" id="award_image0" name="aImage" onchange="setImageFromFile(this)" onload="setImageFromFile(this)" placeholder="사진 첨부" accept="image/*" style="display: inline-block;" value=""><br>
-													<input type="text" id="award_content0" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;" value="">
-													<input type="hidden" name="" id="" value=""/>
-												</li>
-											 </c:when>
-											 <c:otherwise>
 												 <c:forEach var="awardList" items="${awardInfo}" varStatus="status">
+												 <input type="hidden" name="currentAwardNumbers" value="${awardList.awardNo}">
 													<li class="tr-in-header-award-rego" >
-														<i class='fa fa-minus-square' id='award-remove-btn'></i>&nbsp;
+														<c:if test="${status.index ne 0 }">
+															<i class='fa fa-minus-square' id='award-remove-btn'></i>&nbsp;
+														</c:if>
 														<img alt="" src="<spring:url value="/awardImages/${awardList.awardImage}"/>" class="award-load-img">
 														<input type="file" id="award_image${status.index}" name="aImage" onchange="setImageFromFile(this)" onload="setImageFromFile(this)" placeholder="사진 첨부" accept="image/*" style="display: inline-block;" value="${awardList.awardImage}"><br>
 														<input type="text" id="award_content${status.index}" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;" value="${awardList.awardContent}">
+														<input type="hidden" name= "hiddenAwardImages" value="${awardList.awardImage}"> 
+														<input type="hidden" name= "hiddenAwardContents" value="${awardList.awardContent}"> 
+														<input type="hidden" name="hiddenAwardNumbers" value="${awardList.awardNo }">
+														<input type="hidden" name= "inputFileCount" value="1">
+														
 														<input type="hidden" value="${i =status.index}">
+														
 													</li>
 												</c:forEach>
-											 </c:otherwise>
-										</c:choose>
 									</ul>
 									<input id="onp" type="hidden" value="${i}">
 									<p id="awardContentRegMsg" class="error">수상 경력 설명을 반드시 입력하세요.</p>
@@ -219,6 +215,7 @@ function sample4_execDaumPostcode() {
 		html2 += "<img alt='' src='' class='award-load-img'>&nbsp;";
 		html2 += "<input type='file' id='award_image"+onp+"' onchange='setImageFromFile(this)' name='aImage' accept='image/*' required style='display: inline-block;'><br>";
 		html2 += "<input type='text' id='award_content"+onp+"' style='margin-left: 17px;' name='aContent' required placeholder='수상 경력 및 이력' style='display: inline-block;' class='trainer-profile-form-control'>";
+		html2 += "<input type='hidden' name= 'inputFileCount' value='1'>";
 		html2 += "</li>";
 		
 	    $(".tr-in-header-award-unit").append(html2);
@@ -262,7 +259,7 @@ function sample4_execDaumPostcode() {
 		};
 		
 		
-		//수상 경력 및 이력 유효성 검사
+		/* //수상 경력 및 이력 유효성 검사
 		for(var i=0; i<=onp; i++){
 			
 			if($("#award_image"+i).val()==""){
@@ -279,7 +276,7 @@ function sample4_execDaumPostcode() {
 				$("#award_content"+i).focus();
 			};
 			
-		};
+		}; */
 		
 		// 등록 센터명 배열
 		var centerNameArr = ['스마일짐','앵그리짐','네모짐','세모짐','동글짐','마이짐','별짐','달짐','골드짐','해피짐'];
@@ -302,11 +299,11 @@ function sample4_execDaumPostcode() {
 			submitResult = false;
 		};
 		
-		//프로필 이미지 유효성 검사
+		/* //프로필 이미지 유효성 검사
 		if($("#trainer_profile_image").val() == ""){
 			$("#trainerProfileImgRegMsg").css("display","block");
 			submitResult = false;
-		};
+		}; */
 
 		return submitResult;
 	});

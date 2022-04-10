@@ -22,7 +22,7 @@
 				award_image = #{awardImage}
 			</if>
 		</set>
-		where award_no = #{award_no}
+		where award_no = #{awardNo}
 	</update>
 	
 	<delete id="deleteAward">
