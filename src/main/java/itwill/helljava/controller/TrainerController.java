@@ -326,19 +326,17 @@ public class TrainerController {
 			if (hiddenAwardNumbers.length < currentAwardNumbers.length) {
 
 				// 1. 기존 파일 삭제 -> 해당 DB 삭제
-				for (int i = 0; i < hiddenAwardImages.length; i++) {
-					for (int u = 0; u < currentAwardNumbers.length; u++) {
-
-						// hidden에는 있지만 DB 배열엔 없는 경우 db 레코드를 삭제 -> 해당 인덱스는 곧 awardNo PK
-						if (awardImgList.get(u).equals(hiddenAwardImages[i]) == false) {
-
-				
+				for (int i = 0; i < awardImgList.size(); i++) {
+					
+						// hidden에는 없지만 DB 배열엔 있는 경우 db 레코드를 삭제 -> 해당 인덱스는 곧 awardNo PK
+						if (Arrays.asList(hiddenAwardImages).contains(awardImgList.get(i)) == false) {
+								
 							new File(uploadAwardImagesDirectory, awardService
-									.getAward(Integer.parseInt(currentAwardNumbers[u])).getAwardImage()).delete(); // 파일 삭제
+									.getAward(Integer.parseInt(currentAwardNumbers[i])).getAwardImage()).delete(); // 파일 삭제
 																										
-							awardService.removeAward(Integer.parseInt(currentAwardNumbers[u])); // 해당 DB 레코드 삭제
+							awardService.removeAward(Integer.parseInt(currentAwardNumbers[i])); // 해당 DB 레코드 삭제
 						}
-					}
+					
 				}
 			}
 		else {//히든의 크기는 같은데 (변경된 파일 삭제)
