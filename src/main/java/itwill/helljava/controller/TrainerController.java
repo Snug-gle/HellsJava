@@ -220,7 +220,7 @@ public class TrainerController {
 
 		payService.addPay(pay);
 
-		return "redirect:/mypage"; // 마이페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
+		return "redirect:/trainer/mypage"; // 마이페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
 	}
 
 	// 트레이너 신청 정보 수정 post 요청
@@ -289,12 +289,10 @@ public class TrainerController {
 		// 수상 경력 이미지가 저장될 서버 디렉토리
 		String uploadAwardImagesDirectory = context.getServletContext().getRealPath("/resources/assets/awardImages");
 
-		// inputFile li 태그 갯수 (수상경력 작성 폼 갯수)
-		String[] inputFileCount = request.getParameterValues("inputFileCount");
+
 
 		// 기존 DB 데이터들
 		String[] hiddenAwardImages = request.getParameterValues("hiddenAwardImages"); // hidden 수상 경력 이미지 이름들
-		String[] hiddenAwardContents = request.getParameterValues("hiddenAwardContents"); // hidden 수상 경력 내용들
 		String[] hiddenAwardNumbers = request.getParameterValues("hiddenAwardNumbers"); // hidden award PK들
 
 		String[] currentAwardNumbers = request.getParameterValues("currentAwardNumbers"); // DB 수상 경력 PK들
@@ -305,72 +303,6 @@ public class TrainerController {
 		// 수상 경력 사진 설명들
 		String[] modifyAwardContents = request.getParameterValues("aContent");
 
-		/*
-		 * // 받아온 파일의 list 원소 개수 만큼 돌리자 -> 원소 없으면 안 돌아감 for (int i = 0; i <=
-		 * modifyAwardImages.size(); i++) {
-		 * 
-		 * // 받아온 파일이 있을 경우 if (!modifyAwardImages.get(i).isEmpty()) {
-		 * 
-		 * // 파일 [추가된] 변경의 의미 => 받아온 파일 이름과 기존 데이터 파일 이름이 비교해서 없는 경우 if
-		 * (modifyAwardImages.get(i).getOriginalFilename().equals(hiddenAwardImages[i])
-		 * == false) {
-		 * 
-		 * Award modifyAward = new Award();
-		 * modifyAward.setAwardImage(modifyAwardImages.get(i).getOriginalFilename());
-		 * modifyAward.setAwardContent(modifyAwardContents[i]);
-		 * modifyAward.setAwardNo(Integer.parseInt(hiddenAwardNumbers[i]));
-		 * 
-		 * // 기존 파일 삭제 new File(uploadAwardImagesDirectory,
-		 * hiddenAwardImages[i]).delete();
-		 * 
-		 * // 새로운 file 객체 생성 File file = new File(uploadAwardImagesDirectory,
-		 * modifyAwardImages.get(i).getOriginalFilename());
-		 * 
-		 * String uploadFilename = modifyAwardImages.get(i).getOriginalFilename();
-		 * 
-		 * // 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경 int j = 0; while
-		 * (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리 j++; int index =
-		 * modifyAwardImages.get(i).getOriginalFilename().lastIndexOf(".");
-		 * 
-		 * uploadFilename = modifyAwardImages.get(i).getOriginalFilename().substring(0,
-		 * index) + "_" + j +
-		 * modifyAwardImages.get(i).getOriginalFilename().substring(index); file = new
-		 * File(uploadAwardImagesDirectory, uploadFilename); }
-		 * 
-		 * awardService.modifyAward(modifyAward); // 기존 데이터가 변경되었으므로 변경! }
-		 * 
-		 * for (int c = 0; c <= currentAwardNumbers.length; c++) {
-		 * 
-		 * // 해당 인덱스의 파일이 없다면 if (modifyAwardImages.get(c).isEmpty()) {
-		 * 
-		 * // DB의 파일 레코드 지우기
-		 * awardService.removeAward(Integer.parseInt(currentAwardNumbers[c]));
-		 * 
-		 * // 서버 디렉토리 파일 지우기 (당연히 있겄지) new File(uploadAwardImagesDirectory,
-		 * awardService.getAward(Integer.parseInt(currentAwardNumbers[c])).getAwardImage
-		 * ()); }
-		 * 
-		 * }
-		 * 
-		 * // 받아온 파일 개수 > DB 레코드 수 일 때 파일 DB 추가 및 서버 추가 음.. if
-		 * (awardService.getAward(Integer.parseInt(currentAwardNumbers[i])) == null) {
-		 * 
-		 * }
-		 * 
-		 * } // 받아온 파일이 없을 때 (변경하지 않겠다 아님 삭제하겠다) else if
-		 * (modifyAwardImages.get(i).isEmpty()) {
-		 * 
-		 * // hidden 파일도 없다 진짜 삭제임 if (hiddenAwardImages[i] == null ||
-		 * hiddenAwardImages[i].equals("")) {
-		 * 
-		 * // DB 삭제 awardService.removeAward(Integer.parseInt(currentAwardNumbers[i]));
-		 * 
-		 * // 파일 삭제 if (hiddenAwardImages[i] != null) new
-		 * File(uploadAwardImagesDirectory,
-		 * awardService.getAward(Integer.parseInt(currentAwardNumbers[i])).getAwardImage
-		 * ()) .delete(); } } }
-		 */
-// -------------------------------------------------------------------------------------------------------------------------
 
 		// 기존 hidden갯수 = DB 레코드 수
 		// => hidden의 갯수가 변하는 경우 : 기존 파일을 삭제하는 경우 => (-) 버튼을 눌렀을 때
@@ -380,7 +312,7 @@ public class TrainerController {
 		
 		List<String> awardImgList= new ArrayList<String>();
 
-        for(int a =0; a<=currentAwardNumbers.length; a++) {
+        for(int a =0; a<currentAwardNumbers.length; a++) {
             awardImgList.add(awardService.getAward(Integer.parseInt(currentAwardNumbers[a])).getAwardImage());
         }
 		
@@ -391,14 +323,15 @@ public class TrainerController {
 			if (hiddenAwardNumbers.length < currentAwardNumbers.length) {
 
 				// 1. 기존 파일 삭제 -> 해당 DB 삭제
-				for (int i = 0; i <= hiddenAwardImages.length; i++) {
-					for (int u = 0; u <= currentAwardNumbers.length; u++) {
+				for (int i = 0; i < hiddenAwardImages.length; i++) {
+					for (int u = 0; u < currentAwardNumbers.length; u++) {
 
 						// hidden에는 있지만 DB 배열엔 없는 경우 db 레코드를 삭제 -> 해당 인덱스는 곧 awardNo PK
-						if (currentAwardNumbers[u].equals(hiddenAwardImages[i]) == false) {
+						if (awardImgList.get(u).equals(hiddenAwardImages[i]) == false) {
 
+				
 							new File(uploadAwardImagesDirectory, awardService
-									.getAward(Integer.parseInt(currentAwardNumbers[u])).getAwardImage()); // 파일 삭제
+									.getAward(Integer.parseInt(currentAwardNumbers[u])).getAwardImage()).delete(); // 파일 삭제
 																										
 							awardService.removeAward(Integer.parseInt(currentAwardNumbers[u])); // 해당 DB 레코드 삭제
 						}
@@ -406,11 +339,11 @@ public class TrainerController {
 				}
 			}
 		else {//히든의 크기는 같은데 (변경된 파일 삭제)
-			for(int hid=0; hid <= currentAwardNumbers.length; hid++ ) {
-				if(hiddenAwardImages[hid]!= awardImgList.get(hid)) { //히든의 값이 DB값이랑 일치하지 않으면
+			for(int hid=0; hid < currentAwardNumbers.length; hid++ ) {
+				if(hiddenAwardImages[hid].equals(awardImgList.get(hid))==false) { //히든의 값이 DB값이랑 일치하지 않으면
 					//기존 DB값과 기존 파일서버에서 삭제
 					new File(uploadAwardImagesDirectory, awardService
-							.getAward(Integer.parseInt(currentAwardNumbers[hid])).getAwardImage()); // 파일삭제
+							.getAward(Integer.parseInt(currentAwardNumbers[hid])).getAwardImage()).delete(); // 파일삭제
 																									
 					awardService.removeAward(Integer.parseInt(currentAwardNumbers[hid])); // 해당 DB 레코드 삭제
 					
@@ -418,12 +351,12 @@ public class TrainerController {
 			}
 		}
 		
+		for (int c=0; c<modifyAwardImages.size();c++) {
 
 		// 받아온 파일이 있다 : 추가
-        if (!modifyAwardImages.isEmpty()) {
+        if (!modifyAwardImages.get(c).isEmpty()) {
         	
 			// inputFileCount 개수 만큼 돌림
-			for (int c=0; c<=modifyAwardImages.size();c++) {
 
 	            //DB값에 받은 파일 명이 있는지 확인.
 	            if(!awardImgList.contains(modifyAwardImages.get(c).getOriginalFilename())) {//없으면
@@ -457,9 +390,7 @@ public class TrainerController {
 	        }
 		}
 
-//---------------------센터 관련 정보 변경(센터주소, 우편번호, 센터명)------------------------------------------
-
-		return "";
+		return "redirect:/trainer/mypage"; // 트레이너 마이페이지로 이동
 	}
 
 	@ExceptionHandler(value = AccountPwAuthException.class)

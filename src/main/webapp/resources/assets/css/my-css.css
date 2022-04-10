@@ -521,7 +521,7 @@ html, body {
 }
 
 #content {
-	min-height: 70%;
+	min-height: 61%;
 	    vertical-align: middle;
 	
 }
@@ -534,13 +534,13 @@ html, body {
     vertical-align: middle;
 }
 
-.home-header-footer {
+.home-header {
 	width: 100%;
     border: 0;
     background: #fff;
     display: inline-block;
     position: fixed;
-    padding: 30px; 0;
+    padding: 20px 0;
     z-index: 1000;
     border-width: 0 0 1px;
     height: auto;
