@@ -33,12 +33,7 @@ public class FAQController {
 	@Autowired
 	private NoticeServiceService noticeServiceService;
 	
-	/*
-	@RequestMapping("/board")
-	public String faqList() {
-		return "board/faq_list2";
-	}
-	*/
+	// 전체 리스트 페이지 요청 처리 메소드
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String searchAllFaqList(@RequestParam(defaultValue = "1") int pageNum, Model model) {
 		// 테이블에 저장된 모든 게시글의 갯수 검색하여 반환받아 저장
@@ -67,24 +62,20 @@ public class FAQController {
 		model.addAttribute("pager", pager);
 		model.addAttribute("number",number);
 
-		/*
-		 * for(NoticeService noticeService :
-		 * noticeServiceService.getNoticeServiceList(pagerMap) ) {
-		 * noticeService.setNoticeServiceCategoryName(String.valueOf(
-		 * NoticeServiceCategoryEnum.of(noticeService.getNoticeServiceCategory())));
-		 * returnMap.put("", notice); }
-		 */
 		return "/board/faq_list";
 
 	}
-	@RequestMapping(value = "/list/status", method = RequestMethod.GET)
-	public String searchFaqList(@RequestParam(defaultValue = "1") int pageNum, Model model) {
+	
+	@RequestMapping(value = "/list/faqSearch", method = RequestMethod.GET)
+	public String searchFaqList(@RequestParam(defaultValue = "1") int pageNum, Model model,
+			@RequestParam String searchKeyword, @RequestParam String searchValue) {
 		// 테이블에 저장된 모든 게시글의 갯수 검색하여 반환받아 저장
 		
 		Map<String, Object> countMap = new HashMap<String, Object>();
-		
 		countMap.put("notice_service_sortation", NoticeServiceSortationEnum.FAQ.getValue());
 		countMap.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
+		countMap.put("searchKeyword", searchKeyword);
+		countMap.put("searchValue", searchValue);
 		
 		int totalBoard = noticeServiceService.getNoticeServiceCount(countMap);
 		int pageSize = 5;
@@ -100,18 +91,15 @@ public class FAQController {
 		pagerMap.put("endRow", pager.getEndRow());
 		pagerMap.put("notice_service_sortation", NoticeServiceSortationEnum.FAQ.getValue());
 		pagerMap.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
+		pagerMap.put("searchKeyword", searchKeyword);
+		pagerMap.put("searchValue", searchValue);
+		
 		
 		model.addAttribute("faqList", noticeServiceService.getNoticeServiceList(pagerMap));
 		model.addAttribute("pager", pager);
 		model.addAttribute("number",number);
-		
-		/*
-		 * for(NoticeService noticeService :
-		 * noticeServiceService.getNoticeServiceList(pagerMap) ) {
-		 * noticeService.setNoticeServiceCategoryName(String.valueOf(
-		 * NoticeServiceCategoryEnum.of(noticeService.getNoticeServiceCategory())));
-		 * returnMap.put("", notice); }
-		 */
+		model.addAttribute("searchValue",searchValue);
+	
 		return "/board/faq_list";
 		
 	}

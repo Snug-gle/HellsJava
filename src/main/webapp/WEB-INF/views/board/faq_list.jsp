@@ -76,71 +76,69 @@
 											</c:if>
 										</div>
 
-								
+
 									</div>
 
 								</div>
 							</div>
-									<!-- 수정페이지 모달 -->
-										<div class="modal fade" id="modal_${number2 }" role="dialog">
-											<div class="modal-dialog" id="modal-dialog"
-												style="text-align: left;">
-												<div class="modal-content">
-													<div class="modal-header">
-														<div class="logo-location">
-															<a href="<c:url value="/"/>" class="modal-header-logo"><i
-																class="icon-layers"></i>오늘의 짐</a>
-														</div>
+							<!-- 수정페이지 모달 -->
+							<div class="modal fade" id="modal_${number2 }" role="dialog">
+								<div class="modal-dialog" id="modal-dialog"
+									style="text-align: left;">
+									<div class="modal-content">
+										<div class="modal-header">
+											<div class="logo-location">
+												<a href="<c:url value="/"/>" class="modal-header-logo"><i
+													class="icon-layers"></i>오늘의 짐</a>
+											</div>
+										</div>
+										<div class="modal-body">
+											<div id="login-wrapper">
+												<div class="panel panel-primary">
+													<div class="panel-heading">
+														<h3 class="panel-title">FAQ 수정</h3>
 													</div>
-													<div class="modal-body">
-														<div id="login-wrapper">
-															<div class="panel panel-primary">
-																<div class="panel-heading">
-																	<h3 class="panel-title">FAQ 수정</h3>
-																</div>
-																<form action="<c:url value='/faq/modify'/>"
-																	method="post" class="form-horizontal" role="form">
-																	<div class="form-group">
-																		<label for="inputTitle" class="col-sm-2 control-label">제목</label>
-																		<div class="col-sm-10">
-																			<input type="hidden" name="noticeServiceNo"
-																				class="form-control" value="${faq.noticeServiceNo }">
-																			<input type="text" name="noticeServiceTitle"
-																				class="form-control"
-																				value="${faq.noticeServiceTitle }">
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label">카테고리</label>
-																		<div class="col-sm-10">
-																			<select class="form-control"
-																				id="noticeServiceCategory"
-																				name="noticeServiceCategory">
-																				<option value="1" selected="selected">결제문의</option>
-																				<option value="2">트레이너 관련 문의</option>
-																				<option value="3">기타 문의</option>
-																			</select>
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label for="inputTitle" class="col-sm-2 control-label">내용</label>
-																		<div class="col-sm-10">
-																			<textarea name="noticeServiceContent"
-																				class="form-control">${faq.noticeServiceContent}</textarea>
-																		</div>
-																	</div>
-																	<div class="reviewRight">
-																		<button type="submit" class="btn btn-primary">수정</button>
-																		<button type="button" class="btn btn-primary"
-																			onclick="location.href='<c:url value="/faq/list"/>';">목록</button>
-																	</div>
-																</form>
+													<form action="<c:url value='/faq/modify'/>" method="post"
+														class="form-horizontal" role="form">
+														<div class="form-group">
+															<label for="inputTitle" class="col-sm-2 control-label">제목</label>
+															<div class="col-sm-10">
+																<input type="hidden" name="noticeServiceNo"
+																	class="form-control" value="${faq.noticeServiceNo }">
+																<input type="text" name="noticeServiceTitle"
+																	class="form-control" value="${faq.noticeServiceTitle }">
 															</div>
 														</div>
-													</div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label">카테고리</label>
+															<div class="col-sm-10">
+																<select class="form-control" id="noticeServiceCategory"
+																	name="noticeServiceCategory">
+																	<option value="1" selected="selected">결제문의</option>
+																	<option value="2">트레이너 관련 문의</option>
+																	<option value="3">기타 문의</option>
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="inputTitle" class="col-sm-2 control-label">내용</label>
+															<div class="col-sm-10">
+																<textarea name="noticeServiceContent"
+																	class="form-control">${faq.noticeServiceContent}</textarea>
+															</div>
+														</div>
+														<div class="reviewRight">
+															<button type="submit" class="btn btn-primary">수정</button>
+															<button type="button" class="btn btn-primary"
+																onclick="location.href='<c:url value="/faq/list"/>';">목록</button>
+														</div>
+													</form>
 												</div>
 											</div>
 										</div>
+									</div>
+								</div>
+							</div>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
@@ -149,35 +147,64 @@
 				<div class="panel panel-default">
 					<div class="panel-body" id="pageNumDiv"></div>
 				</div>
+				<br>
+
+				<form id="searchForm" method="get">
+					<div class="main-search-area">
+						<select id="search" name="searchKeyword"
+							class="btn btn-primary dropdown-toggle searchBtnBox">
+							<option value="notice_service_category" selected="selected">&nbsp;카테고리&nbsp;</option>
+							<option value="notice_service_content">&nbsp;글제목&nbsp;</option>
+						</select> <input class="main-search" type="text" name="searchValue"
+							id="searchValue" value="${searchValue }">
+						<button type="button" id="searchBtn"
+							class="btn btn-primary searchBtnBox">검색</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
+	//검색 기능 구현
+	$("#searchBtn").click(function() {
+		
+		// 검색 카테고리
+		var searchKeyword = $("#search").val();
+		
+		alert(searchKeyword);
+		
+		// 검색 값
+		var searchValue = $("#searchValue").val();
+		alert(searchValue);
+		
+		location.href="${pageContext.request.contextPath}/faq/list/faqSearch?searchKeyword="+searchKeyword+"&searchValue="+searchValue;
+
+	});
 	var page = 1; //현재 요청 페이지 번호를 저장하기 위한 전역 변수
 	var html = ""; //페이지 번호 출력하기 위한 전역 변수
 	
 	//페이징 처리 
 	//[처음], [이전] 이동 설정
 	if (${pager.startPage} > ${pager.blockSize}) {
-		html += "<a href='<c:url value="/faq/list/status"/>?pageNum=1'>[처음]</a>";
-		html += "<a href='<c:url value="/faq/list/status"/>?pageNum=${pager.prevPage}'>[<]</a>";
+		html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum=1&searchKeyword="+$("#search").val()+"&searchValue="+$("#searchValue").val()+"'>[처음]</a>";
+		html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum=${pager.prevPage}&searchKeyword="+$("#search").val()+"&searchValue="+$("#searchValue").val()+"'>[<]</a>";
 	} else {
 		html += "[처음][<]";
 	}
 	//페이지 번호 설정
 	for (var i = ${pager.startPage}; i <= ${pager.endPage}; i++) {
 		if (${pager.pageNum} != i) {
-			html += "<a href='<c:url value="/faq/list/status"/>?pageNum="+i+"'> [" + i + "] </a>";
+			html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum="+i+"&searchKeyword="+$("#search").val()+"&searchValue="+$("#searchValue").val()+"'> [" + i + "] </a>";
 		} else {
 			html += "[" + i + "]";
 		}
 	}
 	//[다음],[마지막] 이동 설정
 	if (${pager.endPage} != ${pager.totalPage}) {
-		html += "<a href='<c:url value="/faq/list/status"/>?pageNum=${pager.nextPage}'>[>]</a>";
-		html += "<a href='<c:url value="/faq/list/status"/>?pageNum=${pager.totalPage}'>[마지막]</a>";
+		html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum=${pager.nextPage}&searchKeyword="+$("#search").val()+"&searchValue="+$("#searchValue").val()+"'>[>]</a>";
+		html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum=${pager.totalPage}&searchKeyword="+$("#search").val()+"&searchValue="+$("#searchValue").val()+"'>[마지막]</a>";
 	} else {
 		html += "[>][마지막]";
 	}
@@ -185,6 +212,8 @@
 	
 	//페이징 처리 결과 출력
 	$("#pageNumDiv").html(html);
+	
+	
 	
 	/*
 	//게시글 [삭제]버튼을 클릭한 경우 호출되는 이벤트 처리 함수
