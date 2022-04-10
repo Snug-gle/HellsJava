@@ -56,7 +56,7 @@
 															<c:otherwise>완료</c:otherwise>
 														</c:choose></td>
 													<td style="width: 76px;"><a data-toggle="collapse"
-														data-parent="#accordion" href="#${number2 }"
+														data-parent="#accordion" href="#detail_${number2 }"
 														class="collapsed btn btn-default ptOnceBtn"
 														aria-expanded="false"> 상세보기</a></td>
 												</tr>
@@ -64,17 +64,17 @@
 										</table>
 									</div>
 									<!-- 글 상세내용 -->
-									<div id="${number2 }" class="panel-collapse collapse"
+									<div id="detail_${number2 }" class="panel-collapse collapse"
 										aria-expanded="false" style="height: 0px;">
 										<div class="personalContent">${ptQna.ptServiceContent}
 											<!-- 모달 버튼 -->
 											<!-- 답글 있으면 수정 못하게 해야겠지? -->
 											<div class="reviewRight">
 												<button class="btn btn-primary" type="button"
-													data-toggle="modal" data-target="#formModal">수정</button>
+													data-toggle="modal" data-target="#modal_${number2 }">수정</button>
 											</div>
 											<!-- 수정페이지 모달 -->
-											<div class="modal fade" id="formModal" role="dialog">
+											<div class="modal fade" id="modal_${number2 }" role="dialog">
 												<div class="modal-dialog" id="modal-dialog"
 													style="text-align: left;">
 													<div class="modal-content">
@@ -92,6 +92,7 @@
 																	</div>
 																	<form action="<c:url value='/ptqna/modify'/>"
 																		method="post" class="form-horizontal" role="form">
+																		<input type="hidden" name="ptServiceStatus" value="${ptQna.ptServiceStatus }">
 																		<div class="form-group">
 																			<label for="inputTitle"
 																				class="col-sm-2 control-label">제목</label>
