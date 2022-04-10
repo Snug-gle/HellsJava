@@ -31,10 +31,11 @@ public class NoticeController {
 	@Autowired 
 	private NoticeServiceService noticeServiceService;
 	
-	// 공지사항 리스트 출력 메서드 
+	// 공지사항 리스트 출력 요청 처리 메소드 
 	@RequestMapping(value = "/list",method = RequestMethod.GET)
 	public String searchNoticeList(@RequestParam(defaultValue = "1") int pageNum, Model model){
 		
+		//게시글 수 정보를 가져오기 위한 메소드 호출을 위한 매개변수
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("notice_service_sortation", NoticeServiceSortationEnum.공지사항.getValue());
 		searchMap.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
