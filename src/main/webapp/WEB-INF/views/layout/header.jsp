@@ -5,7 +5,7 @@
 <header class="navbar-wrapper">
 
         <div id="undefined-sticky-wrapper" class="sticky-wrapper">
-        	<div class="home-header-footer" role="navigation" style="">
+        	<div class="home-header" role="navigation" style="">
               <div class="container">  
                 <div class="navbar-header">
                     <!--logo start-->
