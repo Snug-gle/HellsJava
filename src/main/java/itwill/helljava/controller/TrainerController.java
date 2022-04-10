@@ -58,29 +58,37 @@ public class TrainerController {
 
 	@Autowired
 	private PayService payService;
-	
+
 	@Autowired
 	private PostingService postingService;
-	
+
+	// 트레이너 마이페이지 Get 요청
+	@RequestMapping(value = "/trainer/mypage", method = RequestMethod.GET)
+	public String trainerPage(Model model, HttpSession session) {
+		int trainerNo = trainerService.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo())
+				.getTrainerNo();
+
+		model.addAttribute("posting", postingService.getPosting(trainerNo));
+		return "user/trainer/trainer_mypage";
+	}
 
 	// 트레이너 신청 화면을 요청
 	@RequestMapping(value = "/trainer/request", method = RequestMethod.GET)
 	public String trainerRequest() {
 		return "/user/trainer/trainer_request";
 	}
-	
+
 	// 트레이너 수정 화면을 요청
 	@RequestMapping(value = "/trainer/modify", method = RequestMethod.GET)
 	public String trainerModify(HttpSession session, Model model) {
-		
+
 		int MemberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
 
 		model.addAttribute("trainerInfo", trainerService.getTrainer(MemberNo));
 		model.addAttribute("awardInfo", awardService.getAwardList(trainerService.getTrainer(MemberNo).getTrainerNo()));
-		
+
 		return "/user/trainer/trainer_modify";
 	}
-	
 
 	// 트레이너 신청 POST 요청 받아온 값
 	// 회원 번호, 프로필 사진, 우편번호, 소속센터 주소, 소속센터명, 수상 내용들, 수상 사진들,
@@ -211,14 +219,71 @@ public class TrainerController {
 		return "redirect:/mypage"; // 마이페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
 	}
 
-	// 트레이너 마이페이지 Get 요청
-	@RequestMapping(value = "/trainer/mypage", method = RequestMethod.GET)
-	public String trainerPage(Model model, HttpSession session) {
-		int trainerNo = trainerService.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo())
-				.getTrainerNo();
+	// 트레이너 신청 정보 수정 post 요청
+	// 받아온(변경 가능) 값 : 센터 주소, 우편번호, 센터명, 프로필 사진, 수상경력 설명 및 사진
+	@RequestMapping(value = "/trainer/modify", method = RequestMethod.POST)
+	public String trainerModify(@RequestParam Map<String, Object> map, @ModelAttribute Trainer trainer,
+			@ModelAttribute Account account, MultipartHttpServletRequest request, HttpSession session,
+			@RequestParam String memberNo) throws IllegalStateException, IOException {
 
-		model.addAttribute("posting", postingService.getPosting(trainerNo));
-		return "user/trainer/trainer_mypage";
+		// 파일 없을 경우 다시 수정 페이지로 가라
+		if (request.getFileNames() == null) {
+			return "redirect:/trainer/modfy";
+		}
+		
+//--------------------------프로필, 수상경력 사진 변경-------------------------------------
+
+		// DB에 있는 트레이너 정보 불러오기
+		Trainer dbTrainer = trainerService.getTrainer(Integer.parseInt(memberNo));
+		
+		
+		// 프로필 이미지가 저장될 서버디렉토리 주소
+		String uploadProfileDirectory = context.getServletContext()
+				.getRealPath("/resources/assets/profileImages");
+		
+		//트레이너 프로필 변경 (변경 파일이 있을 경우) => 변경해야지
+		if(!request.getFile("profileImage").isEmpty()) {
+			
+			// 받아온 프로필 이미지 파일
+			MultipartFile modifyProfileImage = request.getFile("profileImage");
+			
+			// 기존 파일 삭제
+			new File(uploadProfileDirectory, dbTrainer.getTrainerProfileImg());
+			
+			// 서버에 저장할 파일 객체 생성 (서버 디렉토리 경로, 받아온 파일의 이름)
+			File file = new File(uploadProfileDirectory, modifyProfileImage.getOriginalFilename());
+			
+			// service 변경 메서드에 태워보낼 trainer 객체의 img 속성으로 받아온 파일의 이름을 추가
+			trainer.setTrainerProfileImg(modifyProfileImage.getOriginalFilename());
+			
+			// 서버에 업로드할 파일 이름을 받아온 파일 이름과 통일
+			String uploadFileName = modifyProfileImage.getOriginalFilename();
+			
+			// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
+			int j = 0;
+			while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
+				j++;
+				int index = modifyProfileImage.getOriginalFilename().lastIndexOf(".");
+				
+				uploadFileName = modifyProfileImage.getOriginalFilename().substring(0, index) + "_" + j
+						+ modifyProfileImage.getOriginalFilename().substring(index);
+				file = new File(uploadProfileDirectory, uploadFileName);
+			}
+			
+			modifyProfileImage.transferTo(file); // 파일을 서버에 업로드 시킴
+		}
+		
+		// 수상 경력 이미지 및 설명 텍스트 변경
+		
+		
+		
+//---------------------센터 관련 정보 변경(센터주소, 우편번호, 센터명)------------------------------------------
+		
+		
+
+		
+		
+		return "";
 	}
 
 	@ExceptionHandler(value = AccountPwAuthException.class)

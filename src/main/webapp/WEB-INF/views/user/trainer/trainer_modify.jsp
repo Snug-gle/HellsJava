@@ -68,12 +68,12 @@ function sample4_execDaumPostcode() {
 			<div class="panel panel-primary">
 				<div class="panel-body">
 					<h1>
-						<strong>트레이너 신청</strong>
+						<strong>트레이너 신청 정보 수정</strong>
 					</h1>
 					<hr>
 					<br>
 					<div class="trainerRequestBody">
-						<form id="trainerReqestForm" enctype="multipart/form-data" action="" method="post">
+						<form id="trainerReqestForm" enctype="multipart/form-data" action='<c:url value="/trainer/modify"/>' method="post">
 							<input type="hidden" name="memberNo" value="${loginUserinfo.memberNo }">
 							<div class="trainer-profile-img">
 								<hr>
@@ -112,10 +112,12 @@ function sample4_execDaumPostcode() {
 										<span id="guide" style="color: #999; display: none"></span> 
 										<input type="text" id="sample4_detailAddress" name="trainerCentername" placeholder="센터명" class=" center-form-control" value="${trainerInfo.trainerCentername}"> 
 										<input type="text" id="sample4_extraAddress" placeholder="참고항목" class=" center-form-control" value="">
-	
+										<br>
+										<p style="color: blue; font-weight: bold;">주소 변경 시 지번 주소로 등록해주세요.</p>	
 										<div id="addressRegMsg" class="error">소속 센터 주소를 반드시 입력하세요.</div>
 										<div id="centernameRegMsg" class="error">소속 센터명을 반드시 입력하세요.</div>
-										<div id="centernameValidRegMsg" class="error">등록된 센터명을 입력하세요.</div>
+										<div id="centernameValidRegMsg" class="error">등록된 센터명을 입력하세요. 
+										[스마일짐], [앵그리짐], [네모짐], [세모짐], [동글짐], [마이짐], [별짐], [달짐], [골드짐], [해피짐]</div>
 									</div>
 								</div>
 							</div>
@@ -131,14 +133,17 @@ function sample4_execDaumPostcode() {
 										<c:choose>
 											 <c:when test="${empty(awardInfo)}">
 											 	<li class="tr-in-header-award-rego" >
+													<i class='fa fa-minus-square' id='award-remove-btn'></i>&nbsp;
 													<img alt="" src="" class="award-load-img">
 													<input type="file" id="award_image0" name="aImage" onchange="setImageFromFile(this)" onload="setImageFromFile(this)" placeholder="사진 첨부" accept="image/*" style="display: inline-block;" value=""><br>
 													<input type="text" id="award_content0" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;" value="">
+													<input type="hidden" name="" id="" value=""/>
 												</li>
 											 </c:when>
 											 <c:otherwise>
 												 <c:forEach var="awardList" items="${awardInfo}" varStatus="status">
 													<li class="tr-in-header-award-rego" >
+														<i class='fa fa-minus-square' id='award-remove-btn'></i>&nbsp;
 														<img alt="" src="<spring:url value="/awardImages/${awardList.awardImage}"/>" class="award-load-img">
 														<input type="file" id="award_image${status.index}" name="aImage" onchange="setImageFromFile(this)" onload="setImageFromFile(this)" placeholder="사진 첨부" accept="image/*" style="display: inline-block;" value="${awardList.awardImage}"><br>
 														<input type="text" id="award_content${status.index}" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;" value="${awardList.awardContent}">
@@ -154,7 +159,7 @@ function sample4_execDaumPostcode() {
 								</div>
 							</div>
 							<br>
-							<div class="tr-in-payment">
+							<%-- <div class="tr-in-payment">
 								<hr>
 								<h3><strong>결제 정보</strong></h3>
 								<hr>
@@ -180,7 +185,7 @@ function sample4_execDaumPostcode() {
 									</div>
 									</div>
 								</div>
-							</div>
+							</div> --%>
 						<br>
 						<br>
 						<div class="tr-in-footer btnGroup">
@@ -277,7 +282,7 @@ function sample4_execDaumPostcode() {
 		};
 		
 		// 등록 센터명 배열
-		var centerNameArr = ['테스트1','테스트2'];
+		var centerNameArr = ['스마일짐','앵그리짐','네모짐','세모짐','동글짐','마이짐','별짐','달짐','골드짐','해피짐'];
 		
 		//centerNameArr 배열에 센터명이 포함되어 있는지 확인
 		if((centerNameArr.includes($("#sample4_detailAddress").val()))==false){
