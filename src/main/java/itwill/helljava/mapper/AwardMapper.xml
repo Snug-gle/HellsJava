@@ -34,6 +34,6 @@
 	</select>
 	
 	<select id="selectAwardList" resultType="Award">
-		select * from award where trainer_no = #{trainerNo} order by award_no desc 
+		select * from award where trainer_no = #{trainerNo} order by award_no desc
 	</select>
 </mapper>
