@@ -47,66 +47,29 @@
                      <br>
                  </header>
              </div>
-		</div>
-  
-		 <div class="panel panel-primary" id="trainer-content" style="float: left;" onclick="location='<c:url value="/content/posting_detail"/>'">
+		</div>		
+		<c:forEach var="i" begin="1" step="1" end="3">
+			<div class="panel panel-primary" id="trainer-content" style="float: left; <c:if test='${i == 2 }'>margin: 0px 5%;</c:if>" onclick="location='<c:url value="/content/posting_detail"/>'">${trinerInfo.memberNo }
 				<div class="panel-heading">
 					<h3 class="panel-title" style="text-align: center;">     
-						트레이너명
+						${trinerInfo.memberName }<%--트레이너 이름 --%>
 					</h3>
 				</div>
 				<div class="panel-body" style="text-align: center;">
 					<form class="form-horizontal" role="form">
 						<div class="profile-pic text-center">
-							<img src="<spring:url value="/img/avatar2.png"/>" alt="" class="img-circle">
+							<img src="<spring:url value="/img/${trinerInfo.trainerProfileImg }"/>" alt="" class="img-circle">
 						</div>
 						<!-- <span class="text-muted">소속센터명</span> -->
 						<div class="form-group">
-							<p>트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명</p>
+							<p>${postingInfo.memberName.postingSelfIntroduction }</p>
 						</div>
 					 </form>
 				</div>
-			
-		</div>
-
-		<div class="panel panel-primary" id="trainer-content" style="float: left; margin: 0px 5%;" onclick="location='<c:url value="/content/posting_detail"/>'">
-			<div class="panel-heading">
-				<h3 class="panel-title" style="text-align: center;">     
-					트레이너명
-				</h3>
 			</div>
-			<div class="panel-body" style="text-align: center;">
-				<form class="form-horizontal" role="form">
-					<div class="profile-pic text-center">
-						<img src="<spring:url value="/img/avatar2.png"/>" alt="" class="img-circle">
-					</div>
-					<!-- <span class="text-muted">소속센터명</span> -->
-					<div class="form-group">
-						<p>트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명</p>
-					</div>
-				 </form>
-			</div>
-		</div>
-		<div class="panel panel-primary" id="trainer-content" style="float: left;" onclick="location='<c:url value="/content/posting_detail"/>'">
-			<div class="panel-heading">
-				<h3 class="panel-title" style="text-align: center;">     
-					트레이너명
-				</h3>
-			</div>
-			<div class="panel-body" style="text-align: center;">
-				<form class="form-horizontal" role="form">
-					<div class="profile-pic text-center">
-						<img src="<spring:url value="/img/avatar2.png"/>" alt="" class="img-circle">
-					</div>
-					<!-- <span class="text-muted">소속센터명</span> -->
-					<div class="form-group">
-						<p>트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명트레이너설명</p>
-					</div>
-				 </form>
-			</div>
-		</div>
+		</c:forEach>
 	</div>
-</div>
+
 </section>
 <section id="pricing">
 	<div class="container">
@@ -122,7 +85,7 @@
 		<div class="panel panel-primary" id="trainer-review-content" style="float: left;">
 			<div class="panel-heading">
 				<h3 class="panel-title" style="text-align: center;">     
-					ㅇㅇㅇ 회원님
+					${ptserviceInfo.memberName }
 				</h3>
 			</div>
 			<div class="panel-body" style="text-align: center;">
