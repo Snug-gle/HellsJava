@@ -34,7 +34,7 @@ public class PtQnAController {
 
 /*===================================  회원==  ======================================  */
 	
-	//  PT 문의 리스트 최초 화면 요청 처리 메소드 
+	// PT 문의 전체 리스트 요청 처리 메소드 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String searchAllList(Model model, @RequestParam(defaultValue = "1") int pageNum,
 			HttpSession session) {
@@ -42,7 +42,7 @@ public class PtQnAController {
 		// 회원번호 세션으로 받음
 		int memberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
 
-		// 전체 리스트를 위한 페이징 정보 저장
+		// 전체 리스트 게시글 개수 정보 요청을 위한 메소드의 매개변수
 		Map<String, Object> countMap = new HashMap<String, Object>();
 
 		countMap.put("pt_service_sortation", PtServiceSortationEnum.피티문의.getValue());
@@ -78,10 +78,9 @@ public class PtQnAController {
 		// 회원번호 세션으로 받음
 		int memberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
 
-		// 페이징 처리 위한 정보 저장
+		// 게시글 갯수 정보 호출을 위한 메소드의 매개변수 
 		Map<String, Object> countMap = new HashMap<String, Object>();
 
-		// 카운트
 		countMap.put("pt_service_sortation", PtServiceSortationEnum.피티문의.getValue());
 		countMap.put("member_no", memberNo);
 		countMap.put("pt_service_status", Integer.parseInt(confirmStatus)); // 전체일 경우 9니까 넘겨봤자임
@@ -93,7 +92,7 @@ public class PtQnAController {
 
 		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
 
-		//
+		// 리스트 요청을 위한 메소드의 매개변수
 		Map<String, Object> pagerMap = new HashMap<String, Object>();
 		pagerMap.put("startRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
@@ -120,7 +119,7 @@ public class PtQnAController {
 	
 	/*===================================  트레이너  ======================================  */	
 
-//  PT 문의 리스트 최초 화면 요청 처리 메소드 
+	//  PT 문의 리스트 최초 화면 요청 처리 메소드 
 	@RequestMapping(value = "/trainer/list", method = RequestMethod.GET)
 	public String searchAllList2(Model model, @RequestParam(defaultValue = "1") int pageNum,
 			HttpSession session) {
@@ -128,13 +127,12 @@ public class PtQnAController {
 		// 트레이너 번호 세션으로 받음
 		int trainerNo = trainerService.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo();
 		
-		// 전체 리스트를 위한 페이징 정보 저장
+		// 트레이너 수 정보를 요청하기 위한 메소드의 매개변수
 		Map<String, Object> countMap = new HashMap<String, Object>();
 
 		countMap.put("pt_service_sortation", PtServiceSortationEnum.피티문의.getValue());
 		countMap.put("trainer_no", trainerNo);
 		countMap.put("pt_service_status", 234); // 임의의값
-		
 		
 		int totalBoard = ptServiceService.getPtServiceTrainerCount(countMap);
 		int pageSize = 3;
@@ -165,7 +163,7 @@ public class PtQnAController {
 		// 트레이너 번호 세션으로 받음
 		int trainerNo = trainerService.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo();
 
-		// 상태별 리스트를 위한 페이징 정보 저장
+		// 상태별 트레이너 수 정보 요청 메소드를 위한 매개변수 
 		Map<String, Object> countMap = new HashMap<String, Object>();
 
 		countMap.put("pt_service_sortation", PtServiceSortationEnum.피티문의.getValue());
@@ -195,26 +193,15 @@ public class PtQnAController {
 	}
 
 	// PT 완료 후 status 수정하는 메소드
-		@RequestMapping(value = "/trainer/modify/{ptServiceNo}/{status}", method = RequestMethod.GET)
-		public String modifyStatus(@PathVariable(value = "ptServiceNo") int ptServiceNo,
-				@PathVariable(value = "status") int status, HttpSession session) {
-			
-			PtService ptService = ptServiceService.getPtService(ptServiceNo);
-			
-			ptService.setPtServiceStatus(status);
-			ptServiceService.modifyPtService(ptService);
-			
+	@RequestMapping(value = "/trainer/modify/{ptServiceNo}/{status}", method = RequestMethod.GET)
+	public String modifyStatus(@PathVariable(value = "ptServiceNo") int ptServiceNo,
+			@PathVariable(value = "status") int status, HttpSession session) {
+		
+		PtService ptService = ptServiceService.getPtService(ptServiceNo);
+		
+		ptService.setPtServiceStatus(status);
+		ptServiceService.modifyPtService(ptService);
 
-			return "redirect:/ptqna/trainer/list";
+		return "redirect:/ptqna/trainer/list";
 		}
-	
-		/*
-		 * // PT 문의 수정 요청 처리 메소드
-		 * 
-		 * @RequestMapping(value = "/trainer/modify", method = RequestMethod.POST)
-		 * public String modify2(@ModelAttribute PtService ptService) {
-		 * 
-		 * ptServiceService.modifyPtService(ptService); return
-		 * "redirect:/ptqna/trainer/list"; }
-		 */
 }

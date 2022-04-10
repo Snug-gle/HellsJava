@@ -219,8 +219,11 @@ public class TrainerController {
 		pay.setPayType(PayTypeEnum.트레이너신청.getValue());
 
 		payService.addPay(pay);
-
-		return "redirect:/trainer/mypage"; // 마이페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
+		
+		if (((Member) session.getAttribute("loginUserinfo")).getMemberStatus()==2) {
+			return "redirect:/mypage"; // 마이페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
+		}
+		return "redirect:/trainer/mypage";
 	}
 
 	// 트레이너 신청 정보 수정 post 요청
@@ -232,7 +235,7 @@ public class TrainerController {
 
 		// 파일 없을 경우 다시 수정 페이지로 가라
 		if (request.getFileNames() == null) {
-			return "redirect:/trainer/modfy";
+			return "redirect:/trainer/modify";
 		}
 
 //--------------------------프로필, 수상경력 사진 변경-------------------------------------
@@ -387,8 +390,12 @@ public class TrainerController {
 	            }
 	        }
 		}
-
+		
+		if (((Member) session.getAttribute("loginUserinfo")).getMemberStatus()==2) {
+			return "redirect:/mypage"; // 마이페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
+		}
 		return "redirect:/trainer/mypage"; // 트레이너 마이페이지로 이동
+		
 	}
 
 	@ExceptionHandler(value = AccountPwAuthException.class)

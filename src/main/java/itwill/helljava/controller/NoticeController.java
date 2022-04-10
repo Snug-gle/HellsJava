@@ -31,10 +31,11 @@ public class NoticeController {
 	@Autowired 
 	private NoticeServiceService noticeServiceService;
 	
-	// 공지사항 리스트 출력 메서드 
+	// 공지사항 리스트 출력 요청 처리 메소드 
 	@RequestMapping(value = "/list",method = RequestMethod.GET)
 	public String searchNoticeList(@RequestParam(defaultValue = "1") int pageNum, Model model){
 		
+		//게시글 수 정보를 가져오기 위한 메소드 호출을 위한 매개변수
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("notice_service_sortation", NoticeServiceSortationEnum.공지사항.getValue());
 		searchMap.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
@@ -80,16 +81,6 @@ public class NoticeController {
 		return "redirect:/notice/list";
 	}
 	
-	/*
-	//번호를 전달 받아 공지사항 수정 페이지 출력 요청 처리 메소드
-	//=> 관리자만 요청 가능하도록 인터셉터 사용(필요하면 추가)
-	@RequestMapping(value = "/modify" , method = RequestMethod.GET)
-	public String modify(@RequestParam int noticeServiceNo , Model model) throws Exception {
-		model.addAttribute("notice" , noticeServiceService.getNoticeService(noticeServiceNo));
-		return "board/notice_modify";
-	}
-	*/
-	
 	//공지사항 수정 사항 저장 요청 처리 메소드
 	@RequestMapping(value = "/modify" , method = RequestMethod.POST)
 	public String modify(@ModelAttribute NoticeService noticeService) throws Exception {
@@ -104,5 +95,4 @@ public class NoticeController {
 		noticeServiceService.removeNoticeService(num);
 		return "redirect:/notice/list";
 	}
-	
 }
