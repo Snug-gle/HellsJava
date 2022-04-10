@@ -109,10 +109,11 @@ function sample4_execDaumPostcode() {
 											<span id="guide" style="color: #999; display: none"></span> 
 											<input type="text" id="sample4_detailAddress" name="trainerCentername" placeholder="센터명" class=" center-form-control"> 
 											<input type="text" id="sample4_extraAddress" placeholder="참고항목" class=" center-form-control">
-		
+											
+											<p style="color: blue; font-weight: bold;">주소 변경 시 지번 주소로 등록해주세요.</p>
 											<div id="addressRegMsg" class="error">소속 센터 주소를 반드시 입력하세요.</div>
 											<div id="centernameRegMsg" class="error">소속 센터명을 반드시 입력하세요.</div>
-											<div id="centernameValidRegMsg" class="error">등록된 센터명을 입력하세요.</div>
+											<div id="centernameValidRegMsg" class="error">등록된 센터명을 입력하세요. [스마일짐], [앵그리짐], [네모짐], [세모짐], [동글짐], [마이짐], [별짐], [달짐], [골드짐], [해피짐]</div>
 										</div>
 									</div>
 							</div>
@@ -208,7 +209,7 @@ function sample4_execDaumPostcode() {
 		}
 		
 		// 등록 센터명 배열
-		var centerNameArr = ['테스트1','테스트2'];
+		var centerNameArr = ['스마일짐','앵그리짐','네모짐','세모짐','동글짐','마이짐','별짐','달짐','골드짐','해피짐'];
 		
 		//centerNameArr 배열에 센터명이 포함되어 있는지 확인
 		if((centerNameArr.includes($("#sample4_detailAddress").val()))==false){

@@ -56,10 +56,13 @@
 				        		<p><i class="icon-user-following myPageIcon"></i></p></a>
 				        	</div>
 				        </c:if>
-				        <div class="flex-item">
-				        	<a href="${pageContext.request.contextPath}/trainer/request" style="color: #fff">트레이너 신청
-				        	<p><i class=" icon-user-follow myPageIcon"></i></p></a>
-				        </div>
+				        
+				         <c:if test="${loginUserinfo.memberStatus == 1}">
+					        <div class="flex-item">
+					        	<a href="${pageContext.request.contextPath}/trainer/request" style="color: #fff">트레이너 신청
+					        	<p><i class=" icon-user-follow myPageIcon"></i></p></a>
+					        </div>
+				        </c:if>
 				    </div>
 				</c:otherwise>		
 			</c:choose>
