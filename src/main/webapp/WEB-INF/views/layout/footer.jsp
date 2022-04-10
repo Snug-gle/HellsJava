@@ -7,9 +7,9 @@
 				<div>
 					<div>
 						<ul class="nav navbar-nav pull-right" id="main-menu">
-							<li class=""><a href="<c:url value="/notice/board"/>">공지사항</a></li>
-							<li class=""><a href="<c:url value="/faq/board"/>">FAQ</a></li>
-							<li class=""><a href="<c:url value="/faq/board"/>">1:1문의</a></li>
+							<li class=""><a href="<c:url value="/notice/list"/>">공지사항</a></li>
+							<li class=""><a href="<c:url value="/faq/list"/>">FAQ</a></li>
+							<li class=""><a href="<c:url value="/oOo/list"/>">1:1문의</a></li>
 						</ul>
 					</div>
 					<br>
