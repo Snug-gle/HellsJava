@@ -181,7 +181,7 @@
 	function remove(num) {
 		if(confirm("게시글을 삭제 하시겠습니까?")) {
 	
-			location.href="<c:url value='/notice/remove/num'/>";
+			location.href="<c:url value='/notice/remove/'/>";
 		}
 	};
 	
