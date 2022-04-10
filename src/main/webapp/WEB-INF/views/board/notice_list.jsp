@@ -75,10 +75,7 @@
 												</div>
 											</c:if>
 										</div>
-
-
 									</div>
-
 								</div>
 							</div>
 							<!-- 수정페이지 모달 -->
@@ -131,7 +128,6 @@
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
-
 				<%-- 페이지 번호 출력 --%>
 				<div class="panel panel-default">
 					<div class="panel-body" id="pageNumDiv"></div>
@@ -169,26 +165,18 @@
 	} else {
 		html += "[>][마지막]";
 	}
-	
-	
+		
 	//페이징 처리 결과 출력
 	$("#pageNumDiv").html(html);
-	
-	
-	
-	
+
 	//게시글 [삭제]버튼을 클릭한 경우 호출되는 이벤트 처리 함수
 	function remove(num) {
 		if(confirm("게시글을 삭제 하시겠습니까?")) {
-	
 			location.href="<c:url value='/notice/remove/"+num+"'/>";
 		}
 	};
-	
-	
-	
-	
-
+		
+	// 공지사항 수정 시 유효성
 	$(document).ready(function() {
 		$("#updateBtn").click(function() {
 			var noticeServiceNo=$("#updateNum").val();
