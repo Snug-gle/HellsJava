@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import itwill.helljava.Enum.AccountEnum;
 import itwill.helljava.dto.Member;
 import itwill.helljava.service.AccountSevice;
+import itwill.helljava.service.TrainerService;
 
 //Tiles : 템플릿 페이지를 이용한 사이트 구현 기능을 제공하는 프로그램
 //1.Tiles 관련 라이브러리를 빌드 처리 - pom.xml
@@ -22,6 +23,11 @@ public class HomeController {
 
 	@Autowired
 	private AccountSevice accountSevice;
+	
+	@Autowired
+	private TrainerService trainerService;
+	
+	
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String tiles(HttpSession session, Model model) {
@@ -40,6 +46,8 @@ public class HomeController {
 								.getAccountBank()));
 			}
 		}
+		
+		//으앙 왜 그 뭐시냐 그 트레이너 리스트 없는겨
 		return "main";
 	}
 
