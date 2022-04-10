@@ -137,7 +137,7 @@ function sample4_execDaumPostcode() {
 															<i class='fa fa-minus-square' id='award-remove-btn'></i>&nbsp;
 														</c:if>
 														<img alt="" src="<spring:url value="/awardImages/${awardList.awardImage}"/>" class="award-load-img">
-														<input type="file" class="award-img" id="award_image${status.index}" name="aImage" onchange="setImageFromFile(this)" onload="setImageFromFile(this)" placeholder="사진 첨부"  accept="image/*" style="display: inline-block;" value="${awardList.awardImage}"><br>
+														<input type="file" class="award-img" id="award_image${status.index}" name="aImage" onload="setImageFromFile(this)" placeholder="사진 첨부"  accept="image/*" style="display: inline-block;" value="${awardList.awardImage}"><br>
 														<input type="text" id="award_content${status.index}" name="aContent" placeholder="수상 경력 및 이력" class="trainer-profile-form-control" style="display: inline-block;" value="${awardList.awardContent}">
 														<input type="hidden" name= "hiddenAwardImages" value="${awardList.awardImage}"> 
 														<input type="hidden" name= "hiddenAwardContents" value="${awardList.awardContent}"> 
@@ -184,11 +184,11 @@ function sample4_execDaumPostcode() {
 							</div> --%>
 						<br>
 						<br>
-						<div class="tr-in-footer btnGroup">
-							<button id="submitBtn" type="submit" class="btn btn-primary">확인</button>
-							<button type="reset" class="btn btn-primary">다시쓰기</button>
-							<br>
-						</div>
+							<div class="tr-in-footer btnGroup">
+								<button id="submitBtn" type="submit" class="btn btn-primary">확인</button>
+								<button type="reset" class="btn btn-primary">다시쓰기</button>
+								<br>
+							</div>
 						</form>
 					</div>
 				</div>
@@ -213,7 +213,7 @@ function sample4_execDaumPostcode() {
 		html2 = "<li class='tr-in-header-award-rego'>";
 		html2 += "<i class='fa fa-minus-square' id='award-remove-btn'></i>&nbsp;";
 		html2 += "<img alt='' src='' class='award-load-img'>&nbsp;";
-		html2 += "<input type='file' class='award-img' id='award_image"+onp+"' onchange='setImageFromFile(this)' name='aImage' accept='image/*' required style='display: inline-block;'><br>";
+		html2 += "<input type='file' class='award-img' id='award_image"+onp+"' name='aImage' accept='image/*' required style='display: inline-block;'><br>";
 		html2 += "<input type='text' id='award_content"+onp+"' style='margin-left: 17px;' name='aContent' required placeholder='수상 경력 및 이력' style='display: inline-block;' class='trainer-profile-form-control'>";
 		html2 += "<input type='hidden' name= 'inputFileCount' value='1'>";
 		html2 += "</li>";
@@ -234,6 +234,12 @@ function sample4_execDaumPostcode() {
 
 	});
 
+	//프로필 이미지 미리보기
+	$(document).on("change", ".award-img", function() {
+	    setImageFromFile(this);
+		$(this).next().next().next().val("");
+	});
+
 	function setImageFromFile(input) {
 	    if (input.files && input.files[0]) {
 	        var reader = new FileReader();
@@ -242,6 +248,8 @@ function sample4_execDaumPostcode() {
 	        }
 	        reader.readAsDataURL(input.files[0]);
 	    }
+	    
+	    
 	};
 	
 	$("#trainerReqestForm").submit(function(){
@@ -305,14 +313,15 @@ function sample4_execDaumPostcode() {
 			submitResult = false;
 		}; */
 		
-		//히든 값 지우기
-		$(document).on("change", ".award-img", function() {
-			
-			$(this).next().next().val("");//히든값 제거
-
-		});
 		
 		return submitResult;
 	});
+/* 
+	//히든 값 지우기
+	$(document).on("change", ".award-img", function() {
+			
+		$(this).next().next().val("");//히든값 제거
+
+	}); */
 	
 </script>
