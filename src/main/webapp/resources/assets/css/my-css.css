@@ -513,3 +513,36 @@ ul {
 	float: left;
 	
 }
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+#content {
+	min-height: 70%;
+	    vertical-align: middle;
+	
+}
+
+.bottomContent {
+	width: 100%;
+    background: #fff;
+    padding: 30px 0;
+    height: 400px;
+    vertical-align: middle;
+}
+
+.home-header-footer {
+	width: 100%;
+    border: 0;
+    background: #fff;
+    display: inline-block;
+    position: fixed;
+    padding: 30px; 0;
+    z-index: 1000;
+    border-width: 0 0 1px;
+    height: auto;
+    vertical-align: middle;
+}

@@ -2,20 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
-<style type="text/css">
-.home-header-footer {
-	width: 100%;
-    border: 0;
-    background: #fff;
-    display: inline-block;
-    position: fixed;
-    padding: 30px; 0;
-    z-index: 1000;
-    border-width: 0 0 1px;
-    height: auto;
-    vertical-align: middle;
-}
-</style>
 <header class="navbar-wrapper">
 
         <div id="undefined-sticky-wrapper" class="sticky-wrapper">
