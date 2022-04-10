@@ -32,16 +32,15 @@ public class FAQController {
 
 	@Autowired
 	private NoticeServiceService noticeServiceService;
-
+	
+	/*
 	@RequestMapping("/board")
 	public String faqList() {
-		return "board/faq_list";
+		return "board/faq_list2";
 	}
-
-	// 테이블에 저장된 게시글 목록을 검색하여 JSON 형식의 텍스트로 응답하는 요청 처리 메소드
+	*/
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	@ResponseBody
-	public Map<String, Object> faqList(@RequestParam(defaultValue = "1") int pageNum, Model model) {
+	public String searchAllFaqList(@RequestParam(defaultValue = "1") int pageNum, Model model) {
 		// 테이블에 저장된 모든 게시글의 갯수 검색하여 반환받아 저장
 
 		Map<String, Object> countMap = new HashMap<String, Object>();
@@ -52,7 +51,8 @@ public class FAQController {
 		int totalBoard = noticeServiceService.getNoticeServiceCount(countMap);
 		int pageSize = 5;
 		int blockSize = 10;
-
+		int number = totalBoard - (pageNum - 1) * pageSize;
+		
 		// 페이징 처리 관련 값을 Pager 클래스로 저장
 		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
 
@@ -63,10 +63,47 @@ public class FAQController {
 		pagerMap.put("notice_service_sortation", NoticeServiceSortationEnum.FAQ.getValue());
 		pagerMap.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
 
-		// 요청 처리 메소드의 반환값으로 사용될 Map 객체 생성
-		Map<String, Object> returnMap = new HashMap<String, Object>();
-		returnMap.put("faqList", noticeServiceService.getNoticeServiceList(pagerMap));
-		returnMap.put("pager", pager);
+		model.addAttribute("faqList", noticeServiceService.getNoticeServiceList(pagerMap));
+		model.addAttribute("pager", pager);
+		model.addAttribute("number",number);
+
+		/*
+		 * for(NoticeService noticeService :
+		 * noticeServiceService.getNoticeServiceList(pagerMap) ) {
+		 * noticeService.setNoticeServiceCategoryName(String.valueOf(
+		 * NoticeServiceCategoryEnum.of(noticeService.getNoticeServiceCategory())));
+		 * returnMap.put("", notice); }
+		 */
+		return "/board/faq_list";
+
+	}
+	@RequestMapping(value = "/list/status", method = RequestMethod.GET)
+	public String searchFaqList(@RequestParam(defaultValue = "1") int pageNum, Model model) {
+		// 테이블에 저장된 모든 게시글의 갯수 검색하여 반환받아 저장
+		
+		Map<String, Object> countMap = new HashMap<String, Object>();
+		
+		countMap.put("notice_service_sortation", NoticeServiceSortationEnum.FAQ.getValue());
+		countMap.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
+		
+		int totalBoard = noticeServiceService.getNoticeServiceCount(countMap);
+		int pageSize = 5;
+		int blockSize = 10;
+		int number = totalBoard - (pageNum - 1) * pageSize;
+		
+		// 페이징 처리 관련 값을 Pager 클래스로 저장
+		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+		
+		// 메소드 호출을 위해 매개변수에 전달하기 위한 Map 객체 생성
+		Map<String, Object> pagerMap = new HashMap<String, Object>();
+		pagerMap.put("startRow", pager.getStartRow());
+		pagerMap.put("endRow", pager.getEndRow());
+		pagerMap.put("notice_service_sortation", NoticeServiceSortationEnum.FAQ.getValue());
+		pagerMap.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
+		
+		model.addAttribute("faqList", noticeServiceService.getNoticeServiceList(pagerMap));
+		model.addAttribute("pager", pager);
+		model.addAttribute("number",number);
 		
 		/*
 		 * for(NoticeService noticeService :
@@ -75,9 +112,8 @@ public class FAQController {
 		 * NoticeServiceCategoryEnum.of(noticeService.getNoticeServiceCategory())));
 		 * returnMap.put("", notice); }
 		 */
+		return "/board/faq_list";
 		
-		return returnMap;
-
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
@@ -89,19 +125,17 @@ public class FAQController {
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String faqWrite(@ModelAttribute NoticeService noticeService, HttpSession session) {
 		
-		//noticeService.setNoticeServiceContent(HtmlUtils.htmlEscape(noticeService.getNoticeServiceContent()));
-		
 		// 누가 썻는지 회원 번호 담기
-		noticeService.setMemberNo(((Member) session.getAttribute("loginUserinfo")).getMemberNo());
-		
+		noticeService.setMemberNo(((Member) session.getAttribute("loginUserinfo")).getMemberNo());		
 		noticeService.setNoticeServiceSortation(NoticeServiceSortationEnum.FAQ.getValue());
 		noticeService.setNoticeServiceStatus(NoticeServiceStatusEnum.일반글.getValue());
 		
 		noticeServiceService.addNoticeService(noticeService);
 		
-		return "redirect:/faq/board";
+		return "redirect:/faq/list";
 	}
 	
+	/*
 	//(faq 세부 사항 출력 요청 처리 메소드)
 	@RequestMapping(value = "/view/{num}", method = RequestMethod.GET) 
 	public String view(@PathVariable int num , Model model) {
@@ -110,7 +144,7 @@ public class FAQController {
 		
 		return "board/faq_view";
 	}
-	
+	*/
 	/*
 	// 글번호를 전달받아 테이블에 저장된 해당 글번호의 게시글을 검색하여 JSON 형식의
 	// 텍스트로 응답하는 요청 처리 메소드 - 요청 URL 주소를 이용하여 글번호 전달
@@ -121,13 +155,11 @@ public class FAQController {
 	}
 	*/
 
-	// 게시글을 전달 받아 테이블에 저장된 게시글을 변경하고
-	// 처리 결과를 일반 텍스트로 응답하는 요청 처리 메소드
-	@RequestMapping(value = "/modify", method = { RequestMethod.PUT, RequestMethod.PATCH })
-	@ResponseBody
-	public String faqModify(@RequestBody NoticeService noticeService) {
+
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String faqModify(@ModelAttribute NoticeService noticeService) {
 		noticeServiceService.modifyNoticeService(noticeService);
-		return "success";
+		return "redirect:/faq/list/status";
 	}
 	/*
 	@RequestMapping(value = "/remove/{num}", method = RequestMethod.DELETE)
