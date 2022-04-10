@@ -253,18 +253,18 @@ function sample4_execDaumPostcode() {
 	};
 	
 	$("#trainerReqestForm").submit(function(){
-		var submitResult = false;
+		var submitResult = true;
 		
 		$(".error").css("display","none");
 		
 		//센터명 트림
 		$("#sample4_detailAddress").val($("#sample4_detailAddress").val().trim());
 		
-		// 결제 비밀번호 유효성 검사
+/* 		// 결제 비밀번호 유효성 검사
 		if($("#account_pw").val() == ""){
 			$("#accountPwRegMsg").css("display","block");
 			submitResult = false;
-		};
+		}; */
 		
 		
 		/* //수상 경력 및 이력 유효성 검사
