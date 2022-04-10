@@ -2,6 +2,8 @@ package itwill.helljava.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -255,7 +257,8 @@ public class TrainerController {
 
 			// service 변경 메서드에 태워보낼 trainer 객체의 img 속성으로 받아온 파일의 이름을 추가
 			trainer.setTrainerProfileImg(modifyProfileImage.getOriginalFilename());
-
+			trainer.setTrainerNo(dbTrainer.getTrainerNo());
+			
 			// 서버에 업로드할 파일 이름을 받아온 파일 이름과 통일
 			String uploadFileName = modifyProfileImage.getOriginalFilename();
 
@@ -273,7 +276,12 @@ public class TrainerController {
 			modifyProfileImage.transferTo(file); // 파일을 서버에 업로드 시킴
 
 			// 트레이너 번호, 센터 주소, 센터이름, 우편번호, 다 들어가있음 (Command 객체)
-			trainerService.modifyTrainer(dbTrainer);
+			trainerService.modifyTrainer(trainer);
+		}
+		
+		else {
+			trainer.setTrainerNo(dbTrainer.getTrainerNo());
+			trainerService.modifyTrainer(trainer);
 		}
 
 // ------------------------수상 경력 이미지 및 설명 텍스트 변경-------------------------
@@ -283,7 +291,7 @@ public class TrainerController {
 
 		// inputFile li 태그 갯수 (수상경력 작성 폼 갯수)
 		String[] inputFileCount = request.getParameterValues("inputFileCount");
-		
+
 		// 기존 DB 데이터들
 		String[] hiddenAwardImages = request.getParameterValues("hiddenAwardImages"); // hidden 수상 경력 이미지 이름들
 		String[] hiddenAwardContents = request.getParameterValues("hiddenAwardContents"); // hidden 수상 경력 내용들
@@ -297,140 +305,158 @@ public class TrainerController {
 		// 수상 경력 사진 설명들
 		String[] modifyAwardContents = request.getParameterValues("aContent");
 
-		// 받아온 파일의 list 원소 개수 만큼 돌리자 -> 원소 없으면 안 돌아감
-		for (int i = 0; i <= modifyAwardImages.size(); i++) {
-
-			// 받아온 파일이 있을 경우
-			if (!modifyAwardImages.get(i).isEmpty()) {
-
-				// 파일 [추가된] 변경의 의미 => 받아온 파일 이름과 기존 데이터 파일 이름이 비교해서 없는 경우
-				if (modifyAwardImages.get(i).getOriginalFilename().equals(hiddenAwardImages[i]) == false) {
-
-					Award modifyAward = new Award();
-					modifyAward.setAwardImage(modifyAwardImages.get(i).getOriginalFilename());
-					modifyAward.setAwardContent(modifyAwardContents[i]);
-					modifyAward.setAwardNo(Integer.parseInt(hiddenAwardNumbers[i]));
-
-					// 기존 파일 삭제
-					new File(uploadAwardImagesDirectory, hiddenAwardImages[i]).delete();
-
-					// 새로운 file 객체 생성
-					File file = new File(uploadAwardImagesDirectory, modifyAwardImages.get(i).getOriginalFilename());
-
-					String uploadFilename = modifyAwardImages.get(i).getOriginalFilename();
-
-					// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
-					int j = 0;
-					while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
-						j++;
-						int index = modifyAwardImages.get(i).getOriginalFilename().lastIndexOf(".");
-
-						uploadFilename = modifyAwardImages.get(i).getOriginalFilename().substring(0, index) + "_" + j
-								+ modifyAwardImages.get(i).getOriginalFilename().substring(index);
-						file = new File(uploadAwardImagesDirectory, uploadFilename);
-					}
-
-					awardService.modifyAward(modifyAward); // 기존 데이터가 변경되었으므로 변경!
-				}
-
-				for (int c = 0; c <= currentAwardNumbers.length; c++) {
-
-					// 해당 인덱스의 파일이 없다면
-					if (modifyAwardImages.get(c).isEmpty()) {
-
-						// DB의 파일 레코드 지우기
-						awardService.removeAward(Integer.parseInt(currentAwardNumbers[c]));
-
-						// 서버 디렉토리 파일 지우기 (당연히 있겄지)
-						new File(uploadAwardImagesDirectory,
-								awardService.getAward(Integer.parseInt(currentAwardNumbers[c])).getAwardImage());
-					}
-
-				}
-
-				// 받아온 파일 개수 > DB 레코드 수 일 때 파일 DB 추가 및 서버 추가 음..
-				if (awardService.getAward(Integer.parseInt(currentAwardNumbers[i])) == null) {
-
-				}
-
-			}
-			// 받아온 파일이 없을 때 (변경하지 않겠다 아님 삭제하겠다)
-			else if (modifyAwardImages.get(i).isEmpty()) {
-
-				// hidden 파일도 없다 진짜 삭제임
-				if (hiddenAwardImages[i] == null || hiddenAwardImages[i].equals("")) {
-
-					// DB 삭제
-					awardService.removeAward(Integer.parseInt(currentAwardNumbers[i]));
-
-					// 파일 삭제
-					if (hiddenAwardImages[i] != null)
-						new File(uploadAwardImagesDirectory,
-								awardService.getAward(Integer.parseInt(currentAwardNumbers[i])).getAwardImage())
-										.delete();
-				}
-			}
-		}
-
+		/*
+		 * // 받아온 파일의 list 원소 개수 만큼 돌리자 -> 원소 없으면 안 돌아감 for (int i = 0; i <=
+		 * modifyAwardImages.size(); i++) {
+		 * 
+		 * // 받아온 파일이 있을 경우 if (!modifyAwardImages.get(i).isEmpty()) {
+		 * 
+		 * // 파일 [추가된] 변경의 의미 => 받아온 파일 이름과 기존 데이터 파일 이름이 비교해서 없는 경우 if
+		 * (modifyAwardImages.get(i).getOriginalFilename().equals(hiddenAwardImages[i])
+		 * == false) {
+		 * 
+		 * Award modifyAward = new Award();
+		 * modifyAward.setAwardImage(modifyAwardImages.get(i).getOriginalFilename());
+		 * modifyAward.setAwardContent(modifyAwardContents[i]);
+		 * modifyAward.setAwardNo(Integer.parseInt(hiddenAwardNumbers[i]));
+		 * 
+		 * // 기존 파일 삭제 new File(uploadAwardImagesDirectory,
+		 * hiddenAwardImages[i]).delete();
+		 * 
+		 * // 새로운 file 객체 생성 File file = new File(uploadAwardImagesDirectory,
+		 * modifyAwardImages.get(i).getOriginalFilename());
+		 * 
+		 * String uploadFilename = modifyAwardImages.get(i).getOriginalFilename();
+		 * 
+		 * // 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경 int j = 0; while
+		 * (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리 j++; int index =
+		 * modifyAwardImages.get(i).getOriginalFilename().lastIndexOf(".");
+		 * 
+		 * uploadFilename = modifyAwardImages.get(i).getOriginalFilename().substring(0,
+		 * index) + "_" + j +
+		 * modifyAwardImages.get(i).getOriginalFilename().substring(index); file = new
+		 * File(uploadAwardImagesDirectory, uploadFilename); }
+		 * 
+		 * awardService.modifyAward(modifyAward); // 기존 데이터가 변경되었으므로 변경! }
+		 * 
+		 * for (int c = 0; c <= currentAwardNumbers.length; c++) {
+		 * 
+		 * // 해당 인덱스의 파일이 없다면 if (modifyAwardImages.get(c).isEmpty()) {
+		 * 
+		 * // DB의 파일 레코드 지우기
+		 * awardService.removeAward(Integer.parseInt(currentAwardNumbers[c]));
+		 * 
+		 * // 서버 디렉토리 파일 지우기 (당연히 있겄지) new File(uploadAwardImagesDirectory,
+		 * awardService.getAward(Integer.parseInt(currentAwardNumbers[c])).getAwardImage
+		 * ()); }
+		 * 
+		 * }
+		 * 
+		 * // 받아온 파일 개수 > DB 레코드 수 일 때 파일 DB 추가 및 서버 추가 음.. if
+		 * (awardService.getAward(Integer.parseInt(currentAwardNumbers[i])) == null) {
+		 * 
+		 * }
+		 * 
+		 * } // 받아온 파일이 없을 때 (변경하지 않겠다 아님 삭제하겠다) else if
+		 * (modifyAwardImages.get(i).isEmpty()) {
+		 * 
+		 * // hidden 파일도 없다 진짜 삭제임 if (hiddenAwardImages[i] == null ||
+		 * hiddenAwardImages[i].equals("")) {
+		 * 
+		 * // DB 삭제 awardService.removeAward(Integer.parseInt(currentAwardNumbers[i]));
+		 * 
+		 * // 파일 삭제 if (hiddenAwardImages[i] != null) new
+		 * File(uploadAwardImagesDirectory,
+		 * awardService.getAward(Integer.parseInt(currentAwardNumbers[i])).getAwardImage
+		 * ()) .delete(); } } }
+		 */
 // -------------------------------------------------------------------------------------------------------------------------
 
 		// 기존 hidden갯수 = DB 레코드 수
 		// => hidden의 갯수가 변하는 경우 : 기존 파일을 삭제하는 경우 => (-) 버튼을 눌렀을 때
 		// 개수가 같을 땐 변함 없다 => 변함 없음
 
-		// inputFileCount 개수 만큼 돌림
-		for (int c=0; c<=inputFileCount.length;c++) {
+		// 받아온 파일이 없다 : 유지 or 삭제
+		
+		List<String> awardImgList= new ArrayList<String>();
 
-			// 받아온 파일이 있다 : 추가 or 변경
-			if (!modifyAwardImages.isEmpty()) {
-				
-				// 넘어온 input 태그 개수 != DB 레코드 수
-				if(inputFileCount.length != currentAwardNumbers.length) {
-				
-				}
-				
-				/*
-				 * // hidden 갯수 != DB 레코드 갯수 if (hiddenAwardNumbers.length !=
-				 * currentAwardNumbers.length) {
-				 * 
-				 * // hidden 갯수 < DB 레코드 갯수 if (hiddenAwardNumbers.length <
-				 * currentAwardNumbers.length) {
-				 * 
-				 * }
-				 * 
-				 * }
-				 */
-			}
+        for(int a =0; a<=currentAwardNumbers.length; a++) {
+            awardImgList.add(awardService.getAward(Integer.parseInt(currentAwardNumbers[a])).getAwardImage());
+        }
+		
 
-			// 받아온 파일이 없다 : 유지 or 삭제
-			else if (modifyAwardImages == null || modifyAwardImages.isEmpty()) {
 
-				// hidden 갯수 != DB 레코드 갯수
-				if (hiddenAwardNumbers.length != currentAwardNumbers.length) {
+	        // hidden 갯수 랑 DB갯수가 안맞을때(그냥 삭제했을때)
+			// hidden 갯수 < DB 레코드 갯수
+			if (hiddenAwardNumbers.length < currentAwardNumbers.length) {
 
-					// hidden 갯수 < DB 레코드 갯수
-					if (hiddenAwardNumbers.length < currentAwardNumbers.length) {
+				// 1. 기존 파일 삭제 -> 해당 DB 삭제
+				for (int i = 0; i <= hiddenAwardImages.length; i++) {
+					for (int u = 0; u <= currentAwardNumbers.length; u++) {
 
-						// 1. 기존 파일 삭제 -> 해당 DB 삭제
-						for (int i = 0; i <= hiddenAwardImages.length; i++) {
-							for (int u = 0; u <= currentAwardNumbers.length; u++) {
+						// hidden에는 있지만 DB 배열엔 없는 경우 db 레코드를 삭제 -> 해당 인덱스는 곧 awardNo PK
+						if (currentAwardNumbers[u].equals(hiddenAwardImages[i]) == false) {
 
-								// hidden에는 있지만 DB 배열엔 없는 경우 db 레코드를 삭제 -> 해당 인덱스는 곧 awardNo PK
-								if (currentAwardNumbers[u].equals(hiddenAwardImages[i]) == false) {
-
-									new File(uploadAwardImagesDirectory, awardService
-											.getAward(Integer.parseInt(currentAwardNumbers[u])).getAwardImage()); // 파일
-																													// 삭제
-
-									awardService.removeAward(Integer.parseInt(currentAwardNumbers[u])); // 해당 DB 레코드 삭제
-								}
-
-							}
+							new File(uploadAwardImagesDirectory, awardService
+									.getAward(Integer.parseInt(currentAwardNumbers[u])).getAwardImage()); // 파일 삭제
+																										
+							awardService.removeAward(Integer.parseInt(currentAwardNumbers[u])); // 해당 DB 레코드 삭제
 						}
 					}
 				}
 			}
+		else {//히든의 크기는 같은데 (변경된 파일 삭제)
+			for(int hid=0; hid <= currentAwardNumbers.length; hid++ ) {
+				if(hiddenAwardImages[hid]!= awardImgList.get(hid)) { //히든의 값이 DB값이랑 일치하지 않으면
+					//기존 DB값과 기존 파일서버에서 삭제
+					new File(uploadAwardImagesDirectory, awardService
+							.getAward(Integer.parseInt(currentAwardNumbers[hid])).getAwardImage()); // 파일삭제
+																									
+					awardService.removeAward(Integer.parseInt(currentAwardNumbers[hid])); // 해당 DB 레코드 삭제
+					
+				}
+			}
 		}
+		
+
+		// 받아온 파일이 있다 : 추가
+        if (!modifyAwardImages.isEmpty()) {
+        	
+			// inputFileCount 개수 만큼 돌림
+			for (int c=0; c<=modifyAwardImages.size();c++) {
+
+	            //DB값에 받은 파일 명이 있는지 확인.
+	            if(!awardImgList.contains(modifyAwardImages.get(c).getOriginalFilename())) {//없으면
+	            	
+	            	//이제 추가만 하면됨.
+	            	Award award = new Award();
+
+	            	award.setTrainerNo(dbTrainer.getTrainerNo());
+	            	award.setAwardImage(modifyAwardImages.get(c).getOriginalFilename());
+	            	award.setAwardContent(modifyAwardContents[c]);
+	            	
+	            	File file = new File(uploadAwardImagesDirectory, modifyAwardImages.get(c).getOriginalFilename());
+
+	            	String uploadFileName = modifyAwardImages.get(c).getOriginalFilename();
+	            	
+	            	// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
+					int j = 0;
+					while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
+						j++;
+						int index = modifyAwardImages.get(c).getOriginalFilename().lastIndexOf(".");
+						
+						uploadFileName = modifyAwardImages.get(c).getOriginalFilename().substring(0, index) + "_" + j
+								+ modifyAwardImages.get(c).getOriginalFilename().substring(index);
+						file = new File(uploadAwardImagesDirectory, uploadFileName);
+					}
+	            	
+					modifyAwardImages.get(c).transferTo(file);
+					
+					awardService.addAward(award);
+	            }
+	        }
+		}
+
 //---------------------센터 관련 정보 변경(센터주소, 우편번호, 센터명)------------------------------------------
 
 		return "";
