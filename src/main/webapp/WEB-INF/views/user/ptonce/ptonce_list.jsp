@@ -7,7 +7,7 @@
 		<div class="notice-list-print">
 			<div class="pageheader" style="font-size: 20px;">
 				<div style="text-align: center;">
-					<h1>1회 PT 신청 내역 목록(회원)</h1>
+					<h1>1회 PT 신청 내역 목록</h1>
 				</div>
 			</div>
 			<div class="panel-body">

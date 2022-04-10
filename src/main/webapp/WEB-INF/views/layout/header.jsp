@@ -2,16 +2,28 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
-
+<style type="text/css">
+.home-header-footer {
+	width: 100%;
+    border: 0;
+    background: #fff;
+    display: inline-block;
+    position: fixed;
+    padding: 30px; 0;
+    z-index: 1000;
+    border-width: 0 0 1px;
+    height: auto;
+    vertical-align: middle;
+}
+</style>
 <header class="navbar-wrapper">
 
-        <div id="undefined-sticky-wrapper" class="sticky-wrapper" style="height: 82px;"><div class="navbar navbar-default navbar-static-top home-navbar" role="navigation" style="">
+        <div id="undefined-sticky-wrapper" class="sticky-wrapper">
+        	<div class="home-header-footer" role="navigation" style="">
               <div class="container">  
                 <div class="navbar-header">
                     <!--logo start-->
-                    <div class="brand">
-                        <a style="font-size: 35px;" href="<c:url value="/"/>" class="logo"><i class="icon-layers"></i>오늘의 짐</a>
-                    </div>
+                        <a style="font-size: 35px; vertical-align: middle;" href="<c:url value="/"/>" class=""><i class="icon-layers"></i>오늘의 짐</a>
                     <!--logo end-->
                 </div>
                 <div class="navbar-collapse collapse">
