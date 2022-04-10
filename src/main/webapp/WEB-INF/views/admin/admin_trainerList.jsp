@@ -238,7 +238,7 @@
 		var trainerStatus = $(this).val(); 
 
 		location.href="${pageContext.request.contextPath}/admin/trainer/statusChange?trainerStatus="+trainerStatus+"&memberNo="+trainerMemberNo;
-	})
+	});
 	
 	
 	
