@@ -15,7 +15,7 @@
 				<p><i class="icon-user myPageIcon"></i></p></a>
 			</div>
 	       	<div class="flex-item">
-	        	<a href="" style="color: #fff">트레이너 정보 관리
+	        	<a href="${pageContext.request.contextPath}/trainer/modify" style="color: #fff">트레이너 정보 관리
 	        	<p><i class="icon-user myPageIcon"></i></p></a>
 	        </div>
 	        <div class="flex-item">

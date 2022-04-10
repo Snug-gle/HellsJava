@@ -108,25 +108,12 @@ public class PostingController {
 			return "redirect:/posting/write";
 		}
 
-		/*
-		 * // 기존 파일 이름들 배열 String[] currentImages =
-		 * request.getParameterValues("currentImage");
-		 * 
-		 * // 기존 파일들을 삭제 for (String currentImg : currentImages) {
-		 * 
-		 * String savedDirectory = context.getServletContext()
-		 * .getRealPath("/resources/assets/postingSelfIntroductionImages"); String
-		 * currentFillName = currentImg; // 기존 파일들 삭제 new File(savedDirectory,
-		 * currentFillName).delete();
-		 * 
-		 * }
-		 */
-
 		Posting dbPosting = postingService.getPosting(trainerService.getTrainer(memberNo).getTrainerNo());
 		List<MultipartFile> item = new ArrayList<MultipartFile>(); // 자기소개 파일들
 		List<String> dbName = new ArrayList<String>(); // DB에 있는 파일 이름들
 		List<String> hiddenListNames = new ArrayList<String>(); // hidden 속성 파일 첨부 및 삭제 영향 받은 파일 이름들
 
+		// 파일이 저장될 서버디렉토리 주소
 		String uploadDirectory = context.getServletContext()
 				.getRealPath("/resources/assets/postingSelfIntroductionImages");
 
@@ -144,11 +131,6 @@ public class PostingController {
 		hiddenListNames.add(request.getParameter("currentImage2"));
 		hiddenListNames.add(request.getParameter("currentImage3"));
 		hiddenListNames.add(request.getParameter("currentImage4"));
-
-		System.out.println("hiddenListNames 0 번째 값+ : "+hiddenListNames.get(0));
-		System.out.println("hiddenListNames 1 번째 값+ : "+hiddenListNames.get(1));
-		System.out.println("hiddenListNames 2 번째 값+ : "+hiddenListNames.get(2));
-		System.out.println("hiddenListNames 3 번째 값+ : "+hiddenListNames.get(3));
 		
 		for (int i = 0; i <= 3; i++) {
 
@@ -186,7 +168,6 @@ public class PostingController {
 						int j = 0;
 						while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
 							j++;
-							System.out.println("item.get(i).getOriginalFilename() ["+i+"] 번째 값 : "+item.get(i).getOriginalFilename());
 							int index = item.get(i).getOriginalFilename().lastIndexOf(".");
 							
 							uploadFilename = item.get(i).getOriginalFilename().substring(0, index) + "_" + j
@@ -279,7 +260,6 @@ public class PostingController {
 		String[] minute1s = request.getParameterValues("minute1");
 		String[] hour2s = request.getParameterValues("hour2");
 		String[] minute2s = request.getParameterValues("minute2");
-		String[] workDayScheduleNos = request.getParameterValues("workDayScheduleNo");
 
 		String dayOff = request.getParameter("dayoff");
 		String dayOffText = request.getParameter("dayOffText");
@@ -319,7 +299,6 @@ public class PostingController {
 
 		String[] roundList = request.getParameterValues("round");
 		String[] priceList = request.getParameterValues("roundPrice");
-		String[] ptPricingNumbers = request.getParameterValues("ptPricingNumber");
 
 		int priceCount = 0;
 		for (String round : roundList) {
