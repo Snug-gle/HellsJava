@@ -93,7 +93,7 @@
                     notice_service_category = #{notice_service_category} 
                 </when>
                 <otherwise>
-                    where notice_service_sortation 2 and notice_service_status = 1 
+                    where notice_service_sortation = 2 and notice_service_status = 1 
                 </otherwise>
             </choose>
             order by notice_service_no desc

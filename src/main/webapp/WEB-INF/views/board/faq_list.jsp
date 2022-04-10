@@ -2,13 +2,27 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+ 
 <div class="container">
 	<div class="my-page-box">
 		<div class="notice-list-print">
 			<div class="pageheader" style="font-size: 20px;">
 				<div style="text-align: center;">
 					<h1>
+				<!-- 카테고리 검색 -->
+				<div class="categoryLeft">
+					<select id="category" name="category"
+						class="btn btn-primary dropdown-toggle" >
+						<option <c:if test="${category==9 }">selected="selected"</c:if>
+							value="9">전체</option>
+						<option <c:if test="${category==1 }">selected="selected"</c:if>
+							value="1">결제문의</option>
+						<option <c:if test="${category==2 }">selected="selected"</c:if>
+							value="2">트레이너문의</option>
+						<option <c:if test="${category==3 }">selected="selected"</c:if>
+							value="3">기타문의</option>
+					</select>
+				</div>
 						FAQ 게시판
 						<div class="reviewRight" style="float: right;">
 							<c:if test="${loginUserinfo.memberStatus==9}">
@@ -18,18 +32,7 @@
 						</div>
 					</h1>
 				</div>
-				<!-- 카테고리 검색 -->
-				<select id="category" name="category"
-					class="btn btn-primary dropdown-toggle" >
-					<option <c:if test="${category==9 }">selected="selected"</c:if>
-						value="9">전체</option>
-					<option <c:if test="${category==1 }">selected="selected"</c:if>
-						value="1">결제문의</option>
-					<option <c:if test="${category==2 }">selected="selected"</c:if>
-						value="2">트레이너문의</option>
-					<option <c:if test="${category==3 }">selected="selected"</c:if>
-						value="3">기타문의</option>
-				</select>
+				
 			</div>
 			<div class="panel-body">
 				<c:choose>
@@ -53,14 +56,14 @@
 												<tr>
 													<td class="accordionBoard" style="width: 70px;"><strong>${number2 }</strong></td>
 													<c:if test="${faq.noticeServiceCategory eq '1'}">
-														<td class="accordionBoard" style="width: auto;">결제 문의</td>
+														<td class="accordionBoard" style="width: 120px;">결제 문의</td>
 													</c:if>
 													<c:if test="${faq.noticeServiceCategory eq '2'}">
-														<td class="accordionBoard" style="width: auto;">트레이너
+														<td class="accordionBoard" style="width: 120px;">트레이너
 															문의</td>
 													</c:if>
 													<c:if test="${faq.noticeServiceCategory eq '3'}">
-														<td class="accordionBoard" style="width: auto;">기타 문의</td>
+														<td class="accordionBoard" style="width: 120px;">기타 문의</td>
 													</c:if>
 													<td class="accordionBoard" style="width: auto;"><a
 														data-toggle="collapse" data-parent="#accordion"
@@ -68,7 +71,7 @@
 														aria-expanded="false">${faq.noticeServiceTitle }</a></td>
 													<td class="accordionBoard" style="width: 100px;">${fn:substring({faq.noticeServiceDate},1,12)}</td>
 													<td class="accordionBoard"
-														style="width: 180px; text-align: justify;">${faq.memberName }</td>
+														style="width: 90px;">${faq.memberName }</td>
 													<td class="accordionBoard" style="width: 65px;">${faq.noticeServiceHits }</td>
 												</tr>
 											</tbody>
