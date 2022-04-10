@@ -546,3 +546,8 @@ html, body {
     height: auto;
     vertical-align: middle;
 }
+
+.categoryLeft {
+	text-align: left;
+	float: left;
+}		

@@ -19,8 +19,7 @@
 						</div>
 					</h1>
 				</div>
-				
-				
+
 			</div>
 			<div class="panel-body">
 				<c:choose>

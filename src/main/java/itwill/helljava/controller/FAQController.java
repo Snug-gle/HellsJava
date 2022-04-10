@@ -63,9 +63,9 @@ public class FAQController {
 	// FAQ 카테고리별 리스트 페이지 요청 처리 메소드
 	@RequestMapping(value = "/list/category", method = RequestMethod.GET)
 	public String searchCategoryFaqList(@RequestParam(defaultValue = "1") int pageNum, 
-			Model model, @RequestParam int noticeServiceCategory ) {
+			Model model, @RequestParam String noticeServiceCategory ) {
 		
-		int totalBoard = noticeServiceService.getNoticeServiceFaqCount(noticeServiceCategory);
+		int totalBoard = noticeServiceService.getNoticeServiceFaqCount(Integer.parseInt(noticeServiceCategory));
 		int pageSize = 5;
 		int blockSize = 10;
 		int number = totalBoard - (pageNum - 1) * pageSize;
@@ -77,12 +77,12 @@ public class FAQController {
 		Map<String, Object> pagerMap = new HashMap<String, Object>();
 		pagerMap.put("startRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
-		pagerMap.put("notice_service_category", noticeServiceCategory);
+		pagerMap.put("notice_service_category", Integer.parseInt(noticeServiceCategory));
 		
 		model.addAttribute("faqList", noticeServiceService.getNoticeServiceFaqList(pagerMap));
 		model.addAttribute("pager", pager);
 		model.addAttribute("number",number);
-		model.addAttribute("notice_service_category", noticeServiceCategory);
+		model.addAttribute("category", noticeServiceCategory);
 		
 		return "/board/faq_list";
 	}
