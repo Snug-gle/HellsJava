@@ -153,8 +153,8 @@
 					<div class="main-search-area">
 						<select id="search" name="searchKeyword"
 							class="btn btn-primary dropdown-toggle searchBtnBox">
-							<option value="notice_service_category" selected="selected">&nbsp;카테고리&nbsp;</option>
-							<option value="notice_service_content">&nbsp;글제목&nbsp;</option>
+							<option value="notice_service_category" <c:if test="${searchKeyword == 'notice_service_category'}"> selected="selected"</c:if>>&nbsp;카테고리&nbsp;</option>
+							<option value="notice_service_title" <c:if test="${searchKeyword == 'notice_service_title'}"> selected="selected"</c:if>>&nbsp;글제목&nbsp;</option>
 						</select> <input class="main-search" type="text" name="searchValue"
 							id="searchValue" value="${searchValue }">
 						<button type="button" id="searchBtn"
