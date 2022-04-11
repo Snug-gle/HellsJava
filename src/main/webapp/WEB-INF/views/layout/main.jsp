@@ -49,21 +49,21 @@
                  </header>
              </div>
 		</div>		
-		<c:forEach var="trinerInfo" items="${trinerInfo}" varStatus="status">
-			<div class="panel panel-primary" id="trainer-content" style="float: left; <c:if test='${status.index == 1 }'>margin: 0px 5%;</c:if>" onclick="location='<c:url value="/posting/detail/${trinerInfo.trainerNo }"/>'">
+		<c:forEach var="trainerInfo" items="${trainerInfo}" varStatus="status">
+			<div class="panel panel-primary" id="trainer-content" style="float: left; <c:if test='${status.index == 1 }'>margin: 0px 5%;</c:if>" onclick="location='<c:url value="/posting/detail/${trainerInfo.trainerNo }"/>'">
 				<div class="panel-heading">
 					<h2 class="panel-title" style="text-align: center;">     
-						${trinerInfo.memberName }&nbsp; 트레이너<%--트레이너 이름 --%>
+						${trainerInfo.memberName }&nbsp; 트레이너<%--트레이너 이름 --%>
 					</h2>
 				</div>
 				<div class="panel-body" style="text-align: center;">
 					<form class="form-horizontal" role="form">
 						<div class="profile-pic text-center mainProfileImg">
-							<img src="<spring:url value="/img/${trinerInfo.trainerProfileImg }"/>" alt="" class="img-circle" style="margin-left: 50px;">
+							<img src="<spring:url value="/img/${trainerInfo.trainerProfileImg }"/>" alt="" class="img-circle" style="margin-left: 50px;">
 						</div>
 						<!-- <span class="text-muted">소속센터명</span> -->
 						<div class="form-group">
-							<p>${trinerInfo.postingSelfIntroduction }</p>
+							<p>${trainerInfo.postingSelfIntroduction }</p>
 						</div>
 					 </form>
 				</div>
