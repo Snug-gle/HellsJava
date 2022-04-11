@@ -99,6 +99,29 @@
             order by notice_service_no desc
 	</select>
 
+	<select id="selectNoticeServiceFaqSearchCount" resultType="int">
+		select count(*) from notice_service n left join member m 
+            on n.member_no = m.member_no
+         <choose>
+         	<when test="searchValue != null and searchValue !='' 
+         		and notice_service_category &gt;=1 and notice_service_category &lt;=3 ">
+         		where notice_service_title like '%'||#{searchValue}||'%' 
+         		and notice_service_status = 1 and notice_service_sortation = 2
+         		and notice_service_category = #{notice_service_category}
+         	</when>
+         	<when test="searchValue != null and searchValue !='' and 
+            	notice_service_category &gt;3">
+            		where notice_service_title like '%'||#{searchValue}||'%' 
+            		and notice_service_status = 1 and notice_service_sortation = 2
+            </when>
+         	<otherwise>
+         		where notice_service_status = 1 and notice_service_sortation = 2
+         	</otherwise>
+         </choose>   
+        order by notice_service_no desc     
+	</select>
+	
+	
 	<select id="selectNoticeServicePersonalCount" resultType="int">
 		select count(*) from notice_service where notice_service_sortation = #{notice_service_sortation} and member_no = #{member_no}
 	</select>
@@ -148,6 +171,30 @@
                 <otherwise>
                     where notice_service_sortation = 2 and notice_service_status = 1 
                 </otherwise>
+            </choose>
+            order by notice_service_no desc)
+        board) where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="selectNoticeServiceFaqSearchList" resultType="NoticeService">
+		  select * from (select rownum rn,board.* from 
+        (select * from notice_service n left join member m 
+            on n.member_no = m.member_no
+            <choose>
+            	<when test="searchValue != null and searchValue !='' and
+            		notice_service_category &gt;=1 and notice_service_category &lt;=3">
+            		where notice_service_title like '%'||#{searchValue}||'%' 
+         				and notice_service_status = 1 and notice_service_sortation = 2
+         				and notice_service_category = #{notice_service_category} 	
+            	</when>
+            	<when test="searchValue != null and searchValue !='' and 
+            	notice_service_category &gt;3">
+            		where notice_service_title like '%'||#{searchValue}||'%' 
+            		and notice_service_status = 1 and notice_service_sortation = 2
+            	</when>
+            	<otherwise>
+            		where notice_service_status = 1 and notice_service_sortation = 2
+            	</otherwise>
             </choose>
             order by notice_service_no desc)
         board) where rn between #{startRow} and #{endRow}

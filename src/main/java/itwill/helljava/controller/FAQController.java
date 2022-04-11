@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import itwill.helljava.Enum.NoticeServiceCategoryEnum;
 import itwill.helljava.Enum.NoticeServiceSortationEnum;
 import itwill.helljava.Enum.NoticeServiceStatusEnum;
 import itwill.helljava.dto.Member;
@@ -82,7 +83,7 @@ public class FAQController {
 		model.addAttribute("faqList", noticeServiceService.getNoticeServiceFaqList(pagerMap));
 		model.addAttribute("pager", pager);
 		model.addAttribute("number",number);
-		model.addAttribute("category", noticeServiceCategory);
+		model.addAttribute("category", Integer.parseInt(noticeServiceCategory));
 		
 		return "/board/faq_list";
 	}
@@ -90,16 +91,16 @@ public class FAQController {
 	// FAQ 검색 리스트 요청 처리 메소드
 	@RequestMapping(value = "/list/faqSearch", method = RequestMethod.GET)
 	public String searchFaqList(@RequestParam(defaultValue = "1") int pageNum, Model model,
-			@RequestParam String searchKeyword, @RequestParam String searchValue) {
+			@RequestParam String searchKeyword, @RequestParam String searchValue,
+			@RequestParam String categoryValue) {
 		// 테이블에 저장된 모든 게시글의 갯수 검색하여 반환받아 저장
 		
 		Map<String, Object> countMap = new HashMap<String, Object>();
-		countMap.put("notice_service_sortation", NoticeServiceSortationEnum.FAQ.getValue());
-		countMap.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
-		countMap.put("searchKeyword", searchKeyword);
+
 		countMap.put("searchValue", searchValue);
+		countMap.put("notice_service_category", Integer.parseInt(categoryValue));
 		
-		int totalBoard = noticeServiceService.getNoticeServiceCount(countMap);
+		int totalBoard = noticeServiceService.getNoticeServiceFaqSearchCount(countMap);
 		int pageSize = 5;
 		int blockSize = 10;
 		int number = totalBoard - (pageNum - 1) * pageSize;
@@ -111,17 +112,17 @@ public class FAQController {
 		Map<String, Object> pagerMap = new HashMap<String, Object>();
 		pagerMap.put("startRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
-		pagerMap.put("notice_service_sortation", NoticeServiceSortationEnum.FAQ.getValue());
-		pagerMap.put("notice_service_status", NoticeServiceStatusEnum.일반글.getValue());
-		pagerMap.put("searchKeyword", searchKeyword);
 		pagerMap.put("searchValue", searchValue);
+		pagerMap.put("notice_service_category", Integer.parseInt(categoryValue));
+
 		
 		
-		model.addAttribute("faqList", noticeServiceService.getNoticeServiceList(pagerMap));
+		model.addAttribute("faqList", noticeServiceService.getNoticeServiceFaqSearchList(pagerMap));
 		model.addAttribute("pager", pager);
 		model.addAttribute("number",number);
 		model.addAttribute("searchValue",searchValue);
 		model.addAttribute("searchKeyword",searchKeyword);
+		model.addAttribute("category",Integer.parseInt(categoryValue));
 	
 		return "/board/faq_list";
 	}
