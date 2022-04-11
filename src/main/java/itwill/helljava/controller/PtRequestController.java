@@ -35,11 +35,5 @@ public class PtRequestController {
 		
 		return "main"; // 나의 pt 문의 신청리스트로 보내고 싶다 혹시 하면 주석 제거 할것
 	}
-	
-	// 나의 PT 문의 리스트 페이지 이동
-	@RequestMapping(value = "/pt/request/list", method = RequestMethod.GET)
-	public String myPtRequestList() {
-		
-		return "/user/ptonce/ptonce_list";
-	}
+
 }
