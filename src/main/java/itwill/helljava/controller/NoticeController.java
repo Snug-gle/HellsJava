@@ -22,7 +22,10 @@ import itwill.helljava.Enum.NoticeServiceStatusEnum;
 import itwill.helljava.dto.Member;
 import itwill.helljava.dto.NoticeService;
 import itwill.helljava.service.NoticeServiceService;
+import itwill.helljava.util.Auth;
 import itwill.helljava.util.Pager;
+import itwill.helljava.util.Auth.Role;
+import itwill.helljava.util.AuthUser;
 
 @Controller
 @RequestMapping("/notice")
@@ -62,17 +65,18 @@ public class NoticeController {
 		return "/board/notice_list";
 	}
 	
+	@Auth(role=Role.ADMIN)
 	//공지사항 입력 페이지 출력 요청 처리 메소드
 	@RequestMapping(value = "/write" , method = RequestMethod.GET)
 	public String write() {
 		return "board/notice_write";
 	}
-	
+
 	//공지사항 입력 사항 저장 요청 처리 메소드
 	@RequestMapping( value = "/write" , method = RequestMethod.POST)
-	public String write(@ModelAttribute NoticeService noticeService, Model model, HttpSession session) {
+	public String write(@ModelAttribute NoticeService noticeService, Model model, @AuthUser Member member) {
 				
-		noticeService.setMemberNo(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
+		noticeService.setMemberNo(member.getMemberNo());
 		
 		noticeService.setNoticeServiceSortation(NoticeServiceSortationEnum.공지사항.getValue());
 		noticeService.setNoticeServiceStatus(NoticeServiceStatusEnum.일반글.getValue());
@@ -89,6 +93,7 @@ public class NoticeController {
 	}
 
 	//공지사항 삭제
+	@Auth(role=Role.ADMIN)
 	@RequestMapping( value = "/remove/{num}" , method = RequestMethod.GET)
 	public String remove(@PathVariable(value = "num") int num, @ModelAttribute NoticeService noticeService) throws Exception{
 

@@ -2,6 +2,7 @@ package itwill.helljava.controller;
 
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,9 @@ import itwill.helljava.Enum.AccountEnum;
 import itwill.helljava.dto.Account;
 import itwill.helljava.dto.Member;
 import itwill.helljava.service.AccountSevice;
-
+import itwill.helljava.util.Auth;
+import itwill.helljava.util.AuthUser;
+@Auth
 @Controller
 @RequestMapping("/account")
 public class AccountController {
@@ -23,14 +26,15 @@ public class AccountController {
 	private AccountSevice accountService;
 	
 	//내 계좌 정보 요청 
+	
 	@RequestMapping(value = "/info" , method = RequestMethod.GET)
-	public String accountInfo(Model model, HttpSession session) {
+	public String accountInfo(Model model,@AuthUser Member member) {
 		
-		if(accountService.getMemberAccount(((Member)session.getAttribute("loginUserinfo")).getMemberNo()) == null) {
+		if(accountService.getMemberAccount(member.getMemberNo()) == null) {
 			return "redirect:/account/register"; // 얘는 url로 요청이구나.. 바보다
 		}
-		model.addAttribute("account", accountService.getMemberAccount(((Member)session.getAttribute("loginUserinfo")).getMemberNo()));
-		model.addAttribute("bankName", String.valueOf(AccountEnum.of(accountService.getMemberAccount(((Member)session.getAttribute("loginUserinfo")).getMemberNo()).getAccountBank())));
+		model.addAttribute("account", accountService.getMemberAccount(member.getMemberNo()));
+		model.addAttribute("bankName", String.valueOf(AccountEnum.of(accountService.getMemberAccount(member.getMemberNo()).getAccountBank())));
 		return "/account/account_info";
 	}
 	
@@ -43,9 +47,9 @@ public class AccountController {
 	
 	// 계좌 등록 포스트 방식 요청
 	@RequestMapping(value = "/register" , method = RequestMethod.POST)
-	public String register(@ModelAttribute Account account, HttpSession session) {
+	public String register(@ModelAttribute Account account, @AuthUser Member member) {
 		
-		account.setMemberNo(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
+		account.setMemberNo(member.getMemberNo());
 		accountService.addAccount(account);
 		
 		return "redirect:/account/info";

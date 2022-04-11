@@ -49,13 +49,9 @@ public class AdminController {
 //------------------------1:1문의----------------------------------------------------------------------------------------	
 
 	// 1:1 문의 리스트(최초) GET 방식 요청
-	
+
 	@RequestMapping(value = "/admin/questionList", method = RequestMethod.GET)
-	public String questionList(@AuthUser Member member) {
-		//이게 뭐지?--------------------------------
-		Member loginUserinfo = memberService.getMember(member.getMemberNo());
-		if( loginUserinfo == null ) {return "redirect:/";}
-		//-----------------------------------------
+	public String questionList() {
 		
 		return "/admin/admin_questionList";
 	}
