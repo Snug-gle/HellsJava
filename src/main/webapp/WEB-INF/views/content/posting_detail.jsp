@@ -3,6 +3,8 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <style type="text/css">
 .tab-wrapper .tab-content {
     border: 0;
@@ -205,45 +207,85 @@
 				<!-- 트레이너 끝 -->
 				
 				<!-- 후기 -->
-				<div class="tab-pane" id="review-posting">
-					<div class="panel panel-solid-primary review-posting-box">
-						<div class="panel-heading">
-							<div style="float: left; ">
-								<h3 class="panel-title" style="vertical-align: middle;">제목</h3>
+				<c:forEach var="review"  items="${reviews }">
+					<div class="tab-pane" id="review-posting">
+						<div class="panel panel-solid-primary review-posting-box">
+							<div class="panel-heading">
+								<div style="float: left; ">
+									<h3 class="panel-title" style="vertical-align: middle;">${review.ptServiceTitle }</h3>
+								</div>
+								<div class="reviewRight">
+									<i class="fa fa-heart"></i> <label>${review.ptServiceGood }</label>
+								</div>
+							<hr>
 							</div>
-							<div class="reviewRight">
-								<i class="fa fa-heart"></i> <label>566</label>
+							<div class="reviewColor" >
+								<div class="reviewNameDate" style="float: left;">
+									${review.memberName} ${fn:substring(review.ptServiceDate,0,11)}
+								</div>
+								<div style=" text-align: right;">
+								
+								<div>
+									<fmt:parseNumber var="star" value="${review.ptServiceStars }" integerOnly="true" />
+										<c:set var="starhalf"
+											value="${(review.ptServiceStars /0.5)%2 }" />
+
+										<c:forEach begin="1" step="1" end="${star}">
+											<i class="fa fa-star"></i>
+										</c:forEach>
+											<c:if test="${starhalf == 1}">
+												<i class="fa fa-star-half-o"></i>
+
+										<c:forEach begin="1" step="1" end="${(5-starhalf)-star}">
+													<i class="fa fa-star-o"></i>
+										</c:forEach>
+										</c:if>
+										<c:if test="${starhalf != 1}">
+											<c:forEach begin="1" step="1" end="${5-star}">
+												<i class="fa fa-star-o"></i>
+											</c:forEach>
+										</c:if>
+									</div>
+								</div>
 							</div>
-						<hr>
-						</div>
-						<div class="reviewColor">
-							<div class="reviewNameDate" style="float: left;">
-								ㅇㅇㅇ회원님 2020.02.02
+							<div class="panel-body">
+	 							<p>${review.ptServiceContent }</p>
 							</div>
-							<div style=" text-align: right;">
-								<i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i>
-							</div>
-						</div>
-						<div class="panel-body" style="min-height: 180px;">
- 							<p>내용</p>
-						</div>
-							<div class="reviewColor reviewRight">
-								<button type="button" class="btn btn-primary collapsed" data-toggle="collapse" data-target="#ptServiceReply" aria-expanded="false">
-	                                    댓글달기</button>
-							</div>
-						<div class="panel-body collapse" id="ptServiceReply" aria-expanded="false">
-							<textarea id="ptServiceReply" name="ptServiceReply" class="form-control"></textarea>
-							<div class="reviewColor reviewRight">
-								<button type="button" class="btn btn-primary review-btn1">입력</button>
-							</div>
+							<c:choose>
+								<c:when test="${review.ptServiceReply == null}">	<!-- 답글이 없으면 -->
+									<c:if test="${loginUserinfo.memberNo == trainer.memberNo}">
+										<div class="reviewColor reviewRight">
+											<button type="button" class="btn btn-primary collapsed" data-toggle="collapse" data-target="#ptServiceReply" aria-expanded="false">
+				                                    댓글달기</button>
+										</div>
+										<div class="panel-body collapse" id="ptServiceReply" aria-expanded="false">
+											<form action="${pageContext.request.contextPath}/review/reply/write" method="post" id = "replyTextForm">
+												<textarea id="ptServiceReplyText" name="ptServiceReply" class="form-control">${review.ptServiceReply }</textarea>
+												<input type="hidden" name="ptServiceNo" value="${review.ptServiceNo }">
+												<input type="hidden" name="ptServiceStars" value="${review.ptServiceStars }">
+												<input type="hidden" name="ptServiceStatus" value="${review.ptServiceStatus }">
+												<div class="reviewColor reviewRight">
+													<button type="submit" class="btn btn-primary review-btn1">입력</button>
+													<button type="reset" class="btn btn-primary review-btn1">다시 쓰기</button>
+												</div>
+											</form>
+										</div>
+									</c:if>
+								</c:when>
+								<c:otherwise> <!-- 답글이 있으면 -->
+									<div class="panel-body" id="ptServiceReply" >
+										<textarea style="color: #556b8d; background-color: white;" readonly="readonly" id="ptServiceReplyText" name="ptServiceReply" class="form-control">${review.ptServiceReply }</textarea>
+									</div>
+								</c:otherwise>
+							</c:choose>
+							
 						</div>
 					</div>
-				</div>
-						<hr>
+				</c:forEach>
 						
+				<!-- 후기 끝 -->
 				</div>
 				
-				<!-- 후기 끝 -->
 			</div>
 		</div>
 	</div>
@@ -345,6 +387,7 @@
 		</div>
 	</div>
 </div>
+
 <!-- PT 문의 모달창 -->
 <div class="modal fade" id="pt-ask" role="dialog">
 	<div class="modal-dialog" id="modal-dialog">
