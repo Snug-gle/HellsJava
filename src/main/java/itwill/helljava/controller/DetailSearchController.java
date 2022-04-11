@@ -28,21 +28,15 @@ public class DetailSearchController {
 	@RequestMapping(value = "/content/search", method = RequestMethod.POST)
 	public String search(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes) {
 
-		int pageNum = 1;
-
 		Map<String, Object> countMap = new HashMap<String, Object>();
 
 		countMap.put("searchKeyword", map.get("searchKeyword"));
 		countMap.put("searchValue", map.get("searchValue"));
 
 		int totalBoard = trainerService.getMainPageTrainerListCount(countMap);
-		int pageSize = 5;
-		int blockSize = 10;
-
-		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
-
-		map.put("startRow", pager.getStartRow());
-		map.put("endRow", pager.getEndRow());
+		
+		map.put("startRow", 1);
+		map.put("endRow", totalBoard);
 
 		// 메인 페이지에서 검색 결과 리스트 모델에 넣기
 		redirectAttributes.addFlashAttribute("searchList", trainerService.getMainPageTrainerList(map));
