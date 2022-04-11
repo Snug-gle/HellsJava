@@ -3,12 +3,10 @@ package itwill.helljava.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,27 +16,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import itwill.helljava.Enum.PtServiceSortationEnum;
-import itwill.helljava.Enum.PtServiceStatusEnum;
 import itwill.helljava.Enum.ScheduleWorkdayEnum;
 import itwill.helljava.dto.Award;
 import itwill.helljava.dto.Member;
 import itwill.helljava.dto.Posting;
 import itwill.helljava.dto.PtPricing;
-import itwill.helljava.dto.PtService;
 import itwill.helljava.dto.Schedule;
 import itwill.helljava.dto.Trainer;
 import itwill.helljava.service.AccountSevice;
 import itwill.helljava.service.AwardService;
 import itwill.helljava.service.PostingService;
 import itwill.helljava.service.PtPricingService;
-import itwill.helljava.service.PtServiceService;
 import itwill.helljava.service.ScheduleService;
 import itwill.helljava.service.TrainerService;
 
@@ -64,9 +57,6 @@ public class PostingController {
 
 	@Autowired
 	private PtPricingService ptPricingService;
-	
-	@Autowired
-	private PtServiceService ptServiceService;
 
 	// 포스팅 작성 페이지 요청
 	@RequestMapping(value = "/posting/write", method = RequestMethod.GET)
@@ -101,19 +91,6 @@ public class PostingController {
 																												// 관련
 
 		return "/content/posting_detail_modify";
-	}
-	
-	// 답글 추가 메서드 POST 요청
-	@RequestMapping(value = "/review/reply/write", method = RequestMethod.POST)
-	public String reviewReplyAdd(@ModelAttribute PtService ptService, HttpServletRequest request, HttpSession session) {
-		
-		int trainerMemberNo = ((Member)session.getAttribute("loginUserinfo")).getMemberNo();
-		
-		// pk는 이미 들어가있음
-		request.getParameter("ptServiceReply");
-		ptServiceService.modifyPtService(ptService);
-		
-		return "redirect:/myposting/detail/"+trainerMemberNo;
 	}
 
 	// 포스팅 수정 POST 방식 요청 스케줄과 포스팅 수정
@@ -472,29 +449,12 @@ public class PostingController {
 
 		Trainer trainer = trainerService.getTrainer(memberNo);
 
-		Map<String, Object> countMap = new HashMap<String, Object>();
-		
-		countMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
-		countMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
-		countMap.put("trainer_no", trainer.getTrainerNo());		
-		
-		int totalReviewCount = ptServiceService.getPtServiceTrainerCount(countMap);
-		
-		Map<String, Object> reviewMap = new HashMap<String, Object>();
-		
-		reviewMap.put("startRow", 1);
-		reviewMap.put("endRow", totalReviewCount);
-		reviewMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
-		reviewMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
-		reviewMap.put("trainer_no", trainer.getTrainerNo());
-		
 		model.addAttribute("trainer", trainer); // 트레이너 객체 보내기
 		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
 		model.addAttribute("ptPricing", ptPricingService.getPtPricingList(trainer.getTrainerNo()));
 		model.addAttribute("schedule", scheduleService.getScheduleList(trainer.getTrainerNo()));
 		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
-		model.addAttribute("reviews", ptServiceService.getPtServiceTrainerList(reviewMap));
-		
+
 		return "/content/posting_detail";
 	}
 
@@ -508,29 +468,12 @@ public class PostingController {
 		// 트레이너 번호로 트레이너 가져오기
 		Trainer trainer = trainerService.getTrainerTrainerNo(trainerNo);
 
-		Map<String, Object> countMap = new HashMap<String, Object>();
-		
-		countMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
-		countMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
-		countMap.put("trainer_no", trainer.getTrainerNo());		
-		
-		int totalReviewCount = ptServiceService.getPtServiceTrainerCount(countMap);
-		
-		Map<String, Object> reviewMap = new HashMap<String, Object>();
-		
-		reviewMap.put("startRow", 1);
-		reviewMap.put("endRow", totalReviewCount);
-		reviewMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
-		reviewMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
-		reviewMap.put("trainer_no", trainer.getTrainerNo());
-		
 		model.addAttribute("trainer", trainer); // 트레이너 객체 보내기
 		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
 		model.addAttribute("ptPricing", ptPricingService.getPtPricingList(trainer.getTrainerNo()));
 		model.addAttribute("schedule", scheduleService.getScheduleList(trainer.getTrainerNo()));
 		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
-		model.addAttribute("reviews", ptServiceService.getPtServiceTrainerList(reviewMap));
-		
+
 		return "/content/posting_detail";
 	}
 }
