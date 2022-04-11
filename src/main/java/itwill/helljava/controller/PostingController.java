@@ -3,12 +3,10 @@ package itwill.helljava.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,27 +16,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import itwill.helljava.Enum.PtServiceSortationEnum;
-import itwill.helljava.Enum.PtServiceStatusEnum;
 import itwill.helljava.Enum.ScheduleWorkdayEnum;
 import itwill.helljava.dto.Award;
 import itwill.helljava.dto.Member;
 import itwill.helljava.dto.Posting;
 import itwill.helljava.dto.PtPricing;
-import itwill.helljava.dto.PtService;
 import itwill.helljava.dto.Schedule;
 import itwill.helljava.dto.Trainer;
 import itwill.helljava.service.AccountSevice;
 import itwill.helljava.service.AwardService;
 import itwill.helljava.service.PostingService;
 import itwill.helljava.service.PtPricingService;
-import itwill.helljava.service.PtServiceService;
 import itwill.helljava.service.ScheduleService;
 import itwill.helljava.service.TrainerService;
 
@@ -64,9 +57,6 @@ public class PostingController {
 
 	@Autowired
 	private PtPricingService ptPricingService;
-	
-	@Autowired
-	private PtServiceService ptServiceService;
 
 	// 포스팅 작성 페이지 요청
 	@RequestMapping(value = "/posting/write", method = RequestMethod.GET)
@@ -102,6 +92,7 @@ public class PostingController {
 
 		return "/content/posting_detail_modify";
 	}
+
 	
 	// 트레이너가 마이페이지에서 포스팅 디테일 페이지 GET 요청
 	@RequestMapping(value = "/myposting/detail/{memberNo}", method = RequestMethod.GET)
@@ -183,6 +174,7 @@ public class PostingController {
 		
 		return "redirect:/myposting/detail/"+trainerMemberNo;
 	}
+
 
 	// 포스팅 수정 POST 방식 요청 스케줄과 포스팅 수정
 	@RequestMapping(value = "/posting/modify", method = RequestMethod.POST)
@@ -532,6 +524,41 @@ public class PostingController {
 		return "/user/trainer/trainer_mypage";
 		// 일단 트레이너 마이페이지로 가지만 포스팅 디테일 완성하면 경로 바꾸고 주석 지우기
 		// 포스팅 추가하면 포스팅 디테일 페이지로 이동 얘도 수정필요 리다이렉트 요청 ㄱㄱ
+	}
+
+
+	// 트레이너가 마이페이지에서 포스팅 디테일 페이지 GET 요청
+	@RequestMapping(value = "/myposting/detail/{memberNo}", method = RequestMethod.GET)
+	public String trPostingDetail(@PathVariable(value = "memberNo") int memberNo, Model model) {
+
+		Trainer trainer = trainerService.getTrainer(memberNo);
+
+		model.addAttribute("trainer", trainer); // 트레이너 객체 보내기
+		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
+		model.addAttribute("ptPricing", ptPricingService.getPtPricingList(trainer.getTrainerNo()));
+		model.addAttribute("schedule", scheduleService.getScheduleList(trainer.getTrainerNo()));
+		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
+
+		return "/content/posting_detail";
+	}
+
+	// 트레이너 리스트나 메인에서 트레이너 배너 눌럿을 때 포스팅 디테일 페이지 GET 요청
+	@RequestMapping(value = "/posting/detail/{trainerNo}", method = RequestMethod.GET)
+	public String postingDetail(@PathVariable(value = "trainerNo") int trainerNo, Model model, HttpSession session) {
+
+		// 재요청을 위해 세션에 트레이너 번호 담아두기
+		session.setAttribute("trainerNo", trainerNo);
+
+		// 트레이너 번호로 트레이너 가져오기
+		Trainer trainer = trainerService.getTrainerTrainerNo(trainerNo);
+
+		model.addAttribute("trainer", trainer); // 트레이너 객체 보내기
+		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
+		model.addAttribute("ptPricing", ptPricingService.getPtPricingList(trainer.getTrainerNo()));
+		model.addAttribute("schedule", scheduleService.getScheduleList(trainer.getTrainerNo()));
+		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
+
+		return "/content/posting_detail";
 	}
 
 }

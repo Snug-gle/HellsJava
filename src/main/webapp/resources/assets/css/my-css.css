@@ -360,6 +360,7 @@
 
 #ptServiceReplyText {
 	resize: none;
+	min-height: 60px;
 }
 
 .reviewColor {
