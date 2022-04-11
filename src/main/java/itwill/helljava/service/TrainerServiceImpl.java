@@ -26,12 +26,12 @@ public class TrainerServiceImpl implements TrainerService {
 	public void modifyTrainer(Trainer trainer) {
 		trainerDAO.updateTrainer(trainer);
 	}
-	
+
 	@Override
 	public int getTrainerListCount(Map<String, Object> map) {
 		return trainerDAO.selectTrainerListCount(map);
 	}
-	
+
 	@Override
 	public int getMainPageTrainerListCount(Map<String, Object> map) {
 		return trainerDAO.selectMainPageTrainerListCount(map);
@@ -41,7 +41,7 @@ public class TrainerServiceImpl implements TrainerService {
 	public Trainer getTrainer(int memberNo) {
 		return trainerDAO.selectTrainer(memberNo);
 	}
-	
+
 	@Override
 	public Trainer getTrainerTrainerNo(int trainerNo) {
 		return trainerDAO.selectTrainerTrainerNo(trainerNo);
@@ -51,9 +51,14 @@ public class TrainerServiceImpl implements TrainerService {
 	public List<Trainer> getTrainerList(Map<String, Object> map) {
 		return trainerDAO.selectTrainerList(map);
 	}
-	
+
 	@Override
 	public List<Trainer> getMainPageTrainerList(Map<String, Object> map) {
 		return trainerDAO.selectMainPageTrainerList(map);
+	}
+
+	@Override
+	public List<Trainer> getMonthTrainer() {
+		return trainerDAO.selectMonthTrainer();
 	}
 }

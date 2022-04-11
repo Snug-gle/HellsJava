@@ -1,5 +1,7 @@
 package itwill.helljava.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,5 +31,4 @@ public class PostingServiceImpl implements PostingService {
 	public Posting getPosting(int trainer_no) {
 		return postingDAO.selectPosting(trainer_no);
 	}
-
 }

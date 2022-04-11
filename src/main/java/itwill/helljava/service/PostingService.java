@@ -1,5 +1,7 @@
 package itwill.helljava.service;
 
+import java.util.List;
+
 import itwill.helljava.dto.Posting;
 
 public interface PostingService {

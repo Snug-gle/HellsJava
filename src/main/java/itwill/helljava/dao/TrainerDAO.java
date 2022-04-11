@@ -27,4 +27,7 @@ public interface TrainerDAO {
 
 	// 메인페이지 검색 용 리스트 - > 이름, 동, 센터명 검색
 	List<Trainer> selectMainPageTrainerList(Map<String, Object> map);
+	
+	// 메인페이지 리뷰 상위 3개 트레이너
+	List<Trainer> selectMonthTrainer();
 }
