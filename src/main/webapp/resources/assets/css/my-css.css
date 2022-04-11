@@ -355,7 +355,7 @@
 
 .review-posting-box{ 
 	width: 47%;
-	margin: 20px 3px 0px 3px;	
+	margin: 20px 0px 0px 13px;	
 }
 
 #ptServiceReplyText {
@@ -427,6 +427,14 @@
 	width: 100%; 
 	height: 57px; 
 	padding: 20px;
+}
+
+.reviewEmptyWriting {
+	width: 100%; 
+	height: 250px; 
+	padding: 105px;
+	margin-top: 50px;
+	
 }
 
 .ptOncePersonalContent {
@@ -552,3 +560,38 @@ html, body {
 	text-align: left;
 	float: left;
 }		
+
+#trainer-content {
+	min-height: 410px;
+	
+}
+
+.mainProfileImg {
+	width: 150px;
+	height: 150px;
+	margin-left: 81px;
+	vertical-align: middle;
+	
+}
+
+.mainReviewBody {
+	text-align: center;
+	min-height: 300px;
+	cursor: pointer;
+	
+}
+
+.review-trainer-name {
+	font-size: large;
+	
+}
+
+.mainReviewContent {
+	min-height: 150px;
+	
+}
+
+.mainReviewTitle {
+	font-weight: bold;
+	
+}

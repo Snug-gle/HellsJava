@@ -49,21 +49,21 @@
                  </header>
              </div>
 		</div>		
-		<c:forEach var="trainerInfo" items="${trainerInfo}" varStatus="status">
-			<div class="panel panel-primary" id="trainer-content" style="float: left; <c:if test='${status.index == 1 }'>margin: 0px 5%;</c:if>" onclick="location='<c:url value="/posting/detail/${trainerInfo.trainerNo }"/>'">
+		<c:forEach var="trinerInfo" items="${trinerInfo}" varStatus="status">
+			<div class="panel panel-primary" id="trainer-content" style="float: left; <c:if test='${status.index == 1 }'>margin: 0px 5%;</c:if>" onclick="location='<c:url value="/posting/detail/${trinerInfo.trainerNo }"/>'">
 				<div class="panel-heading">
-					<h3 class="panel-title" style="text-align: center;">     
-						${trainerInfo.memberName }<%--트레이너 이름 --%>
-					</h3>
+					<h2 class="panel-title" style="text-align: center;">     
+						${trinerInfo.memberName }&nbsp; 트레이너<%--트레이너 이름 --%>
+					</h2>
 				</div>
 				<div class="panel-body" style="text-align: center;">
 					<form class="form-horizontal" role="form">
-						<div class="profile-pic text-center">
-							<img src="<spring:url value="/img/${trainerInfo.trainerProfileImg }"/>" alt="" class="img-circle">
+						<div class="profile-pic text-center mainProfileImg">
+							<img src="<spring:url value="/img/${trinerInfo.trainerProfileImg }"/>" alt="" class="img-circle" style="margin-left: 50px;">
 						</div>
 						<!-- <span class="text-muted">소속센터명</span> -->
 						<div class="form-group">
-							<p>${trainerInfo.postingSelfIntroduction }</p>
+							<p>${trinerInfo.postingSelfIntroduction }</p>
 						</div>
 					 </form>
 				</div>
@@ -86,21 +86,28 @@
 		<c:forEach var="reviewInfo" items="${reviewInfo}" varStatus="status">
 			<div class="panel panel-primary" id="trainer-review-content" style="float: left; <c:if test='${status.index == 1 }'>margin: 0px 5%;</c:if>" >
 				<div class="panel-heading">
-					<h3 class="panel-title" style="text-align: center;">     
-						${memberName[status.index].memberName } 회원님
-					</h3>
+					<h2 class="panel-title" style="text-align: center;">     
+						<strong>${memberName[status.index].memberName }</strong> 회원님의 후기
+					</h2>
 				</div>
-				<div class="panel-body" style="text-align: center;">
+				<div class="panel-body mainReviewBody" onclick="location='<c:url value="/posting/detail/${reviewInfo.trainerNo }"/>'">
 					<form class="form-horizontal" role="form">
-						<div class="form-group">
+						<div class="mainReviewTitle">
+							<p>${reviewInfo.ptServiceTitle }</p>
+						</div>
+						<hr>
+						
+						<div class="form-group mainReviewContent" >
 							<p>${reviewInfo.ptServiceContent }</p>
 						</div>
-						<p class="review-trainer-name" onclick="location='<c:url value="/posting/detail/${reviewInfo.trainerNo }"/>'">${trainerName[status.index].memberName }</p>
+						<p class="review-trainer-name" >${trinerName[status.index].memberName }&nbsp;트레이너</p>
 						<div class="main-review-panel-score">
-							<i type="button" class="fa fa-heart"></i>
-							<label>${reviewInfo.ptServiceGood }</label>
-							
-							<div style="float: left; ">
+							<div style="float: left;">
+								<i type="button" class="fa fa-heart"></i>
+								<label>${reviewInfo.ptServiceGood }</label>
+							</div>
+							<div style="text-align: right;">
+							<div >
 								<fmt:parseNumber var="star" value="${reviewInfo.ptServiceStars }" integerOnly="true" />
 								<c:set var="starhalf" value="${(reviewInfo.ptServiceStars /0.5)%2 }" />
 
@@ -120,6 +127,7 @@
 									</c:forEach>
 								</c:if>
 							</div>
+							</div>
 			
 							
 						</div>
@@ -132,6 +140,7 @@
 </section>
 
 <script type="text/javascript">
+
 	let curPos = 0; // 현재 보이는 요소의 인덱스 번호
 	
 	function prev(){

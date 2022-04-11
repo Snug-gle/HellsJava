@@ -42,23 +42,13 @@
 											<tbody>
 												<tr>
 													<td class="accordionBoard" style="width: 70px;"><strong>${number2 }</strong></td>
-													<c:if test="${notice.noticeServiceCategory eq '1'}">
-														<td class="accordionBoard" style="width: auto;">결제 문의</td>
-													</c:if>
-													<c:if test="${notice.noticeServiceCategory eq '2'}">
-														<td class="accordionBoard" style="width: auto;">트레이너
-															문의</td>
-													</c:if>
-													<c:if test="${notice.noticeServiceCategory eq '3'}">
-														<td class="accordionBoard" style="width: auto;">기타 문의</td>
-													</c:if>
 													<td class="accordionBoard" style="width: auto;"><a
 														data-toggle="collapse" data-parent="#accordion"
 														href="#detail_${number2 }" class="accordionBoard"
 														aria-expanded="false">${notice.noticeServiceTitle }</a></td>
 													<td class="accordionBoard" style="width: 100px;">${fn:substring({notice.noticeServiceDate},1,12)}</td>
 													<td class="accordionBoard"
-														style="width: 180px; text-align: justify;">${notice.memberName }</td>
+														style="width: 90px; text-align: justify;">${notice.memberName }</td>
 													<td class="accordionBoard" style="width: 65px;">${notice.noticeServiceHits }</td>
 												</tr>
 											</tbody>

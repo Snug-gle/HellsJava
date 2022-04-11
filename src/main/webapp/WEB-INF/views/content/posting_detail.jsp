@@ -211,7 +211,12 @@
 			<div class="tab-pane" id="review-posting" style="text-align: center;">
 				
 				<c:if test="${empty reviews }">
-					<p>등록된 리뷰가 없습니다.</p>
+					<div class="panel panel-default">
+						<div align="center" class="reviewEmptyWriting">
+							<h3>아직 작성된 후기가 없습니다.</h3>
+							<h3>첫 후기를 작성해 주세요!</h3>
+						</div>
+					</div>
 				</c:if>
 				
 				<c:forEach var="review"  items="${reviews }">
@@ -221,12 +226,12 @@
 									<h3 class="panel-title" style="vertical-align: middle;">${review.ptServiceTitle }</h3>
 								</div>
 								<div class="reviewRight">
-									<a href="${pageContext.request.contextPath}/review/good/${review.ptServiceNo}/${trainer.trainerNo}"><i class="fa fa-heart"></i></a> <label>${review.ptServiceGood }</label>
+									<a href="${pageContext.request.contextPath}/review/good/${review.ptServiceNo}/${trainer.trainerNo}"><i class="fa fa-heart" style="color: red;"></i></a> <label>${review.ptServiceGood }</label>
 								</div>
 							<hr>
 							</div>
 							<div class="reviewColor" >
-								<div class="reviewNameDate" style="float: left;">
+								<div class="reviewNameDate" style="float: left; margin: ">
 									${review.memberName} ${fn:substring(review.ptServiceDate,0,11)}
 								</div>
 								<div style=" text-align: right;">
