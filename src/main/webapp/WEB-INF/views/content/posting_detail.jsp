@@ -208,14 +208,14 @@
 				
 				<!-- 후기 -->
 				
-			<div class="tab-pane" id="review-posting">
+			<div class="tab-pane" id="review-posting" style="text-align: center;">
 				
 				<c:if test="${empty reviews }">
 					<p>등록된 리뷰가 없습니다.</p>
 				</c:if>
 				
 				<c:forEach var="review"  items="${reviews }">
-						<div class="panel panel-solid-primary review-posting-box">
+						<div class="panel panel-solid-primary review-posting-box" style="float: left">
 							<div class="panel-heading">
 								<div style="float: left; ">
 									<h3 class="panel-title" style="vertical-align: middle;">${review.ptServiceTitle }</h3>
