@@ -61,21 +61,21 @@ public class HomeController {
 		}
 		
 		
-		List<Trainer> triner = trainerService.getMonthTrainer();
+		List<Trainer> trainer = trainerService.getMonthTrainer();
 		List<PtService> review = ptServiceService.getReviewGoodList();
 		List<Member> memberName = new ArrayList<Member>();
-		List<Trainer> trinerName = new ArrayList<Trainer>();
+		List<Trainer> trainerName = new ArrayList<Trainer>();
 		for(int i = 0; i < 3; i++) {
 			memberName.add(memberService.getMember(review.get(i).getMemberNo()));
-			trinerName.add(trainerService.getTrainerTrainerNo(review.get(i).getTrainerNo()));
+			trainerName.add(trainerService.getTrainerTrainerNo(review.get(i).getTrainerNo()));
 		}
-				
 		
 		
-		model.addAttribute("trinerInfo", triner);
+		
+		model.addAttribute("trainerInfo", trainer);
 		model.addAttribute("reviewInfo", review);
 		model.addAttribute("memberName", memberName);
-		model.addAttribute("trinerName", trinerName);
+		model.addAttribute("trainerName", trainerName);
 		return "main";
 	}
 
