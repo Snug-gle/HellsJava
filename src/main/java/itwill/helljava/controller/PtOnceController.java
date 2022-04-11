@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import itwill.helljava.Enum.PayTypeEnum;
 import itwill.helljava.dto.Account;
@@ -79,11 +80,7 @@ public class PtOnceController {
 
 		// 결제 비밀번호 대조
 		account.setMemberNo(((Member) session.getAttribute("loginUserinfo")).getMemberNo());
-		accountSevice.accountPwAuth(account);
-
-		ptOnce.setTrainerNo(trainerNo);
-		ptOnce.setMemberNo(((Member) session.getAttribute("loginUserinfo")).getMemberNo());
-		ptOnceService.addPtOnce(ptOnce);
+		accountSevice.accountPwAuth(account); // 틀릴 시 예외 발생
 
 		// ~~'원'이 넘어왔으므로 원 자르고 숫자로 바꿔서 데이터 저장
 		String oncePrice = (String) map.get("payoPrice");
@@ -96,9 +93,15 @@ public class PtOnceController {
 		pay.setPayType(PayTypeEnum.일회피티.getValue());
 
 		payService.payAuth(pay); // 결제 금액 > 캐시 잔액 예외 발생
+		
+		ptOnce.setTrainerNo(trainerNo);
+		ptOnce.setMemberNo(((Member) session.getAttribute("loginUserinfo")).getMemberNo());
+		ptOnceService.addPtOnce(ptOnce);
+
+
 		payService.addPay(pay);
 
-		return "main"; // 어디로 보내지? 1회 pT 신청리스트로 보내고 싶다 혹시 하면 주석 제거 할것
+		return "redirect:/ptonce/list"; // 어디로 보내지? 1회 pT 신청리스트로 보내고 싶다 혹시 하면 주석 제거 할것
 	}
 
 //====================트레이너 전용===============================================================================================================================
@@ -186,20 +189,20 @@ public class PtOnceController {
 
 	// 계좌 비밀번호가 틀릴 때 예외 핸들러 메서드
 	@ExceptionHandler(value = AccountPwAuthException.class)
-	public String exception(HttpSession session, AccountPwAuthException exception, Model model) {
+	public String exception(HttpSession session, AccountPwAuthException exception, Model model, RedirectAttributes rttr) {
 
 		// 비밀번호 틀리면 에러메시지 넘겨주자
-		model.addAttribute("message", exception.getMessage());
+		rttr.addFlashAttribute("message", exception.getMessage());
 		int trainerNo = (int) session.getAttribute("trainerNo");
 
 		return "redirect:/posting/detail/" + trainerNo; // 해당 포스팅 페이지로 다시 이동
 	}
 
 	@ExceptionHandler(value = AmountOfPaymentException.class)
-	public String exception(HttpSession session, AmountOfPaymentException exception, Model model) {
+	public String exception(HttpSession session, AmountOfPaymentException exception, RedirectAttributes rttr, Model model) {
 
 		// 캐시 잔액 모자라면 에러메시지 넘기기
-		model.addAttribute("cashMessage", exception.getMessage());
+		rttr.addAttribute("cashMessage", exception.getMessage());
 		int trainerNo = (int) session.getAttribute("trainerNo");
 
 		return "redirect:/posting/detail/" + trainerNo; // 해당 포스팅 페이지로 다시 이동

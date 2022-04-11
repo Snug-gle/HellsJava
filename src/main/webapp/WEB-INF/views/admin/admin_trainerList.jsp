@@ -232,7 +232,6 @@
 	
 	$("#trainerStatusChange").change(function() {
 
-		alert("ㅎㅇ!");
 		var trainerMemberNo = $("#trainerMemberNo").val();
 		
 		var trainerStatus = $(this).val(); 
@@ -245,7 +244,6 @@
 	//--------------상태 (2,3 인지) name 값 가져오기-----
 	
 	var memberStatus = ${memberStatus};
-	alert(memberStatus);
 	
 	//-----------------검색----------
 	$("#searchBtn").click(function() {
@@ -253,12 +251,9 @@
 		// 검색 카테고리
 		var searchKeyword = $("#nameIdSearch").val();
 		
-		alert(searchKeyword);
-		
 		// 검색 값
 		var searchValue = $("#searchValue").val();
-		alert(searchValue);
-		
+
 		location.href="${pageContext.request.contextPath}/admin/trainerSearch?searchKeyword="+searchKeyword+"&searchValue="+searchValue+"&memberStatus="+${memberStatus};
 
 	});
