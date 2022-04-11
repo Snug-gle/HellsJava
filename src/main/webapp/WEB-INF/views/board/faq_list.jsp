@@ -2,7 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
- 
+<style>
+textarea.form-control.mm {
+    height: 200px;
+	resize: none;
+}
+</style> 
 <div class="container">
 	<div class="my-page-box">
 		<div class="notice-list-print">
@@ -113,8 +118,8 @@
 													<form action="<c:url value='/faq/modify'/>" method="post"
 														class="form-horizontal" role="form">
 														<div class="form-group">
-															<label for="inputTitle" class="col-sm-2 control-label">제목</label>
-															<div class="col-sm-10">
+															<label for="inputTitle" class="col-sm-3 control-label">제목</label>
+															<div class="col-sm-9">
 																<input type="hidden" name="noticeServiceNo"
 																	class="form-control" value="${faq.noticeServiceNo }">
 																<input type="text" name="noticeServiceTitle"
@@ -122,8 +127,8 @@
 															</div>
 														</div>
 														<div class="form-group">
-															<label class="col-sm-2 control-label">카테고리</label>
-															<div class="col-sm-10">
+															<label class="col-sm-3 control-label">카테고리</label>
+															<div class="col-sm-9">
 																<select class="form-control" id="noticeServiceCategory"
 																	name="noticeServiceCategory">
 																	<option value="1" selected="selected">결제문의</option>
@@ -133,10 +138,10 @@
 															</div>
 														</div>
 														<div class="form-group">
-															<label for="inputTitle" class="col-sm-2 control-label">내용</label>
-															<div class="col-sm-10">
+															<label for="inputTitle" class="col-sm-3 control-label">내용</label>
+															<div class="col-sm-9">
 																<textarea name="noticeServiceContent"
-																	class="form-control">${faq.noticeServiceContent}</textarea>
+																	class="form-control mm">${faq.noticeServiceContent}</textarea>
 															</div>
 														</div>
 														<div class="reviewRight">
