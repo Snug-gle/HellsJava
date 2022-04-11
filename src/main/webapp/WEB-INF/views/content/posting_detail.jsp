@@ -221,7 +221,7 @@
 									<h3 class="panel-title" style="vertical-align: middle;">${review.ptServiceTitle }</h3>
 								</div>
 								<div class="reviewRight">
-									<i class="fa fa-heart"></i> <label>${review.ptServiceGood }</label>
+									<a href="${pageContext.request.contextPath}/review/good/${review.ptServiceNo}/${trainer.trainerNo}"><i class="fa fa-heart"></i></a> <label>${review.ptServiceGood }</label>
 								</div>
 							<hr>
 							</div>

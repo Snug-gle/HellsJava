@@ -40,6 +40,8 @@ public class HomeController {
 	@Autowired
 	private MemberService  memberService;
 
+	
+	// 메인 페이지 get요청
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String tiles(HttpSession session, Model model) {
 
