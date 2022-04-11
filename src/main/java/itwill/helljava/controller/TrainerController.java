@@ -32,6 +32,7 @@ import itwill.helljava.dto.Member;
 import itwill.helljava.dto.Pay;
 import itwill.helljava.dto.Trainer;
 import itwill.helljava.exception.AccountPwAuthException;
+import itwill.helljava.exception.AmountOfPaymentException;
 import itwill.helljava.service.AccountSevice;
 import itwill.helljava.service.AwardService;
 import itwill.helljava.service.MemberService;
@@ -100,7 +101,7 @@ public class TrainerController {
 	@RequestMapping(value = "/trainer/request", method = RequestMethod.POST)
 	public String trainerRequest(@RequestParam Map<String, Object> map, @ModelAttribute Trainer trainer,
 			@ModelAttribute Account account, MultipartHttpServletRequest request, HttpSession session)
-			throws AccountPwAuthException, IllegalStateException, IOException {
+			throws AccountPwAuthException, IllegalStateException, IOException, AmountOfPaymentException {
 
 		// 파일 없을 경우 다시 요청 페이지로 가라
 		if (request.getFileNames() == null) {
@@ -217,7 +218,8 @@ public class TrainerController {
 		pay.setMemberNo(account.getMemberNo());
 		pay.setPayPrice(15000);
 		pay.setPayType(PayTypeEnum.트레이너신청.getValue());
-
+		
+		payService.payAuth(pay); // 결제 금액 > 캐시 잔액 예외 발생
 		payService.addPay(pay);
 		
 		if (((Member) session.getAttribute("loginUserinfo")).getMemberStatus()==2) {
@@ -403,12 +405,23 @@ public class TrainerController {
 		
 	}
 
+//----------------------------예외 처리----------------------------	
+	
 	@ExceptionHandler(value = AccountPwAuthException.class)
 	public String exceptionHandler(AccountPwAuthException exception, Model model) {
 
 		// 비밀번호 틀리면 에러메시지 넘겨주자
 		model.addAttribute("message", exception.getMessage());
 
+		return "/user/trainer/trainer_request";
+	}
+	
+	
+	@ExceptionHandler(value = AmountOfPaymentException.class)
+	public String exception(AmountOfPaymentException exception, Model model) {
+		
+		// 캐시 잔액 모자라면 에러메시지 넘기기
+		model.addAttribute("cashMessage",exception.getMessage());
 		return "/user/trainer/trainer_request";
 	}
 

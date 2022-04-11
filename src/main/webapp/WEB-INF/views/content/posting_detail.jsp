@@ -331,7 +331,8 @@
 											</td>
 										</tr>
 									</table>
-									<p id="accountValidMsg">${message}</p>
+									<p id="accountValidMsg" style="color: red; font-weight: bold;">${message}</p>
+									<p id="amountPayValidMsg" style="color: red; font-weight: bold;">${cashMessage}</p>
 									<input id = "payoPrice" type="hidden" name ="payoPrice" value=""/>
 							</div>
 						</div>

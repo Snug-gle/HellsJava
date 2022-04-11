@@ -22,6 +22,7 @@ import itwill.helljava.dto.Member;
 import itwill.helljava.dto.Pay;
 import itwill.helljava.dto.PtOnce;
 import itwill.helljava.exception.AccountPwAuthException;
+import itwill.helljava.exception.AmountOfPaymentException;
 import itwill.helljava.service.AccountSevice;
 import itwill.helljava.service.PayService;
 import itwill.helljava.service.PtOnceService;
@@ -73,7 +74,7 @@ public class PtOnceController {
 	@RequestMapping(value = "/ptonce/request/{trainerNo}", method = RequestMethod.POST)
 	public String addPtOnce(@PathVariable int trainerNo, @ModelAttribute PtOnce ptOnce,
 			@RequestParam Map<String, Object> map, HttpSession session, @ModelAttribute Account account)
-			throws AccountPwAuthException {
+			throws AccountPwAuthException, AmountOfPaymentException {
 
 		// 결제 비밀번호 대조
 		account.setMemberNo(((Member) session.getAttribute("loginUserinfo")).getMemberNo());
@@ -92,7 +93,8 @@ public class PtOnceController {
 		pay.setMemberNo(account.getMemberNo());
 		pay.setPayPrice(Integer.parseInt(op));
 		pay.setPayType(PayTypeEnum.일회피티.getValue());
-
+		
+		payService.payAuth(pay); // 결제 금액 > 캐시 잔액 예외 발생
 		payService.addPay(pay);
 
 		return "main"; // 어디로 보내지? 1회 pT 신청리스트로 보내고 싶다 혹시 하면 주석 제거 할것
@@ -187,8 +189,18 @@ public class PtOnceController {
 
 		// 비밀번호 틀리면 에러메시지 넘겨주자
 		model.addAttribute("message", exception.getMessage());
-		String trainerNo = (String) session.getAttribute("trainerNo");
+		int trainerNo = (int) session.getAttribute("trainerNo");
 
+		return "redirect:/posting/detail/" + trainerNo; // 해당 포스팅 페이지로 다시 이동
+	}
+	
+	@ExceptionHandler(value = AmountOfPaymentException.class)
+	public String exception(HttpSession session, AmountOfPaymentException exception, Model model) {
+		
+		// 캐시 잔액 모자라면 에러메시지 넘기기
+		model.addAttribute("cashMessage",exception.getMessage());
+		int trainerNo = (int) session.getAttribute("trainerNo");
+		
 		return "redirect:/posting/detail/" + trainerNo; // 해당 포스팅 페이지로 다시 이동
 	}
 }

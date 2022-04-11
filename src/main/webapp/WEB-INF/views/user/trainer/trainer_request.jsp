@@ -155,6 +155,7 @@ function sample4_execDaumPostcode() {
 												class="form-control" placeholder="">
 											<p id="accountPwRegMsg" class="error">결제 비밀번호를 반드시 입력하세요.</p>
 											<p id="accountErrorMsg">${message}</p>
+											<p id="cashErrorMsg">${cashMessage}</p>
 											<br>
 										</div>
 										</div>
