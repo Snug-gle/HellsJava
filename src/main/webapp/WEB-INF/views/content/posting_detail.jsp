@@ -207,8 +207,14 @@
 				<!-- 트레이너 끝 -->
 				
 				<!-- 후기 -->
+				
+			<div class="tab-pane" id="review-posting">
+				
+				<c:if test="${empty reviews }">
+					<p>등록된 리뷰가 없습니다.</p>
+				</c:if>
+				
 				<c:forEach var="review"  items="${reviews }">
-					<div class="tab-pane" id="review-posting">
 						<div class="panel panel-solid-primary review-posting-box">
 							<div class="panel-heading">
 								<div style="float: left; ">
@@ -280,8 +286,8 @@
 							</c:choose>
 							
 						</div>
-					</div>
 				</c:forEach>
+					</div>
 						
 				<!-- 후기 끝 -->
 				</div>
