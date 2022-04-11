@@ -70,9 +70,7 @@ public class joinController {
 	@ResponseBody
 	public int idCheck(@RequestParam("id") String id) {
 
-		System.out.println("전달받은 id:" + id);
 		int cnt = memberService.idCheck(id);
-		System.out.println("전달받은 cnt:" + cnt);
 		return cnt;
 	}
 }

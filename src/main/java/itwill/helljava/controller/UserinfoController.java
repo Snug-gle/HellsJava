@@ -14,7 +14,9 @@ import itwill.helljava.dto.Member;
 import itwill.helljava.service.MemberService;
 import itwill.helljava.service.PostingService;
 import itwill.helljava.service.TrainerService;
+import itwill.helljava.util.Auth;
 
+@Auth//가능하면 일반회원과 예비트레이너 합쳐서 지정
 @Controller
 public class UserinfoController {
 

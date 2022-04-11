@@ -39,6 +39,9 @@ import itwill.helljava.service.MemberService;
 import itwill.helljava.service.PayService;
 import itwill.helljava.service.PostingService;
 import itwill.helljava.service.TrainerService;
+import itwill.helljava.util.Auth;
+import itwill.helljava.util.Auth.Role;
+import itwill.helljava.util.AuthUser;
 
 @Controller
 public class TrainerController {
@@ -66,11 +69,12 @@ public class TrainerController {
 
 	@Autowired
 	private PostingService postingService;
-
+	
 	// 트레이너 마이페이지 Get 요청
+	@Auth(role = Role.TRAINER)
 	@RequestMapping(value = "/trainer/mypage", method = RequestMethod.GET)
-	public String trainerPage(Model model, HttpSession session) {
-		int trainerNo = trainerService.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo())
+	public String trainerPage(Model model, @AuthUser Member member) {
+		int trainerNo = trainerService.getTrainer(member.getMemberNo())
 				.getTrainerNo();
 
 		model.addAttribute("posting", postingService.getPosting(trainerNo));
@@ -78,16 +82,18 @@ public class TrainerController {
 	}
 
 	// 트레이너 신청 화면을 요청
+	@Auth(role = Role.USER)
 	@RequestMapping(value = "/trainer/request", method = RequestMethod.GET)
 	public String trainerRequest() {
 		return "/user/trainer/trainer_request";
 	}
 
 	// 트레이너 수정 화면을 요청
+	@Auth(role = Role.TRAINER)
 	@RequestMapping(value = "/trainer/modify", method = RequestMethod.GET)
-	public String trainerModify(HttpSession session, Model model) {
+	public String trainerModify(@AuthUser Member member, Model model) {
 
-		int MemberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
+		int MemberNo = member.getMemberNo();
 
 		model.addAttribute("trainerInfo", trainerService.getTrainer(MemberNo));
 		model.addAttribute("awardInfo", awardService.getAwardList(trainerService.getTrainer(MemberNo).getTrainerNo()));
@@ -100,7 +106,7 @@ public class TrainerController {
 	// 결제 비밀번호
 	@RequestMapping(value = "/trainer/request", method = RequestMethod.POST)
 	public String trainerRequest(@RequestParam Map<String, Object> map, @ModelAttribute Trainer trainer,
-			@ModelAttribute Account account, MultipartHttpServletRequest request, HttpSession session)
+			@ModelAttribute Account account, MultipartHttpServletRequest request, @AuthUser Member member)
 			throws AccountPwAuthException, IllegalStateException, IOException, AmountOfPaymentException {
 
 		// 계좌 정보를 가져와서 비밀번호를 비교하고 결제 완료할 것임
@@ -145,7 +151,7 @@ public class TrainerController {
 
 				// 트레이너 이미지 파일 원본 주소 setter로 추가
 				trainer.setTrainerProfileImg(originalFilename);
-				trainer.setMemberNo(((Member) session.getAttribute("loginUserinfo")).getMemberNo());
+				trainer.setMemberNo(member.getMemberNo());
 				// 트레이너 추가.
 				trainerService.addTrainer(trainer);
 
@@ -213,7 +219,7 @@ public class TrainerController {
 
 		// 트레이너로 다 신청 되면은 멤버 등급을 말이야 트레이너 예정으로 변경해야지
 		Member modifyMember = new Member();
-		modifyMember.setMemberNo(((Member) session.getAttribute("loginUserinfo")).getMemberNo());
+		modifyMember.setMemberNo(member.getMemberNo());
 		modifyMember.setMemberStatus(MemberEnum.트레이너예정.getValue());
 		memberService.modifyMember(modifyMember);
 
@@ -222,7 +228,7 @@ public class TrainerController {
 		map.put("cashType", PayTypeEnum.트레이너신청.getValue());
 		memberService.modifyMemberCash(map);
 
-		if (((Member) session.getAttribute("loginUserinfo")).getMemberStatus() == 2) {
+		if (member.getMemberStatus() == 2) {
 			return "redirect:/mypage"; // 마이페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
 		}
 		return "redirect:/mypage";
@@ -232,7 +238,7 @@ public class TrainerController {
 	// 받아온(변경 가능) 값 : 센터 주소, 우편번호, 센터명, 프로필 사진, 수상경력 설명 및 사진
 	@RequestMapping(value = "/trainer/modify", method = RequestMethod.POST)
 	public String trainerModify(@RequestParam Map<String, Object> map, @ModelAttribute Trainer trainer,
-			MultipartHttpServletRequest request, HttpSession session, @RequestParam String memberNo)
+			MultipartHttpServletRequest request, @AuthUser Member member, @RequestParam String memberNo)
 			throws IllegalStateException, IOException {
 
 		// 파일 없을 경우 다시 수정 페이지로 가라
@@ -395,7 +401,7 @@ public class TrainerController {
 			}
 		}
 
-		if (((Member) session.getAttribute("loginUserinfo")).getMemberStatus() == 2) {
+		if (member.getMemberStatus() == 2) {
 			return "redirect:/mypage"; // 마이페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
 		}
 		return "redirect:/trainer/mypage"; // 트레이너 마이페이지로 이동

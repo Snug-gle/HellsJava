@@ -1,6 +1,7 @@
 package itwill.helljava.controller;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -19,8 +20,12 @@ import itwill.helljava.dto.Member;
 import itwill.helljava.dto.NoticeService;
 import itwill.helljava.dto.PtService;
 import itwill.helljava.service.NoticeServiceService;
+import itwill.helljava.util.Auth;
 import itwill.helljava.util.Pager;
+import itwill.helljava.util.Auth.Role;
+import itwill.helljava.util.AuthUser;
 
+@Auth
 @Controller
 @RequestMapping("/oOo")
 public class OneOnOneController {
@@ -30,10 +35,10 @@ public class OneOnOneController {
 	
 	//1:1 문의 내역
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(HttpSession session, Model model, @RequestParam(defaultValue = "1")int pageNum) {
+	public String list(@AuthUser Member member, Model model, @RequestParam(defaultValue = "1")int pageNum) {
 		Map<String, Object> countMap = new HashMap<String, Object>();
 		countMap.put("notice_service_sortation", NoticeServiceSortationEnum.일대일문의.getValue());
-		countMap.put("member_no",((Member)session.getAttribute("loginUserinfo")).getMemberNo());
+		countMap.put("member_no", member.getMemberNo());
 		
 		int totalBoard = noticeServiceService.getNoticeServicePersonalCount(countMap);
 		int pageSize = 5;
@@ -42,7 +47,7 @@ public class OneOnOneController {
 		Map<String, Object> pagerMap = new HashMap<String, Object>();
 		pagerMap.put("startRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
-		pagerMap.put("memberNo", ((Member)session.getAttribute("loginUserinfo")).getMemberNo());
+		pagerMap.put("memberNo", member.getMemberNo());
 		/*
 		pagerMap.put("notice_service_sortation", NoticeServiceSortationEnum.일대일문의.getValue());
 		*/
@@ -59,9 +64,9 @@ public class OneOnOneController {
 	
 	//1:1 문의 등록 포스트 방식 요청 처리 메소드
 	@RequestMapping(value =  "/write" , method = RequestMethod.POST)
-	public String register(@ModelAttribute NoticeService noticeService, HttpSession session) { 
+	public String register(@ModelAttribute NoticeService noticeService, @AuthUser Member member) { 
 		
-		noticeService.setMemberNo(((Member)session.getAttribute("loginUserinfo")).getMemberNo());
+		noticeService.setMemberNo(member.getMemberNo());
 		noticeService.setNoticeServiceSortation(NoticeServiceSortationEnum.일대일문의.getValue());
 		noticeServiceService.addNoticeService(noticeService);
 		return "redirect:/oOo/list";

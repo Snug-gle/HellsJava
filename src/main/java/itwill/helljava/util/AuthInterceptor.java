@@ -49,9 +49,18 @@ public class AuthInterceptor implements HandlerInterceptor{
 					return false;
 				}
 				
+				
 				// 7. admin일 경우
-				if( userRole != null ) {
-					String role = userRole.role().toString();
+				if( userRole != null) {
+					String role=userRole.role().toString();
+					if( "ADMIN".equals(role) ) {
+						if( !(authUser.getMemberStatus() == 9) ){
+							response.sendRedirect(request.getContextPath());
+							return false;
+						}
+					}
+				} else if(auth != null ){
+					String role=auth.role().toString();
 					if( "ADMIN".equals(role) ) {
 						if( !(authUser.getMemberStatus() == 9) ){
 							response.sendRedirect(request.getContextPath());
@@ -59,7 +68,7 @@ public class AuthInterceptor implements HandlerInterceptor{
 						}
 					}
 				}
-				
+
 //				// 8. 트레이너일 경우
 //				if( "TRAINER".equals(role) ) {
 //					// 트레이너임을 알 수 있는 조건을 작성한다.
@@ -71,8 +80,16 @@ public class AuthInterceptor implements HandlerInterceptor{
 //				}
 				
 				// 8. 트레이너일 경우
-				if( userRole != null ) {
-					String role = userRole.role().toString();
+				if( userRole != null) {
+					String role=userRole.role().toString();
+					if( "TRAINER".equals(role) ) {
+						if( !(authUser.getMemberStatus() == 3) ){
+							response.sendRedirect(request.getContextPath());
+							return false;
+						}
+					}
+				} else if(auth != null ){
+					String role=auth.role().toString();
 					if( "TRAINER".equals(role) ) {
 						if( !(authUser.getMemberStatus() == 3) ){
 							response.sendRedirect(request.getContextPath());
@@ -80,10 +97,19 @@ public class AuthInterceptor implements HandlerInterceptor{
 						}
 					}
 				}
+		
 				
 				// 9. 예비트레이너일 경우
-				if( userRole != null ) {
-					String role = userRole.role().toString();
+				if( userRole != null) {
+					String role=userRole.role().toString();
+					if( "PRETRAINER".equals(role) ) {
+						if( !(authUser.getMemberStatus() == 2) ){
+							response.sendRedirect(request.getContextPath());
+							return false;
+						}
+					}
+				} else if(auth != null ){
+					String role=auth.role().toString();
 					if( "PRETRAINER".equals(role) ) {
 						if( !(authUser.getMemberStatus() == 2) ){
 							response.sendRedirect(request.getContextPath());
@@ -91,6 +117,46 @@ public class AuthInterceptor implements HandlerInterceptor{
 						}
 					}
 				}
+	
+				
+				// 10. 유저일 경우
+				if( userRole != null) {
+					String role=userRole.role().toString();
+					if( "USER".equals(role) ) {
+						if( !(authUser.getMemberStatus() == 1) ){
+							response.sendRedirect(request.getContextPath());
+							return false;
+						}
+					}
+				} else if(auth != null ){
+					String role=auth.role().toString();
+					if( "USER".equals(role) ) {
+						if( !(authUser.getMemberStatus() == 1) ){
+							response.sendRedirect(request.getContextPath());
+							return false;
+						}
+					}
+				}
+				
+				// 11. 유저or 예비트레이너일 경우
+				if( userRole != null) {
+					String role=userRole.role().toString();
+					if( "USERnPRETRAINER".equals(role) ) {
+						if( !(authUser.getMemberStatus() == 1 || authUser.getMemberStatus() == 2 )) {
+							response.sendRedirect(request.getContextPath());
+							return false;
+						}
+					}
+				} else if(auth != null ){
+					String role=auth.role().toString();
+					if( "USERnPRETRAINER".equals(role) ) {
+						if( !(authUser.getMemberStatus() == 1 || authUser.getMemberStatus() == 2 )) {
+							response.sendRedirect(request.getContextPath());
+							return false;
+						}
+					}
+				}
+
 				// 사용예시 EX) 컨트롤러의 메소드 위 또는 클래스위에 @Auth or @Auth(role=Role.ADMIN) or @Auth(role=Role.TRAINER) 등으로 사용
 				// 10. 접근허가, 즉 메서드를 실행하도록 함
 				return true;
