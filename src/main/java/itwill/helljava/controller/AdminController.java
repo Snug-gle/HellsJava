@@ -24,8 +24,13 @@ import itwill.helljava.service.AwardService;
 import itwill.helljava.service.MemberService;
 import itwill.helljava.service.NoticeServiceService;
 import itwill.helljava.service.TrainerService;
+import itwill.helljava.util.Auth;
+import itwill.helljava.util.AuthUser;
+import itwill.helljava.util.Auth.Role;
 import itwill.helljava.util.Pager;
 
+
+@Auth(role=Role.ADMIN)
 @Controller
 public class AdminController {
 
@@ -44,8 +49,14 @@ public class AdminController {
 //------------------------1:1문의----------------------------------------------------------------------------------------	
 
 	// 1:1 문의 리스트(최초) GET 방식 요청
+	
 	@RequestMapping(value = "/admin/questionList", method = RequestMethod.GET)
-	public String questionList() {
+	public String questionList(@AuthUser Member member) {
+		//이게 뭐지?--------------------------------
+		Member loginUserinfo = memberService.getMember(member.getMemberNo());
+		if( loginUserinfo == null ) {return "redirect:/";}
+		//-----------------------------------------
+		
 		return "/admin/admin_questionList";
 	}
 
