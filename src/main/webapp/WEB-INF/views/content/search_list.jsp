@@ -12,9 +12,9 @@
 				<form action="<spring:url value="/content/search"/>" method="post">
 				<div class="search-list-top-search">
 					<select name="searchKeyword" class="btn btn-primary dropdown-toggle">
-						<option value="member_name" selected="selected">트레이너 이름</option>
-						<option value="trainer_centername">센터명</option>
-						<option value="trainer_address">센터 주소(동)</option>
+						<option value="member_name" <c:if test="${searchKeyword == 'member_name'}">selected="selected"</c:if>>트레이너 이름</option>
+						<option value="trainer_centername" <c:if test="${searchKeyword == 'trainer_centername'}">selected="selected"</c:if>>센터명</option>
+						<option value="trainer_address" <c:if test="${searchKeyword == 'trainer_address'}">selected="selected"</c:if>>센터 주소(동)</option>
 					</select>
 					<input class="main-search" placeholder="트레이너명/지역/헬스장 이름" name ="searchValue" value="${searchValue }">
 					<!-- <input class="content-search"  placeholder="트레이너명/지역/헬스장 이름" name ="searchValue" value="${searchValue }">-->
