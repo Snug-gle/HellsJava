@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import itwill.helljava.dto.Pay;
+import itwill.helljava.exception.AmountOfPaymentException;
 
 public interface PayService {
 
@@ -16,4 +17,7 @@ public interface PayService {
 
 	List<Pay> getPayList(Map<String, Object> map, int member_no);
 
+	// 결제 금액과 잔액 비교 
+	void payAuth(Pay pay) throws AmountOfPaymentException;
+	
 }
