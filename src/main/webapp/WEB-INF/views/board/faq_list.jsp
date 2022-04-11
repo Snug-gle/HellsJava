@@ -163,13 +163,7 @@
 
 				<form id="searchForm" method="get">
 					<div class="main-search-area">
-						<select id="search" name="searchKeyword"
-							class="btn btn-primary dropdown-toggle searchBtnBox">
-							<option value="notice_service_category"
-								<c:if test="${searchKeyword == 'notice_service_category'}"> selected="selected"</c:if>>&nbsp;카테고리&nbsp;</option>
-							<option value="notice_service_title"
-								<c:if test="${searchKeyword == 'notice_service_title'}"> selected="selected"</c:if>>&nbsp;글제목&nbsp;</option>
-						</select> <input class="main-search" type="text" name="searchValue"
+						<input class="main-search" type="text" name="searchValue"
 							id="searchValue" value="${searchValue }">
 						<button type="button" id="searchBtn"
 							class="btn btn-primary searchBtnBox">검색</button>
@@ -188,23 +182,23 @@
 	//페이징 처리 
 	//[처음], [이전] 이동 설정
 	if (${pager.startPage} > ${pager.blockSize}) {
-		html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum=1&searchKeyword="+$("#search").val()+"&searchValue="+$("#searchValue").val()+"'>[처음]</a>";
-		html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum=${pager.prevPage}&searchKeyword="+$("#search").val()+"&searchValue="+$("#searchValue").val()+"'>[<]</a>";
+		html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum=1&searchKeyword=notice_service_title&searchValue="+$("#searchValue").val()+"&categoryValue="+$("#category").val()+"'>[처음]</a>";
+		html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum=${pager.prevPage}&searchKeyword=notice_service_title&searchValue="+$("#searchValue").val()+"&categoryValue="+$("#category").val()+"'>[<]</a>";
 	} else {
 		html += "[처음][<]";
 	}
 	//페이지 번호 설정
 	for (var i = ${pager.startPage}; i <= ${pager.endPage}; i++) {
 		if (${pager.pageNum} != i) {
-			html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum="+i+"&searchKeyword="+$("#search").val()+"&searchValue="+$("#searchValue").val()+"'> [" + i + "] </a>";
+			html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum="+i+"&searchKeyword=notice_service_title&searchValue="+$("#searchValue").val()+"&categoryValue="+$("#category").val()+"'> [" + i + "] </a>";
 		} else {
 			html += "[" + i + "]";
 		}
 	}
 	//[다음],[마지막] 이동 설정
 	if (${pager.endPage} != ${pager.totalPage}) {
-		html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum=${pager.nextPage}&searchKeyword="+$("#search").val()+"&searchValue="+$("#searchValue").val()+"'>[>]</a>";
-		html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum=${pager.totalPage}&searchKeyword="+$("#search").val()+"&searchValue="+$("#searchValue").val()+"'>[마지막]</a>";
+		html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum=${pager.nextPage}&searchKeyword=notice_service_title&searchValue="+$("#searchValue").val()+"&categoryValue="+$("#category").val()+"'>[>]</a>";
+		html += "<a href='<c:url value="/faq/list/faqSearch"/>?pageNum=${pager.totalPage}&searchKeyword=notice_service_title&searchValue="+$("#searchValue").val()+"&categoryValue="+$("#category").val()+"'>[마지막]</a>";
 	} else {
 		html += "[>][마지막]";
 	}
@@ -214,17 +208,15 @@
 	
 	//검색 기능 구현
 	$("#searchBtn").click(function() {
-		
-		// 검색 카테고리
-		var searchKeyword = $("#search").val();
-		
-		alert(searchKeyword);
+		// 카테고리 값
+		var categoryValue = $("#category").val();
+		alert(categoryValue);
 		
 		// 검색 값
 		var searchValue = $("#searchValue").val();
 		alert(searchValue);
 		
-		location.href="${pageContext.request.contextPath}/faq/list/faqSearch?searchKeyword="+searchKeyword+"&searchValue="+searchValue;
+		location.href="${pageContext.request.contextPath}/faq/list/faqSearch?searchKeyword=notice_service_title&searchValue="+searchValue+"&categoryValue="+categoryValue;
 
 	});
 	// 카테고리 변경 시 get 요청

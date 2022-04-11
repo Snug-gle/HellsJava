@@ -26,6 +26,9 @@ public interface NoticeServiceMapper {
 	// FAQ 게시글 갯수
 	int selectNoticeServiceFaqCount(int noticeServiceCategory);
 	
+	// 검색과 카테고리 FAQ 게시글 개수
+	int selectNoticeServiceFaqSearchCount(Map<String, Object> map);
+	
 	// 내가 쓴 1:1문의 게시글 갯수
 	int selectNoticeServicePersonalCount(Map<String, Object> map);
 
@@ -37,6 +40,9 @@ public interface NoticeServiceMapper {
 
 	// FAQ 리스트 뽑기
 	List<NoticeService> selectNoticeServiceFaqList(Map<String, Object> map);
+	
+	// 검색, 카테고리 포함 FAQ 리스트 뽑기
+	List<NoticeService> selectNoticeServiceFaqSearchList(Map<String, Object> map);
 	
 	// 글구분 개수를 활용한 리스트 뽑기 (회원용) -> 아마 1:1문의에서만 쓰일 수도, int notice_service_sortation, int member_no 필요
 	List<NoticeService> selectNoticeServicePersonalList(Map<String, Object> map);
