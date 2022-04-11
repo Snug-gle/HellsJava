@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -167,6 +168,16 @@ public class PostingController {
 		return "/content/posting_detail";
 	}
 
+	// 좋아요 증가 핸들러 메서드 get 요청
+	@RequestMapping(value = "/review/good/{ptServiceNo}/{trainerNo}", method = RequestMethod.GET)
+	public String goodUpdate(@PathVariable(value = "ptServiceNo") int ptServiceNo,
+			@PathVariable(value="trainerNo") int trainerNo) {
+			
+		ptServiceService.modifyPtServiceGood(ptServiceNo);
+		
+		return "redirect:/posting/detail/"+trainerNo;
+	}
+	
 	// 답글 추가 메서드 POST 요청
 	@RequestMapping(value = "/review/reply/write", method = RequestMethod.POST)
 	public String reviewReplyAdd(@ModelAttribute PtService ptService, HttpServletRequest request, HttpSession session) {
