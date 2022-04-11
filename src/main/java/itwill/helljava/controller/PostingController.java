@@ -93,6 +93,89 @@ public class PostingController {
 		return "/content/posting_detail_modify";
 	}
 
+	
+	// 트레이너가 마이페이지에서 포스팅 디테일 페이지 GET 요청
+	@RequestMapping(value = "/myposting/detail/{memberNo}", method = RequestMethod.GET)
+	public String trPostingDetail(@PathVariable(value = "memberNo") int memberNo, Model model) {
+
+		Trainer trainer = trainerService.getTrainer(memberNo);
+
+		Map<String, Object> countMap = new HashMap<String, Object>();
+		
+		countMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
+		countMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
+		countMap.put("trainer_no", trainer.getTrainerNo());		
+		
+		int totalReviewCount = ptServiceService.getPtServiceTrainerCount(countMap);
+		
+		Map<String, Object> reviewMap = new HashMap<String, Object>();
+		
+		reviewMap.put("startRow", 1);
+		reviewMap.put("endRow", totalReviewCount);
+		reviewMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
+		reviewMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
+		reviewMap.put("trainer_no", trainer.getTrainerNo());
+		
+		model.addAttribute("trainer", trainer); // 트레이너 객체 보내기
+		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
+		model.addAttribute("ptPricing", ptPricingService.getPtPricingList(trainer.getTrainerNo()));
+		model.addAttribute("schedule", scheduleService.getScheduleList(trainer.getTrainerNo()));
+		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
+		model.addAttribute("reviews", ptServiceService.getPtServiceTrainerList(reviewMap));
+		
+		return "/content/posting_detail";
+	}
+
+	// 트레이너 리스트나 메인에서 트레이너 배너 눌럿을 때 포스팅 디테일 페이지 GET 요청
+	@RequestMapping(value = "/posting/detail/{trainerNo}", method = RequestMethod.GET)
+	public String postingDetail(@PathVariable(value = "trainerNo") int trainerNo, Model model, HttpSession session) {
+
+		// 재요청을 위해 세션에 트레이너 번호 담아두기
+		session.setAttribute("trainerNo", trainerNo);
+
+		// 트레이너 번호로 트레이너 가져오기
+		Trainer trainer = trainerService.getTrainerTrainerNo(trainerNo);
+
+		Map<String, Object> countMap = new HashMap<String, Object>();
+		
+		countMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
+		countMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
+		countMap.put("trainer_no", trainer.getTrainerNo());		
+		
+		int totalReviewCount = ptServiceService.getPtServiceTrainerCount(countMap);
+		
+		Map<String, Object> reviewMap = new HashMap<String, Object>();
+		
+		reviewMap.put("startRow", 1);
+		reviewMap.put("endRow", totalReviewCount);
+		reviewMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
+		reviewMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
+		reviewMap.put("trainer_no", trainer.getTrainerNo());
+		
+		model.addAttribute("trainer", trainer); // 트레이너 객체 보내기
+		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
+		model.addAttribute("ptPricing", ptPricingService.getPtPricingList(trainer.getTrainerNo()));
+		model.addAttribute("schedule", scheduleService.getScheduleList(trainer.getTrainerNo()));
+		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
+		model.addAttribute("reviews", ptServiceService.getPtServiceTrainerList(reviewMap));
+		
+		return "/content/posting_detail";
+	}
+	
+	// 답글 추가 메서드 POST 요청
+	@RequestMapping(value = "/review/reply/write", method = RequestMethod.POST)
+	public String reviewReplyAdd(@ModelAttribute PtService ptService, HttpServletRequest request, HttpSession session) {
+		
+		int trainerMemberNo = ((Member)session.getAttribute("loginUserinfo")).getMemberNo();
+		
+		// pk는 이미 들어가있음
+		request.getParameter("ptServiceReply");
+		ptServiceService.modifyPtService(ptService);
+		
+		return "redirect:/myposting/detail/"+trainerMemberNo;
+	}
+
+
 	// 포스팅 수정 POST 방식 요청 스케줄과 포스팅 수정
 	@RequestMapping(value = "/posting/modify", method = RequestMethod.POST)
 	public String trainerPostingUpdate(@ModelAttribute Posting posting, HttpSession session,
@@ -443,6 +526,7 @@ public class PostingController {
 		// 포스팅 추가하면 포스팅 디테일 페이지로 이동 얘도 수정필요 리다이렉트 요청 ㄱㄱ
 	}
 
+
 	// 트레이너가 마이페이지에서 포스팅 디테일 페이지 GET 요청
 	@RequestMapping(value = "/myposting/detail/{memberNo}", method = RequestMethod.GET)
 	public String trPostingDetail(@PathVariable(value = "memberNo") int memberNo, Model model) {
@@ -476,4 +560,5 @@ public class PostingController {
 
 		return "/content/posting_detail";
 	}
+
 }
