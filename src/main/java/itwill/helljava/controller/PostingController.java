@@ -3,10 +3,12 @@ package itwill.helljava.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +18,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import itwill.helljava.Enum.PtServiceSortationEnum;
+import itwill.helljava.Enum.PtServiceStatusEnum;
 import itwill.helljava.Enum.ScheduleWorkdayEnum;
-import itwill.helljava.dto.Award;
 import itwill.helljava.dto.Member;
 import itwill.helljava.dto.Posting;
 import itwill.helljava.dto.PtPricing;
+import itwill.helljava.dto.PtService;
 import itwill.helljava.dto.Schedule;
 import itwill.helljava.dto.Trainer;
-import itwill.helljava.service.AccountSevice;
 import itwill.helljava.service.AwardService;
 import itwill.helljava.service.PostingService;
 import itwill.helljava.service.PtPricingService;
+import itwill.helljava.service.PtServiceService;
 import itwill.helljava.service.ScheduleService;
 import itwill.helljava.service.TrainerService;
 
@@ -39,7 +42,7 @@ import itwill.helljava.service.TrainerService;
 public class PostingController {
 
 	private static final String NULL_COMMENT = "빈 값 넣어줘";
-	
+
 	@Autowired
 	private WebApplicationContext context;
 
@@ -57,6 +60,9 @@ public class PostingController {
 
 	@Autowired
 	private PtPricingService ptPricingService;
+	
+	@Autowired
+	private PtServiceService ptServiceService;
 
 	// 포스팅 작성 페이지 요청
 	@RequestMapping(value = "/posting/write", method = RequestMethod.GET)
@@ -93,7 +99,6 @@ public class PostingController {
 		return "/content/posting_detail_modify";
 	}
 
-	
 	// 트레이너가 마이페이지에서 포스팅 디테일 페이지 GET 요청
 	@RequestMapping(value = "/myposting/detail/{memberNo}", method = RequestMethod.GET)
 	public String trPostingDetail(@PathVariable(value = "memberNo") int memberNo, Model model) {
@@ -101,28 +106,28 @@ public class PostingController {
 		Trainer trainer = trainerService.getTrainer(memberNo);
 
 		Map<String, Object> countMap = new HashMap<String, Object>();
-		
+
 		countMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
 		countMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
-		countMap.put("trainer_no", trainer.getTrainerNo());		
-		
+		countMap.put("trainer_no", trainer.getTrainerNo());
+
 		int totalReviewCount = ptServiceService.getPtServiceTrainerCount(countMap);
-		
+
 		Map<String, Object> reviewMap = new HashMap<String, Object>();
-		
+
 		reviewMap.put("startRow", 1);
 		reviewMap.put("endRow", totalReviewCount);
 		reviewMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
 		reviewMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
 		reviewMap.put("trainer_no", trainer.getTrainerNo());
-		
+
 		model.addAttribute("trainer", trainer); // 트레이너 객체 보내기
 		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
 		model.addAttribute("ptPricing", ptPricingService.getPtPricingList(trainer.getTrainerNo()));
 		model.addAttribute("schedule", scheduleService.getScheduleList(trainer.getTrainerNo()));
 		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
 		model.addAttribute("reviews", ptServiceService.getPtServiceTrainerList(reviewMap));
-		
+
 		return "/content/posting_detail";
 	}
 
@@ -137,44 +142,43 @@ public class PostingController {
 		Trainer trainer = trainerService.getTrainerTrainerNo(trainerNo);
 
 		Map<String, Object> countMap = new HashMap<String, Object>();
-		
+
 		countMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
 		countMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
-		countMap.put("trainer_no", trainer.getTrainerNo());		
-		
+		countMap.put("trainer_no", trainer.getTrainerNo());
+
 		int totalReviewCount = ptServiceService.getPtServiceTrainerCount(countMap);
-		
+
 		Map<String, Object> reviewMap = new HashMap<String, Object>();
-		
+
 		reviewMap.put("startRow", 1);
 		reviewMap.put("endRow", totalReviewCount);
 		reviewMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
 		reviewMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
 		reviewMap.put("trainer_no", trainer.getTrainerNo());
-		
+
 		model.addAttribute("trainer", trainer); // 트레이너 객체 보내기
 		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
 		model.addAttribute("ptPricing", ptPricingService.getPtPricingList(trainer.getTrainerNo()));
 		model.addAttribute("schedule", scheduleService.getScheduleList(trainer.getTrainerNo()));
 		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
 		model.addAttribute("reviews", ptServiceService.getPtServiceTrainerList(reviewMap));
-		
+
 		return "/content/posting_detail";
 	}
-	
+
 	// 답글 추가 메서드 POST 요청
 	@RequestMapping(value = "/review/reply/write", method = RequestMethod.POST)
 	public String reviewReplyAdd(@ModelAttribute PtService ptService, HttpServletRequest request, HttpSession session) {
-		
-		int trainerMemberNo = ((Member)session.getAttribute("loginUserinfo")).getMemberNo();
-		
+
+		int trainerMemberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
+
 		// pk는 이미 들어가있음
 		request.getParameter("ptServiceReply");
 		ptServiceService.modifyPtService(ptService);
-		
-		return "redirect:/myposting/detail/"+trainerMemberNo;
-	}
 
+		return "redirect:/myposting/detail/" + trainerMemberNo;
+	}
 
 	// 포스팅 수정 POST 방식 요청 스케줄과 포스팅 수정
 	@RequestMapping(value = "/posting/modify", method = RequestMethod.POST)
@@ -214,13 +218,13 @@ public class PostingController {
 		hiddenListNames.add(request.getParameter("currentImage2"));
 		hiddenListNames.add(request.getParameter("currentImage3"));
 		hiddenListNames.add(request.getParameter("currentImage4"));
-		
+
 		for (int i = 0; i <= 3; i++) {
 
 			if (!item.get(i).isEmpty()) { // 받아온 file이 있다?
 
 				if (dbName.get(i) != null) {// DB에도 같은 file이 있어
-					
+
 					// (파일 [추가된]변경의 의미 -> 받아온 파일 이름과 dB에 저장된 파일 이름을 비교해서 없다?
 					if ((item.get(i).getOriginalFilename().equals(dbName.get(i))) == false) {
 
@@ -252,15 +256,15 @@ public class PostingController {
 						while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
 							j++;
 							int index = item.get(i).getOriginalFilename().lastIndexOf(".");
-							
+
 							uploadFilename = item.get(i).getOriginalFilename().substring(0, index) + "_" + j
 									+ item.get(i).getOriginalFilename().substring(index);
 							file = new File(uploadDirectory, uploadFilename);
 						}
 						item.get(i).transferTo(file); // 받아온 파일 서버에 업로드
 					}
-				} else if(dbName.get(i) == null) { // DB에 파일이 없을 경우 -> 파일 추가
-					
+				} else if (dbName.get(i) == null) { // DB에 파일이 없을 경우 -> 파일 추가
+
 					if (i == 0) {
 						posting.setPostingSelfIntroductionImg1(item.get(i).getOriginalFilename());
 					}
@@ -291,39 +295,41 @@ public class PostingController {
 					}
 					item.get(i).transferTo(file); // 받아온 파일 서버에 업로드
 				}
-				
+
 			} else if (item.get(i).isEmpty()) { // 받아온 파일이 없을 경우
-				
+
 				if (hiddenListNames.get(i) == null || hiddenListNames.get(i).equals("")) { // 파일을 진짜 삭제하고자 하는 경우
-					
-					//DB에는 파일이 있다 (삭제하는 경우 : DB & Server directory)
+
+					// DB에는 파일이 있다 (삭제하는 경우 : DB & Server directory)
 					// 서버 파일 삭제 및 DB 삭제
-					
+
 					if (i == 0) {
 						posting.setPostingSelfIntroductionImg1(NULL_COMMENT);
 					}
 					if (i == 1) {
 						posting.setPostingSelfIntroductionImg2(NULL_COMMENT);
-						System.out.println("posting.getPostingSelfIntroductionImg2() = "+posting.getPostingSelfIntroductionImg2());
+						System.out.println("posting.getPostingSelfIntroductionImg2() = "
+								+ posting.getPostingSelfIntroductionImg2());
 					}
 					if (i == 2) {
 						posting.setPostingSelfIntroductionImg3(NULL_COMMENT);
-						System.out.println("posting.getPostingSelfIntroductionImg3() = "+posting.getPostingSelfIntroductionImg3());
+						System.out.println("posting.getPostingSelfIntroductionImg3() = "
+								+ posting.getPostingSelfIntroductionImg3());
 
 					}
 					if (i == 3) {
 						posting.setPostingSelfIntroductionImg4(NULL_COMMENT);
-						System.out.println("posting.getPostingSelfIntroductionImg4() = "+posting.getPostingSelfIntroductionImg4());
+						System.out.println("posting.getPostingSelfIntroductionImg4() = "
+								+ posting.getPostingSelfIntroductionImg4());
 
 					}
-					
-					
+
 					// 기존 업로드 된 파일 삭제
-					if(dbName.get(i) != null)
+					if (dbName.get(i) != null)
 						new File(uploadDirectory, dbName.get(i)).delete();
-					
+
 				}
-				
+
 			}
 		}
 
@@ -524,41 +530,6 @@ public class PostingController {
 		return "/user/trainer/trainer_mypage";
 		// 일단 트레이너 마이페이지로 가지만 포스팅 디테일 완성하면 경로 바꾸고 주석 지우기
 		// 포스팅 추가하면 포스팅 디테일 페이지로 이동 얘도 수정필요 리다이렉트 요청 ㄱㄱ
-	}
-
-
-	// 트레이너가 마이페이지에서 포스팅 디테일 페이지 GET 요청
-	@RequestMapping(value = "/myposting/detail/{memberNo}", method = RequestMethod.GET)
-	public String trPostingDetail(@PathVariable(value = "memberNo") int memberNo, Model model) {
-
-		Trainer trainer = trainerService.getTrainer(memberNo);
-
-		model.addAttribute("trainer", trainer); // 트레이너 객체 보내기
-		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
-		model.addAttribute("ptPricing", ptPricingService.getPtPricingList(trainer.getTrainerNo()));
-		model.addAttribute("schedule", scheduleService.getScheduleList(trainer.getTrainerNo()));
-		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
-
-		return "/content/posting_detail";
-	}
-
-	// 트레이너 리스트나 메인에서 트레이너 배너 눌럿을 때 포스팅 디테일 페이지 GET 요청
-	@RequestMapping(value = "/posting/detail/{trainerNo}", method = RequestMethod.GET)
-	public String postingDetail(@PathVariable(value = "trainerNo") int trainerNo, Model model, HttpSession session) {
-
-		// 재요청을 위해 세션에 트레이너 번호 담아두기
-		session.setAttribute("trainerNo", trainerNo);
-
-		// 트레이너 번호로 트레이너 가져오기
-		Trainer trainer = trainerService.getTrainerTrainerNo(trainerNo);
-
-		model.addAttribute("trainer", trainer); // 트레이너 객체 보내기
-		model.addAttribute("award", awardService.getAwardList(trainer.getTrainerNo()));
-		model.addAttribute("ptPricing", ptPricingService.getPtPricingList(trainer.getTrainerNo()));
-		model.addAttribute("schedule", scheduleService.getScheduleList(trainer.getTrainerNo()));
-		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
-
-		return "/content/posting_detail";
 	}
 
 }
