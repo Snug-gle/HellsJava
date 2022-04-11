@@ -358,7 +358,7 @@
 	margin: 20px 3px 0px 3px;	
 }
 
-#ptServiceReply {
+#ptServiceReplyText {
 	resize: none;
 }
 
@@ -521,7 +521,7 @@ html, body {
 }
 
 #content {
-	min-height: 61%;
+	min-height: 63%;
 	    vertical-align: middle;
 	
 }
