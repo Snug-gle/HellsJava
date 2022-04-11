@@ -71,50 +71,60 @@ public class ReviewController {
 		return "/board/review_list";
 	}
 
-	// //내가 쓴 리뷰 보기 목록 리스트 =>삭제
-	@RequestMapping(value = "list/reviewUpdate", method = RequestMethod.GET)
-	public String memberStatusModify(HttpServletRequest req) {
+	// 내가 쓴 리뷰 보기 목록 리스트 =>삭제
+	@RequestMapping(value = "/reviewDelete", method = RequestMethod.GET)
+	public String memberStatusModify(HttpServletRequest req, @RequestParam int ptServiceNo) {
 
-		int pt_service_no = Integer.parseInt(req.getParameter("ptServiceNo"));
-		int pt_service_status = Integer.parseInt(req.getParameter("ptServiceStatus"));
+		PtService ptdelete = ptServiceService.getPtService(ptServiceNo);
 
-		PtService ptdelete = ptServiceService.getPtService(pt_service_no);
-
-		ptdelete.setPtServiceNo(pt_service_no);
-		ptdelete.setPtServiceStatus(pt_service_status);
+		ptdelete.setPtServiceNo(ptServiceNo);
+		ptdelete.setPtServiceStatus(PtServiceStatusEnum.삭제리뷰.getValue());
 
 		ptServiceService.modifyPtService(ptdelete);
 
 		return "redirect:/review/list";
 	}
 
-	// 회원 1회 pt 신청 리스트에서 리뷰 작성 버튼을 눌렀을 때
-	// 및 수정 페이지 요청 처리 메소드
+	// 회원 1회 pt 신청 리스트에서 리뷰 작성 버튼을 눌렀을 때 요청 처리 메소드
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String reviewWrite(HttpServletRequest req, HttpSession session, Model model,
-			@RequestParam(defaultValue = "1") int trainerNo) {
+			@RequestParam int trainerNo) {
 		
+		// 작성 회원 번호
+		int writeMemberNo = ((Member)session.getAttribute("loginUserinfo")).getMemberNo();
 		
-		// 이미 작성된 리뷰가 있을 때
-		if (req.getParameter("ptServiceNo") != null) {
-
-			int ptServiceNo = Integer.parseInt(req.getParameter("ptServiceNo"));
-			PtService ptdelete = ptServiceService.getPtService(ptServiceNo);// 글 넘버로 글 정보 받아오기
-			Trainer trainer = trainerService.getTrainerTrainerNo(ptdelete.getTrainerNo()); // 글정보에 있는 트레이너 번호로 이름 가져오기
-
-			model.addAttribute("review", ptdelete);
-			model.addAttribute("trainer", trainer);
-		}
-
+		Map<String, Object> reviewMap = new HashMap<String, Object>();
+		
+		reviewMap.put("memberNo", writeMemberNo);
+		reviewMap.put("trainerNo", trainerNo);
+		
 		// 작성된 리뷰가 없을 때
-		else {
+		if(ptServiceService.getPtServiceReview(reviewMap)==null){
 			model.addAttribute("trainer", trainerService.getTrainerTrainerNo(trainerNo));
+			return "/board/review_write";
 		}
+		
+		// 있으면
+		return "redirect:/review/list";
+	}
+
+	// 리뷰 수정 버튼을 눌렀을 때 페이지 GET 요청
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String reviewUpdate(HttpServletRequest req, Model model, @RequestParam int ptServiceNo,@RequestParam int trainerNo) {
+		
+		
+
+		PtService review = ptServiceService.getPtService(ptServiceNo);// 글 넘버로 글 정보 받아오기
+		Trainer trainer = trainerService.getTrainerTrainerNo(trainerNo); // 글정보에 있는 트레이너 번호로 이름 가져오기
+
+		model.addAttribute("review", review);
+		model.addAttribute("trainer", trainer);
+
 
 		return "/board/review_write";
 	}
-
-	// 리뷰 작성 후 저장 요청 처리 메소드
+	
+	// 리뷰 작성 후 저장 요청 처리 메소드 POST 요청
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String reviewWrite(@ModelAttribute PtService ptService, HttpSession session, Model model
 			,HttpServletRequest request) {
@@ -132,11 +142,11 @@ public class ReviewController {
 		return "redirect:/review/list";
 	}
 
-	// 리뷰 수정 후 저장 요청 처리 메소드
-	@RequestMapping("/modify")
-	public String reviewModify(@ModelAttribute PtService ptService) {
+	// 리뷰 수정 후 저장 요청 처리 메소드 POST 요청
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String reviewModify(@ModelAttribute PtService ptService, @RequestParam int trainerNo) {
 
-		ptService.setPtServiceStatus(9);// 쿼리 if문 회피용 값 수동 부여
+		ptService.setPtServiceStatus(PtServiceStatusEnum.일반리뷰.getValue());// 쿼리 if문 회피용 값 수동 부여
 		ptServiceService.modifyPtService(ptService);
 
 		return "redirect:/review/list";

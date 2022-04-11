@@ -49,6 +49,11 @@ public class PtServiceServiceImpl implements PtServiceService {
 	}
 
 	@Override
+	public PtService getPtServiceReview(Map<String, Object> map) {
+		return ptServiceDAO.selectPtServiceReview(map);
+	}
+	
+	@Override
 	public List<PtService> getPtServiceList(Map<String, Object> map) {
 		return ptServiceDAO.selectPtServiceList(map);
 	}

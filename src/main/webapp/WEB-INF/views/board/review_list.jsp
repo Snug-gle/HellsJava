@@ -36,6 +36,7 @@
 										</div>
 										<div class="reviewRight">
 											<h3 class="tr-name${reviewList.ptServiceNo}"><strong>${reviewList.memberName }&nbsp;트레이너</strong></h3>
+											<input type="hidden" class="tr-trainerNo${reviewList.ptServiceNo }" value="${reviewList.trainerNo }">
 										</div>
 									</div>
 									<div class="form-group">
@@ -99,20 +100,28 @@
 	
 <script type="text/javascript">
 	
+	// 작성한 리뷰가 있을 때
+	//alert(${reviewExistsMsg});
+
+	
 	//삭제
 	$(".reviewDebtn").click(function() {
-		var id = $(this).parent().parent().prev().children().val(); // #ptServiceNo
-		$(".reviewUpdateForm"+id).attr("action","<c:url value='/review/list/reviewUpdate'/>");
-		$("#ptServiceStatus"+id).val('0');
-		$(".reviewUpdateForm"+id).submit();
+		var ptServiceNo =  $(this).parent().parent().parent().prev().children(
+		'input:eq(0)').val(); // #ptServiceNo
+
+		
+		location.href = "${pageContext.request.contextPath}/review/reviewDelete?ptServiceNo="+ptServiceNo;
 	})
 	
 	//수정
 	$(".reviewMobtn").click(function() {
-		var id = $(this).parent().parent().prev().children().val();
-		var name = $(".tr-name"+id).text();//트레이너 이름
-		$(".reviewUpdateForm"+id).attr("action","<c:url value='/review/write'/>");
-		$(".reviewUpdateForm"+id).submit();
+
+		var ptServiceNo = $(this).parent().parent().parent().prev().children(
+		'input:eq(0)').val(); // ptServiceNo
+		var trainerNo = $(".tr-trainerNo"+ptServiceNo).val(); // 트레이너 번호
+
+		// 그냥 url get 요청으로 트레이너 번호랑 ptservieno 보내면 댐
+		location.href = "${pageContext.request.contextPath}/review/update?ptServiceNo="+ptServiceNo+"&trainerNo="+trainerNo;
 	})
 			
 </script>

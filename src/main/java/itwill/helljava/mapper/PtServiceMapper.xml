@@ -31,7 +31,7 @@
 			<if test="ptServiceReply !=null and ptServiceReply != ''">
 				pt_service_reply = #{ptServiceReply},
 			</if>
-			<if test="ptServiceStars != null and ptServiceStars != ''">
+			<if test="ptServiceStars &gt;=0 and ptServiceStars &lt;=6 ">
 				pt_service_stars = #{ptServiceStars},
 			</if>
 			<if test="ptServiceStatus &gt;=0  and ptServiceStatus &lt;=3 ">
@@ -69,6 +69,10 @@
 	
 	<select id="selectPtService" resultType="PtService">
 		select * from pt_service where pt_service_no=#{pt_service_no}
+	</select>
+	
+	<select id="selectPtServiceReview" parameterType="map" resultType="PtService">
+		select * from pt_service where pt_service_sortation = 1 and member_no = #{memberNo} and trainer_no =#{trainerNo}
 	</select>
 	
 		<!-- 내 리뷰 & 내 pt 문의 페이지 (회원입장) ptService,trainer,member Joinㅡ -->
