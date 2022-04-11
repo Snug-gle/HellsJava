@@ -53,8 +53,20 @@
 														<c:if test="${fn:contains(existsReview, ptOnceTrainerNo) }"></c:if>	
 													</c:if>
 													<td style="width: 76px;">
-														<button data-toggle="collapse" data-parent="#accordion" class="collapsed btn btn-primary ptOnceBtn" aria-expanded="false"
-														type="button" onclick="location.href='${pageContext.request.contextPath}/review/write?trainerNo=${ptOnce.trainerNo }';" >리뷰 작성</button>
+														<c:choose>
+															<c:when test="${ptOnce.ptOnceStatus eq '2' }">
+																<button data-toggle="collapse" data-parent="#accordion" class="collapsed btn btn-primary ptOnceBtn" aria-expanded="false"
+																type="button" onclick="location.href='${pageContext.request.contextPath}/review/write?trainerNo=${ptOnce.trainerNo }';" >리뷰 작성</button>
+															</c:when>
+															<c:when test ="${ptOnce.ptOnceStatus eq '1' }">
+																<button data-toggle="collapse" data-parent="#accordion" class="collapsed btn btn-default ptOnceBtn" aria-expanded="false"
+																type="button">진행 중</button>
+															</c:when>
+															<c:otherwise>
+																<button data-toggle="collapse" data-parent="#accordion" class="collapsed btn btn-default ptOnceBtn" aria-expanded="false"
+																type="button">확인 중</button>
+															</c:otherwise>
+														</c:choose>	
 													</td>
 		                                        </tr>
 		                                    </tbody>

@@ -85,7 +85,7 @@
 
 <script type="text/javascript">
 	
-	alert($("#trainerNo").val());
+	//alert($("#trainerNo").val());
 	
 	$(function() { //리뷰수정=> 페이지 로딩 즉시 star값에 맞게 별이 채워져야해서 만듬
 		var val = ($("#pa").val() * 10 * 2);

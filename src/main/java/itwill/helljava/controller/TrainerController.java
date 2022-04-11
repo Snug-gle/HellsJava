@@ -103,6 +103,20 @@ public class TrainerController {
 			@ModelAttribute Account account, MultipartHttpServletRequest request, HttpSession session)
 			throws AccountPwAuthException, IllegalStateException, IOException, AmountOfPaymentException {
 
+		// 계좌 정보를 가져와서 비밀번호를 비교하고 결제 완료할 것임
+		// account에 들어있는 값 : 받아온 비밀번호와 회원 번호
+		account.setMemberNo(trainer.getMemberNo());
+		accountSevice.accountPwAuth(account);
+
+		// 결제 데이터 추가
+		Pay pay = new Pay();
+		pay.setMemberNo(account.getMemberNo());
+		pay.setPayPrice(15000);
+		pay.setPayType(PayTypeEnum.트레이너신청.getValue());
+
+		payService.payAuth(pay); // 결제 금액 > 캐시 잔액 예외 발생
+		payService.addPay(pay);
+
 		// 파일 없을 경우 다시 요청 페이지로 가라
 		if (request.getFileNames() == null) {
 			return "redirect:/trainer/request";
@@ -208,24 +222,10 @@ public class TrainerController {
 		map.put("cashType", PayTypeEnum.트레이너신청.getValue());
 		memberService.modifyMemberCash(map);
 
-		// 이제 계좌 정보를 가져와서 비밀번호를 비교하고 결제 완료할 것임
-		// account에 들어있는 값 : 받아온 비밀번호와 회원 번호
-		account.setMemberNo(trainer.getMemberNo());
-		accountSevice.accountPwAuth(account);
-
-		// 결제 데이터 추가
-		Pay pay = new Pay();
-		pay.setMemberNo(account.getMemberNo());
-		pay.setPayPrice(15000);
-		pay.setPayType(PayTypeEnum.트레이너신청.getValue());
-		
-		payService.payAuth(pay); // 결제 금액 > 캐시 잔액 예외 발생
-		payService.addPay(pay);
-		
-		if (((Member) session.getAttribute("loginUserinfo")).getMemberStatus()==2) {
+		if (((Member) session.getAttribute("loginUserinfo")).getMemberStatus() == 2) {
 			return "redirect:/mypage"; // 마이페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
 		}
-		return "redirect:/trainer/mypage";
+		return "redirect:/mypage";
 	}
 
 	// 트레이너 신청 정보 수정 post 요청
@@ -263,7 +263,7 @@ public class TrainerController {
 			// service 변경 메서드에 태워보낼 trainer 객체의 img 속성으로 받아온 파일의 이름을 추가
 			trainer.setTrainerProfileImg(modifyProfileImage.getOriginalFilename());
 			trainer.setTrainerNo(dbTrainer.getTrainerNo());
-			
+
 			// 서버에 업로드할 파일 이름을 받아온 파일 이름과 통일
 			String uploadFileName = modifyProfileImage.getOriginalFilename();
 
@@ -283,7 +283,7 @@ public class TrainerController {
 			// 트레이너 번호, 센터 주소, 센터이름, 우편번호, 다 들어가있음 (Command 객체)
 			trainerService.modifyTrainer(trainer);
 		}
-		
+
 		else {
 			trainer.setTrainerNo(dbTrainer.getTrainerNo());
 			trainerService.modifyTrainer(trainer);
@@ -293,8 +293,6 @@ public class TrainerController {
 
 		// 수상 경력 이미지가 저장될 서버 디렉토리
 		String uploadAwardImagesDirectory = context.getServletContext().getRealPath("/resources/assets/awardImages");
-
-
 
 		// 기존 DB 데이터들
 		String[] hiddenAwardImages = request.getParameterValues("hiddenAwardImages"); // hidden 수상 경력 이미지 이름들
@@ -308,105 +306,104 @@ public class TrainerController {
 		// 수상 경력 사진 설명들
 		String[] modifyAwardContents = request.getParameterValues("aContent");
 
-
 		// 기존 hidden갯수 = DB 레코드 수
 		// => hidden의 갯수가 변하는 경우 : 기존 파일을 삭제하는 경우 => (-) 버튼을 눌렀을 때
 		// 개수가 같을 땐 변함 없다 => 변함 없음
 
 		// 받아온 파일이 없다 : 유지 or 삭제
-		
-		List<String> awardImgList= new ArrayList<String>();
 
-        for(int a =0; a<currentAwardNumbers.length; a++) {
-            awardImgList.add(awardService.getAward(Integer.parseInt(currentAwardNumbers[a])).getAwardImage());
-        }
+		List<String> awardImgList = new ArrayList<String>();
 
-	        // hidden 갯수 랑 DB갯수가 안맞을때(그냥 삭제했을때)
-			// hidden 갯수 < DB 레코드 갯수
+		for (int a = 0; a < currentAwardNumbers.length; a++) {
+			awardImgList.add(awardService.getAward(Integer.parseInt(currentAwardNumbers[a])).getAwardImage());
+		}
+
+		// hidden 갯수 랑 DB갯수가 안맞을때(그냥 삭제했을때)
+		// hidden 갯수 < DB 레코드 갯수
 		if (hiddenAwardNumbers.length < currentAwardNumbers.length) {
 
 			// 1. 기존 파일 삭제 -> 해당 DB 삭제
 			for (int i = 0; i < awardImgList.size(); i++) {
-				
+
 				// hidden에는 없지만 DB 배열엔 있는 경우 db 레코드를 삭제 -> 해당 인덱스는 곧 awardNo PK
 				if (Arrays.asList(hiddenAwardImages).contains(awardImgList.get(i)) == false) {
-						
-					new File(uploadAwardImagesDirectory, awardService
-							.getAward(Integer.parseInt(currentAwardNumbers[i])).getAwardImage()).delete(); // 파일 삭제
-																							
+
+					new File(uploadAwardImagesDirectory,
+							awardService.getAward(Integer.parseInt(currentAwardNumbers[i])).getAwardImage()).delete(); // 파일
+																														// 삭제
+
 					awardService.removeAward(Integer.parseInt(currentAwardNumbers[i])); // 해당 DB 레코드 삭제
 				}
 			}
-		}else {//히든의 크기는 같은데 (변경된 파일 삭제)
-			
-			for(int hid=0; hid < currentAwardNumbers.length; hid++ ) {
-				if(hiddenAwardImages[hid].equals(awardImgList.get(hid))==false) { //히든의 값이 DB값이랑 일치하지 않으면
-					//기존 DB값과 기존 파일서버에서 삭제
-					new File(uploadAwardImagesDirectory, awardService
-							.getAward(Integer.parseInt(currentAwardNumbers[hid])).getAwardImage()).delete(); // 파일삭제
-					
+		} else {// 히든의 크기는 같은데 (변경된 파일 삭제)
+
+			for (int hid = 0; hid < currentAwardNumbers.length; hid++) {
+				if (hiddenAwardImages[hid].equals(awardImgList.get(hid)) == false) { // 히든의 값이 DB값이랑 일치하지 않으면
+					// 기존 DB값과 기존 파일서버에서 삭제
+					new File(uploadAwardImagesDirectory,
+							awardService.getAward(Integer.parseInt(currentAwardNumbers[hid])).getAwardImage()).delete(); // 파일삭제
+
 					awardService.removeAward(Integer.parseInt(currentAwardNumbers[hid])); // 해당 DB 레코드 삭제
-					
+
 				}
 			}
 		}
-		
+
 		// DB최신화
-    	List<Award> awardList3= awardService.getAwardList(trainer.getTrainerNo());
-    	String[] imgArray = new String[awardList3.size()];
-    	int i =0;
-    	for(Award award : awardList3) {
-    		imgArray[i]= award.getAwardImage();	
-    		i++;
-    	}
-    	
-		
-		for (int c=0; c<modifyAwardImages.size();c++) {
+		List<Award> awardList3 = awardService.getAwardList(trainer.getTrainerNo());
+		String[] imgArray = new String[awardList3.size()];
+		int i = 0;
+		for (Award award : awardList3) {
+			imgArray[i] = award.getAwardImage();
+			i++;
+		}
+
+		for (int c = 0; c < modifyAwardImages.size(); c++) {
 
 			// 받아온 파일이 있다 : 추가
-	        if (!modifyAwardImages.get(c).isEmpty()) {
-        	
-	            //DB값에 받은 파일 명이 있는지 확인.
-	            if(!Arrays.asList(imgArray).contains(modifyAwardImages.get(c).getOriginalFilename())) {//없으면
-	            	
-	            	//이제 추가만 하면됨.
-	            	Award award = new Award();
+			if (!modifyAwardImages.get(c).isEmpty()) {
 
-	            	award.setTrainerNo(dbTrainer.getTrainerNo());
-	            	award.setAwardImage(modifyAwardImages.get(c).getOriginalFilename());
-	            	award.setAwardContent(modifyAwardContents[c]);
-	            	
-	            	File file = new File(uploadAwardImagesDirectory, modifyAwardImages.get(c).getOriginalFilename());
+				// DB값에 받은 파일 명이 있는지 확인.
+				if (!Arrays.asList(imgArray).contains(modifyAwardImages.get(c).getOriginalFilename())) {// 없으면
 
-	            	String uploadFileName = modifyAwardImages.get(c).getOriginalFilename();
-	            	
-	            	// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
+					// 이제 추가만 하면됨.
+					Award award = new Award();
+
+					award.setTrainerNo(dbTrainer.getTrainerNo());
+					award.setAwardImage(modifyAwardImages.get(c).getOriginalFilename());
+					award.setAwardContent(modifyAwardContents[c]);
+
+					File file = new File(uploadAwardImagesDirectory, modifyAwardImages.get(c).getOriginalFilename());
+
+					String uploadFileName = modifyAwardImages.get(c).getOriginalFilename();
+
+					// 서버 디렉토리에 전달파일과 같은 이름의 파일이 존재할 경우 서버 디렉토리에 저장될 파일명 변경
 					int j = 0;
 					while (file.exists()) {// 서버 디렉토리에 같은 이름의 파일이 있는 경우 반복 처리
 						j++;
 						int index = modifyAwardImages.get(c).getOriginalFilename().lastIndexOf(".");
-						
+
 						uploadFileName = modifyAwardImages.get(c).getOriginalFilename().substring(0, index) + "_" + j
 								+ modifyAwardImages.get(c).getOriginalFilename().substring(index);
 						file = new File(uploadAwardImagesDirectory, uploadFileName);
 					}
-	            	
+
 					modifyAwardImages.get(c).transferTo(file);
-					
+
 					awardService.addAward(award);
-	            }
-	        }
+				}
+			}
 		}
-		
-		if (((Member) session.getAttribute("loginUserinfo")).getMemberStatus()==2) {
+
+		if (((Member) session.getAttribute("loginUserinfo")).getMemberStatus() == 2) {
 			return "redirect:/mypage"; // 마이페이지로 이동 (트레이너 관리 상세를 연동시키면 됨)
 		}
 		return "redirect:/trainer/mypage"; // 트레이너 마이페이지로 이동
-		
+
 	}
 
 //----------------------------예외 처리----------------------------	
-	
+
 	@ExceptionHandler(value = AccountPwAuthException.class)
 	public String exceptionHandler(AccountPwAuthException exception, Model model) {
 
@@ -415,13 +412,12 @@ public class TrainerController {
 
 		return "/user/trainer/trainer_request";
 	}
-	
-	
+
 	@ExceptionHandler(value = AmountOfPaymentException.class)
 	public String exception(AmountOfPaymentException exception, Model model) {
-		
+
 		// 캐시 잔액 모자라면 에러메시지 넘기기
-		model.addAttribute("cashMessage",exception.getMessage());
+		model.addAttribute("cashMessage", exception.getMessage());
 		return "/user/trainer/trainer_request";
 	}
 
