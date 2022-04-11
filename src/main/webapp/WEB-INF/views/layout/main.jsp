@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 	<div class="main-banner-image">
 		<div id="imgcontainer">
@@ -48,8 +49,8 @@
                  </header>
              </div>
 		</div>		
-		<c:forEach var="i" begin="1" step="1" end="3">
-			<div class="panel panel-primary" id="trainer-content" style="float: left; <c:if test='${i == 2 }'>margin: 0px 5%;</c:if>" onclick="location='<c:url value="/content/posting_detail"/>'">${trinerInfo.memberNo }
+		<c:forEach var="trinerInfo" items="${trinerInfo}" varStatus="status">
+			<div class="panel panel-primary" id="trainer-content" style="float: left; <c:if test='${status.index == 1 }'>margin: 0px 5%;</c:if>" onclick="location='<c:url value="/posting/detail/${trinerInfo.trainerNo }"/>'">
 				<div class="panel-heading">
 					<h3 class="panel-title" style="text-align: center;">     
 						${trinerInfo.memberName }<%--트레이너 이름 --%>
@@ -62,7 +63,7 @@
 						</div>
 						<!-- <span class="text-muted">소속센터명</span> -->
 						<div class="form-group">
-							<p>${postingInfo.memberName.postingSelfIntroduction }</p>
+							<p>${trinerInfo.postingSelfIntroduction }</p>
 						</div>
 					 </form>
 				</div>
@@ -82,72 +83,51 @@
                  </header>
              </div>
 		</div>
-		<div class="panel panel-primary" id="trainer-review-content" style="float: left;">
-			<div class="panel-heading">
-				<h3 class="panel-title" style="text-align: center;">     
-					${ptserviceInfo.memberName }
-				</h3>
+		<c:forEach var="reviewInfo" items="${reviewInfo}" varStatus="status">
+			<div class="panel panel-primary" id="trainer-review-content" style="float: left; <c:if test='${status.index == 1 }'>margin: 0px 5%;</c:if>" >
+				<div class="panel-heading">
+					<h3 class="panel-title" style="text-align: center;">     
+						${memberName[status.index].memberName } 회원님
+					</h3>
+				</div>
+				<div class="panel-body" style="text-align: center;">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<p>${reviewInfo.ptServiceContent }</p>
+						</div>
+						<p class="review-trainer-name" onclick="location='<c:url value="/posting/detail/${reviewInfo.trainerNo }"/>'">${trinerName[status.index].memberName }</p>
+						<div class="main-review-panel-score">
+							<i type="button" class="fa fa-heart"></i>
+							<label>${reviewInfo.ptServiceGood }</label>
+							
+							<div style="float: left; ">
+								<fmt:parseNumber var="star" value="${reviewInfo.ptServiceStars }" integerOnly="true" />
+								<c:set var="starhalf" value="${(reviewInfo.ptServiceStars /0.5)%2 }" />
+
+								<c:forEach begin="1" step="1" end="${star}">
+									<i class="fa fa-star"></i>
+								</c:forEach>
+								<c:if test="${starhalf == 1}">
+									<i class="fa fa-star-half-o"></i>
+
+									<c:forEach begin="1" step="1" end="${(5-starhalf)-star}">
+										<i class="fa fa-star-o"></i>
+									</c:forEach>
+								</c:if>
+								<c:if test="${starhalf != 1}">
+									<c:forEach begin="1" step="1" end="${5-star}">
+										<i class="fa fa-star-o"></i>
+									</c:forEach>
+								</c:if>
+							</div>
+			
+							
+						</div>
+					 </form>
+				</div>
 			</div>
-			<div class="panel-body" style="text-align: center;">
-				<form class="form-horizontal" role="form">
-					<div class="form-group">
-						<p>좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요</p>
-					</div>
-					<span class="review-trainer-name" onclick="location='<c:url value="/content/posting_detail"/>'">ㅇㅇㅇ 트레이너</span>
-					<div class="main-review-panel-score">
-						<i type="button" class="fa fa-heart"></i>
-						<label>566</label>
-						<i class="fa fa-star"></i>
-						<i type="button" class="fa fa-star-half-o"></i>
-						<i type="button" class="fa fa-star-o"></i>
-					</div>
-				 </form>
-			</div>
-		</div>
-		<div class="panel panel-primary" id="trainer-review-content" style="float: left; margin: 0px 5%;">
-			<div class="panel-heading">
-				<h3 class="panel-title" style="text-align: center;">     
-					ㅇㅇㅇ 회원님
-				</h3>
-			</div>
-			<div class="panel-body" style="text-align: center;" >
-				<form class="form-horizontal" role="form">
-					<div class="form-group">
-						<p>좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요</p>
-					</div>
-					<span class="review-trainer-name" onclick="location='<c:url value="/content/posting_detail"/>'">ㅇㅇㅇ 트레이너</span>
-					<div class="main-review-panel-score">
-						<i type="button" class="fa fa-heart"></i>
-						<label>566</label>
-						<i class="fa fa-star"></i>
-						<i type="button" class="fa fa-star-half-o"></i>
-						<i type="button" class="fa fa-star-o"></i>
-					</div>
-				 </form>
-			</div>
-		</div>
-		<div class="panel panel-primary" id="trainer-review-content" style="float: left;">
-			<div class="panel-heading">
-				<h3 class="panel-title" style="text-align: center;">     
-					ㅇㅇㅇ 회원님
-				</h3>
-			</div>
-			<div class="panel-body" style="text-align: center;">
-				<form class="form-horizontal" role="form">
-					<div class="form-group">
-						<p>좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요좋아요</p>
-					</div>
-					<span class="review-trainer-name" onclick="location='<c:url value="/content/posting_detail"/>'">ㅇㅇㅇ 트레이너</span>
-					<div class="main-review-panel-score">
-						<i type="button" class="fa fa-heart"></i>
-						<label>566</label>
-						<i class="fa fa-star"></i>
-						<i type="button" class="fa fa-star-half-o"></i>
-						<i type="button" class="fa fa-star-o"></i>
-					</div>
-				 </form>
-			</div>
-		</div>
+		</c:forEach>
+		
 	</div>
 </section>
 

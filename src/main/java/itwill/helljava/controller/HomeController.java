@@ -1,5 +1,8 @@
 package itwill.helljava.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import itwill.helljava.Enum.AccountEnum;
 import itwill.helljava.dto.Member;
+import itwill.helljava.dto.PtService;
+import itwill.helljava.dto.Trainer;
 import itwill.helljava.service.AccountSevice;
+import itwill.helljava.service.MemberService;
+import itwill.helljava.service.PtServiceService;
 import itwill.helljava.service.TrainerService;
 
 //Tiles : 템플릿 페이지를 이용한 사이트 구현 기능을 제공하는 프로그램
@@ -27,7 +34,11 @@ public class HomeController {
 	@Autowired
 	private TrainerService trainerService;
 	
+	@Autowired
+	private PtServiceService  ptServiceService;
 	
+	@Autowired
+	private MemberService  memberService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String tiles(HttpSession session, Model model) {
@@ -47,7 +58,22 @@ public class HomeController {
 			}
 		}
 		
-		//으앙 왜 그 뭐시냐 그 트레이너 리스트 없는겨
+		
+		List<Trainer> triner = trainerService.getMonthTrainer();
+		List<PtService> review = ptServiceService.getReviewGoodList();
+		List<Member> memberName = new ArrayList<Member>();
+		List<Trainer> trinerName = new ArrayList<Trainer>();
+		for(int i = 0; i < 3; i++) {
+			memberName.add(memberService.getMember(review.get(i).getMemberNo()));
+			trinerName.add(trainerService.getTrainerTrainerNo(review.get(i).getTrainerNo()));
+		}
+				
+		
+		
+		model.addAttribute("trinerInfo", triner);
+		model.addAttribute("reviewInfo", review);
+		model.addAttribute("memberName", memberName);
+		model.addAttribute("trinerName", trinerName);
 		return "main";
 	}
 
