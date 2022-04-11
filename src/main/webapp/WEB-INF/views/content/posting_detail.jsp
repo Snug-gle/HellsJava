@@ -224,7 +224,10 @@
 								<i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i>
 							</div>
 						</div>
-						<div class="panel-body" style="min-height: 180px;">
+						<div class="panel-body">
+ 							<p>내용</p>
+ 							<p>내용</p>
+ 							<p>내용</p>
  							<p>내용</p>
 						</div>
 							<div class="reviewColor reviewRight">
@@ -345,6 +348,7 @@
 		</div>
 	</div>
 </div>
+
 <!-- PT 문의 모달창 -->
 <div class="modal fade" id="pt-ask" role="dialog">
 	<div class="modal-dialog" id="modal-dialog">
