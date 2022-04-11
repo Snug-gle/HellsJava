@@ -26,6 +26,7 @@ import itwill.helljava.exception.AmountOfPaymentException;
 import itwill.helljava.service.AccountSevice;
 import itwill.helljava.service.PayService;
 import itwill.helljava.service.PtOnceService;
+import itwill.helljava.service.PtServiceService;
 import itwill.helljava.service.TrainerService;
 import itwill.helljava.util.Pager;
 
@@ -54,7 +55,7 @@ public class PtOnceController {
 		int pageSize = 5; // 한 페이지에 출력될 게시글의 갯수 저장
 		int blockSize = 10; // 한 페이지 블럭에 출력될 페이지 번호의 갯수 저장
 		int number = totalBoard - (pageNum - 1) * pageSize;
-		
+
 		Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
 
 		Map<String, Object> pagerMap = new HashMap<String, Object>();
@@ -65,7 +66,7 @@ public class PtOnceController {
 
 		model.addAttribute("ptonceList", ptOnceService.getPtOnceList(pagerMap));
 		model.addAttribute("pager", pager);
-		model.addAttribute("number" , number);
+		model.addAttribute("number", number);
 
 		return "/user/ptonce/ptonce_list";
 	}
@@ -93,7 +94,7 @@ public class PtOnceController {
 		pay.setMemberNo(account.getMemberNo());
 		pay.setPayPrice(Integer.parseInt(op));
 		pay.setPayType(PayTypeEnum.일회피티.getValue());
-		
+
 		payService.payAuth(pay); // 결제 금액 > 캐시 잔액 예외 발생
 		payService.addPay(pay);
 
@@ -193,14 +194,14 @@ public class PtOnceController {
 
 		return "redirect:/posting/detail/" + trainerNo; // 해당 포스팅 페이지로 다시 이동
 	}
-	
+
 	@ExceptionHandler(value = AmountOfPaymentException.class)
 	public String exception(HttpSession session, AmountOfPaymentException exception, Model model) {
-		
+
 		// 캐시 잔액 모자라면 에러메시지 넘기기
-		model.addAttribute("cashMessage",exception.getMessage());
+		model.addAttribute("cashMessage", exception.getMessage());
 		int trainerNo = (int) session.getAttribute("trainerNo");
-		
+
 		return "redirect:/posting/detail/" + trainerNo; // 해당 포스팅 페이지로 다시 이동
 	}
 }

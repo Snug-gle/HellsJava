@@ -22,6 +22,9 @@ public interface PtServiceDAO {
 
 	PtService selectPtService(int pt_service_no);
 
+	// 회원번호로 리뷰 리스트 
+	PtService selectPtServiceReview(Map<String, Object> map);
+	
 	// 회원 (리뷰 & pt 문의) 게시글 리스트
 	List<PtService> selectPtServiceList(Map<String, Object> map);
 	

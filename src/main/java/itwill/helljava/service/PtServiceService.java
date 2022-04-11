@@ -18,6 +18,9 @@ public interface PtServiceService {
 	int getPtServiceTrainerCount(Map<String, Object> map);
 
 	PtService getPtService(int pt_service_no);
+	
+	// 회원번호로 리뷰 리스트 찾기
+	PtService getPtServiceReview(Map<String, Object> map);
 
 	List<PtService> getPtServiceList(Map<String, Object> map);
 

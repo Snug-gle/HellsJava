@@ -43,11 +43,18 @@
 		                                        		</c:choose>
 		                                        	</td>
 		                                        	<td style="width: 76px;">
-		                                        	<butoon data-toggle="collapse" data-parent="#accordion" href="#${number2 }" class="collapsed btn btn-default ptOnceBtn" aria-expanded="false">
-														상세보기</butoon></td>
+		                                        	<button data-toggle="collapse" data-parent="#accordion" href="#${number2 }" class="collapsed btn btn-default ptOnceBtn" aria-expanded="false">
+														상세보기</button></td>
+													
+													<c:if test="${not empty existsReview}">
+														<c:set var="existsReview" value="${existsReview}"/>
+														<c:set var="ptOnceTrainerNo" value="${ptOnce.trainerNo }"/>
+														
+														<c:if test="${fn:contains(existsReview, ptOnceTrainerNo) }"></c:if>	
+													</c:if>
 													<td style="width: 76px;">
 														<button data-toggle="collapse" data-parent="#accordion" class="collapsed btn btn-primary ptOnceBtn" aria-expanded="false"
-														type="button" onclick="location.href='${pageContext.request.contextPath}/review/write?trainerNo=${ptOnce.trainerNo }';" >리뷰쓰기</button>
+														type="button" onclick="location.href='${pageContext.request.contextPath}/review/write?trainerNo=${ptOnce.trainerNo }';" >리뷰 작성</button>
 													</td>
 		                                        </tr>
 		                                    </tbody>

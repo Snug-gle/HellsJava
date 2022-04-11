@@ -22,6 +22,9 @@ public interface PtServiceMapper {
 
 	PtService selectPtService(int pt_service_no);
 
+	// 회원번호, 트레이너 번호로 리뷰 찾기
+	PtService selectPtServiceReview(Map<String, Object> map);
+	
 	// 회원 (리뷰 & 정기 pt 문의) 게시글 리스트, int pt_service_sortation, int member_no 필요
 	List<PtService> selectPtServiceList(Map<String, Object> map);
 	
