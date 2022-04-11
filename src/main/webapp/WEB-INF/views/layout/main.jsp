@@ -132,7 +132,6 @@
 </section>
 
 <script type="text/javascript">
-
 	let curPos = 0; // 현재 보이는 요소의 인덱스 번호
 	
 	function prev(){
