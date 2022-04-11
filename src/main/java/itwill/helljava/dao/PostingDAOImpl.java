@@ -1,5 +1,7 @@
 package itwill.helljava.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,4 +29,5 @@ public class PostingDAOImpl implements PostingDAO {
 	public Posting selectPosting(int trainer_no) {
 		return sqlSession.getMapper(PostingMapper.class).selectPosting(trainer_no);
 	}
+
 }

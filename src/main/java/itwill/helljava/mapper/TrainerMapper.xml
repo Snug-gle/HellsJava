@@ -116,6 +116,22 @@
 			where rn between #{startRow} and #{endRow}
 	</select>
 
+	<select id="selectMonthTrainer" resultType="Trainer">
+   	 select * from
+   	 (select rownum rn, board.* from(
+     	 select count(*) count, p.trainer_no, m.member_name, t.trainer_centername, ps.posting_self_introduction, t.trainer_profile_img
+            from trainer t  
+                left join member m
+                    on m.member_no = t.member_no 
+                left join pt_service p
+                    on t.trainer_no = p.trainer_no
+                left join posting ps
+                    on p.trainer_no = ps.trainer_no
+     		 where pt_service_sortation = 1 and pt_service_status = 1 
+        group by p.trainer_no, m.member_name, t.trainer_centername, ps.posting_self_introduction, t.trainer_profile_img order by count desc)
+        board) where rn between 1 and 3
+	</select>
+
 </mapper>
 	
 

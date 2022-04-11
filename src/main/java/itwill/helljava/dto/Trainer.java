@@ -14,6 +14,9 @@ public class Trainer {
 	private String memberEmail;
 	private String memberStatus;
 
+	private String postingSelfIntroduction;
+	private String postingProgramIntroduction;
+
 	public String getMemberStatus() {
 		return memberStatus;
 	}
@@ -21,9 +24,6 @@ public class Trainer {
 	public void setMemberStatus(String memberStatus) {
 		this.memberStatus = memberStatus;
 	}
-
-	private String postingSelfIntroduction;
-	private String postingProgramIntroduction;
 	
 	public String getPostingSelfIntroduction() {
 		return postingSelfIntroduction;
@@ -130,7 +130,10 @@ public class Trainer {
 		return "Trainer [trainerNo=" + trainerNo + ", memberNo=" + memberNo + ", trainerProfileImg=" + trainerProfileImg
 				+ ", trainerAddress=" + trainerAddress + ", trainerCentername=" + trainerCentername + ", trainerZip="
 				+ trainerZip + ", memberId=" + memberId + ", memberName=" + memberName + ", memberPhone=" + memberPhone
-				+ ", memberEmail=" + memberEmail + "]";
+				+ ", memberEmail=" + memberEmail + ", memberStatus=" + memberStatus + ", postingSelfIntroduction="
+				+ postingSelfIntroduction + ", postingProgramIntroduction=" + postingProgramIntroduction + "]";
 	}
+
+	
 
 }

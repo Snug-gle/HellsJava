@@ -15,6 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import itwill.helljava.Enum.MemberEnum;
 import itwill.helljava.dto.Member;
+import itwill.helljava.dto.Posting;
 import itwill.helljava.dto.Trainer;
 import itwill.helljava.service.TrainerService;
 
@@ -48,20 +49,30 @@ public class TrainerServiceTest {
 	 * logger.info(trainer.toString()); }
 	 */
 
+//	@Test
+//	public void selectMainPageTrainerList() {
+//		Map<String, Object> map = new HashMap();
+//
+//		map.put("startRow", 1);
+//		map.put("endRow", 10);
+//		map.put("trainer_address", "ㄴ");
+//
+//
+//		List<Trainer> trainerList = trainerService.getMainPageTrainerList(map);
+//
+//		for (Trainer trainer : trainerList) {
+//			logger.info(trainer.toString());
+//		}
+//
+//	}
+	
 	@Test
-	public void selectMainPageTrainerList() {
-		Map<String, Object> map = new HashMap();
-
-		map.put("startRow", 1);
-		map.put("endRow", 10);
-		map.put("trainer_address", "ㄴ");
-
-
-		List<Trainer> trainerList = trainerService.getMainPageTrainerList(map);
-
-		for (Trainer trainer : trainerList) {
-			logger.info(trainer.toString());
+	public void selectMonthTrainer()
+	{
+		List<Trainer> list = trainerService.getMonthTrainer();
+		
+		for(Trainer lis : list) {
+			logger.info(lis.toString());
 		}
-
 	}
 }

@@ -45,7 +45,7 @@ public class TrainerDAOImpl implements TrainerDAO {
 	public Trainer selectTrainerTrainerNo(int trainerNo) {
 		return sqlSession.getMapper(TrainerMapper.class).selectTrainerTrainerNo(trainerNo);
 	}
-	
+
 	@Override
 	public List<Trainer> selectTrainerList(Map<String, Object> map) {
 		return sqlSession.getMapper(TrainerMapper.class).selectTrainerList(map);
@@ -54,5 +54,10 @@ public class TrainerDAOImpl implements TrainerDAO {
 	@Override
 	public List<Trainer> selectMainPageTrainerList(Map<String, Object> map) {
 		return sqlSession.getMapper(TrainerMapper.class).selectMainPageTrainerList(map);
+	}
+
+	@Override
+	public List<Trainer> selectMonthTrainer() {
+		return sqlSession.getMapper(TrainerMapper.class).selectMonthTrainer();
 	}
 }
