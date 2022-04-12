@@ -287,7 +287,7 @@
 											</c:if>
 										</c:when>
 										<c:otherwise> <!-- 답글이 있으면 -->
-											<div class="panel-body" id="ptServiceReply" >
+											<div class="panel-body" id="ptServiceReplyContent" >
 												<textarea style="color: #556b8d; background-color: #fff;" readonly="readonly" id="ptServiceReplyText" name="ptServiceReply" class="form-control">${review.ptServiceReply }</textarea>
 											</div>
 										</c:otherwise>

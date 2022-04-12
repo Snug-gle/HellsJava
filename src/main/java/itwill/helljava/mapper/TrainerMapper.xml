@@ -109,9 +109,10 @@
 		select * from 
 		(select rownum rn, board.* from
 		(select * from member m right join trainer t on m.member_no = t.member_no
-									right join posting p on t.trainer_no = p.trainer_no 
+									right join posting ps on t.trainer_no = ps.trainer_no 
+									left join pay p on m.member_no = p.member_no
 				where ${searchKeyword} like '%'||#{searchValue}||'%'
-				and m.member_status = 3
+				and m.member_status = 3 and pay_status = 1
 			order by m.member_no desc) board)
 			where rn between #{startRow} and #{endRow}
 	</select>
@@ -127,7 +128,9 @@
                     on t.trainer_no = p.trainer_no
                 left join posting ps
                     on p.trainer_no = ps.trainer_no
-     		 where pt_service_sortation = 1 and pt_service_status = 1 
+                left join pay pa 
+                	on pa.member_no = m.member_no
+     		 where pt_service_sortation = 1 and pt_service_status = 1 and pay_status = 1
         group by p.trainer_no, m.member_name, t.trainer_centername, ps.posting_self_introduction, t.trainer_profile_img order by count desc)
         board) where rn between 1 and 3
 	</select>
