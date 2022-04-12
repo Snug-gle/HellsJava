@@ -9,7 +9,7 @@
               <div class="container">  
                 <div class="navbar-header">
                     <!--logo start-->
-                        <a style="font-size: 35px; vertical-align: middle;" href="<c:url value="/"/>" class=""><i class="icon-layers"></i>O GYM</a>
+                        <a style="font-size: 35px; vertical-align: middle;" href="<c:url value="/"/>" class="">O GYM</a>
                     <!--logo end-->
                 </div>
                 <div class="navbar-collapse collapse">
@@ -27,7 +27,17 @@
 								<li class="dropdown profile hidden-xs">
 									<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 										<span class="meta">
-										<span class="text" style="font-size: 15px;">${loginUserinfo.memberName }&nbsp;회원님</span>
+										<c:choose>
+											<c:when test="${loginUserinfo.memberStatus == 1 or loginUserinfo.memberStatus == 2}">
+												<span class="text" style="font-size: 15px;">${loginUserinfo.memberName }&nbsp;회원님</span>
+											</c:when>
+											<c:when test="${loginUserinfo.memberStatus == 3}">
+												<span class="text" style="font-size: 15px;">${loginUserinfo.memberName }&nbsp;트레이너님</span>
+											</c:when>
+											<c:when test="${loginUserinfo.memberStatus == 9}">
+												<span class="text" style="font-size: 15px;">${loginUserinfo.memberName }&nbsp;관리자님</span>
+											</c:when>
+										</c:choose>
 										<span class="caret"></span>
 										</span>
 	                   				</a>
