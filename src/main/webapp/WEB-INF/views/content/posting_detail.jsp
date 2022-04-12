@@ -169,19 +169,21 @@
 											<div class="frofile-content-body posting-detail-content-panel">
 												<div class="posting-price-content-body">
 													<c:forEach var="itemPtPricing" items="${ptPricing}">	
+														<fmt:formatNumber var="ptPricingPrice" value="${itemPtPricing.ptPricingPrice}" pattern="#,###.##"/>
+														<fmt:formatNumber var="ptTotlePrice" value="${itemPtPricing.ptPricingRound * itemPtPricing.ptPricingPrice}" pattern="#,###.##"/>
 														<div class="fposting-price-content-body-num">
 															<p>${itemPtPricing.ptPricingRound}회</p>
 														</div>
 														<div class="posting-price-content-body-text">
 															<div class="posting-price-content-body-top">
 																<p>
-																	<span>회당 :</span>&nbsp;<span class="oncePrice">${itemPtPricing.ptPricingPrice}원</span>
+																	<span>회당 :</span>&nbsp;<span class="oncePrice">${ptPricingPrice}원</span>
 																</p>
 															</div>
 															<div class="posting-price-content-body-low">
 																
 																<p>
-																	총 ${itemPtPricing.ptPricingRound * itemPtPricing.ptPricingPrice}<span>원</span>
+																	총 <span>${ptTotlePrice}원</span>
 																</p>
 															</div>
 														</div>
