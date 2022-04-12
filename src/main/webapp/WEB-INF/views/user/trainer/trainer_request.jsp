@@ -146,7 +146,7 @@ function sample4_execDaumPostcode() {
 												<h3><strong>결제는 30일 단위로 결제됩니다.</strong></h3>
 											</div>
 											<div class="ad-t-v-header-award-footer-text">
-												<h3><strong>결제금액</strong> : 15000 원</h3>
+												<h3><strong>결제금액</strong> : 15,000 원</h3>
 											</div>
 										<div style="padding: 50px;">
 										<label class="col-sm-2 control-label">결제 비밀번호</label>
