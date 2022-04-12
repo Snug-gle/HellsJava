@@ -15,7 +15,18 @@ public class PtService {
 	private int ptServiceSortation;
 
 	private String memberName;
+	private String reviewHewonName;
 	
+
+
+	public String getReviewHewonName() {
+		return reviewHewonName;
+	}
+
+	public void setReviewHewonName(String reviewHewonName) {
+		this.reviewHewonName = reviewHewonName;
+	}
+
 	public PtService() {
 		// TODO Auto-generated constructor stub
 	}
