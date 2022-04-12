@@ -313,3 +313,7 @@
 	display: inline-flex;
     flex-direction: column-reverse;
 }
+
+.withdrawal{
+	text-align: end;
+}
