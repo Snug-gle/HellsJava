@@ -2,6 +2,8 @@ package itwill.helljava.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,16 +25,21 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import itwill.helljava.Enum.AccountEnum;
+import itwill.helljava.Enum.PayTypeEnum;
 import itwill.helljava.Enum.PtServiceSortationEnum;
 import itwill.helljava.Enum.PtServiceStatusEnum;
 import itwill.helljava.Enum.ScheduleWorkdayEnum;
 import itwill.helljava.dto.Member;
+import itwill.helljava.dto.Pay;
 import itwill.helljava.dto.Posting;
 import itwill.helljava.dto.PtPricing;
 import itwill.helljava.dto.PtService;
 import itwill.helljava.dto.Schedule;
 import itwill.helljava.dto.Trainer;
 import itwill.helljava.service.AwardService;
+import itwill.helljava.service.MemberService;
+import itwill.helljava.service.PayService;
 import itwill.helljava.service.PostingService;
 import itwill.helljava.service.PtPricingService;
 import itwill.helljava.service.PtServiceService;
@@ -64,26 +71,31 @@ public class PostingController {
 
 	@Autowired
 	private PtPricingService ptPricingService;
-	
+
 	@Autowired
 	private PtServiceService ptServiceService;
-	
+
+	@Autowired
+	private PayService payService;
+
+	@Autowired
+	private MemberService memberService;
+
 	// 포스팅 작성 페이지 요청
-	@Auth(role=Role.TRAINER)
+	@Auth(role = Role.TRAINER)
 	@RequestMapping(value = "/posting/write", method = RequestMethod.GET)
 	public String trainerRequestAdd(@AuthUser Member member, Model model) {
 
 		// 모델에다가 트레이너 객체 넘김
-		model.addAttribute("trainer",
-				trainerService.getTrainer(member.getMemberNo()));
-		model.addAttribute("trainerAwards", awardService.getAwardList(trainerService
-				.getTrainer(member.getMemberNo()).getTrainerNo()));
+		model.addAttribute("trainer", trainerService.getTrainer(member.getMemberNo()));
+		model.addAttribute("trainerAwards",
+				awardService.getAwardList(trainerService.getTrainer(member.getMemberNo()).getTrainerNo()));
 
 		return "/content/posting_detail_insert";
 	}
-	
+
 	// 포스팅 수정 페이지 요청
-	@Auth(role=Role.TRAINER)
+	@Auth(role = Role.TRAINER)
 	@RequestMapping(value = "/posting/modify", method = RequestMethod.GET)
 	public String trainerRequestUpdate(@AuthUser Member member, Model model) {
 
@@ -106,7 +118,7 @@ public class PostingController {
 	}
 
 	// 트레이너가 마이페이지에서 포스팅 디테일 페이지 GET 요청
-	@Auth(role=Role.TRAINER)
+	@Auth(role = Role.TRAINER)
 	@RequestMapping(value = "/myposting/detail/{memberNo}", method = RequestMethod.GET)
 	public String trPostingDetail(@PathVariable(value = "memberNo") int memberNo, Model model) {
 
@@ -134,6 +146,28 @@ public class PostingController {
 		model.addAttribute("schedule", scheduleService.getScheduleList(trainer.getTrainerNo()));
 		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
 		model.addAttribute("reviews", ptServiceService.getPtServiceTrainerList(reviewMap));
+
+		// 결제 일자 뽑기
+		Map<String, Object> payMap = new HashMap<String, Object>();
+		payMap.put("pay_type", PayTypeEnum.트레이너신청.getValue());
+		payMap.put("member_no", memberNo);
+
+		Pay pay = payService.getPay(payMap);
+
+		// 파싱할 패턴
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		// 최근 결제일 localDate 타입으로 파싱
+		LocalDate lastPayDate = LocalDate.parse(pay.getPayStart().substring(0, 10), formatter);
+
+		// 오늘 날짜
+		LocalDate now = LocalDate.now();
+
+		// 오늘 날짜가 최신 결제일보다 앞설 때
+		if (now.isAfter(lastPayDate)) {
+			model.addAttribute("payValidNo", "결제 요망");
+		}
+		model.addAttribute("payValidNo", "결제 완료");
 
 		return "/content/posting_detail";
 	}
@@ -171,6 +205,28 @@ public class PostingController {
 		model.addAttribute("posting", postingService.getPosting(trainer.getTrainerNo()));
 		model.addAttribute("reviews", ptServiceService.getPtServiceTrainerList(reviewMap));
 
+		// 결제 일자 뽑기
+		Map<String, Object> payMap = new HashMap<String, Object>();
+		payMap.put("pay_type", PayTypeEnum.트레이너신청.getValue());
+		payMap.put("member_no", trainer.getMemberNo());
+
+		Pay pay = payService.getPay(payMap);
+
+		// 파싱할 패턴
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		// 최근 결제일 localDate 타입으로 파싱
+		LocalDate lastPayDate = LocalDate.parse(pay.getPayStart().substring(0, 10), formatter);
+
+		// 오늘 날짜
+		LocalDate now = LocalDate.now();
+
+		// 오늘 날짜가 최신 결제일보다 앞설 때
+		if (now.isAfter(lastPayDate)) {
+			model.addAttribute("payValidNo", "결제 요망");
+		}
+		model.addAttribute("payValidNo", "결제 완료");
+
 		return "/content/posting_detail";
 	}
 
@@ -178,17 +234,18 @@ public class PostingController {
 	// 좋아요 증가 핸들러 메서드 get 요청
 	@RequestMapping(value = "/review/good/{ptServiceNo}/{trainerNo}", method = RequestMethod.GET)
 	public String goodUpdate(@PathVariable(value = "ptServiceNo") int ptServiceNo,
-			@PathVariable(value="trainerNo") int trainerNo) {
-			
+			@PathVariable(value = "trainerNo") int trainerNo) {
+
 		ptServiceService.modifyPtServiceGood(ptServiceNo);
-		
-		return "redirect:/posting/detail/"+trainerNo;
+
+		return "redirect:/posting/detail/" + trainerNo;
 	}
-	
+
 	@Auth(role = Role.TRAINER)
 	// 답글 추가 메서드 POST 요청
 	@RequestMapping(value = "/review/reply/write", method = RequestMethod.POST)
-	public String reviewReplyAdd(@ModelAttribute PtService ptService, HttpServletRequest request, @AuthUser Member member) {
+	public String reviewReplyAdd(@ModelAttribute PtService ptService, HttpServletRequest request,
+			@AuthUser Member member) {
 
 		int trainerMemberNo = member.getMemberNo();
 
@@ -548,7 +605,7 @@ public class PostingController {
 		}
 
 		// 포스팅 추가하면 포스팅 디테일 페이지로 이동
-		return "redirect:/myposting/detail/"+memberNo;
+		return "redirect:/myposting/detail/" + memberNo;
 	}
 
 }

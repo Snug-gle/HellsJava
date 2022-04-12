@@ -13,7 +13,7 @@
 	</update>
 	
 	<select id="selectPay" resultType="Pay">
-		select * from pay where pay_no = #{payNo} 
+		select * from pay where pay_type = #{pay_type} and member_no = #{member_no}
 	</select>
 	
 	<select id="selectPayList" resultType="Pay">

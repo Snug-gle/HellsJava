@@ -12,294 +12,309 @@
     padding: 0;
 }
 </style>
-<div class="posting-box">
-	<div class="panel-body">
-		<div class="tab-wrapper tab-primary">
-			<ul class="nav nav-tabs">
-				<li class="active tabTitle"><a href="#trainer-posting" data-toggle="tab">트레이너</a></li>
-				<li class="tabTitle"><a href="#review-posting" data-toggle="tab">후기</a></li>
-			</ul>
-			
-			<div class="tab-content">
-				<div class="tab-pane active" id="trainer-posting">
-					<div  style="text-align: center;">
-					<ul class="nav nav-tabs tabSideMenu">
-						<li class="trainer-sidemenu"><a href="#posting-detail-frofile">소개</a></li>
-						<li class="trainer-sidemenu"><a href="#posting-detail-award">자격사항</a></li>
-						<li class="trainer-sidemenu"><a href="#posting-detail-schedule">스케줄</a></li>
-						<li class="trainer-sidemenu"><a href="#posting-detail-program">프로그램</a></li>
-						<li class="trainer-sidemenu"><a href="#posting-detail-price">이용가격</a></li>
-						<li class="trainer-sidemenu"><a href="#posting-detail-shop">위치</a></li>
+
+<c:choose>
+	<c:when test="${payValidNo eq '결제 완료' }">
+		<div class="posting-box">
+			<div class="panel-body">
+				<div class="tab-wrapper tab-primary">
+					<ul class="nav nav-tabs">
+						<li class="active tabTitle"><a href="#trainer-posting" data-toggle="tab">트레이너</a></li>
+						<li class="tabTitle"><a href="#review-posting" data-toggle="tab">후기</a></li>
 					</ul>
-					</div>
-					<div class="posting-detail-frofile-top posting-detail-content-panel pdm">
-						<div class="trainer-profile">
-							<div class="panel-body profile-wrapper" style="background-color: #fff; margin-bottom: 30px;">
-								<div class="col-md-3">
-									<div class="profile-pic text-center">
-										<img src="<spring:url value="/profileImages/${trainer.trainerProfileImg}"/>"
-											class="img-circle">
-									</div>
-								</div>
-								<div class="col-md-9">
-									<div class="profile-info">
-										<h1>${trainer.memberName} 트레이너</h1>
-										<span class="text-muted">${trainer.trainerCentername} 센터</span>
-										<button type="button" data-toggle="modal"
-											data-target="#pt-application" class="btn btn-primary">1회 PT
-											신청</button>
-										<button type="button" data-toggle="modal"
-											data-target="#pt-ask" class="btn btn-primary">문의</button>
-										<c:if test="${loginUserinfo.memberNo == trainer.memberNo }">
-											<button class="btn btn-primary" type="button" 
-											onclick="location.href='${pageContext.request.contextPath}/posting/modify'">포스팅 수정</button>
-										</c:if>
-									</div>
-
-								</div>
+					
+					<div class="tab-content">
+						<div class="tab-pane active" id="trainer-posting">
+							<div  style="text-align: center;">
+							<ul class="nav nav-tabs tabSideMenu">
+								<li class="trainer-sidemenu"><a href="#posting-detail-frofile">소개</a></li>
+								<li class="trainer-sidemenu"><a href="#posting-detail-award">자격사항</a></li>
+								<li class="trainer-sidemenu"><a href="#posting-detail-schedule">스케줄</a></li>
+								<li class="trainer-sidemenu"><a href="#posting-detail-program">프로그램</a></li>
+								<li class="trainer-sidemenu"><a href="#posting-detail-price">이용가격</a></li>
+								<li class="trainer-sidemenu"><a href="#posting-detail-shop">위치</a></li>
+							</ul>
 							</div>
-							
-							<!-- 트레이너 소개 -->
-							<div class="col-md-12" id="posting-detail-frofile">
-								<div class="panel panel-primary">
-									<div class="panel-heading">
-										<h2 class="h2BoldWhite">트레이너 소개</h2>
-									</div>
-									<div class="frofile-content-body posting-detail-content-panel">
-									<div class="frofile-content-body-imglist">
-										<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg1}"/>" />
-										<c:if test="${not empty posting.postingSelfIntroductionImg2}">
-											<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg2}"/>" />
-										</c:if>
-										<c:if test="${not empty posting.postingSelfIntroductionImg3}">
-											<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg3}"/>" />
-										</c:if>
-										<c:if test="${not empty posting.postingSelfIntroductionImg4}">
-											<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg4}"/>" />
-										</c:if>
-									</div>
-									<div class="frofile-content-body-text">
-										<p>${posting.postingSelfIntroduction}</p>				
-									</div>
-								</div>
-								</div>
-							</div>
-							
-							<!-- 자격사항 -->
-							<div class="col-md-12" id="posting-detail-award">
-								<div class="panel panel-primary">
-									<div class="panel-heading">
-										<h2 class="h2BoldWhite">수상경력 및 이력</h2>
-									</div>
-									<div class="frofile-content-body posting-detail-content-panel">
-										<hr>
-										<c:forEach var="awarditem" items="${award}">
-											<div class="frofile-award-content-body" >
-													<img style="display: inline-block; width: 60px; height: 60px;" alt="" src="<spring:url value="/awardImages/${awarditem.awardImage}"/>"> 
-													<label class="posting-label">${awarditem.awardContent}</label>
-												<hr>
+							<div class="posting-detail-frofile-top posting-detail-content-panel pdm">
+								<div class="trainer-profile">
+									<div class="panel-body profile-wrapper" style="background-color: #fff; margin-bottom: 30px;">
+										<div class="col-md-3">
+											<div class="profile-pic text-center">
+												<img src="<spring:url value="/profileImages/${trainer.trainerProfileImg}"/>"
+													class="img-circle">
 											</div>
-										</c:forEach>
-									</div>
-								</div>
-							</div>
-
-							<!-- PT 스케쥴 -->
-							<div class="col-md-12" id="posting-detail-schedule">
-								<div class="panel panel-primary">
-									<div class="panel-heading">
-										<h2 class="h2BoldWhite">PT 스케줄</h2>
-									</div>
-									<div class="frofile-content-body posting-detail-content-panel">
-										<div class="frofile-schedule-content-body">
-											<table>
-												<c:forEach var="itemSchedule" items="${schedule}">
-													<tr>
-														<c:choose>
-															<c:when test="${itemSchedule.scheduleWorkday eq 1}">
-																<td>평일</td>
-															</c:when>
-															<c:when test="${itemSchedule.scheduleWorkday eq 2}">
-																<td>토요일</td>
-															</c:when>
-															<c:when test="${itemSchedule.scheduleWorkday eq 3}">
-																<td>일요일</td>
-															</c:when>
-															<c:when test="${itemSchedule.scheduleWorkday eq 4}">
-																<td>휴무일</td>
-															</c:when>
-														</c:choose>
-														<c:if test="${empty itemSchedule.scheduleHours}">
-															<td>${itemSchedule.scheduleDayoff }</td>
-														</c:if>
-														<td>${itemSchedule.scheduleHours}</td>
-													</tr>
-												</c:forEach>	
-											</table>
+										</div>
+										<div class="col-md-9">
+											<div class="profile-info">
+												<h1>${trainer.memberName} 트레이너</h1>
+												<span class="text-muted">${trainer.trainerCentername} 센터</span>
+												<button type="button" data-toggle="modal"
+													data-target="#pt-application" class="btn btn-primary">1회 PT
+													신청</button>
+												<button type="button" data-toggle="modal"
+													data-target="#pt-ask" class="btn btn-primary">문의</button>
+												<c:if test="${loginUserinfo.memberNo == trainer.memberNo }">
+													<button class="btn btn-primary" type="button" 
+													onclick="location.href='${pageContext.request.contextPath}/posting/modify'">포스팅 수정</button>
+												</c:if>
+											</div>
+		
 										</div>
 									</div>
-								</div>
-							</div>
-
-							<!-- 프로그램 -->
-							<div class="col-md-12" id="posting-detail-program">
-								<div class="panel panel-primary">
-									<div class="panel-heading">
-										<h2 class="h2BoldWhite">프로그램 소개</h2>
-									</div>
-									<div class="frofile-content-body posting-detail-content-panel">
-										<div class="frofile-program-content-body">
-											<p>${posting.postingProgramIntroduction}</p>
+									
+									<!-- 트레이너 소개 -->
+									<div class="col-md-12" id="posting-detail-frofile">
+										<div class="panel panel-primary">
+											<div class="panel-heading">
+												<h2 class="h2BoldWhite">트레이너 소개</h2>
+											</div>
+											<div class="frofile-content-body posting-detail-content-panel">
+											<div class="frofile-content-body-imglist">
+												<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg1}"/>" />
+												<c:if test="${not empty posting.postingSelfIntroductionImg2}">
+													<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg2}"/>" />
+												</c:if>
+												<c:if test="${not empty posting.postingSelfIntroductionImg3}">
+													<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg3}"/>" />
+												</c:if>
+												<c:if test="${not empty posting.postingSelfIntroductionImg4}">
+													<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg4}"/>" />
+												</c:if>
+											</div>
+											<div class="frofile-content-body-text">
+												<p>${posting.postingSelfIntroduction}</p>				
+											</div>
+										</div>
 										</div>
 									</div>
-								</div>
-							</div>
-
-							<!-- PT 이용가격 -->
-							<div class="col-md-12" id="posting-detail-price">
-								<div class="panel panel-primary">
-									<div class="panel-heading">
-										<h2 class="h2BoldWhite">PT 이용가격</h2>
-									</div>
-									<div class="frofile-content-body posting-detail-content-panel">
-										<div class="posting-price-content-body">
-											<c:forEach var="itemPtPricing" items="${ptPricing}">	
-												<div class="fposting-price-content-body-num">
-													<p>${itemPtPricing.ptPricingRound}회</p>
-												</div>
-												<div class="posting-price-content-body-text">
-													<div class="posting-price-content-body-top">
-														<p>
-															<span>회당 :</span>&nbsp;<span class="oncePrice">${itemPtPricing.ptPricingPrice}원</span>
-														</p>
-													</div>
-													<div class="posting-price-content-body-low">
-														
-														<p>
-															총 ${itemPtPricing.ptPricingRound * itemPtPricing.ptPricingPrice}<span>원</span>
-														</p>
-													</div>
-												</div>
+									
+									<!-- 자격사항 -->
+									<div class="col-md-12" id="posting-detail-award">
+										<div class="panel panel-primary">
+											<div class="panel-heading">
+												<h2 class="h2BoldWhite">수상경력 및 이력</h2>
+											</div>
+											<div class="frofile-content-body posting-detail-content-panel">
 												<hr>
-											</c:forEach>
+												<c:forEach var="awarditem" items="${award}">
+													<div class="frofile-award-content-body" >
+															<img style="display: inline-block; width: 60px; height: 60px;" alt="" src="<spring:url value="/awardImages/${awarditem.awardImage}"/>"> 
+															<label class="posting-label">${awarditem.awardContent}</label>
+														<hr>
+													</div>
+												</c:forEach>
+											</div>
 										</div>
 									</div>
-								</div>
-							</div>
-
-							<!-- 위치 -->
-							<div class="col-md-12" id="posting-detail-shop">
-								<div class="panel panel-primary">
-									<div class="panel-heading">
-										<h2 class="h2BoldWhite">센터 위치</h2>
-									</div>
-									<div class="frofile-content-body posting-detail-content-panel">
-										<div class="posting-shop-content-body">
-											<div id="map" style="width:100%;height:350px;"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- 위치 끝 -->
-						</div>
-					</div>
-				</div>
-				<!-- 트레이너 끝 -->
-				
-				<!-- 후기 -->
-				
-			<div class="tab-pane" id="review-posting" style="text-align: center;">
-				
-				<c:if test="${empty reviews }">
-					<div class="panel panel-default">
-						<div align="center" class="reviewEmptyWriting">
-							<h3>아직 작성된 후기가 없습니다.</h3>
-							<h3>첫 후기를 작성해 주세요!</h3>
-						</div>
-					</div>
-				</c:if>
-				
-				<c:forEach var="review"  items="${reviews }">
-						<div class="panel panel-solid-primary review-posting-box" style="float: left">
-							<div class="panel-heading">
-								<div style="float: left; ">
-									<h3 class="panel-title" style="vertical-align: middle;">${review.ptServiceTitle }</h3>
-								</div>
-								<div class="reviewRight">
-									<a href="${pageContext.request.contextPath}/review/good/${review.ptServiceNo}/${trainer.trainerNo}"><i class="fa fa-heart" style="color: red;"></i></a> <label>${review.ptServiceGood }</label>
-								</div>
-							<hr>
-							</div>
-							<div class="reviewColor" >
-								<div class="reviewNameDate" style="float: left; margin: ">
-									${review.memberName} ${fn:substring(review.ptServiceDate,0,11)}
-								</div>
-								<div style=" text-align: right;">
-								
-								<div>
-									<fmt:parseNumber var="star" value="${review.ptServiceStars }" integerOnly="true" />
-										<c:set var="starhalf"
-											value="${(review.ptServiceStars /0.5)%2 }" />
-
-										<c:forEach begin="1" step="1" end="${star}">
-											<i class="fa fa-star"></i>
-										</c:forEach>
-											<c:if test="${starhalf == 1}">
-												<i class="fa fa-star-half-o"></i>
-
-										<c:forEach begin="1" step="1" end="${(5-starhalf)-star}">
-													<i class="fa fa-star-o"></i>
-										</c:forEach>
-										</c:if>
-										<c:if test="${starhalf != 1}">
-											<c:forEach begin="1" step="1" end="${5-star}">
-												<i class="fa fa-star-o"></i>
-											</c:forEach>
-										</c:if>
-									</div>
-								</div>
-							</div>
-							<div class="panel-body">
-	 							<p>${review.ptServiceContent }</p>
-							</div>
-							<c:choose>
-								<c:when test="${review.ptServiceReply == null}">	<!-- 답글이 없으면 -->
-									<c:if test="${loginUserinfo.memberNo == trainer.memberNo}">
-										<div class="reviewColor reviewRight">
-											<button type="button" class="btn btn-primary collapsed" data-toggle="collapse" data-target="#ptServiceReply" aria-expanded="false">
-				                                    댓글달기</button>
-										</div>
-										<div class="panel-body collapse" id="ptServiceReply" aria-expanded="false">
-											<form action="${pageContext.request.contextPath}/review/reply/write" method="post" id = "replyTextForm">
-												<textarea id="ptServiceReplyText" name="ptServiceReply" class="form-control">${review.ptServiceReply }</textarea>
-												<input type="hidden" name="ptServiceNo" value="${review.ptServiceNo }">
-												<input type="hidden" name="ptServiceStars" value="${review.ptServiceStars }">
-												<input type="hidden" name="ptServiceStatus" value="${review.ptServiceStatus }">
-												<div class="reviewColor reviewRight">
-													<button type="submit" class="btn btn-primary review-btn1">입력</button>
-													<button type="reset" class="btn btn-primary review-btn1">다시 쓰기</button>
+		
+									<!-- PT 스케쥴 -->
+									<div class="col-md-12" id="posting-detail-schedule">
+										<div class="panel panel-primary">
+											<div class="panel-heading">
+												<h2 class="h2BoldWhite">PT 스케줄</h2>
+											</div>
+											<div class="frofile-content-body posting-detail-content-panel">
+												<div class="frofile-schedule-content-body">
+													<table>
+														<c:forEach var="itemSchedule" items="${schedule}">
+															<tr>
+																<c:choose>
+																	<c:when test="${itemSchedule.scheduleWorkday eq 1}">
+																		<td>평일</td>
+																	</c:when>
+																	<c:when test="${itemSchedule.scheduleWorkday eq 2}">
+																		<td>토요일</td>
+																	</c:when>
+																	<c:when test="${itemSchedule.scheduleWorkday eq 3}">
+																		<td>일요일</td>
+																	</c:when>
+																	<c:when test="${itemSchedule.scheduleWorkday eq 4}">
+																		<td>휴무일</td>
+																	</c:when>
+																</c:choose>
+																<c:if test="${empty itemSchedule.scheduleHours}">
+																	<td>${itemSchedule.scheduleDayoff }</td>
+																</c:if>
+																<td>${itemSchedule.scheduleHours}</td>
+															</tr>
+														</c:forEach>	
+													</table>
 												</div>
-											</form>
+											</div>
 										</div>
-									</c:if>
-								</c:when>
-								<c:otherwise> <!-- 답글이 있으면 -->
-									<div class="panel-body" id="ptServiceReply" >
-										<textarea style="color: #556b8d; background-color: #fff;" readonly="readonly" id="ptServiceReplyText" name="ptServiceReply" class="form-control">${review.ptServiceReply }</textarea>
 									</div>
-								</c:otherwise>
-							</c:choose>
-							
+		
+									<!-- 프로그램 -->
+									<div class="col-md-12" id="posting-detail-program">
+										<div class="panel panel-primary">
+											<div class="panel-heading">
+												<h2 class="h2BoldWhite">프로그램 소개</h2>
+											</div>
+											<div class="frofile-content-body posting-detail-content-panel">
+												<div class="frofile-program-content-body">
+													<p>${posting.postingProgramIntroduction}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+		
+									<!-- PT 이용가격 -->
+									<div class="col-md-12" id="posting-detail-price">
+										<div class="panel panel-primary">
+											<div class="panel-heading">
+												<h2 class="h2BoldWhite">PT 이용가격</h2>
+											</div>
+											<div class="frofile-content-body posting-detail-content-panel">
+												<div class="posting-price-content-body">
+													<c:forEach var="itemPtPricing" items="${ptPricing}">	
+														<div class="fposting-price-content-body-num">
+															<p>${itemPtPricing.ptPricingRound}회</p>
+														</div>
+														<div class="posting-price-content-body-text">
+															<div class="posting-price-content-body-top">
+																<p>
+																	<span>회당 :</span>&nbsp;<span class="oncePrice">${itemPtPricing.ptPricingPrice}원</span>
+																</p>
+															</div>
+															<div class="posting-price-content-body-low">
+																
+																<p>
+																	총 ${itemPtPricing.ptPricingRound * itemPtPricing.ptPricingPrice}<span>원</span>
+																</p>
+															</div>
+														</div>
+														<hr>
+													</c:forEach>
+												</div>
+											</div>
+										</div>
+									</div>
+		
+									<!-- 위치 -->
+									<div class="col-md-12" id="posting-detail-shop">
+										<div class="panel panel-primary">
+											<div class="panel-heading">
+												<h2 class="h2BoldWhite">센터 위치</h2>
+											</div>
+											<div class="frofile-content-body posting-detail-content-panel">
+												<div class="posting-shop-content-body">
+													<div id="map" style="width:100%;height:350px;"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- 위치 끝 -->
+								</div>
+							</div>
 						</div>
-				</c:forEach>
-					</div>
+						<!-- 트레이너 끝 -->
 						
-				<!-- 후기 끝 -->
+						<!-- 후기 -->
+						
+					<div class="tab-pane" id="review-posting" style="text-align: center;">
+						
+						<c:if test="${empty reviews }">
+							<div class="panel panel-default">
+								<div align="center" class="reviewEmptyWriting">
+									<h3>아직 작성된 후기가 없습니다.</h3>
+									<h3>첫 후기를 작성해 주세요!</h3>
+								</div>
+							</div>
+						</c:if>
+						
+						<c:forEach var="review"  items="${reviews }">
+								<div class="panel panel-solid-primary review-posting-box" style="float: left">
+									<div class="panel-heading">
+										<div style="float: left; ">
+											<h3 class="panel-title" style="vertical-align: middle;">${review.ptServiceTitle }</h3>
+										</div>
+										<div class="reviewRight">
+											<a href="${pageContext.request.contextPath}/review/good/${review.ptServiceNo}/${trainer.trainerNo}"><i class="fa fa-heart" style="color: red;"></i></a> <label>${review.ptServiceGood }</label>
+										</div>
+									<hr>
+									</div>
+									<div class="reviewColor" >
+										<div class="reviewNameDate" style="float: left; margin: ">
+											${review.memberName} ${fn:substring(review.ptServiceDate,0,11)}
+										</div>
+										<div style=" text-align: right;">
+										
+										<div>
+											<fmt:parseNumber var="star" value="${review.ptServiceStars }" integerOnly="true" />
+												<c:set var="starhalf"
+													value="${(review.ptServiceStars /0.5)%2 }" />
+		
+												<c:forEach begin="1" step="1" end="${star}">
+													<i class="fa fa-star"></i>
+												</c:forEach>
+													<c:if test="${starhalf == 1}">
+														<i class="fa fa-star-half-o"></i>
+		
+												<c:forEach begin="1" step="1" end="${(5-starhalf)-star}">
+															<i class="fa fa-star-o"></i>
+												</c:forEach>
+												</c:if>
+												<c:if test="${starhalf != 1}">
+													<c:forEach begin="1" step="1" end="${5-star}">
+														<i class="fa fa-star-o"></i>
+													</c:forEach>
+												</c:if>
+											</div>
+										</div>
+									</div>
+									<div class="panel-body">
+			 							<p>${review.ptServiceContent }</p>
+									</div>
+									<c:choose>
+										<c:when test="${review.ptServiceReply == null}">	<!-- 답글이 없으면 -->
+											<c:if test="${loginUserinfo.memberNo == trainer.memberNo}">
+												<div class="reviewColor reviewRight">
+													<button type="button" class="btn btn-primary collapsed" data-toggle="collapse" data-target="#ptServiceReply" aria-expanded="false">
+						                                    댓글달기</button>
+												</div>
+												<div class="panel-body collapse" id="ptServiceReply" aria-expanded="false">
+													<form action="${pageContext.request.contextPath}/review/reply/write" method="post" id = "replyTextForm">
+														<textarea id="ptServiceReplyText" name="ptServiceReply" class="form-control">${review.ptServiceReply }</textarea>
+														<input type="hidden" name="ptServiceNo" value="${review.ptServiceNo }">
+														<input type="hidden" name="ptServiceStars" value="${review.ptServiceStars }">
+														<input type="hidden" name="ptServiceStatus" value="${review.ptServiceStatus }">
+														<div class="reviewColor reviewRight">
+															<button type="submit" class="btn btn-primary review-btn1">입력</button>
+															<button type="reset" class="btn btn-primary review-btn1">다시 쓰기</button>
+														</div>
+													</form>
+												</div>
+											</c:if>
+										</c:when>
+										<c:otherwise> <!-- 답글이 있으면 -->
+											<div class="panel-body" id="ptServiceReply" >
+												<textarea style="color: #556b8d; background-color: #fff;" readonly="readonly" id="ptServiceReplyText" name="ptServiceReply" class="form-control">${review.ptServiceReply }</textarea>
+											</div>
+										</c:otherwise>
+									</c:choose>
+									
+								</div>
+						</c:forEach>
+							</div>
+								
+						<!-- 후기 끝 -->
+						</div>
+						
+					</div>
 				</div>
-				
 			</div>
-		</div>
-	</div>
+		</c:when>
+		<c:otherwise>
+			<!-- 트레이너 본인이면 -->
+			<c:when test="${loginUserinfo.memberNo == trainer.memberNo }">
+				<h1>포스팅 유지를 위해 결제가 필요합니다. 캐시를 충전해주세요.</h1>
+			</c:when>
+			<!-- 그 외 모든 사용자 -->
+			<c:otherwise>
+				<h1>삭제된 포스팅입니다.</h1>
+			</c:otherwise>
+		</c:otherwise>
+</c:choose>
 
 <!-- 1회 PT 신청 모달창 -->
 <div class="modal fade" id="pt-application" role="dialog">

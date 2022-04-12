@@ -62,17 +62,27 @@ public class TrainerScheduler {
 				payMap.put("pay_start", String.valueOf(payDate));
 				payMap.put("pay_no", autoMember.getPayNo());
 
-				// 결제 일자 최신화
-				payService.modifyPay(payMap);
-
 				Map<String, Object> cashMap = new HashMap<String, Object>();
 
 				cashMap.put("cash", 15000);
 				cashMap.put("cashType", PayTypeEnum.트레이너신청.getValue());
 				cashMap.put("memberNo", autoMember.getMemberNo());
 
-				// 15,000원 캐시 차감
-				memberService.modifyMemberCash(cashMap);
+				try {
+					if (15000 > autoMember.getMemberCash()) {
+						throw new Exception("잔액이 모자랍니다.");
+					}
+					else {
+						// 결제 일자 최신화
+						payService.modifyPay(payMap);
+						
+						// 15,000원 캐시 차감
+						memberService.modifyMemberCash(cashMap);
+					}
+				} catch (Exception e) {
+					LOGGER.info(e.getMessage());
+				}
+
 			}
 		}
 	}

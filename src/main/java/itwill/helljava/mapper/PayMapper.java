@@ -15,7 +15,7 @@ public interface PayMapper {
 	// 결제 일자 변경 메서드
 	int updatePay(Map<String, Object> map);
 	
-	Pay selectPay(int pay_no);
+	Pay selectPay(Map<String, Object> map);
 	
 	List<Pay> selectPayList(Map<String, Object> map, int member_no);
 }
