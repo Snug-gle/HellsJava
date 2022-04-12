@@ -56,8 +56,10 @@ public class UserinfoController {
 		member.setMemberNo(((Member) session.getAttribute("loginUserinfo")).getMemberNo());
 
 		memberService.modifyMember(member);
+		session.setAttribute("loginUserinfo", memberService.getMember(member.getMemberNo()));
+		
 
-		return "/material/mypage";
+		return "/user/mypage";
 	}
 	
 	
