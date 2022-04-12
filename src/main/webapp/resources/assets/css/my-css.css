@@ -509,7 +509,7 @@ ul {
 }
 
 .mainSearchBody {
-	padding: 20px 40px;
+	padding: 20px 40px 20px 0px;
 	
 }
 
@@ -519,6 +519,8 @@ ul {
 	text-align: center; 
 	vertical-align: middle; 
 	float: left;
+	margin-left: 20px;
+	margin-right: 40px;
 	
 }
 
@@ -592,5 +594,11 @@ html, body {
 
 .mainReviewTitle {
 	font-weight: bold;
+	
+}
+
+.postingImg {
+	width: 130px;
+	height: 130px;
 	
 }

@@ -11,6 +11,9 @@
     border-top: 0;
     padding: 0;
 }
+.profile-pic {
+	margin: 0;
+}
 </style>
 
 <c:choose>
@@ -40,8 +43,7 @@
 									<div class="panel-body profile-wrapper" style="background-color: #fff; margin-bottom: 30px;">
 										<div class="col-md-3">
 											<div class="profile-pic text-center">
-												<img src="<spring:url value="/profileImages/${trainer.trainerProfileImg}"/>"
-													class="img-circle">
+												<img src="<spring:url value="/profileImages/${trainer.trainerProfileImg}"/>">
 											</div>
 										</div>
 										<div class="col-md-9">
@@ -70,15 +72,15 @@
 											</div>
 											<div class="frofile-content-body posting-detail-content-panel">
 											<div class="frofile-content-body-imglist">
-												<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg1}"/>" />
+												<img class="postingImg" src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg1}"/>" />
 												<c:if test="${not empty posting.postingSelfIntroductionImg2}">
-													<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg2}"/>" />
+													<img class="postingImg" src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg2}"/>" />
 												</c:if>
 												<c:if test="${not empty posting.postingSelfIntroductionImg3}">
-													<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg3}"/>" />
+													<img class="postingImg" src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg3}"/>" />
 												</c:if>
 												<c:if test="${not empty posting.postingSelfIntroductionImg4}">
-													<img src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg4}"/>" />
+													<img class="postingImg" src="<spring:url value="/postingSelfIntroductionImages/${posting.postingSelfIntroductionImg4}"/>" />
 												</c:if>
 											</div>
 											<div class="frofile-content-body-text">

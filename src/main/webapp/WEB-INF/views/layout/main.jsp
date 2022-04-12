@@ -38,7 +38,7 @@
 				<div class="panel-body" style="text-align: center;">
 					<form class="form-horizontal" role="form">
 						<div class="profile-pic text-center mainProfileImg">
-							<img src="<spring:url value="/profileimages/${trainerInfo.trainerProfileImg }"/>" alt="" class="img-circle" style="margin-left: 50px;">
+							<img src="<spring:url value="/profileImages/${trainerInfo.trainerProfileImg }"/>" alt="" class="img-circle">
 						</div>
 						<!-- <span class="text-muted">소속센터명</span> -->
 						<div class="form-group">
