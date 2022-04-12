@@ -111,11 +111,14 @@
 	
 	<!-- 좋아요 수! -->
 	<select id="selectReviewGoodList" resultType="PtService">
-		select * from
-		(select rownum rn, p.* from(
-		select * from pt_service pt left join pay p
-			on pt.member_no = p.member_no
-		 where pt_service_good is not null and pay_status = 1 order by pt_service_good desc) p)
-		where rn between 1 and 3
+	select * from
+       (select rownum rn, p.* from(
+        select rm.member_name as review_hewon_name, t.trainer_no, m.member_name, pt.pt_service_good, pt.pt_service_stars, pt.pt_service_title, pt.pt_service_content
+        from trainer t join pt_service pt on t.trainer_no = pt.trainer_no
+                                                join member rm on pt.member_no = rm.member_no
+                                               join member m on t.member_no = m.member_no
+                                               join pay p on t.member_no = p.member_no
+                                                where pt.pt_service_good is not null and p.pay_status = 1 order by pt.pt_service_good desc)p)
+                              where rn between 1 and 3
 	</select>
 </mapper>
