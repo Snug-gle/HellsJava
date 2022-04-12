@@ -46,6 +46,8 @@ import itwill.helljava.util.AuthUser;
 @Controller
 public class TrainerController {
 
+	private static final int PAY_COMPLETE = 1; // 결제 완료 상수
+	
 	// 필드에 WebApplicationContext 객체(Spring Container)를 저장하도록 인젝션 처리
 	@Autowired
 	private WebApplicationContext context;
@@ -117,6 +119,7 @@ public class TrainerController {
 		pay.setMemberNo(account.getMemberNo());
 		pay.setPayPrice(15000);
 		pay.setPayType(PayTypeEnum.트레이너신청.getValue());
+		pay.setPayStatus(PAY_COMPLETE);
 
 		payService.payAuth(pay); // 결제 금액 > 캐시 잔액 예외 발생
 		payService.addPay(pay);
