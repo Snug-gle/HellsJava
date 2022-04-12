@@ -5,11 +5,18 @@
 		<selectKey resultType="int" keyProperty="payNo" order="BEFORE">
 			select seq_pay.nextval from dual
 		</selectKey>
-		insert into pay values(#{payNo}, #{memberNo}, sysdate, #{payPrice}, #{payType}) 
+		insert into pay values(#{payNo}, #{memberNo}, sysdate, #{payPrice}, #{payType}, #{payStatus} ) 
 	</insert>
 	
 	<update id="updatePay" parameterType="Map">
-		update pay set pay_start = #{pay_start} where pay_no = #{pay_no}
+		update pay
+		<trim prefix="set" suffixOverrides=","> 
+			<if test="payStart != null and payStart != ''">
+				pay_start = #{payStart},
+			</if>
+				pay_status = #{payStatus}
+		</trim> 
+		where pay_no = #{payNo}
 	</update>
 	
 	<select id="selectPay" resultType="Pay">
