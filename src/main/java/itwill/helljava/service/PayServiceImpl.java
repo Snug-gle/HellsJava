@@ -28,6 +28,12 @@ public class PayServiceImpl implements PayService {
 	}
 
 	@Override
+	@Transactional
+	public void modifyPay(Map<String, Object> map) {
+		payDAO.updatePay(map);
+	}
+	
+	@Override
 	public int getPayCount(int member_no) {
 		return payDAO.selectPayCount(member_no);
 	}

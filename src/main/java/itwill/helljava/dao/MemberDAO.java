@@ -30,6 +30,9 @@ public interface MemberDAO {
 
 	List<Member> selectMemberList(Map<String, Object> map);
 
+	// 자동 결제를 위한 트레이너 리스트 뽑기
+	List<Member> selectAutoPayMemberList();
+
 	//
 	int selectIdCheck(String member_id);
 

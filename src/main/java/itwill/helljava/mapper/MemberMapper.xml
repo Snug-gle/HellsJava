@@ -111,4 +111,11 @@
 			where member_status = 0 or member_status = 1 or member_status = 9 order by member_no desc) 
 			board) where rn between #{startRow} and #{endRow}
 	</select>
+	
+	<!-- 자동 결제를 위한 트레이너 리스트 뽑기 -->
+	<select id="selectAutoPayMemberList" resultType="Member">
+	 	select * from member m left join pay p 
+       		 on m.member_no = p.member_no 
+           	 where pay_type = 2
+	</select>
 </mapper>
