@@ -87,7 +87,7 @@
 			<div class="panel panel-primary" id="trainer-review-content" style="float: left; <c:if test='${status.index == 1 }'>margin: 0px 5%;</c:if>" >
 				<div class="panel-heading">
 					<h2 class="panel-title" style="text-align: center;">     
-						<strong>${memberName[status.index].memberName }</strong> 회원님의 후기
+						<strong>${reviewInfo.reviewHewonName }</strong> 회원님의 후기
 					</h2>
 				</div>
 				<div class="panel-body mainReviewBody" onclick="location='<c:url value="/posting/detail/${reviewInfo.trainerNo }"/>'">
@@ -100,7 +100,7 @@
 						<div class="form-group mainReviewContent" >
 							<p>${reviewInfo.ptServiceContent }</p>
 						</div>
-						<p class="review-trainer-name" >${trinerName[status.index].memberName }&nbsp;트레이너</p>
+						<p class="review-trainer-name" >${reviewInfo.memberName }&nbsp;트레이너</p>
 						<div class="main-review-panel-score">
 							<div style="float: left;">
 								<i type="button" class="fa fa-heart"></i>

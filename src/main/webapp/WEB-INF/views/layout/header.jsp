@@ -9,7 +9,7 @@
               <div class="container">  
                 <div class="navbar-header">
                     <!--logo start-->
-                        <a style="font-size: 35px; vertical-align: middle;" href="<c:url value="/"/>" class=""><i class="icon-layers"></i>오늘의 짐</a>
+                        <a style="font-size: 35px; vertical-align: middle;" href="<c:url value="/"/>" class=""><i class="icon-layers"></i>O GYM</a>
                     <!--logo end-->
                 </div>
                 <div class="navbar-collapse collapse">

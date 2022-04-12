@@ -14,8 +14,14 @@ public class Trainer {
 	private String memberEmail;
 	private String memberStatus;
 
+
 	private String postingSelfIntroduction;
 	private String postingProgramIntroduction;
+
+	
+	public Trainer() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String getMemberStatus() {
 		return memberStatus;
@@ -49,9 +55,6 @@ public class Trainer {
 		this.trainerCentername = trainerCentername;
 	}
 
-	public Trainer() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public int getTrainerNo() {
 		return trainerNo;
