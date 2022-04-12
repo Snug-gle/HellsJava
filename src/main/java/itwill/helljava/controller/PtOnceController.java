@@ -51,8 +51,8 @@ public class PtOnceController {
 
 //====================회원 전용 1회피티===============================================================================================================================
 	
-	// 1회 피티 신청 리스트 최초 화면 요청 처리 메소드(회원)
-	@Auth(role=Role.USER)
+	// 1회 피티 신청 리스트 최초 화면 요청 처리 메소드(회원) & 예비 트레이너도 허용
+	@Auth(role=Role.USER_PRETRAINER)
 	@RequestMapping(value = "/ptonce/list", method = RequestMethod.GET)
 	public String searchPtOnceList(@AuthUser Member member, Model model, @RequestParam(defaultValue = "1") int pageNum) {
 
@@ -75,8 +75,8 @@ public class PtOnceController {
 
 		return "/user/ptonce/ptonce_list";
 	}
-	// 포스팅 페이지에서 1회 pt 신청 post 방식 요청 (트레이너 번호 넘김) (회원 전용)
-	@Auth(role=Role.USER)
+	// 포스팅 페이지에서 1회 pt 신청 post 방식 요청 (트레이너 번호 넘김) (회원 전용)  & 예비 트레이너도 허용
+	@Auth(role=Role.USER_PRETRAINER)
 	@RequestMapping(value = "/ptonce/request/{trainerNo}", method = RequestMethod.POST)
 	public String addPtOnce(@PathVariable int trainerNo, @ModelAttribute PtOnce ptOnce,
 			@RequestParam Map<String, Object> map, @AuthUser Member member, @ModelAttribute Account account)

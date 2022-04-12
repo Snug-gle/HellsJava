@@ -72,6 +72,7 @@ public class NoticeController {
 		return "board/notice_write";
 	}
 
+	@Auth(role = Role.ADMIN)
 	//공지사항 입력 사항 저장 요청 처리 메소드
 	@RequestMapping( value = "/write" , method = RequestMethod.POST)
 	public String write(@ModelAttribute NoticeService noticeService, Model model, @AuthUser Member member) {
@@ -85,6 +86,7 @@ public class NoticeController {
 		return "redirect:/notice/list";
 	}
 	
+	@Auth(role = Role.ADMIN)
 	//공지사항 수정 사항 저장 요청 처리 메소드
 	@RequestMapping(value = "/modify" , method = RequestMethod.POST)
 	public String modify(@ModelAttribute NoticeService noticeService) throws Exception {

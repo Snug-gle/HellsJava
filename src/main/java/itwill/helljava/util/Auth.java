@@ -10,7 +10,9 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD })
 public @interface Auth {
-	public enum Role {ADMIN, PRETRAINER, TRAINER, USER, USERnPRETRAINER}
-	
-	public Role role() default Role.USER;
+	public enum Role {
+		ALL, ADMIN, TRAINER, USER, USER_PRETRAINER, PRETRAINER_TRAINER, USER_PRETRAINER_ADMIN
+	}
+
+	public Role role() default Role.ALL;
 }

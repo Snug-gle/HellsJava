@@ -174,6 +174,7 @@ public class PostingController {
 		return "/content/posting_detail";
 	}
 
+	@Auth
 	// 좋아요 증가 핸들러 메서드 get 요청
 	@RequestMapping(value = "/review/good/{ptServiceNo}/{trainerNo}", method = RequestMethod.GET)
 	public String goodUpdate(@PathVariable(value = "ptServiceNo") int ptServiceNo,
@@ -184,6 +185,7 @@ public class PostingController {
 		return "redirect:/posting/detail/"+trainerNo;
 	}
 	
+	@Auth(role = Role.TRAINER)
 	// 답글 추가 메서드 POST 요청
 	@RequestMapping(value = "/review/reply/write", method = RequestMethod.POST)
 	public String reviewReplyAdd(@ModelAttribute PtService ptService, HttpServletRequest request, @AuthUser Member member) {
@@ -197,6 +199,7 @@ public class PostingController {
 		return "redirect:/myposting/detail/" + trainerMemberNo;
 	}
 
+	@Auth(role = Role.TRAINER)
 	// 포스팅 수정 POST 방식 요청 스케줄과 포스팅 수정
 	@RequestMapping(value = "/posting/modify", method = RequestMethod.POST)
 	public String trainerPostingUpdate(@ModelAttribute Posting posting, @AuthUser Member member,
