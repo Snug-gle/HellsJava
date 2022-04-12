@@ -77,8 +77,9 @@
 	<select id="selectMainPageTrainerListCount" resultType="int">
 		select count(*) from member m right join trainer t on m.member_no = t.member_no
 								right join posting p on t.trainer_no = p.trainer_no 
+								left join pay p on m.member_no = p.member_no
 				where ${searchKeyword} like '%'||#{searchValue}||'%'
-				and m.member_status = 3
+				and m.member_status = 3 and pay_status = 1
 			order by m.member_no desc
 	</select>
 	
