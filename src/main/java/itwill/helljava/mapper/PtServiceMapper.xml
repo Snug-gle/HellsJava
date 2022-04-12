@@ -113,7 +113,9 @@
 	<select id="selectReviewGoodList" resultType="PtService">
 		select * from
 		(select rownum rn, p.* from(
-		select * from pt_service where pt_service_good is not null order by pt_service_good desc) p)
+		select * from pt_service pt left join pay p
+			on pt.member_no = p.member_no
+		 where pt_service_good is not null and pay_status = 1 order by pt_service_good desc) p)
 		where rn between 1 and 3
 	</select>
 </mapper>

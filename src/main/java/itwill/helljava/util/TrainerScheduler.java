@@ -59,8 +59,10 @@ public class TrainerScheduler {
 
 				Map<String, Object> payMap = new HashMap<String, Object>();
 
-				payMap.put("pay_start", String.valueOf(payDate));
-				payMap.put("pay_no", autoMember.getPayNo());
+				
+				payMap.put("payNo", autoMember.getPayNo());
+				payMap.put("payStatus", autoMember.getPayStatus());
+				
 
 				Map<String, Object> cashMap = new HashMap<String, Object>();
 
@@ -73,6 +75,7 @@ public class TrainerScheduler {
 						throw new Exception("잔액이 모자랍니다.");
 					}
 					else {
+						payMap.put("payStart", String.valueOf(payDate));
 						// 결제 일자 최신화
 						payService.modifyPay(payMap);
 						
@@ -80,6 +83,9 @@ public class TrainerScheduler {
 						memberService.modifyMemberCash(cashMap);
 					}
 				} catch (Exception e) {
+					//payStatus 0은 비활성화
+					payMap.put("payStatus", 0);
+					payService.modifyPay(payMap);
 					LOGGER.info(e.getMessage());
 				}
 
