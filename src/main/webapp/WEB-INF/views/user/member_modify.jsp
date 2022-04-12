@@ -13,7 +13,9 @@
 						<strong>내 정보 수정</strong>
 					</h1>
 					<hr>
-					<br>
+					<form class="withdrawalForm" action="<c:url value="/user/withdrawal"/>" method="POST">
+					<div class="withdrawal"> <button class="btn btn-primary" type="submit"> 회원 탈퇴 </button> </div>
+					</form>
 					<div class="memberModifyBody">
 						<form id="modifyForm" method="post" action="<c:url value="/member/modify"/>" name="noticeForm" class="form-horizontal" role="form">
 							<hr>
@@ -86,6 +88,13 @@
 	</div>
 </div>
 <script type="text/javascript">
+
+$(".withdrawalForm").submit(function() {
+	var submitResult=confirm("정말 탈퇴하시겠습니까?");
+	
+	return submitResult;
+
+});
 
 $("#modifyForm").submit(function() {
 	var submitResult=true;

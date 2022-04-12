@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import itwill.helljava.Enum.MemberEnum;
 import itwill.helljava.dto.Member;
 import itwill.helljava.service.MemberService;
 import itwill.helljava.service.PostingService;
 import itwill.helljava.service.TrainerService;
 import itwill.helljava.util.Auth;
 import itwill.helljava.util.Auth.Role;
+import itwill.helljava.util.AuthUser;
 
 
 @Controller
@@ -36,7 +38,17 @@ public class UserinfoController {
 	public String memberModify() {
 		return "/user/member_modify";
 	}
-
+	
+	@RequestMapping(value = "/user/withdrawal", method = RequestMethod.POST)
+	public String memberRemove(@AuthUser Member member,HttpSession session) {
+		
+		member.setMemberStatus(MemberEnum.탈퇴회원.getValue());
+		memberService.modifyMember(member);
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
 	// 내 정보 수정 페이지 post 요청
 	@RequestMapping(value = "/member/modify", method = RequestMethod.POST)
 	public String memberModify(@ModelAttribute Member member, HttpServletRequest request, HttpSession session) {
