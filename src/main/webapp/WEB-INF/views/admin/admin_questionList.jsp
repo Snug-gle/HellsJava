@@ -44,19 +44,17 @@
 						</div>
 						<!-- 페이징 처리 출력하는 부분-->
 						<div id="pageNumDiv"></div>
-						<form id="searchForm">
-							<div class="main-search-area">
-								<select id="searchKeyword" name="nameSearch"
-									class="btn btn-primary dropdown-toggle searchBtnBox">
-									<option value="notice_service_title" selected="selected">&nbsp;제목&nbsp;</option>
-									<option value="notice_service_content">&nbsp;내용&nbsp;</option>
-									<option value="member_id">&nbsp;아이디&nbsp;</option>
-								</select> <input class="main-search" type="text" name="searchValue"
-									id="searchValue">
-								<button type="button" id="searchBtn"
-									class="btn btn-primary searchBtnBox">검색</button>
-							</div>
-						</form>
+						<div class="main-search-area">
+							<select id="searchKeyword" name="nameSearch"
+								class="btn btn-primary dropdown-toggle searchBtnBox">
+								<option value="notice_service_title" selected="selected">&nbsp;제목&nbsp;</option>
+								<option value="notice_service_content">&nbsp;내용&nbsp;</option>
+								<option value="member_id">&nbsp;아이디&nbsp;</option>
+							</select> <input class="main-search" type="text" name="searchValue"
+								id="searchValue">
+							<button type="button" id="searchBtn"
+								class="btn btn-primary searchBtnBox">검색</button>
+						</div>
 					</div>
 				</section>
 		</section>
@@ -151,10 +149,10 @@
 					url: (idid == 1) ? url1 : url2 ,
 					dataType: "json",
 					success: function(json) {		
-						
-						var str1;
+
 						if(json.restAdminQAList.length==0){
-							str1 += "<table class='admin-list-body-list-table' >";
+							
+							var str1 = "<table class='admin-list-body-list-table' >";
 							str1 += "<colgroup>";
 							str1 += "<col style='width:140px'>";
 							str1 += "<col style='width:150px'>";
@@ -169,10 +167,10 @@
 							str1 += "</tr>";   
 							str1 += "</table>";
 							$("#showData").html(str1);
+							console.log(str1);
 							return;
 						}
-						
-						
+
 						var str = "<table class='admin-list-body-list-table' >";
 							str += "<colgroup>";
 							str += "<col style='width:140px'>";
@@ -342,13 +340,15 @@
 			$("#searchBtn").click(function() {
 				
 				idid = 1;
-				
-				/* var searchKeyword = $("#searchKeyword").val();
-				
-				var searchValue = $("#searchValue").val();
-				
-				location.href="${pageContext.request.contextPath}/admin/questionSearch?searchKeyword="+searchKeyword+"&searchValue="+searchValue; */
 
 				boardDisplay(page,idid);
-			})			
+			});
+			
+			$("#searchValue").keypress(function() {
+				if(event.keyCode==13) {
+					idid = 1;
+
+					boardDisplay(page,idid);
+		        }
+			});	
 	</script>
