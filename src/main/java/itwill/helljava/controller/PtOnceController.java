@@ -29,7 +29,10 @@ import itwill.helljava.service.PayService;
 import itwill.helljava.service.PtOnceService;
 import itwill.helljava.service.PtServiceService;
 import itwill.helljava.service.TrainerService;
+import itwill.helljava.util.Auth;
 import itwill.helljava.util.Pager;
+import itwill.helljava.util.Auth.Role;
+import itwill.helljava.util.AuthUser;
 
 @Controller
 public class PtOnceController {
@@ -47,12 +50,13 @@ public class PtOnceController {
 	private TrainerService trainerService;
 
 //====================회원 전용 1회피티===============================================================================================================================
-
-	// 1회 피티 신청 리스트 최초 화면 요청 처리 메소드(회원)
+	
+	// 1회 피티 신청 리스트 최초 화면 요청 처리 메소드(회원) & 예비 트레이너도 허용
+	@Auth(role=Role.USER_PRETRAINER)
 	@RequestMapping(value = "/ptonce/list", method = RequestMethod.GET)
-	public String searchPtOnceList(HttpSession session, Model model, @RequestParam(defaultValue = "1") int pageNum) {
+	public String searchPtOnceList(@AuthUser Member member, Model model, @RequestParam(defaultValue = "1") int pageNum) {
 
-		int totalBoard = ptOnceService.getPtOnceCount(((Member) session.getAttribute("loginUserinfo")).getMemberNo());
+		int totalBoard = ptOnceService.getPtOnceCount(member.getMemberNo());
 		int pageSize = 5; // 한 페이지에 출력될 게시글의 갯수 저장
 		int blockSize = 10; // 한 페이지 블럭에 출력될 페이지 번호의 갯수 저장
 		int number = totalBoard - (pageNum - 1) * pageSize;
@@ -63,7 +67,7 @@ public class PtOnceController {
 
 		pagerMap.put("startRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
-		pagerMap.put("memberNo", ((Member) session.getAttribute("loginUserinfo")).getMemberNo());
+		pagerMap.put("memberNo", member.getMemberNo());
 
 		model.addAttribute("ptonceList", ptOnceService.getPtOnceList(pagerMap));
 		model.addAttribute("pager", pager);
@@ -71,15 +75,15 @@ public class PtOnceController {
 
 		return "/user/ptonce/ptonce_list";
 	}
-
-	// 포스팅 페이지에서 1회 pt 신청 post 방식 요청 (트레이너 번호 넘김) (회원 전용)
+	// 포스팅 페이지에서 1회 pt 신청 post 방식 요청 (트레이너 번호 넘김) (회원 전용)  & 예비 트레이너도 허용
+	@Auth(role=Role.USER_PRETRAINER)
 	@RequestMapping(value = "/ptonce/request/{trainerNo}", method = RequestMethod.POST)
 	public String addPtOnce(@PathVariable int trainerNo, @ModelAttribute PtOnce ptOnce,
-			@RequestParam Map<String, Object> map, HttpSession session, @ModelAttribute Account account)
+			@RequestParam Map<String, Object> map, @AuthUser Member member, @ModelAttribute Account account)
 			throws AccountPwAuthException, AmountOfPaymentException {
 
 		// 결제 비밀번호 대조
-		account.setMemberNo(((Member) session.getAttribute("loginUserinfo")).getMemberNo());
+		account.setMemberNo(member.getMemberNo());
 		accountSevice.accountPwAuth(account); // 틀릴 시 예외 발생
 
 		// ~~'원'이 넘어왔으므로 원 자르고 숫자로 바꿔서 데이터 저장
@@ -95,7 +99,7 @@ public class PtOnceController {
 		payService.payAuth(pay); // 결제 금액 > 캐시 잔액 예외 발생
 		
 		ptOnce.setTrainerNo(trainerNo);
-		ptOnce.setMemberNo(((Member) session.getAttribute("loginUserinfo")).getMemberNo());
+		ptOnce.setMemberNo(member.getMemberNo());
 		ptOnceService.addPtOnce(ptOnce);
 
 
@@ -107,13 +111,14 @@ public class PtOnceController {
 //====================트레이너 전용===============================================================================================================================
 
 	// 1회 피티 신청 리스트 최초 화면 요청 처리 메소드 (트레이너용)
+	@Auth(role=Role.TRAINER)
 	@RequestMapping(value = "/ptonce/trainer/list", method = RequestMethod.GET)
-	public String searchAllList(Model model, HttpSession session, @RequestParam(defaultValue = "1") int pageNum) {
+	public String searchAllList(Model model, @AuthUser Member member, @RequestParam(defaultValue = "1") int pageNum) {
 
 		Map<String, Object> countMap = new HashMap<String, Object>();
 		countMap.put("pt_once_status", 232); // 아무거나 넣음
 		countMap.put("trainer_no", trainerService
-				.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo());
+				.getTrainer(member.getMemberNo()).getTrainerNo());
 
 		// 전체 리스트를 위한 페이징 정보 저장
 		int totalBoard = ptOnceService.getPtOnceTrainerCount(countMap);
@@ -126,7 +131,7 @@ public class PtOnceController {
 		Map<String, Object> pagerMap = new HashMap<String, Object>();
 		pagerMap.put("pt_once_status", 231);// 임의의 값
 		pagerMap.put("trainer_no", trainerService
-				.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo());
+				.getTrainer(member.getMemberNo()).getTrainerNo());
 		pagerMap.put("startRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
 
@@ -138,15 +143,16 @@ public class PtOnceController {
 	}
 
 	// 1회 피티 신청 리스트 카테고리 변경 GET 요청 [미확인:0], [확인:1], [완료:2] (트레이너 전용)
+	@Auth(role=Role.TRAINER)
 	@RequestMapping(value = "/ptonce/trainer/list/status", method = RequestMethod.GET)
-	public String searchList(@RequestParam String ptOnceStatus, HttpSession session,
+	public String searchList(@RequestParam String ptOnceStatus, @AuthUser Member member,
 			@RequestParam(defaultValue = "1") int pageNum, Model model) {
 
 		Map<String, Object> countMap = new HashMap<String, Object>();
 
 		countMap.put("pt_once_status", Integer.parseInt(ptOnceStatus));
 		countMap.put("trainer_no", trainerService
-				.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo());
+				.getTrainer(member.getMemberNo()).getTrainerNo());
 
 		// 상태별 리스트 페이징 정보 저장
 		int totalBoard = ptOnceService.getPtOnceTrainerCount(countMap);
@@ -159,7 +165,7 @@ public class PtOnceController {
 		Map<String, Object> pagerMap = new HashMap<String, Object>();
 		pagerMap.put("pt_once_status", Integer.parseInt(ptOnceStatus));
 		pagerMap.put("trainer_no", trainerService
-				.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo());
+				.getTrainer(member.getMemberNo()).getTrainerNo());
 		pagerMap.put("startRow", pager.getStartRow());
 		pagerMap.put("endRow", pager.getEndRow());
 
@@ -172,9 +178,10 @@ public class PtOnceController {
 	}
 
 	// PT 완료 후 status 수정하는 메소드
+	@Auth(role=Role.TRAINER)
 	@RequestMapping(value = "/ptonce/trainer/modify/{ptOnceNo}/{status}", method = RequestMethod.GET)
 	public String modifyStatus(@PathVariable(value = "ptOnceNo") int ptOnceNo,
-			@PathVariable(value = "status") int status, HttpSession session) {
+			@PathVariable(value = "status") int status) {
 
 		Map<String, Object> modifyMap = new HashMap<String, Object>();
 

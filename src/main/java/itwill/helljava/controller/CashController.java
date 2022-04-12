@@ -16,11 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import itwill.helljava.Enum.PayTypeEnum;
 import itwill.helljava.dto.Account;
+import itwill.helljava.dto.Member;
 import itwill.helljava.dto.Pay;
 import itwill.helljava.exception.AccountPwAuthException;
 import itwill.helljava.service.AccountSevice;
 import itwill.helljava.service.MemberService;
+import itwill.helljava.service.PayService;
+import itwill.helljava.util.Auth;
+import itwill.helljava.util.AuthUser;
 
+@Auth
 @Controller
 public class CashController {
 
@@ -29,11 +34,15 @@ public class CashController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private PayService payService;
+	
 
 	// 캐시 충전 post 요청
 	@RequestMapping(value = "/cash/refill", method = RequestMethod.POST)
 	public String cashRefill(@ModelAttribute Account account, @RequestParam int memberNo,
-			@RequestParam String refillCash, Model model, HttpSession session) throws AccountPwAuthException {
+			@RequestParam String refillCash, Model model, @AuthUser Member member, HttpSession session) throws AccountPwAuthException {
 
 		accountSevice.accountPwAuth(account);
 
@@ -51,10 +60,12 @@ public class CashController {
 		pay.setMemberNo(memberNo);
 		pay.setPayPrice(Integer.parseInt(refillCash));
 		pay.setPayType(PayTypeEnum.캐시충전.getValue());
-
-		session.setAttribute("loginUserinfo", memberService.getMember(memberNo));
 		
-		return "main";
+		payService.addPay(pay);
+		
+		session.setAttribute("loginUserinfo", memberService.getMember(memberNo)); 
+		
+		return "redirect:/";
 	}
 
 	// 계좌 비번 틀릴 시 예외 처리 핸들러 메서드

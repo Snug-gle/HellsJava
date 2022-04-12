@@ -24,8 +24,12 @@ import itwill.helljava.dto.PtService;
 import itwill.helljava.dto.Trainer;
 import itwill.helljava.service.PtServiceService;
 import itwill.helljava.service.TrainerService;
+import itwill.helljava.util.Auth;
 import itwill.helljava.util.Pager;
+import itwill.helljava.util.Auth.Role;
+import itwill.helljava.util.AuthUser;
 
+@Auth(role = Role.USER_PRETRAINER)//가능하면 일반회원과 예비트레이너 합쳐서 지정
 @Controller
 @RequestMapping("/review")
 public class ReviewController {
@@ -38,17 +42,13 @@ public class ReviewController {
 
 	// 내가 쓴 리뷰 보기 목록 리스트
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String searchList(@RequestParam(defaultValue = "1") int pageNum, HttpSession session, Model model) {
-
-		if (session.getAttribute("loginUserinfo") != null) {
-
-		}
+	public String searchList(@RequestParam(defaultValue = "1") int pageNum, @AuthUser Member member, Model model) {
 
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 
 		searchMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
 		searchMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
-		searchMap.put("member_no", ((Member) session.getAttribute("loginUserinfo")).getMemberNo());
+		searchMap.put("member_no", member.getMemberNo());
 
 		int totalBoard = ptServiceService.getPtServiceCount(searchMap);
 		int pageSize = 5; // 한 페이지에 출력될 게시글의 갯수 저장
@@ -63,7 +63,7 @@ public class ReviewController {
 		returnMap.put("endRow", pager.getEndRow());
 		returnMap.put("pt_service_sortation", PtServiceSortationEnum.리뷰.getValue());
 		returnMap.put("pt_service_status", PtServiceStatusEnum.일반리뷰.getValue());
-		returnMap.put("member_no", ((Member) session.getAttribute("loginUserinfo")).getMemberNo());
+		returnMap.put("member_no", member.getMemberNo());
 
 		model.addAttribute("reviewrList", ptServiceService.getPtServiceList(returnMap));
 		model.addAttribute("pager", pager);
@@ -87,11 +87,11 @@ public class ReviewController {
 
 	// 회원 1회 pt 신청 리스트에서 리뷰 작성 버튼을 눌렀을 때 요청 처리 메소드
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String reviewWrite(HttpServletRequest req, HttpSession session, Model model,
+	public String reviewWrite(HttpServletRequest req, @AuthUser Member member, Model model,
 			@RequestParam int trainerNo) {
 		
 		// 작성 회원 번호
-		int writeMemberNo = ((Member)session.getAttribute("loginUserinfo")).getMemberNo();
+		int writeMemberNo = member.getMemberNo();
 		
 		Map<String, Object> reviewMap = new HashMap<String, Object>();
 		
@@ -126,10 +126,10 @@ public class ReviewController {
 	
 	// 리뷰 작성 후 저장 요청 처리 메소드 POST 요청
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String reviewWrite(@ModelAttribute PtService ptService, HttpSession session, Model model
+	public String reviewWrite(@ModelAttribute PtService ptService, @AuthUser Member member, Model model
 			,HttpServletRequest request) {
 
-		int memberNo = ((Member) (session.getAttribute("loginUserinfo"))).getMemberNo();// 이거슨 로그인한놈의 회원번호여
+		int memberNo = member.getMemberNo();// 이거슨 로그인한놈의 회원번호여
 
 		ptService.setMemberNo(memberNo);
 		ptService.setPtServiceStatus(PtServiceStatusEnum.일반리뷰.getValue());
@@ -146,7 +146,7 @@ public class ReviewController {
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String reviewModify(@ModelAttribute PtService ptService, @RequestParam int trainerNo) {
 
-		ptService.setPtServiceStatus(PtServiceStatusEnum.일반리뷰.getValue());// 쿼리 if문 회피용 값 수동 부여
+		ptService.setPtServiceStatus(PtServiceStatusEnum.일반리뷰.getValue());
 		ptServiceService.modifyPtService(ptService);
 
 		return "redirect:/review/list";

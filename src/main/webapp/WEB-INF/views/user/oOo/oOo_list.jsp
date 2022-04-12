@@ -8,7 +8,7 @@
 		<div class="notice-list-print">
 			<div class="pageheader" style="font-size: 20px;">
 				<div style="text-align: center;">
-					<h1>1:1 문의 내역</h1>
+					<h1>나의 1:1 문의 내역</h1>
 				</div>
 			</div>
 			<div class="panel-body">

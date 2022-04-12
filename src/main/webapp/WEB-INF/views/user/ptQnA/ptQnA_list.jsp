@@ -2,6 +2,28 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<style>
+textarea {
+    resize: none;
+	width: 100%;
+	height: 250px;
+	border-radius: 2px;
+    box-shadow: none;
+    border: 2px solid #e8ebed;
+    padding:10px;
+    
+  }
+.mm {
+    padding: 8px 12px 9px 12px;
+    margin-top: 10px;
+
+}  
+
+.pp {
+	padding-right: 20px;
+}
+</style>
+
 
 <div class="container">
 	<div class="my-page-box">
@@ -45,7 +67,6 @@
 											<tbody>
 												<tr>
 													<td class="accordionBoard" style="width: 70px;"><strong>${number2 }</strong></td>
-													<td class="accordionBoard" style="width: auto;">${ptQna.ptServiceTitle }</td>
 													<td class="accordionBoard" style="width: 100px;">${fn:substring({ptQna.ptServiceDate},1,12)}</td>
 													<td class="accordionBoard"
 														style="width: 180px; text-align: justify;">${ptQna.memberName }&nbsp;트레이너</td>
@@ -69,7 +90,7 @@
 										<div class="personalContent">${ptQna.ptServiceContent}
 											<!-- 모달 버튼 -->
 											<!-- 답글 있으면 수정 못하게 해야겠지? -->
-											<div class="reviewRight">
+											<div class="reviewRight pp">
 												<button class="btn btn-primary" type="button"
 													data-toggle="modal" data-target="#modal_${number2 }">수정</button>
 											</div>
@@ -92,26 +113,19 @@
 																	</div>
 																	<form action="<c:url value='/ptqna/modify'/>"
 																		method="post" class="form-horizontal" role="form">
-																		<input type="hidden" name="ptServiceStatus" value="${ptQna.ptServiceStatus }">
-																		<div class="form-group">
-																			<label for="inputTitle"
-																				class="col-sm-2 control-label">제목</label>
-																			<div class="col-sm-10">
-																				<input type="hidden" name="ptServiceNo"
-																					class="form-control" value="${ptQna.ptServiceNo }">
-																				<input type="text" name="ptServiceTitle"
-																					class="form-control" value="${ptQna.ptServiceTitle }">
-																			</div>
-																		</div>
-																		<div class="form-group">
+																		<input type="hidden" name="ptServiceStatus"
+																			value="${ptQna.ptServiceStatus }"> 
+																		<input
+																			type="hidden" name="ptServiceNo" class="form-control"
+																			value="${ptQna.ptServiceNo }">
+																		<div class="form-group mm">
 																			<label for="inputTitle"
 																				class="col-sm-2 control-label">내용</label>
 																			<div class="col-sm-10">
-																				<textarea name="ptServiceContent"
-																					class="form-control">${ptQna.ptServiceContent}</textarea>
+																				<textarea name="ptServiceContent" class="">${ptQna.ptServiceContent}</textarea>
 																			</div>
 																		</div>
-																		<div class="reviewRight">
+																		<div class="reviewRight pp">
 																			<button type="submit" class="btn btn-primary">수정</button>
 																			<button type="button" class="btn btn-primary"
 																				onclick="location.href='<c:url value="/ptqna/list"/>';">목록</button>

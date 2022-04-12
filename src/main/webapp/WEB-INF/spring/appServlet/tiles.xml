@@ -14,12 +14,12 @@
 		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/>	
 	</definition>
 	
-	<definition name="user/login/*" template="/WEB-INF/views/layout/loginTemplate.jsp">
+	<definition name="user/login/*" template="/WEB-INF/views/layout/beanTemplate.jsp">
 		<put-attribute name="content" value="/WEB-INF/views/user/login/{1}.jsp"/>	
 	</definition>
 	
-	<definition name="/admin/testaward" template="/WEB-INF/views/layout/loginTemplate.jsp">
-		<put-attribute name="content" value="/WEB-INF/views/admin/testaward.jsp"/>	
+	<definition name="/admin/awardLoad" template="/WEB-INF/views/layout/beanTemplate.jsp">
+		<put-attribute name="content" value="/WEB-INF/views/admin/awardLoad.jsp"/>	
 	</definition>
 	
 <!-- 	<definition name="admin" template="/WEB-INF/views/admin/admin_template.jsp">

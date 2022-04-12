@@ -42,28 +42,12 @@ public class DetailSearchController {
 		redirectAttributes.addFlashAttribute("searchList", trainerService.getMainPageTrainerList(map));
 		redirectAttributes.addFlashAttribute("searchValue", map.get("searchValue"));
 		return "redirect:/search_list";
+			
 	}
-
+	
 	@RequestMapping(value = "/search_list", method = RequestMethod.GET)
 	public String searchList() {
 		return "/content/search_list";
-	}
-
-	/*
-	 * @RequestMapping(value = "/content/posting_detail", method =
-	 * RequestMethod.GET) public String postingDetail(@RequestParam(value = "code",
-	 * defaultValue="1") int code ,Model model) { model.addAttribute("testReview",
-	 * code); return "/content/posting_detail"; }
-	 */
-
-	@RequestMapping(value = "/content/posting_detail", method = RequestMethod.GET)
-	public String postingDetail() {
-		return "/content/posting_detail";
-	}
-
-	@RequestMapping(value = "/content/insert", method = RequestMethod.GET)
-	public String postingDetailInsert() {
-		return "/content/posting_detail_insert";
 	}
 
 }

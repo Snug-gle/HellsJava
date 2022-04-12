@@ -88,7 +88,7 @@
 					</div>
 					<br>
 					
-						<form id="searchForm" method="get">
+						
 							<div class="main-search-area">
 								<select id="nameIdSearch" name="nameIdSearch" class="btn btn-primary dropdown-toggle searchBtnBox">
 									<option value="member_name" selected="selected">&nbsp;이름&nbsp;</option>
@@ -97,7 +97,7 @@
 								<input class="main-search" type="text" name="searchValue" id="searchValue" value="${searchValue }">
 								<button type="button" id="searchBtn" class="btn btn-primary searchBtnBox">검색</button>
 							</div>
-						</form>
+						
 				</div>
 			</section>
 		</section>
@@ -124,15 +124,25 @@
 		// 검색 카테고리
 		var searchKeyword = $("#nameIdSearch").val();
 		
-		alert(searchKeyword);
-		
 		// 검색 값
 		var searchValue = $("#searchValue").val();
-		alert(searchValue);
 		
 		location.href="${pageContext.request.contextPath}/admin/userSearch?searchKeyword="+searchKeyword+"&searchValue="+searchValue;
 
 	});
+	
+	$("#searchValue").keypress(function() {
+		if(event.keyCode==13) {
+        	
+        	// 검색 카테고리
+    		var searchKeyword = $("#nameIdSearch").val();
+    		
+    		// 검색 값
+    		var searchValue = $("#searchValue").val();
+    		location.href="${pageContext.request.contextPath}/admin/userSearch?searchKeyword="+searchKeyword+"&searchValue="+searchValue;
+
+        }
+	})	
 	
 	//-----------------Paging----------------------------------
 	var page = 1; //현재 요청 페이지 번호를 저장하기 위한 전역 변수

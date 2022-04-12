@@ -38,6 +38,9 @@ import itwill.helljava.service.PtPricingService;
 import itwill.helljava.service.PtServiceService;
 import itwill.helljava.service.ScheduleService;
 import itwill.helljava.service.TrainerService;
+import itwill.helljava.util.Auth;
+import itwill.helljava.util.Auth.Role;
+import itwill.helljava.util.AuthUser;
 
 @Controller
 public class PostingController {
@@ -64,25 +67,27 @@ public class PostingController {
 	
 	@Autowired
 	private PtServiceService ptServiceService;
-
+	
 	// 포스팅 작성 페이지 요청
+	@Auth(role=Role.TRAINER)
 	@RequestMapping(value = "/posting/write", method = RequestMethod.GET)
-	public String trainerRequestAdd(HttpSession session, Model model) {
+	public String trainerRequestAdd(@AuthUser Member member, Model model) {
 
 		// 모델에다가 트레이너 객체 넘김
 		model.addAttribute("trainer",
-				trainerService.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()));
+				trainerService.getTrainer(member.getMemberNo()));
 		model.addAttribute("trainerAwards", awardService.getAwardList(trainerService
-				.getTrainer(((Member) session.getAttribute("loginUserinfo")).getMemberNo()).getTrainerNo()));
+				.getTrainer(member.getMemberNo()).getTrainerNo()));
 
 		return "/content/posting_detail_insert";
 	}
-
+	
 	// 포스팅 수정 페이지 요청
+	@Auth(role=Role.TRAINER)
 	@RequestMapping(value = "/posting/modify", method = RequestMethod.GET)
-	public String trainerRequestUpdate(HttpSession session, Model model) {
+	public String trainerRequestUpdate(@AuthUser Member member, Model model) {
 
-		int modifyMemberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
+		int modifyMemberNo = member.getMemberNo();
 
 		// 모델에다가 트레이너 객체 넘김
 		model.addAttribute("trainer", trainerService.getTrainer(modifyMemberNo));
@@ -101,6 +106,7 @@ public class PostingController {
 	}
 
 	// 트레이너가 마이페이지에서 포스팅 디테일 페이지 GET 요청
+	@Auth(role=Role.TRAINER)
 	@RequestMapping(value = "/myposting/detail/{memberNo}", method = RequestMethod.GET)
 	public String trPostingDetail(@PathVariable(value = "memberNo") int memberNo, Model model) {
 
@@ -168,6 +174,7 @@ public class PostingController {
 		return "/content/posting_detail";
 	}
 
+	@Auth
 	// 좋아요 증가 핸들러 메서드 get 요청
 	@RequestMapping(value = "/review/good/{ptServiceNo}/{trainerNo}", method = RequestMethod.GET)
 	public String goodUpdate(@PathVariable(value = "ptServiceNo") int ptServiceNo,
@@ -178,11 +185,12 @@ public class PostingController {
 		return "redirect:/posting/detail/"+trainerNo;
 	}
 	
+	@Auth(role = Role.TRAINER)
 	// 답글 추가 메서드 POST 요청
 	@RequestMapping(value = "/review/reply/write", method = RequestMethod.POST)
-	public String reviewReplyAdd(@ModelAttribute PtService ptService, HttpServletRequest request, HttpSession session) {
+	public String reviewReplyAdd(@ModelAttribute PtService ptService, HttpServletRequest request, @AuthUser Member member) {
 
-		int trainerMemberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
+		int trainerMemberNo = member.getMemberNo();
 
 		// pk는 이미 들어가있음
 		request.getParameter("ptServiceReply");
@@ -191,13 +199,14 @@ public class PostingController {
 		return "redirect:/myposting/detail/" + trainerMemberNo;
 	}
 
+	@Auth(role = Role.TRAINER)
 	// 포스팅 수정 POST 방식 요청 스케줄과 포스팅 수정
 	@RequestMapping(value = "/posting/modify", method = RequestMethod.POST)
-	public String trainerPostingUpdate(@ModelAttribute Posting posting, HttpSession session,
+	public String trainerPostingUpdate(@ModelAttribute Posting posting, @AuthUser Member member,
 			MultipartHttpServletRequest request) throws IllegalStateException, IOException {
 
 		// 포스팅 수정한 트레이너의 회원 번호
-		int memberNo = ((Member) session.getAttribute("loginUserinfo")).getMemberNo();
+		int memberNo = member.getMemberNo();
 
 // ===========================파일 수정=================================
 
@@ -418,11 +427,11 @@ public class PostingController {
 
 	// 포스트 작성 페이지 post 요청 스케쥴과 포스팅 추가하는 핸들러 메서드
 	@RequestMapping(value = "/posting/write", method = RequestMethod.POST)
-	public String trainerRequestAdd(@ModelAttribute Posting posting, HttpSession httpSession,
+	public String trainerRequestAdd(@ModelAttribute Posting posting, @AuthUser Member member,
 			MultipartHttpServletRequest request) throws IllegalStateException, IOException {
 
 		// 세션으로 얻어온 멤버 넘버
-		int memberNo = ((Member) (httpSession.getAttribute("loginUserinfo"))).getMemberNo();
+		int memberNo = member.getMemberNo();
 
 		// 파일 없을 경우 다시 포스팅 작성 페이지로 가라
 		if (request.getFileNames() == null) {
@@ -538,9 +547,8 @@ public class PostingController {
 			scheduleService.addSchedule(schedule);
 		}
 
-		return "/user/trainer/trainer_mypage";
-		// 일단 트레이너 마이페이지로 가지만 포스팅 디테일 완성하면 경로 바꾸고 주석 지우기
-		// 포스팅 추가하면 포스팅 디테일 페이지로 이동 얘도 수정필요 리다이렉트 요청 ㄱㄱ
+		// 포스팅 추가하면 포스팅 디테일 페이지로 이동
+		return "redirect:/myposting/detail/"+memberNo;
 	}
 
 }

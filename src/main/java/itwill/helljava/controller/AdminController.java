@@ -49,13 +49,9 @@ public class AdminController {
 //------------------------1:1문의----------------------------------------------------------------------------------------	
 
 	// 1:1 문의 리스트(최초) GET 방식 요청
-	
+
 	@RequestMapping(value = "/admin/questionList", method = RequestMethod.GET)
-	public String questionList(@AuthUser Member member) {
-		//이게 뭐지?--------------------------------
-		Member loginUserinfo = memberService.getMember(member.getMemberNo());
-		if( loginUserinfo == null ) {return "redirect:/";}
-		//-----------------------------------------
+	public String questionList() {
 		
 		return "/admin/admin_questionList";
 	}
@@ -284,13 +280,15 @@ public class AdminController {
 	// 트레이너 리스트 모달 창 ajax get 요청 awardList로 반환
 	@RequestMapping(value = "/admin/trainerList/modal/request", method = RequestMethod.GET)
 	public String modalAwardRequest(@RequestParam int trainerNo, Model model) {
-
+		System.out.println("===========================================================================================");
+		System.out.println("trainerNo = ["+trainerNo+"]");
+		System.out.println("===========================================================================================");
 		List<Award> returnList = new ArrayList<Award>();
 
 		returnList = awardService.getAwardList(trainerNo);
 
 		model.addAttribute("List", returnList);
-		return "/admin/testaward";
+		return "/admin/awardLoad";
 	}
 
 	// 트레이너 상세에서 상태 변경 get 요청
