@@ -162,6 +162,7 @@
 		
 										<div class="ad-t-v-header-award-footer-change">
 											<select class="btn btn-primary dropdown-toggle" id="trainerStatusChange" name="trainerStatusChange">
+												<option value="1" <c:if test="${trainer.memberStatus==2 }">selected="selected"</c:if>>일반 회원</option>
 												<option value="2" <c:if test="${trainer.memberStatus==2 }">selected="selected"</c:if>>트레이너 예정</option>
 												<option value="3" <c:if test="${trainer.memberStatus==3 }">selected="selected"</c:if>>트레이너</option>
 											</select>
