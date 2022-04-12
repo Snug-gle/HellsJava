@@ -105,6 +105,10 @@ public class MemberServiceImpl implements MemberService {
 			throw new LoginAuthFailException("아이디의 회원정보가 존재하지 않습니다.", member.getMemberId());
 		}
 
+		if(authMember.getMemberStatus() == 0) {
+			throw new LoginAuthFailException("탈퇴 회원입니다.", member.getMemberId());
+		}
+		
 		// BCrypt.checkpw(String plainText, String hashed) : 일반 문자열과 암호화 처리된 문자열을
 		// 비교하여 다른 경우 false 반환하고 같은 경우 true를 반환하는 메소드
 		if (!BCrypt.checkpw(member.getMemberPw(), authMember.getMemberPw())) {// 비밀번호 인증 실패
