@@ -92,6 +92,10 @@
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
+				<%-- 페이지 번호 출력 --%>
+				<div class="panel panel-default">
+					<div class="panel-body" id="pageNumDiv"></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -99,6 +103,35 @@
 
 	
 <script type="text/javascript">
+var page = 1; //현재 요청 페이지 번호를 저장하기 위한 전역 변수
+var html = ""; //페이지 번호 출력하기 위한 전역 변수
+
+//페이징 처리 
+//[처음], [이전] 이동 설정
+if (${pager.startPage} > ${pager.blockSize}) {
+	html += "<a href='<c:url value="/review/list/"/>?pageNum=1'>[처음]</a>";
+	html += "<a href='<c:url value="/review/list/"/>?pageNum=${pager.prevPage}'>[<]</a>";
+} else {
+	html += "[처음][<]";
+}
+//페이지 번호 설정
+for (var i = ${pager.startPage}; i <= ${pager.endPage}; i++) {
+	if (${pager.pageNum} != i) {
+		html += "<a href='<c:url value="/review/list/"/>?pageNum="+i+"'> [" + i + "] </a>";
+	} else {
+		html += "[" + i + "]";
+	}
+}
+//[다음],[마지막] 이동 설정
+if (${pager.endPage} != ${pager.totalPage}) {
+	html += "<a href='<c:url value="/review/list/"/>?pageNum=${pager.nextPage}'>[>]</a>";
+	html += "<a href='<c:url value="/review/list/"/>?pageNum=${pager.totalPage}'>[마지막]</a>";
+} else {
+	html += "[>][마지막]";
+}
+	
+//페이징 처리 결과 출력
+$("#pageNumDiv").html(html);
 	
 	// 작성한 리뷰가 있을 때
 	//alert(${reviewExistsMsg});
