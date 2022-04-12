@@ -30,11 +30,14 @@ public interface MemberService {
 	Member getIdMember(String member_id);
 
 	Member getPhoneMember(String memberPhone);
-	
+
 	Member getSearchMember(Map<String, Object> map)
 			throws MemberIdSearchNotFoundException, MemberPwSearchNotFoundException;
 
 	List<Member> getMemberList(Map<String, Object> map);
+
+	// 자동 결제를 위한 트레이너 리스트 뽑기
+	List<Member> getAutoPayMemberList();
 
 	void loginAuth(Member member) throws LoginAuthFailException;
 

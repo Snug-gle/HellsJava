@@ -2,7 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
@@ -72,4 +76,10 @@
 	Spring Bean으로 트렌젝션 처리 기능을 제공하기 위한 엘리먼트 -->
 	<!-- => @Transactional 어노테이션이 사용된 메소드에서 예외가 발생된 경우 ROLLBACK 처리 -->
 	<tx:annotation-driven/>
+	
+	<!-- 스케쥴러 파일이 존재하는 패키지 -->
+	<context:component-scan base-package="com.kokoa.acait.scheduler"/>
+	<!-- 크론탭 설정에 -->
+	<task:scheduler id="jobScheduler" pool-size="10"/>
+	<task:annotation-driven scheduler="jobScheduler"/>
 </beans>

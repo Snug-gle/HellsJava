@@ -92,6 +92,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.selectMemberList(map);
 	}
 
+	@Override
+	public List<Member> getAutoPayMemberList() {
+		return memberDAO.selectAutoPayMemberList();
+	}
+	
 	// 로그인 인증 실패 : 예외 발생, 로그인 인증 성공 : 예외 미발생
 	@Override
 	public void loginAuth(Member member) throws LoginAuthFailException {

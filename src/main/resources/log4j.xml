@@ -64,6 +64,12 @@
 		<level value="info" />
 	</logger>
 	
+	
+	<!-- 자동 결제 로거 추가 -->
+	<logger name="itwill.helljava.util">
+		<level value="info" />
+	</logger>
+	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />

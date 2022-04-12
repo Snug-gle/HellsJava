@@ -8,6 +8,10 @@
 		insert into pay values(#{payNo}, #{memberNo}, sysdate, #{payPrice}, #{payType}) 
 	</insert>
 	
+	<update id="updatePay" parameterType="Map">
+		update pay set pay_start = #{pay_start} where pay_no = #{pay_no}
+	</update>
+	
 	<select id="selectPay" resultType="Pay">
 		select * from pay where pay_no = #{payNo} 
 	</select>
