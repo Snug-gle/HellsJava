@@ -39,8 +39,8 @@ public class PayServiceImpl implements PayService {
 	}
 
 	@Override
-	public Pay getPay(int pay_no) {
-		return payDAO.selectPay(pay_no);
+	public Pay getPay(Map<String, Object> map) {
+		return payDAO.selectPay(map);
 	}
 
 	@Override
