@@ -29,7 +29,7 @@ import itwill.helljava.util.Pager;
 import itwill.helljava.util.Auth.Role;
 import itwill.helljava.util.AuthUser;
 
-@Auth(role = Role.USER)//가능하면 일반회원과 예비트레이너 합쳐서 지정
+@Auth(role = Role.USER_PRETRAINER)//가능하면 일반회원과 예비트레이너 합쳐서 지정
 @Controller
 @RequestMapping("/review")
 public class ReviewController {

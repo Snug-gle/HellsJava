@@ -35,10 +35,10 @@ public class PtQnAController {
 	@Autowired
 	private TrainerService trainerService;
 
-/*===================================  회원==  ======================================  */
+/*===================================회원 & 예비트레이너========================================  */
 	
 	// PT 문의 전체 리스트 요청 처리 메소드 
-	@Auth(role=Role.USER)
+	@Auth(role=Role.USER_PRETRAINER)
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String searchAllList(Model model, @RequestParam(defaultValue = "1") int pageNum,
 			@AuthUser Member member) {
@@ -75,7 +75,7 @@ public class PtQnAController {
 	}
 
 	// 확인, 미확인 여부 리스트 페이지 요청 처리 메소드
-	@Auth(role=Role.USER)
+	@Auth(role=Role.USER_PRETRAINER)
 	@RequestMapping(value = "/list/status", method = RequestMethod.GET)
 	public String searchList(Model model, @RequestParam(defaultValue = "1") int pageNum,
 			@RequestParam String confirmStatus, @AuthUser Member member) {

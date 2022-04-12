@@ -46,8 +46,6 @@ import itwill.helljava.util.AuthUser;
 @Controller
 public class TrainerController {
 
-	private static final String NULL_COMMENT = "빈 값 넣어줘";
-
 	// 필드에 WebApplicationContext 객체(Spring Container)를 저장하도록 인젝션 처리
 	@Autowired
 	private WebApplicationContext context;
@@ -88,8 +86,8 @@ public class TrainerController {
 		return "/user/trainer/trainer_request";
 	}
 
-	// 트레이너 수정 화면을 요청
-	@Auth(role = Role.TRAINER)
+	// 트레이너 수정 화면을 요청 예비트레이너 & 트레이너
+	@Auth(role = Role.PRETRAINER_TRAINER)
 	@RequestMapping(value = "/trainer/modify", method = RequestMethod.GET)
 	public String trainerModify(@AuthUser Member member, Model model) {
 

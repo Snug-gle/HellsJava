@@ -15,8 +15,9 @@ import itwill.helljava.service.MemberService;
 import itwill.helljava.service.PostingService;
 import itwill.helljava.service.TrainerService;
 import itwill.helljava.util.Auth;
+import itwill.helljava.util.Auth.Role;
 
-@Auth//가능하면 일반회원과 예비트레이너 합쳐서 지정
+
 @Controller
 public class UserinfoController {
 
@@ -30,6 +31,7 @@ public class UserinfoController {
 	TrainerService trainerService;
 
 	// 내 정보 수정 페이지 요청
+	@Auth // 전체 가능
 	@RequestMapping(value = "/member/modify", method = RequestMethod.GET)
 	public String memberModify() {
 		return "/user/member_modify";
@@ -63,7 +65,8 @@ public class UserinfoController {
 	}
 	
 	
-	// 마이 페이지 요청
+	// 마이 페이지 요청 회원 예비트레이너 관리자 같은 jsp 공유
+	@Auth(role = Role.USER_PRETRAINER_ADMIN)
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String myPage() {
 

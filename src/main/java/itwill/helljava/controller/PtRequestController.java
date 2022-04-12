@@ -25,7 +25,7 @@ public class PtRequestController {
 	PtServiceService ptServiceService;
 	
 	//PT 문의 POST 방식 요청
-	@Auth(role=Role.USER)
+	@Auth(role=Role.USER_PRETRAINER)
 	@RequestMapping(value = "/pt/request/{trainerNo}", method = RequestMethod.POST)
 	public String ptRequest(@PathVariable("trainerNo") int trainerNo,
 			@AuthUser Member member, @ModelAttribute PtService ptService) {
