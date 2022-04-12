@@ -15,6 +15,16 @@ public class Member {
 	private String payStart;
 	private int payPrice;
 	private int payType;
+	private int payStatus;
+	
+
+	public int getPayStatus() {
+		return payStatus;
+	}
+
+	public void setPayStatus(int payStatus) {
+		this.payStatus = payStatus;
+	}
 
 	public int getPayNo() {
 		return payNo;
