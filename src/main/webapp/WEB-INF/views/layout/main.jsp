@@ -5,29 +5,8 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-	<div class="main-banner-image">
-		<div id="imgcontainer">
-			<div class="itemsImg">
-				<div class="imgItem activeMainImg"><img class="main-banner-image_01" src="<spring:url value="/img/vac-1.jpg"/>"></div>
-				<div class="imgItem"><img class="main-banner-image_02" src="<spring:url value="/img/vac-2.jpg"/>"></div>
-				<div class="imgItem"><img class="main-banner-image_03" src="<spring:url value="/img/vac-3.jpg"/>"></div>
-				<div class="imgItem"><img class="main-banner-image_04" src="<spring:url value="/img/vac-4.jpg"/>"></div>
-			</div>
-			
-		</div>
-	</div>
-
-	<div class="main-banner-image-contorller">
-		<button type="button" class="fa fa-chevron-left main-contorller image-contorller-left prev"></button>
-		<button type="button" class="fa fa-circle main-contorller image-contorller-circle step active-step" value="0" onclick="cicleclick(this)"></button>
-		<button type="button" class="fa fa-circle main-contorller image-contorller-circle step" value="1" onclick="cicleclick(this)"></button>
-		<button type="button" class="fa fa-circle main-contorller image-contorller-circle step" value="2" onclick="cicleclick(this)"></button>
-		<button type="button" class="fa fa-circle main-contorller image-contorller-circle step" value="3" onclick="cicleclick(this)"></button>
-		<button type="button" class="fa fa-chevron-right main-contorller image-contorller-right next"></button>
-	</div>
-
 <form action="<spring:url value="/content/search"/>" method="post">
-	<div class="main-search-area">
+	<div class="main-search-area" style="margin-top: 100px; margin-bottom: 50px;">
 		<select name="searchKeyword" class="btn btn-primary dropdown-toggle">
 			<option value="member_name" selected="selected">트레이너명</option>
 			<option value="trainer_centername">센터명</option>
@@ -63,7 +42,7 @@
 						</div>
 						<!-- <span class="text-muted">소속센터명</span> -->
 						<div class="form-group">
-							<p>${trainerInfo.postingSelfIntroduction }</p>
+							<p>${fn:substring(trainerInfo.postingSelfIntroduction,0,160) }</p>
 						</div>
 					 </form>
 				</div>
