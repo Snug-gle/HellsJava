@@ -77,16 +77,16 @@
 						<div class="panel-body" id="pageNumDiv"></div>
 					</div>
 					
-						<form id="searchForm" method="post" action="">
-							<div class="main-search-area">
-								<select id="nameIdSearch" name="nameIdSearch" class="btn btn-primary dropdown-toggle searchBtnBox">
-									<option value="member_name" selected="selected">&nbsp;이름&nbsp;</option>
-									<option value="member_id">&nbsp;아이디&nbsp;</option>
-								</select>
-								<input class="main-search" name="searchValue" id="searchValue">
-								<button type="button" id="searchBtn" class="btn btn-primary searchBtnBox">검색</button>
-							</div>
-						</form>
+					
+						<div class="main-search-area">
+							<select id="nameIdSearch" name="nameIdSearch" class="btn btn-primary dropdown-toggle searchBtnBox">
+								<option value="member_name" selected="selected">&nbsp;이름&nbsp;</option>
+								<option value="member_id">&nbsp;아이디&nbsp;</option>
+							</select>
+							<input class="main-search" name="searchValue" id="searchValue" >
+							<button type="button" id="searchBtn" class="btn btn-primary searchBtnBox">검색</button>
+						</div>
+						
 				</div>
 			</section>
 		</section>
@@ -210,11 +210,13 @@
 				$(".ad-t-v-header-award-footer").append("<div class='ad-t-v-header-award-footer-status-text'>입금 확인</div>");
 			}
 		});
-	$(".admin-list-body-list-t-btn1").click(function() {
+		
+
+	$(document).on("click",".admin-list-body-list-t-btn1", function() {
 		var trainerNo =$(this).val();
 		$.ajax({
 			type: "get",
-			url: "modal/request?trainerNo="+trainerNo,
+			url: "${pageContext.request.contextPath}/admin/trainerList/modal/request?trainerNo="+trainerNo,
 			dataType: "html",
 			success: function(json) {		
 				console.log(json);
@@ -225,7 +227,12 @@
 				alert("에러코드 = "+xhr.status);
 			}
 		});		
-	});
+	});	
+
+	
+
+	
+	
 	
 	//--------------트레이너 상태 변경---------------
 	
@@ -257,6 +264,20 @@
 		location.href="${pageContext.request.contextPath}/admin/trainerSearch?searchKeyword="+searchKeyword+"&searchValue="+searchValue+"&memberStatus="+${memberStatus};
 
 	});
+	
+	
+	$("#searchValue").keypress(function() {
+		if(event.keyCode==13) {
+        	
+        	// 검색 카테고리
+    		var searchKeyword = $("#nameIdSearch").val();
+    		
+    		// 검색 값
+    		var searchValue = $("#searchValue").val();
+    		location.href="${pageContext.request.contextPath}/admin/trainerSearch?searchKeyword="+searchKeyword+"&searchValue="+searchValue+"&memberStatus="+${memberStatus};
+        }
+	})	
+
 	
 	//-----------------Paging----------------------------------
 	var page = 1; //현재 요청 페이지 번호를 저장하기 위한 전역 변수
