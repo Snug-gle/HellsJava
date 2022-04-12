@@ -33,7 +33,12 @@ public interface MemberMapper {
 	// 회원 조회 (검색 기능 아이디, 이름 포함)
 	List<Member> selectMemberList(Map<String, Object> map);
 
+	// 자동 결제를 위한 트레이너 리스트 뽑기
+	List<Member> selectAutoPayMemberList();
+	
 	// 아이디 중복 체크용
 	int selectIdCheck(String member_id);
+	
+	
 
 }

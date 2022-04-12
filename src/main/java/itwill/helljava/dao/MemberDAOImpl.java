@@ -25,17 +25,17 @@ public class MemberDAOImpl implements MemberDAO {
 	public int updateMember(Member member) {
 		return sqlSession.getMapper(MemberMapper.class).updateMember(member);
 	}
-	
+
 	@Override
 	public int updateMemberPw(Map<String, Object> map) {
 		return sqlSession.getMapper(MemberMapper.class).updateMemberPw(map);
 	}
-	
+
 	@Override
 	public int updateMemberCash(Map<String, Object> map) {
 		return sqlSession.getMapper(MemberMapper.class).updateMemberCash(map);
 	}
-	
+
 	@Override
 	public int selectMemberListCount(Map<String, Object> map) {
 		return sqlSession.getMapper(MemberMapper.class).selectMemberListCount(map);
@@ -50,25 +50,30 @@ public class MemberDAOImpl implements MemberDAO {
 	public Member selectIdMember(String member_id) {
 		return sqlSession.getMapper(MemberMapper.class).selectIdMember(member_id);
 	}
-	
+
 	@Override
 	public Member selectPhoneMember(String memberPhone) {
 		return sqlSession.getMapper(MemberMapper.class).selectPhoneMember(memberPhone);
 	}
-	
+
 	@Override
 	public Member selectSearchMember(Map<String, Object> map) {
 		return sqlSession.getMapper(MemberMapper.class).selectSearchMember(map);
 	}
-	
+
 	@Override
 	public List<Member> selectMemberList(Map<String, Object> map) {
 		return sqlSession.getMapper(MemberMapper.class).selectMemberList(map);
 	}
-	
+
+	@Override
+	public List<Member> selectAutoPayMemberList() {
+		return sqlSession.getMapper(MemberMapper.class).selectAutoPayMemberList();
+	}
+
 	@Override
 	public int selectIdCheck(String member_id) {
 		return sqlSession.getMapper(MemberMapper.class).selectIdCheck(member_id);
 	}
-	
+
 }
