@@ -155,7 +155,7 @@
 									<hr>
 									<div class="ad-t-v-header-award-footer">
 										<div class="ad-t-v-header-award-footer-text">
-											<h3><strong>다음결제일</strong>??</h3></div>
+											<h3><strong>다음결제일</strong> ${payList[status.index] }</h3></div>
 										<div class="ad-t-v-header-award-footer-text">
 											<h3><strong>결제금액</strong> : 15,000 원</h3>
 										</div>

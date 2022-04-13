@@ -1,5 +1,7 @@
 package itwill.helljava.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,12 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import itwill.helljava.Enum.NoticeServiceSortationEnum;
+import itwill.helljava.Enum.PayTypeEnum;
 import itwill.helljava.dto.Award;
 import itwill.helljava.dto.Member;
 import itwill.helljava.dto.NoticeService;
+import itwill.helljava.dto.Pay;
+import itwill.helljava.dto.Trainer;
 import itwill.helljava.service.AwardService;
 import itwill.helljava.service.MemberService;
 import itwill.helljava.service.NoticeServiceService;
+import itwill.helljava.service.PayService;
 import itwill.helljava.service.TrainerService;
 import itwill.helljava.util.Auth;
 import itwill.helljava.util.AuthUser;
@@ -46,6 +52,8 @@ public class AdminController {
 	@Autowired
 	private AwardService awardService;
 
+	@Autowired
+	private PayService payService;
 //------------------------1:1문의----------------------------------------------------------------------------------------	
 
 	// 1:1 문의 리스트(최초) GET 방식 요청
@@ -217,6 +225,8 @@ public class AdminController {
 	public String trainerList(@PathVariable("memberStatus") int memberStatus,
 			@RequestParam(defaultValue = "1") int pageNum, Model model) {
 
+		//필요한거 트레이너의 paystart
+		
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 
 		searchMap.put("memberStatus", memberStatus);
@@ -234,11 +244,29 @@ public class AdminController {
 		returnMap.put("startRow", pager.getStartRow());
 		returnMap.put("endRow", pager.getEndRow());
 		returnMap.put("memberStatus", memberStatus);
-
+		
+		List<String> payList = new ArrayList<String>();
+		// 파싱할 패턴
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		for(Trainer trainer: trainerService.getTrainerList(returnMap)) {
+			
+			Map<String, Object> payMap = new HashMap<String, Object>();
+			payMap.put("pay_type", PayTypeEnum.트레이너신청.getValue());
+			payMap.put("member_no", trainer.getMemberNo());
+			
+			String payStartDate = payService.getPay(payMap).getPayStart().substring(0, 10);
+			// 최근 결제일 localDate 타입으로 파싱
+			LocalDate lastPayDate = LocalDate.parse(payStartDate, formatter);
+			// 최근 결제일로부터 30일 더함
+			LocalDate payDate = lastPayDate.plusDays(30);
+			payList.add(String.valueOf(payDate));
+		}
+	
 		model.addAttribute("trainerList", trainerService.getTrainerList(returnMap));
 		model.addAttribute("pager", pager);
 		model.addAttribute("number", number);
 		model.addAttribute("memberStatus", memberStatus);
+		model.addAttribute("payList", payList);
 
 		return "/admin/admin_trainerList";
 	}
@@ -267,13 +295,32 @@ public class AdminController {
 		returnMap.put("startRow", pager.getStartRow());
 		returnMap.put("endRow", pager.getEndRow());
 		returnMap.put("memberStatus", Integer.parseInt(memberStatus));
+		
+		List<String> payList = new ArrayList<String>();
+		// 파싱할 패턴
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		for(Trainer trainer: trainerService.getTrainerList(returnMap)) {
+			
+			Map<String, Object> payMap = new HashMap<String, Object>();
+			payMap.put("pay_type", PayTypeEnum.트레이너신청.getValue());
+			payMap.put("member_no", trainer.getMemberNo());
+			
+			String payStartDate = payService.getPay(payMap).getPayStart().substring(0, 10);
+			// 최근 결제일 localDate 타입으로 파싱
+			LocalDate lastPayDate = LocalDate.parse(payStartDate, formatter);
+			// 최근 결제일로부터 30일 더함
+			LocalDate payDate = lastPayDate.plusDays(30);
+			payList.add(String.valueOf(payDate));
+		}
+		
 
 		model.addAttribute("trainerList", trainerService.getTrainerList(returnMap));
 		model.addAttribute("pager", pager);
 		model.addAttribute("number", number);
 		model.addAttribute("searchValue", searchValue);
 		model.addAttribute("memberStatus", memberStatus);
-
+		model.addAttribute("payList", payList);
+		
 		return "/admin/admin_trainerList";
 	}
 

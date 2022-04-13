@@ -23,6 +23,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import itwill.helljava.Enum.MemberEnum;
 import itwill.helljava.Enum.PayTypeEnum;
@@ -84,7 +85,14 @@ public class TrainerController {
 	// 트레이너 신청 화면을 요청
 	@Auth(role = Role.USER)
 	@RequestMapping(value = "/trainer/request", method = RequestMethod.GET)
-	public String trainerRequest() {
+	public String trainerRequest(@AuthUser Member member, RedirectAttributes red ) {
+		Account account =  accountSevice.getMemberAccount(member.getMemberNo());
+		
+		if(account == null) {
+			red.addFlashAttribute("message", "1");
+			return "redirect:/mypage";
+		}
+		
 		return "/user/trainer/trainer_request";
 	}
 

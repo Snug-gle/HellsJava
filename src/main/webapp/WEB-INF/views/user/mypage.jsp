@@ -10,7 +10,7 @@
 			</div>
 		<br>
 		<div class="flex-container1">
-		
+		<input id="testVal" type="hidden" value="${message }">
 			<c:choose>
 				<c:when test="${loginUserinfo.memberStatus == 9}">
 					<div class="flex-container">
@@ -70,3 +70,14 @@
 		<hr>
 	</div>
 </div>
+<script type="text/javascript">
+
+	$(function() {
+		
+		var ab =$("#testVal").val();
+		if(ab=="1"){
+			alert("먼저 계좌를 만들고 금액을 충전해 주세요");
+		}
+		
+	});
+</script>
