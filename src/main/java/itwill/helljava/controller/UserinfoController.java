@@ -39,6 +39,7 @@ public class UserinfoController {
 		return "/user/member_modify";
 	}
 	
+	//회원 탈퇴
 	@RequestMapping(value = "/user/withdrawal", method = RequestMethod.POST)
 	public String memberRemove(@AuthUser Member member,HttpSession session) {
 		

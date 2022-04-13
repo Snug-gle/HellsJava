@@ -50,12 +50,8 @@ public class HomeController {
 					accountSevice.getMemberAccount((((Member) session.getAttribute("loginUserinfo")).getMemberNo())));
 
 			// 계좌가 등록되어 있을 경우만
-			if (accountSevice
-					.getMemberAccount((((Member) session.getAttribute("loginUserinfo")).getMemberNo())) != null) {
-				model.addAttribute("bankName",
-						AccountEnum.of(accountSevice
-								.getMemberAccount((((Member) session.getAttribute("loginUserinfo")).getMemberNo()))
-								.getAccountBank()));
+			if (accountSevice.getMemberAccount((((Member) session.getAttribute("loginUserinfo")).getMemberNo())) != null) {
+				model.addAttribute("bankName",AccountEnum.of(accountSevice.getMemberAccount((((Member) session.getAttribute("loginUserinfo")).getMemberNo())).getAccountBank()));
 			}
 		}
 
