@@ -19,8 +19,8 @@
 								<label for="bankName">&nbsp;&nbsp;&nbsp;은행명</label>
 								<div class="col-md-12">
 									<select id="selbox" name="accountBank" class="btn btn -primary dropdown-toggle">
-										<option selected="selected" style="text-align: center;">====선택====</option>
-										<option value="0">국민은행</option>
+										<!-- <option selected="selected" style="text-align: center;">====선택====</option> -->
+										<option selected="selected" value="0">국민은행</option>
 										<option value="1">신한은행</option>
 										<option value="2">하나은행</option>
 										<option value="3">농협은행</option>
