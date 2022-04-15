@@ -177,7 +177,7 @@
 														<div class="posting-price-content-body-text">
 															<div class="posting-price-content-body-top">
 																<p>
-																	<span>회당 :</span>&nbsp;<span class="oncePrice">${ptPricingPrice}원</span>
+																	<span>회당 :</span>&nbsp;<span id="iddiiddi" class="oncePrice">${ptPricingPrice}원</span>
 																</p>
 															</div>
 															<div class="posting-price-content-body-low">
@@ -473,9 +473,9 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8837199b6cb30f0498367786319f9b0c&libraries=services"></script>
-<script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8837199b6cb30f0498367786319f9b0c&libraries=services"></script>
+ --><script>
+/* var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
@@ -511,15 +511,16 @@ geocoder.addressSearch('${trainer.trainerAddress}', function(result, status) {
         map.setCenter(coords);
     } 
 });    
-
+ */
 
 
 
 //---------------------------------------------------------------
 // 1회 PT 가격 1회 pt 결제 모달창에 띄우기
+
 var oncePrice = $(".oncePrice").html();
 $("#payOnce").text(oncePrice);
-$('input[name=payoPrice]').attr('value',oncePrice);
+$('input[name=payoPrice]').attr('value',oncePrice); 
 
 
 	$("#onemodalForm").submit( function() {
@@ -530,8 +531,7 @@ $('input[name=payoPrice]').attr('value',oncePrice);
 		$("#accountPw").val($("#accountPw").val().trim());
 		
 	
-		//아이디 유효성 검사
-		//정규식 영문자로 시작하는 영문자 또는 숫자 6~20자 
+		//계좌 비밀번호 유효성 검사
 		if ($("#accountPw").val() == "") {
 			$("#passwordMsg").css("display", "block");
 			submitResult = false;

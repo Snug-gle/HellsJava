@@ -87,13 +87,19 @@ public class PtOnceController {
 		accountSevice.accountPwAuth(account); // 틀릴 시 예외 발생
 
 		// ~~'원'이 넘어왔으므로 원 자르고 숫자로 바꿔서 데이터 저장
-		String oncePrice = (String) map.get("payoPrice");
+		String oncePrice = String.valueOf(map.get("payoPrice"));
+		int idx2 = oncePrice.indexOf(",");
 		int idx = oncePrice.indexOf("원");
-		String op = oncePrice.substring(0, idx);
-
+		
+		String op1 = oncePrice.substring(0, idx2);
+		String op2 = oncePrice.substring(idx2+1, idx);
+		
+		// , 와 원 자른 실제 숫자 금액
+		String realPayPrice = op1+op2;
+		
 		Pay pay = new Pay();
 		pay.setMemberNo(account.getMemberNo());
-		pay.setPayPrice(Integer.parseInt(op));
+		pay.setPayPrice(Integer.parseInt(realPayPrice));
 		pay.setPayType(PayTypeEnum.일회피티.getValue());
 
 		payService.payAuth(pay); // 결제 금액 > 캐시 잔액 예외 발생
